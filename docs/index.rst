@@ -2,9 +2,11 @@ Welcome to Haskell How To's documentation!
 ==========================================
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
+   :maxdepth: 6
    :caption: Contents:
 
+   sectioning
 
 Indices and tables
 ==================
