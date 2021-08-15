@@ -1,0 +1,69 @@
+foldr :: (a -> b -> b) -> b -> [] a -> b
+foldr _ z []     = z
+foldr f z (x:xs) = f x (foldr f z xs)
+
+foldr (:) [] [1, 2, 3]
+(:) 1 (foldr (:) [] [2, 3])
+(:) 1 ((:) 2 (foldr (:) [] [3]))
+(:) 1 ((:) 2 ((:) 3 (foldr (:) [] [])))
+(:) 1 ((:) 2 ((:) 3 [])
+(:) 1 ((:) 2 [3])
+(:) 1 [2, 3]
+[1, 2, 3]
+
+1 : (2 : (3 : []))
+
+With foldl, we apply f z x, not f x z. This makes difference for non-associative functions.
+
+foldl :: (b -> a -> b) -> b -> [] a -> b
+foldl _ z [] = z
+foldl f z (x:xs) = foldl f (f z x) xs
+
+foldl (:) [] [1, 2, 3]
+foldl (:) ((:) [] 1) [2, 3]
+ERROR!
+
+Oops! Can't do `(:) [] 1`. We cons stuff into a list. We can't cons stuff into a non-list thing. We have to flip `(:)` arguments.
+
+(([] : 1) : 2) : 3 doesn't work.
+
+λ> :t (:)
+(:) :: a -> [a] -> [a]
+
+λ> :t (flip (:))
+(flip (:)) :: [a] -> a -> [a]
+
+λ> (:) 1 []
+[1]
+
+λ> (flip (:)) [] 1
+[1]
+
+λ> (:) 1 [2]
+[1,2]
+
+λ> (flip (:)) [2] 1
+[1,2]
+
+foldl (flip (:)) [] [1, 2, 3]
+foldl (flip (:)) ((flip (:)) [] 1) [2, 3]
+foldl (flip (:)) ((flip (:)) [1] 2) [3]
+foldl (flip (:)) ((flip (:)) [2, 1] 3) []
+foldl (flip (:)) [3, 2, 1] []
+
+`(:)` takes a thing and a list, and cons the thing into the front list.
+
+`f = flip (:)` means `f` takes a list and a thing, and still const the thing to the front of the list.
+
+`(:)` cons something (prependds) to the beginning of a list. No matter if it is flipped or not, the thing is consed to the beginning of the list.
+
+f = flip (:)
+foldl f [] [1, 2, 3]
+foldl f (f [] 1) [2, 3] -- <1>
+           [1]
+foldl f (f [1] 2) [3]   -- <2>
+           [2, 1]
+foldl f (f [2, 1] 3) [] -- <3>
+           [3, 2, 1]
+
+Reach base case and returns “zero”, which is `[3, 2, 1]`.
