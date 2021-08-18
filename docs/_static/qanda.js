@@ -17,7 +17,7 @@
 
     parentElem
       .querySelector('.question')
-      .firstElementChild
+      .lastElementChild
       .insertAdjacentElement('beforeend', toggler);
   }
 

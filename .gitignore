@@ -5,3 +5,11 @@
 dev.hs
 .DS_Store
 _build
+
+##
+# Emacs backup, temp and lock files.
+#
+*~
+\#*\#
+.\#*
+
