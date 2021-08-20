@@ -8,6 +8,7 @@ Command Line
    :caption: Command Line:
 
    bash-brace-expansion
+   git/index
 
 
 * :ref:`genindex`
