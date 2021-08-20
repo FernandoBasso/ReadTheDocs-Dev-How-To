@@ -4,7 +4,7 @@ Welcome to Haskell How To's documentation!
 .. toctree::
    :hidden:
    :maxdepth: 6
-   :caption: Contents:
+   :caption: Haskell:
 
    sectioning
    hffp/index

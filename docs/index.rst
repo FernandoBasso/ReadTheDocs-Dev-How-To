@@ -4,8 +4,9 @@ Welcome to Haskell How To's documentation!
 .. toctree::
    :hidden:
    :maxdepth: 6
-   :caption: Contents:
+   :caption: Table of Contents
 
+   cmdline/index
    haskell/index
 
 
