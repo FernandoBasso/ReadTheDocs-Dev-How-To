@@ -25,4 +25,4 @@ help:
 #   $ pip install sphinx-autobuild
 #
 develop:
-	sphinx-autobuild --port 4001 . _build
+	sphinx-autobuild --port 2001 . _build

@@ -6,7 +6,8 @@ Welcome to Haskell How To's documentation!
    :maxdepth: 6
    :caption: Contents:
 
-   haskell/index
+   sectioning
+   hffp/index
 
 
 Don't forget to read the README :).

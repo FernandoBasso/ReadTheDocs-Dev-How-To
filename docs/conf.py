@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -19,17 +20,20 @@ import time
 
 # -- Project information -----------------------------------------------------
 
-html_title = 'Haskell How To'
+html_title = 'Dev How To'
 
 ##
-# https://en.wikipedia.org/wiki/File:Logo_of_the_Haskell_programming_language.svg
+# It would be nice to have a custom logo for this project, but in the
+# mean time, we can use a Creative Commons licensed one.
 #
-html_logo = '_static/haskell-logo.png'
-html_favicon = '_static/haskell-favicon.png'
+# https://commons.wikimedia.org/wiki/File:Antu_x-terminal-emulator.svg
+#
+html_logo = '_static/Antu_x-terminal-emulator.png'
+html_favicon = '_static/Antu_x-terminal-emulator-favicon.png'
 
-project = 'Haskell How To'
-copyright = '2021, Fernando Basso'
+project = 'Dev How To'
 author = 'Fernando Basso'
+copyright = str(datetime.now().year) + ', ' + author
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
