@@ -34,3 +34,14 @@ a running shell session:
     $ kitty -d ~/Projects/dotfiles --title DOTFILES &
     $ kitty -d ~/work/src/proj-x --title PROJECT-X &
 
+
+Setting Title
+-------------
+
+Here's a bash script to set the a given title for all kitty windows,
+which causes the current OS window to have the same title no matter
+which (non-OS) window or tab is selected.
+
+.. literalinclude:: /../src/cmdline/kitty-set-window-title.bash
+   :language: bash
+   :linenos:
