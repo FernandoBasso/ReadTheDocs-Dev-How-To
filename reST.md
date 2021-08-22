@@ -3,19 +3,24 @@
 ## Include source code examples
 
 Our docs, tutorials, tips, QandAs, etc are in the `docs/`
-directory. However, we have source code inside `src/`. They are
-sibling directories. When we want to use reST's `literalinclude`, we
-can either provide a relative or absolute path.
+directory. We also have source code inside `src/`. They are sibling
+directories. When we want to use reST's `literalinclude`, we can
+either provide a relative or absolute path.
 
-**This project opts to always use absolute paths when including
-files.**. The main reason for this is that if we move files and
-directories around, we can do some grep search to find out which files
-are referencing a given path, so we can update include paths where
-necessary.
+**This project opts to always use absolute paths when including source
+code files from `src/` inside `.rst` files in `docs/`**. The main
+reason for this is that if we move files and directories around, we
+can do some grep search to find out which files are referencing a
+given path, so we can update include paths where necessary.
+
+As a side note, it is OK to include `.rst`f files inside `.rst` files
+using relative paths if it makes sense, like a main `.rst` file
+including subsections from files in the same or near directories
+inside `docs/`.
 
 In reST, includes with `/` mean **absolute path**. But it seems it is
-absolute to the `docs/` directory, not the real root directory of the
-project.
+absolute to the `docs/` directory (for Sphinx at least), not the real
+root directory of the project.
 
 ```
 $ tree -CF -L 1
