@@ -15,3 +15,5 @@ git log --format='%s' \
   | sort \
   | uniq
 
+if [[ $# > 1 ]]; then
+  
