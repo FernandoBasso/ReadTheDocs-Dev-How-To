@@ -9,6 +9,7 @@ Git
    :caption: Git:
 
    commit-message
+   reset
 
 
 Don't forget to read the README :).
