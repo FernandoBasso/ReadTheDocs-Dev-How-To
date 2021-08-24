@@ -8,6 +8,7 @@ Welcome to Haskell How To's documentation!
 
    cmdline/index
    haskell/index
+   magfpjs/index
 
 
 Don't forget to read the README :).
