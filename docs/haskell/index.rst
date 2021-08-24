@@ -1,5 +1,6 @@
-Welcome to Haskell How To's documentation!
-==========================================
+=======
+Haskell
+=======
 
 .. toctree::
    :hidden:
