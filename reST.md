@@ -1,5 +1,8 @@
 # reStructuredText
 
+* [Include source code examples](#include-source-code-examples)
+* [Images](#images)
+
 ## Include source code examples
 
 Our docs, tutorials, tips, QandAs, etc are in the `docs/`
@@ -51,4 +54,45 @@ have to use that `/../` path but at least it works.
 
 See docs for
 [literalinclude here](https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-literalinclude).
+
+## Images
+
+Images paths can be relative to the current .rst file or absolute. In
+this project, if images are inside ``docs/_static/``, then we always
+use absolute paths for images so we can search and replace more easily
+since we sould have more context (the full path) to match against.
+
+The “full path”, such as it is, is computed from the ``docs/``
+directory. So, if we have a file in ``docs/_static/foo/bar.png``, we
+include it like this:
+
+    .. image:: /_static/haskell/ash-alien-haskell.png
+       :alt: Ash from Alien 1979 movie talking about the perfect organizm.
+
+Using a path of ``/docs/_static/...`` would be incorrect. From the
+point of view of Sphinx, ``docs/`` **is** the root directory (from
+where documentation (site, pdf, epub) is generated, so, we start with
+`/` followed by subdirs inside ``docs/``.
+
+On the other hand, if the images is close to the file it is included
+in, then we prefer to use relative paths becase then we can move
+groups of files with their images and their relative paths would still
+be correct. Example:
+
+    $ tree -CF -L 1 docs/haskell/
+    docs/haskell/
+    ├── ash-alien-haskell.png
+    ├── hffp/
+    ├── index.rst
+    └── sectioning.rst
+
+Then in either ``index.rst`` or ``sectioning.rst`` we include the
+image like this:
+
+    .. image:: ./ash-alien-haskell.png
+       :alt: Ash talking about the perfect orgamizm.
+
+Always include the *alt* text.
+
+[Read more about Sphinx and images](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#images).
 
