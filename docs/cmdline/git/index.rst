@@ -9,6 +9,7 @@ Git
    :caption: Git:
 
    commit-message
+   commit-message-more-examples
    reset
 
 
