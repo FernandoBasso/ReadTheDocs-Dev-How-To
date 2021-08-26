@@ -1,16 +1,71 @@
-.question button {
+.qanda .question::before,
+.qanda.shown .answer::before {
+  position: absolute;
+  font-size: 0.8em;
+  top: -1em;
+  right: 0.6em;
+  padding: 0 0.4em;
+  background: white;
+  border-radius: 0.5em;
+  color: #888;
+}
+
+.qanda .question::before {
+  content: 'question';
+}
+
+.qanda.shown .answer::before {
+  content: 'answer';
+}
+
+.qanda .question,
+.qanda .question::before {
+  border: 1px solid rgba(0, 0, 255, 0.2);
+}
+
+.qanda.shown .answer,
+.qanda.shown .answer::before {
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.qanda .question,
+.qanda .answer {
+  /*
+   * It looks like most elements have a top and bottom padding to
+   * give some breath to content. If we use 1em for top and bottom
+   * as well, the top and bottom spaceing between elements become
+   * twice as large than the left and right spacing.
+   */
+  padding: 0 1em;
+}
+
+.qanda .question,
+.qanda.shown .answer {
+  display: block;
+  position: relative;
+  border-radius: 0.5em;
+}
+
+.qanda .question button {
   margin-left: 0.5em;
   background-color: transparent;
   border: none;
   cursor: pointer;
   text-decoration: underline;
+  font-variant: small-caps;
+  font-size: 0.8em;
   color: #69b4e2;
 }
 
 .qanda .answer {
   display: none;
+  /*
+   * Because of the badge-like question/answer text tucked into the
+   * borders and because take extra space outside the container, we
+   * need to make sure the answer container is minimally apart from
+   * the question container lest the badge from the answer overlap
+   * with the question container.
+   */
+  margin-top: 1.2em;
 }
 
-.qanda.shown .answer {
-  display: block;
-}
