@@ -42,8 +42,7 @@ values and types
       are like groups that contains values that belong to that group.
 
       Enumerate a few values that would belong to the type (a.k.a *datatype*)
-      ``Char`` and a few that would belong to the type ``Word``.  Type the question
-      here.
+      ``Char`` and a few that would belong to the type ``Word``.
 
    .. container:: answer
 
@@ -60,17 +59,6 @@ values and types
 
 It is important to note that ``Word`` includes only natural numbers,
 from zero onward.
-
-
-.. container:: qanda
-
-   .. container:: question
-
-      Type the question here.
-
-   .. container:: answer
-
-      And the answer here...
 
 
 data declarations
