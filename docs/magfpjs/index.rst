@@ -7,6 +7,7 @@ Mostly Adequate Guide to Functional Programming
    :caption: Mostly Adquate Guide to FP:
 
    ch02-first-class-functions
+   ch04-currying
 
 
 
