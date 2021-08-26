@@ -45,3 +45,21 @@ which (non-OS) window or tab is selected.
 .. literalinclude:: /../src/cmdline/kitty-set-window-title.bash
    :language: bash
    :linenos:
+
+Themes
+------
+
+Check the kitty-themes_ repository.
+
+.. _kitty-themes: https://github.com/dexpota/kitty-themes
+
+Broken Solarized Light
+~~~~~~~~~~~~~~~~~~~~~~
+
+The Solarized Light them creates sets vim's background to dark. Check `this issue <https://github.com/dexpota/kitty-themes/issues/44#issuecomment-903292415>`_ for a solution. In short, replace ``color7`` and ``color15`` with these:
+
+.. code-block::
+
+   color7  #eee8d5
+   color15  #fdf6e3
+
