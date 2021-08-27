@@ -53,10 +53,14 @@ Check the kitty-themes_ repository.
 
 .. _kitty-themes: https://github.com/dexpota/kitty-themes
 
-Broken Solarized Light
-~~~~~~~~~~~~~~~~~~~~~~
+Vim + Kitty + Solarized Light
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Solarized Light them creates sets vim's background to dark. Check `this issue <https://github.com/dexpota/kitty-themes/issues/44#issuecomment-903292415>`_ for a solution. In short, replace ``color7`` and ``color15`` with these:
+The Kitty Solarized Light sets vim's background to dark (as of
+2020~2021, at least). Check `this issue
+<https://github.com/dexpota/kitty-themes/issues/44#issuecomment-903292415>`_
+for a solution. In short, replace ``color7`` and ``color15`` with
+these:
 
 .. code-block::
 
