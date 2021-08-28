@@ -10,6 +10,7 @@ Welcome to Haskell How To's documentation!
    haskell/index
    magfpjs/index
 
+   macos/index
 
 Don't forget to read the README :).
 
