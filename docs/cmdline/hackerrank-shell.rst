@@ -22,7 +22,7 @@ Let’s Echo
 Tags: #cmdline #shell #bash #echo #printf Links:
 `challenge <https://www.hackerrank.com/challenges/bash-tutorials-lets-echo>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ echo HELLO
 
@@ -44,7 +44,7 @@ Looping With Numbers
 
 Or using ranges:
 
-.. code:: shell-session
+.. code:: bash
 
    $ printf '%d\n' {1..50}
 
@@ -66,7 +66,7 @@ Looping And Skipping
      echo "$i"
    done
 
-.. code:: shell-session
+.. code:: bash
 
    $ bash script.sh
    1
@@ -77,7 +77,7 @@ Looping And Skipping
 
 Could also use ‘’echo:’’
 
-.. code:: shell-session
+.. code:: bash
 
    $ echo -ne {1..9..2} '\n'
 
@@ -85,7 +85,7 @@ The ``-e`` option is to enable some escapes. ``help echo`` for more.
 
 Or using ``seq``:
 
-.. code:: shell-session
+.. code:: bash
 
    $ seq -s ' ' 1 2 9
 
@@ -96,7 +96,7 @@ A Personalized Echo
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---a-personalized-echo>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ read -r name
    $ printf 'Welcome %s\n' "$name"
@@ -110,7 +110,7 @@ The World of Numbers
 
 First, see this clever use of range to produce the math expressions:
 
-.. code:: shell-session
+.. code:: bash
 
    $ read -r x y
    8 2
@@ -123,7 +123,7 @@ First, see this clever use of range to produce the math expressions:
 
 Then, feed those expressions to ``bc``:
 
-.. code:: shell-session
+.. code:: bash
 
    $ read -r x y
    8 2
@@ -136,7 +136,7 @@ Then, feed those expressions to ``bc``:
 
 If ``y`` is *negative*, like ``-2`` we would receive an error:
 
-.. code:: shell-session
+.. code:: bash
 
    $ read -r x y
    5 -2
@@ -192,7 +192,7 @@ NOTE: The challenge wants integer division, so, we simply omit
        ;;
    esac
 
-.. code:: shell-session
+.. code:: bash
 
    $ bash script.sh
    yes
@@ -233,7 +233,7 @@ Getting started with conditionals
        ;;
    esac
 
-.. code:: shell-session
+.. code:: bash
 
    $ bash script.sh
    yes
@@ -295,7 +295,7 @@ rounding.
 
 ``printf`` rounds up from 6, and down from 5:
 
-.. code:: shell-session
+.. code:: bash
 
    $ printf '%.3f\n' 1.2583
    1.258
@@ -344,7 +344,7 @@ cut Challenges
 
 -  Tags: #cmdline #shell #bash #cut
 
-.. code:: shell-session
+.. code:: bash
 
    $ cut -b 3 -
 
@@ -367,7 +367,7 @@ cut Challenges
 Head of Text File Challenges
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: shell-session
+.. code:: bash
 
    $ head -n 20
 
@@ -380,7 +380,7 @@ Middle of a Text File
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux---the-middle-of-a-text-file>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ sed -n '12,22 p'
 
@@ -391,7 +391,7 @@ Tail of a Text File 1 and 2
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tail-1>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ tail -n 20 -
 
@@ -404,7 +404,7 @@ tr Command 1
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tr-1>`__
 
-.. code:: shell-session
+.. code:: bash
 
    # Assign some text to the variable `input'.
    $ read -r -d '' input << 'EOF'
@@ -433,7 +433,7 @@ tr Command 2
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tr-2>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ tr -d 'a-z'
 
@@ -444,7 +444,7 @@ tr Command 3
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tr-3>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ tr -s ' '
 
@@ -455,7 +455,7 @@ sort Lines Challenges
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-sort-1>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ echo -e 'aa\nbb\naa\ncc\nff\ncc' | sort -
    aa
@@ -501,7 +501,7 @@ uniq Challenges
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-1>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ uniq -
    ​```
@@ -509,7 +509,7 @@ uniq Challenges
 Display the count of lines that were uniqfied and the uniqfied lines
 without leading whitespace/tabs:
 
-.. code:: shell-session
+.. code:: bash
 
    $ read -r -d '' lines << 'EOF'
    > foo
@@ -575,7 +575,7 @@ Read In An Array
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-read-in-an-array>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ arr=()
    $ while read -r line ; do arr+=("$line") ; done < /dev/stdin
@@ -617,7 +617,7 @@ Slice An Array
 
 Print the array with the syntax ``${arr[*]:OFFSET:LENGTH}``.
 
-.. code:: shell-session
+.. code:: bash
 
    $ read -r -d '' countries << 'EOF'
    > Namibia
@@ -640,13 +640,13 @@ Either use the ``read`` as above, or with ``mapfile -t arr``.
 
 Other options would be:
 
-.. code:: shell-session
+.. code:: bash
 
    paste -d ' ' -s | cut -d ' ' -f4-8 -
 
 and:
 
-.. code:: shell-session
+.. code:: bash
 
    head -8 | tail -5 | paste -s -d ' ' -
 
@@ -657,7 +657,7 @@ Concatenate Array With Itself
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-concatenate-an-array-with-itself>`__
 
-.. code:: shell-session
+.. code:: bash
 
    mapfile -t countries
 
@@ -672,7 +672,7 @@ grep A
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-4>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ grep -iw 'th\(e\|at\|en\|ose\)'
 
@@ -685,13 +685,13 @@ grep B
 
 Works locally but not on HackerRank:
 
-.. code:: shell-session
+.. code:: bash
 
    $ grep '\(.\) \?\1'
 
 This works locally and on HackerRank:
 
-.. code:: shell-session
+.. code:: bash
 
    $ grep '\(.\) \?\1'
 
@@ -702,7 +702,7 @@ sed 3
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-3>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ sed 's/[Tt][Hh][Yy]/{&}/g'
 
@@ -713,13 +713,13 @@ sed 4
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/sed-command-4>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ sed 's/.* \([0-9]\{4\}\)/**** **** **** \1/g'
 
 Or
 
-.. code:: shell-session
+.. code:: bash
 
    $ sed 's/[0-9]\+ /**** /g'
 
@@ -732,7 +732,7 @@ Paste 1
 -  Tags: #cmdline #shell #paste
 -  Links: `challenge <https://www.hackerrank.com/challenges/paste-1>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ paste -s -d ';' -
 
@@ -742,7 +742,7 @@ paste 2
 -  Tags: #cmdline #shell #paste
 -  `challenge <https://www.hackerrank.com/challenges/paste-2>`__
 
-.. code:: shell-session
+.. code:: bash
 
    paste -d ';' - - -
 
@@ -752,7 +752,7 @@ paste 3
 -  Tags: #cmdline #shell #paste
 -  Links: `challenge <https://www.hackerrank.com/challenges/paste-3>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ paste -s -
 
@@ -773,7 +773,7 @@ sed 1
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-1>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ sed 's/\<the\>/this/'
 
@@ -793,7 +793,7 @@ grep challenges
    `challenge2 <https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-2>`__,
    `challenge3 <https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-3>`__
 
-.. code:: shell-session
+.. code:: bash
 
    $ grep '\<the\>'
 
@@ -812,7 +812,7 @@ awk challenges
 
 Challenge 1:
 
-.. code:: shell-session
+.. code:: bash
 
    $ awk '{ if ($4 == "") print "Not all scores are available for " $1 }'
 
@@ -842,7 +842,7 @@ Challenge 3:
 
 Challenge 4:
 
-.. code:: shell-session
+.. code:: bash
 
    awk 'ORS=NR % 2 ? ";" : "\n"'
 
@@ -853,7 +853,7 @@ Filter an Array With Patterns
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-filter-an-array-with-patterns>`__
 
-.. code:: shell-session
+.. code:: bash
 
    while read -r line ; do
      if [[ ! "$line" =~ [Aa] ]]
@@ -889,7 +889,7 @@ sed 5
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/sed-command-5>`__
 
-.. code:: shell-session
+.. code:: bash
 
    sed 's/\([0-9]\+\) \([0-9]\+\) \([0-9]\+\) \([0-9]\+\)/\4 \3 \2 \1/'
 
