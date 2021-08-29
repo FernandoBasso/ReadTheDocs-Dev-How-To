@@ -10,7 +10,7 @@ Command Line
    bash-brace-expansion
    git/index
    terminal/index
-
+   hackerrank-shell
 
 * :ref:`genindex`
 * :ref:`modindex`
