@@ -9,11 +9,3 @@ Mostly Adequate Guide to Functional Programming
    ch02-first-class-functions
    ch04-currying
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
