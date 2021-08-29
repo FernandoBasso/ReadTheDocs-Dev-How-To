@@ -2,16 +2,17 @@
 Paste Image Into Finder
 =======================
 
-We can use pngpaste_ to paste images from the clipboard into a directory::
+.. _pngpaste: https://github.com/jcsalterego/pngpaste
+
+We can use pngpaste_ to paste images from the clipboard into a directory:
 
 .. code-block::
-   $ pngpaste "$(date +'%Y-%m-%d-%H-%M-%S'-my-image.png)"
 
-.. _pngpaste: https://github.com/jcsalterego/pngpaste
+   $ pngpaste "$(date +'%Y-%m-%d-%H-%M-%S'-my-image.png)"
 
 
 The Bash Script
--------------------
+---------------
 
 Let's come up with a shell script and integrate it with macOS Quick
 Actions service.
@@ -61,7 +62,7 @@ work. I tried ``Ctrl+Option+p`` and then it worked.
 .. image:: ./finder-paste-image.assets/2021-08-08-11-46-26-my-image.png
    :alt: add keyboard shortcut for the service
 
-.. info::
+.. note::
 
    For some reason, a folder has to be selected, not just “entered
    into”. See this screenshot:
