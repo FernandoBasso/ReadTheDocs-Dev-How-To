@@ -7,9 +7,9 @@ Welcome to Haskell How To's documentation!
    :caption: Table of Contents
 
    cmdline/index
+   text-editors/index
    haskell/index
    magfpjs/index
-
    macos/index
 
 Don't forget to read the README :).
