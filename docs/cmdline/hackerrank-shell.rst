@@ -22,7 +22,7 @@ Let’s Echo
 Tags: #cmdline #shell #bash #echo #printf Links:
 `challenge <https://www.hackerrank.com/challenges/bash-tutorials-lets-echo>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ echo HELLO
 
@@ -35,7 +35,7 @@ Looping With Numbers
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---looping-with-numbers>`__
 
-.. code:: shell
+.. code:: shell-session
 
    for (( i = 1; i <= 9; ++i ))
    do
@@ -44,7 +44,7 @@ Looping With Numbers
 
 Or using ranges:
 
-.. code:: bash
+.. code:: shell-session
 
    $ printf '%d\n' {1..50}
 
@@ -55,7 +55,7 @@ Looping And Skipping
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---looping-and-skipping>`__
 
-.. code:: shell
+.. code:: shell-session
 
    for (( i = 1; i <= 9; ++i ))
    do
@@ -66,7 +66,7 @@ Looping And Skipping
      echo "$i"
    done
 
-.. code:: bash
+.. code:: shell-session
 
    $ bash script.sh
    1
@@ -77,7 +77,7 @@ Looping And Skipping
 
 Could also use ‘’echo:’’
 
-.. code:: bash
+.. code:: shell-session
 
    $ echo -ne {1..9..2} '\n'
 
@@ -85,7 +85,7 @@ The ``-e`` option is to enable some escapes. ``help echo`` for more.
 
 Or using ``seq``:
 
-.. code:: bash
+.. code:: shell-session
 
    $ seq -s ' ' 1 2 9
 
@@ -96,7 +96,7 @@ A Personalized Echo
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---a-personalized-echo>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ read -r name
    $ printf 'Welcome %s\n' "$name"
@@ -110,7 +110,7 @@ The World of Numbers
 
 First, see this clever use of range to produce the math expressions:
 
-.. code:: bash
+.. code:: shell-session
 
    $ read -r x y
    8 2
@@ -123,7 +123,7 @@ First, see this clever use of range to produce the math expressions:
 
 Then, feed those expressions to ``bc``:
 
-.. code:: bash
+.. code:: shell-session
 
    $ read -r x y
    8 2
@@ -136,7 +136,7 @@ Then, feed those expressions to ``bc``:
 
 If ``y`` is *negative*, like ``-2`` we would receive an error:
 
-.. code:: bash
+.. code:: shell-session
 
    $ read -r x y
    5 -2
@@ -150,7 +150,7 @@ If ``y`` is *negative*, like ``-2`` we would receive an error:
 Adding parenthesis prevents the error, because our expression would be
 like ``5--2``, but ``5-(-2)`` is OK with ``bc``:
 
-.. code:: shel-session
+.. code:: shell-session
 
    $ read -r x y
    5 -2
@@ -163,7 +163,7 @@ like ``5--2``, but ``5-(-2)`` is OK with ``bc``:
 
 Or something more manual and verbose:
 
-.. code:: shell
+.. code:: shell-session
 
    read x </dev/stdin
    read y </dev/stdin
@@ -176,7 +176,7 @@ Or something more manual and verbose:
 NOTE: The challenge wants integer division, so, we simply omit
 ``bc``\ ’s scale special variable.
 
-.. code:: shell
+.. code:: shell-session
 
    read -r answer
 
@@ -192,7 +192,7 @@ NOTE: The challenge wants integer division, so, we simply omit
        ;;
    esac
 
-.. code:: bash
+.. code:: shell-session
 
    $ bash script.sh
    yes
@@ -217,7 +217,7 @@ Getting started with conditionals
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals>`__
 
-.. code:: bash
+.. code:: shell-session
 
    read -r answer
 
@@ -233,7 +233,7 @@ Getting started with conditionals
        ;;
    esac
 
-.. code:: bash
+.. code:: shell-session
 
    $ bash script.sh
    yes
@@ -264,7 +264,7 @@ Solution based on side lengths.
 -  scalene: x != y && y != z && z != x
 -  isosceles: any other
 
-.. code:: bash
+.. code:: shell-session
 
    read -r x
    read -r y
@@ -281,7 +281,7 @@ Arithmetic Operations
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---arithmetic-operations>`__
 
-.. code:: bash
+.. code:: shell-session
 
    expression="$1"
    printf '%.3f\n' "$(echo "$expression" | bc -l)"
@@ -295,7 +295,7 @@ rounding.
 
 ``printf`` rounds up from 6, and down from 5:
 
-.. code:: bash
+.. code:: shell-session
 
    $ printf '%.3f\n' 1.2583
    1.258
@@ -317,7 +317,7 @@ Compute the Average
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials---compute-the-average>`__
 
-.. code:: bash
+.. code:: shell-session
 
    read -r n
    sum=0
@@ -344,7 +344,7 @@ cut Challenges
 
 -  Tags: #cmdline #shell #bash #cut
 
-.. code:: bash
+.. code:: shell-session
 
    $ cut -b 3 -
 
@@ -367,7 +367,7 @@ cut Challenges
 Head of Text File Challenges
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: bash
+.. code:: shell-session
 
    $ head -n 20
 
@@ -380,7 +380,7 @@ Middle of a Text File
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux---the-middle-of-a-text-file>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ sed -n '12,22 p'
 
@@ -391,7 +391,7 @@ Tail of a Text File 1 and 2
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tail-1>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ tail -n 20 -
 
@@ -433,7 +433,7 @@ tr Command 2
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tr-2>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ tr -d 'a-z'
 
@@ -444,7 +444,7 @@ tr Command 3
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-tr-3>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ tr -s ' '
 
@@ -455,7 +455,7 @@ sort Lines Challenges
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-sort-1>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ echo -e 'aa\nbb\naa\ncc\nff\ncc' | sort -
    aa
@@ -501,7 +501,7 @@ uniq Challenges
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-uniq-command-1>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ uniq -
    ​```
@@ -509,7 +509,7 @@ uniq Challenges
 Display the count of lines that were uniqfied and the uniqfied lines
 without leading whitespace/tabs:
 
-.. code:: bash
+.. code:: shell-session
 
    $ read -r -d '' lines << 'EOF'
    > foo
@@ -575,7 +575,7 @@ Read In An Array
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-read-in-an-array>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ arr=()
    $ while read -r line ; do arr+=("$line") ; done < /dev/stdin
@@ -588,7 +588,7 @@ Display an Element of an Array
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-display-the-third-element-of-an-array>`__
 
-.. code:: bash
+.. code:: shell-session
 
    mapfile -t countries
    echo "${countries[3]}"
@@ -603,7 +603,7 @@ Count Elements in an Array
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-count-the-number-of-elements-in-an-array>`__
 
-.. code:: bash
+.. code:: shell-session
 
    mapfile -t countries
    echo "${#countries[@]}"
@@ -617,7 +617,7 @@ Slice An Array
 
 Print the array with the syntax ``${arr[*]:OFFSET:LENGTH}``.
 
-.. code:: bash
+.. code:: shell-session
 
    $ read -r -d '' countries << 'EOF'
    > Namibia
@@ -640,13 +640,13 @@ Either use the ``read`` as above, or with ``mapfile -t arr``.
 
 Other options would be:
 
-.. code:: bash
+.. code:: shell-session
 
    paste -d ' ' -s | cut -d ' ' -f4-8 -
 
 and:
 
-.. code:: bash
+.. code:: shell-session
 
    head -8 | tail -5 | paste -s -d ' ' -
 
@@ -657,7 +657,7 @@ Concatenate Array With Itself
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-concatenate-an-array-with-itself>`__
 
-.. code:: bash
+.. code:: shell-session
 
    mapfile -t countries
 
@@ -672,7 +672,7 @@ grep A
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-4>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ grep -iw 'th\(e\|at\|en\|ose\)'
 
@@ -685,13 +685,13 @@ grep B
 
 Works locally but not on HackerRank:
 
-.. code:: bash
+.. code:: shell-session
 
    $ grep '\(.\) \?\1'
 
 This works locally and on HackerRank:
 
-.. code:: bash
+.. code:: shell-session
 
    $ grep '\(.\) \?\1'
 
@@ -702,7 +702,7 @@ sed 3
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-3>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ sed 's/[Tt][Hh][Yy]/{&}/g'
 
@@ -713,13 +713,13 @@ sed 4
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/sed-command-4>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ sed 's/.* \([0-9]\{4\}\)/**** **** **** \1/g'
 
 Or
 
-.. code:: bash
+.. code:: shell-session
 
    $ sed 's/[0-9]\+ /**** /g'
 
@@ -732,7 +732,7 @@ Paste 1
 -  Tags: #cmdline #shell #paste
 -  Links: `challenge <https://www.hackerrank.com/challenges/paste-1>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ paste -s -d ';' -
 
@@ -742,7 +742,7 @@ paste 2
 -  Tags: #cmdline #shell #paste
 -  `challenge <https://www.hackerrank.com/challenges/paste-2>`__
 
-.. code:: bash
+.. code:: shell-session
 
    paste -d ';' - - -
 
@@ -752,7 +752,7 @@ paste 3
 -  Tags: #cmdline #shell #paste
 -  Links: `challenge <https://www.hackerrank.com/challenges/paste-3>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ paste -s -
 
@@ -773,7 +773,7 @@ sed 1
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/text-processing-in-linux-the-sed-command-1>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ sed 's/\<the\>/this/'
 
@@ -793,7 +793,7 @@ grep challenges
    `challenge2 <https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-2>`__,
    `challenge3 <https://www.hackerrank.com/challenges/text-processing-in-linux-the-grep-command-3>`__
 
-.. code:: bash
+.. code:: shell-session
 
    $ grep '\<the\>'
 
@@ -812,13 +812,13 @@ awk challenges
 
 Challenge 1:
 
-.. code:: bash
+.. code:: shell-session
 
    $ awk '{ if ($4 == "") print "Not all scores are available for " $1 }'
 
 Challenge 2:
 
-.. code:: shell
+.. code:: shell-session
 
    awk '{
      answer[0] = "Fail";
@@ -828,7 +828,7 @@ Challenge 2:
 
 Challenge 3:
 
-.. code:: shell
+.. code:: shell-session
 
    awk '{
      avg=($2 + $3 + $4) / 3
@@ -842,7 +842,7 @@ Challenge 3:
 
 Challenge 4:
 
-.. code:: bash
+.. code:: shell-session
 
    awk 'ORS=NR % 2 ? ";" : "\n"'
 
@@ -853,7 +853,7 @@ Filter an Array With Patterns
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-filter-an-array-with-patterns>`__
 
-.. code:: bash
+.. code:: shell-session
 
    while read -r line ; do
      if [[ ! "$line" =~ [Aa] ]]
@@ -869,7 +869,7 @@ Remove First Capital Letter From Each Array Element
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/bash-tutorials-remove-the-first-capital-letter-from-each-array-element>`__
 
-.. code:: shell
+.. code:: shell-session
 
    arr=()
 
@@ -889,7 +889,7 @@ sed 5
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/sed-command-5>`__
 
-.. code:: bash
+.. code:: shell-session
 
    sed 's/\([0-9]\+\) \([0-9]\+\) \([0-9]\+\) \([0-9]\+\)/\4 \3 \2 \1/'
 
@@ -959,7 +959,7 @@ Fractal Tree
 -  Links:
    `challenge <https://www.hackerrank.com/challenges/fractal-trees-all>`__
 
-.. code:: bash
+.. code:: shell-session
 
    #!/usr/bin/env bash
 
