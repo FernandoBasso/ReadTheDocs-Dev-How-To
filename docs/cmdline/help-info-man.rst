@@ -303,9 +303,6 @@ To search on the entire text of the man pages, use:
 Note that it is an uppercase “K” this time.
 
 
-
-.. __cp_man_page_example:
-
 \`cp' Man Page Example
 ----------------------
 
@@ -470,7 +467,6 @@ or (because the option ``-s`` takes a filename)
 That is, ``csi filename`` or ``csi <option>``, just that some options
 require a filename **after** the option itself.
 
-.. __command_options:
 
 Command Options
 ---------------
@@ -512,7 +508,6 @@ the hyphen and do ``tar cf dir.tar dir/``.
 hyphen, like ``-classpath``, while others use two hyphens, like
 ``--class-path``.
 
-.. __posix_and_gnu:
 
 POSIX and GNU
 -------------
@@ -576,7 +571,6 @@ something is not plain POSIX, but an additional GNU feature. We can
 assume that most man and info pages are explicit when an option or
 something else is not POSIX-compliant or POSIX-defined.
 
-.. __documentation_relationships:
 
 Documentation Relationships
 ---------------------------
@@ -658,7 +652,6 @@ So, even though XBD tells that “excess arguments shall be ignored”, XCU
 printf overrides that and tells that it *shall be reused to satisfy the
 operands*.
 
-.. __end_of_options_echo_example:
 
 End of Options echo Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -721,7 +714,6 @@ should work according to the specs, it is not even documented in
 ``help echo``. And we should assume, at least when it comes to ``--``,
 that echo bash builtin follows the specs!
 
-.. __other_links_and_resources:
 
 Other Links and Resources
 -------------------------
