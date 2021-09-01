@@ -8,6 +8,7 @@ Command Line
    :caption: Command Line:
 
    help-info-man
+   built-in
    bash-brace-expansion
    git/index
    terminal/index

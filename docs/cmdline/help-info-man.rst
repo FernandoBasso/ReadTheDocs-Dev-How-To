@@ -15,7 +15,9 @@ of immediatelly jumping to a web search.
 help
 ----
 
-Shells have builtin commands. Bash, for instance, has built-in
+.. tip:: Read the document about *built-ins*. :ref:`built-ins-page`.
+
+Shells have built-in commands. Some of Bash's built-ins include
 commands like ``help``, ``pwd``, ``type``, and ``cd``.
 
 .. code:: shell-session
@@ -33,7 +35,7 @@ builtin commands.
 
 To display the help for a builtin, you can either do ``man bash`` and search
 for that command or, more simple, quick and practical, use the
-``help``. Start with this:
+``help`` builtin. Start with this:
 
 .. code-block:: shell-session
 
@@ -41,7 +43,7 @@ for that command or, more simple, quick and practical, use the
    $ help
 
 Yes, run ``help`` without arguments once to see a list of Bash's
-built-in commands.
+builtin commands.
 
 Then try some others:
 
@@ -59,7 +61,6 @@ Then try some others:
    $ help echo
    $ help printf
    # etc...
-
 
 info
 ----
