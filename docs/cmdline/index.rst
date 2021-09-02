@@ -9,6 +9,7 @@ Command Line
 
    help-info-man
    built-in
+   argument-syntax
    bash-brace-expansion
    git/index
    terminal/index
