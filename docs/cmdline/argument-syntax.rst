@@ -88,3 +88,99 @@ this (and many others). What we should have done is this:
 
 Now we removed ``secret message.txt`` and not incidents took place.
 
+End Of Options ‘\-\-’
+-------------------
+
+The *end of options* ``--`` is used to indicate the end of options
+:D. It is documented under `Utility Syntax Guidelines`_.
+
+.. _`Utility Syntax Guidelines`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html#tag_12_02
+
+Guideline 10 says:
+
+   "The first \-\- argument that is not an option-argument should be
+   accepted as a delimiter indicating the end of options. Any
+   following arguments should be treated as operands, even if they
+   begin with the '-' character."
+
+
+It is useful when we want to tell a program something like “Look, from
+now on, these arguments are real files, directories, whatever, but the
+**are not** options (command line flags) to the program.”
+
+Let's see some use cases.
+
+remove files starting with ‘-’
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes, by accident or some other reason, we end up with files
+whose name start with one or more ``-`` (HYPHEN-MINUS \\u002d
+character). If we try to remove (or rename, or some other operation)
+them, we run into problems.
+
+.. code:: shell-session
+
+   shell
+   $ tree -CF .
+   .
+   ├── --oops.txt
+   └── -w00t.txt
+
+   0 directories, 2 files
+
+   shell
+   $ rm -v -w00t.txt
+   rm: invalid option -- 'w'
+   Try 'rm ./-w00t.txt' to remove the file '-w00t.txt'.
+   Try 'rm --help' for more information.
+
+   shell
+   $ rm -v --oops.txt
+   rm: unrecognized option '--oops.txt'
+   Try 'rm ./--oops.txt' to remove the file '--oops.txt'.
+   Try 'rm --help' for more information.
+
+..
+
+   "How embarrassing!"
+
+   -- Master Yoda
+
+But because we can use ``--``, we have a way out!
+
+.. code:: shell-session
+
+   $ rm -vi -- --oops.txt -w00t.txt
+   rm: remove regular empty file '--oops.txt'? yes
+   removed '--oops.txt'
+   rm: remove regular empty file '-w00t.txt'? yes
+   removed '-w00t.txt'
+
+Another option is to use ``./<name of the file>`` to force the shell
+to see that since we are using a path specifier (``./``), the thing
+must be a file:
+
+.. code:: shell-session
+
+   $ tree -CF .
+   .
+   ├── --oops.txt
+   └── -w00t.txt
+
+   0 directories, 2 files
+
+   $ rm -vi ./--oops.txt ./-w00t.txt
+   rm: remove regular empty file './--oops.txt'? y
+   removed './--oops.txt'
+   rm: remove regular empty file './-w00t.txt'? y
+   removed './-w00t.txt'
+
+   $ tree -CF .
+   .
+
+   0 directories, 0 files
+
+
+(TO BE CONTINUED)
+
