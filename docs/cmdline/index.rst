@@ -10,7 +10,9 @@ Command Line
    help-info-man
    built-in
    argument-syntax
+   echo-printf
    bash-brace-expansion
+   bash-parameter-expansion
    git/index
    terminal/index
    hackerrank-shell
