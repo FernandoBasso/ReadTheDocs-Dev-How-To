@@ -2,9 +2,8 @@
 echo and printf
 ===============
 
-
-echo newline
-------------
+echo and newline
+----------------
 
 .. code:: shell-session
 
@@ -33,11 +32,6 @@ newline, then bash prints 'foo'.
 Then the prompt ``$`` is positioned immediately after 'foo'. After
 all, we asked ``echo`` NOT to append a newline, so, ``echo`` prints
 'foo' and the prompt is positioned right after ``echo``'s output.
-
-
-
-
-
 
 
 How to print `-n'?
@@ -104,3 +98,84 @@ Nice question and discussion:
 `When and how was the double-dash (\-\-)
 introduced as an end of options delimiter in Unix/Linux?
 <https://unix.stackexchange.com/questions/147143/when-and-how-was-the-double-dash-introduced-as-an-end-of-options-delimiter>`__
+
+Prefer printf instead of echo
+-----------------------------
+
+The use of ``echo`` is discouraged for several reasons. First, see
+`echo application usage_.
+
+.. _`echo application usage`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/utilities/echo.html#tag_20_37_16
+
+Basically, behaviour differs across implementations making it all but
+impossible to use ``echo`` in a reliable and portable way.
+
+Also, observe the output of these commands:
+
+.. code-block:: shell-session
+
+   $ var=-e
+   $ echo "$var"
+
+Nothing is printed. 😮
+
+.. The line above contains the “astonished” emoji. It does not show up
+   in emacs. Careful not to remove it. Or install emacs-emojify. :)
+
+.. code-block:: shell-session
+
+   $ arr=(-e -n -en -ne)
+   $ echo "${arr[@]}"
+
+Same problem... But we are fine with ``printf``:
+
+.. code:: shell-session
+
+   $ var=-e
+   $ printf '%s\n' "$var"
+   -e
+   $ arr=(-e -n -en -ne)
+   $ printf '%s\n' "${arr[@]}"
+   -e
+   -n
+   -en
+   -ne
+
+However, these work with ``echo``:
+
+.. code:: shell-session
+
+   $ var=-e
+   $ echo "hello $var"
+   hello -e
+
+   $ arr=(-e -n -en -ne)
+   $ printf 'hello %s\n' "${arr[@]}"
+   hello -e
+   hello -n
+   hello -en
+   hello -ne
+
+As do these:
+
+.. code:: shell-session
+
+   $ echo " $var"
+    -e
+
+   $ printf ' %s\n' "${arr[@]}"
+    -e
+    -n
+    -en
+    -ne
+
+In bash's ``echo`` at least, we can print those _option-like_
+parameters as long as there is something before them. Even a
+whitespace before them causes it to work. But do note that the space
+is preserved in the output.
+
+Well, the options are there, and ``echo`` can still be used for
+certain things, but care must be taken.
+
+
