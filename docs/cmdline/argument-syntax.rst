@@ -6,8 +6,8 @@ There are a few, but **extremely important** concepts that we must
 keep in mind to make reasonable use of the command line and write
 shell scripts in general.
 
-Space
------
+Whitespace and Quoting
+----------------------
 
 In the shell, whitespace matters. It is used to break the input into
 tokens. See `the spec`_ and `bash shell syntax documentation`_.
@@ -37,8 +37,11 @@ expansion before passing the results as individual tokens to the
 ``printf`` program. When the shell finds the newline, it then executes
 the command line.
 
+A Sad `rm' Incident
+~~~~~~~~~~~~~~~~~~~
+
 It is paramount that we prevent the shell from word splitting in
-certain cases.
+certain (most) cases.
 
 .. code:: shell-session
 
@@ -104,10 +107,19 @@ Guideline 10 says:
    following arguments should be treated as operands, even if they
    begin with the '-' character."
 
-
 It is useful when we want to tell a program something like “Look, from
-now on, these arguments are real files, directories, whatever, but the
+now on, these arguments are real files, directories, whatever. They
 **are not** options (command line flags) to the program.”
+
+.. NOTE::
+
+   The ``echo`` command treats ``--`` as a normal string operand. See
+   `the echo spec`_.
+
+.. _`the echo spec`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/utilities/echo.html
+
+
 
 Let's see some use cases.
 
