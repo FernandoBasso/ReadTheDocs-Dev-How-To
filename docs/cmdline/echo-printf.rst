@@ -2,12 +2,27 @@
 echo and printf
 ===============
 
+Intro
+-----
+
+.. NOTE::
+
+   For all the examples that follow, set the ``PS1`` prompt to a
+   simple ``$␠`` (the dollar sign followed by a single whitespace)
+   unless otherwise noted. E.g:
+
+   .. code:: bash
+
+      PS1='\$ '
+
+echo
+----
+
 echo and newline
-----------------
+^^^^^^^^^^^^^^^^
 
 .. code:: shell-session
 
-   $ PS1='\$ '
    $ echo -n
 
 Why does ``echo -n`` still produce a newline and the next prompt is
@@ -25,7 +40,6 @@ newline, then bash prints 'foo'.
 
 .. code-block:: shell-session
 
-   $ PS1='\$ '
    $ echo -n foo<Return>
    foo$
 
@@ -35,7 +49,8 @@ all, we asked ``echo`` NOT to append a newline, so, ``echo`` prints
 
 
 How to print `-n'?
-------------------
+^^^^^^^^^^^^^^^^^^
+
 
 If we just do ``echo -n``, the ``-n`` is treated as the ``-n`` option
 (do not append a newline).
@@ -100,7 +115,7 @@ introduced as an end of options delimiter in Unix/Linux?
 <https://unix.stackexchange.com/questions/147143/when-and-how-was-the-double-dash-introduced-as-an-end-of-options-delimiter>`__
 
 Prefer printf instead of echo
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The use of ``echo`` is discouraged for several reasons. First, see
 `echo application usage_.
@@ -178,4 +193,48 @@ is preserved in the output.
 Well, the options are there, and ``echo`` can still be used for
 certain things, but care must be taken.
 
+printf
+------
+
+Contrary to ``echo``, ``printf`` *does not add a newline by default*.
+
+.. code:: shell-session
+
+   $ printf '%s' hello
+   hello$
+
+   $ printf '%s\n' hello
+   hello
+   $
+
+
+Format operand reutilization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Another thing to consider is that the *format operand* (``%s``,
+``%d``, etc.) is reused until all *argument operands* are consumed:
+
+   "The format operand shall be reused as often as necessary to
+   satisfy the argument operands."
+
+   --\  `printf POSIX spec`_
+
+.. _`printf POSIX spec`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html
+
+That explains why even with a single ``%s``, the next line prints all
+argument operands (instead of just the first one):
+
+.. code:: shell-session
+
+   $ printf '%s\n' may the force
+   may
+   the
+   force
+
+   $ words=(be with you)
+   $ printf '%s\n' "${words[@]}"
+   be
+   with
+   you
 
