@@ -19,7 +19,7 @@ echo
 ----
 
 echo and newline
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 .. code:: shell-session
 
@@ -49,8 +49,7 @@ all, we asked ``echo`` NOT to append a newline, so, ``echo`` prints
 
 
 How to print `-n'?
-^^^^^^^^^^^^^^^^^^
-
+~~~~~~~~~~~~~~~~~~
 
 If we just do ``echo -n``, the ``-n`` is treated as the ``-n`` option
 (do not append a newline).
@@ -115,7 +114,7 @@ introduced as an end of options delimiter in Unix/Linux?
 <https://unix.stackexchange.com/questions/147143/when-and-how-was-the-double-dash-introduced-as-an-end-of-options-delimiter>`__
 
 Prefer printf instead of echo
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The use of ``echo`` is discouraged for several reasons. First, see
 `echo application usage_.
@@ -209,7 +208,7 @@ Contrary to ``echo``, ``printf`` *does not add a newline by default*.
 
 
 Format operand reutilization
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Another thing to consider is that the *format operand* (``%s``,
 ``%d``, etc.) is reused until all *argument operands* are consumed:
