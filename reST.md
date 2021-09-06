@@ -1,7 +1,53 @@
 # reStructuredText
 
-* [Include source code examples](#include-source-code-examples)
-* [Images](#images)
+- [reStructuredText](#restructuredtext)
+  - [Headings a.k.a Sections](#headings-aka-sections)
+  - [Include source code examples](#include-source-code-examples)
+  - [Images](#images)
+
+## Headings a.k.a Sections
+
+reST uses the term Section. She
+[reST Section Docs](https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#sections).
+
+For this project, we chose the following characters to adorn titles and
+headings (sections):
+
+`=` 0x3d EQUALS SIGN with overline for page titles (heading 1):
+
+```
+===============
+Main Page Title
+===============
+```
+
+Page titles are the only ones adorned with overline. All other ones
+have only underline adornments.
+
+`-` 0x2d HYPHEN-MINUS for headings level 2:
+
+```
+Heading Two Title
+-----------------
+```
+
+`~` 0x7e TILDE for headings level 3:
+
+```
+Heading Three Title
+~~~~~~~~~~~~~~~~~~~
+```
+
+`.` 0x2e FULL STOP for headings level 4:
+
+```
+Heading Four Tilde
+..................
+```
+
+Perhaps `"` 0x22 QUOTATION MARK for headings level five, and `'` 0x27
+APOSTROPHE for headings level 6 (if we ever come to that depth of
+nested subsections ':D).
 
 ## Include source code examples
 
