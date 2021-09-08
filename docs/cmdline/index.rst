@@ -13,6 +13,7 @@ Command Line
    echo-printf
    bash-brace-expansion
    bash-parameter-expansion
+   bash-aliases
    git/index
    terminal/index
    hackerrank-shell
