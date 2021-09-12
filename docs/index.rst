@@ -10,6 +10,7 @@ Welcome to Haskell How To's documentation!
    text-editors/index
    haskell/index
    magfpjs/index
+   composable-fp-js/index
    macos/index
 
 Don't forget to read the README :).

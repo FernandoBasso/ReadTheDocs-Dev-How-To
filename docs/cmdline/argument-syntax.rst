@@ -91,11 +91,13 @@ this (and many others). What we should have done is this:
 
 Now we removed ``secret message.txt`` and not incidents took place.
 
+.. _cmdline End of Options:
+
 End Of Options ‘\-\-’
--------------------
+---------------------
 
 The *end of options* ``--`` is used to indicate the end of options
-:D. It is documented under `Utility Syntax Guidelines`_.
+🤣. It is documented under `Utility Syntax Guidelines`_.
 
 .. _`Utility Syntax Guidelines`:
    https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html#tag_12_02
@@ -127,7 +129,7 @@ remove files starting with ‘-’
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sometimes, by accident or some other reason, we end up with files
-whose name start with one or more ``-`` (HYPHEN-MINUS \\u002d
+whose name start with one or more ``-`` (U+002D HYPHEN-MINUS
 character). If we try to remove (or rename, or some other operation)
 them, we run into problems.
 
@@ -195,4 +197,5 @@ must be a file:
 
 
 (TO BE CONTINUED)
+
 

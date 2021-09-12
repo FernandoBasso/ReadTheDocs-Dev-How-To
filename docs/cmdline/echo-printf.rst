@@ -61,7 +61,10 @@ This doesn’t work:
    $ echo -- -n
    -- -n.
 
-Not what we want…​ Bash’s ``echo`` honors `the
+Not what we want…​ We learned in :ref:`cmdline End of Options` that a anything following
+``__`` should be treated as a normal string operand, and not as an option to the
+program. Why then ``--`` is not working here and preventing ``-n`` from
+beting treaded an option‽ Because bash’s ``echo`` honors `the
 specs <https://pubs.opengroup.org/onlinepubs/9699919799/utilities/echo.html>`__:
 
    The echo utility shall not recognize the “\-\-” argument in the manner
@@ -70,7 +73,7 @@ specs <https://pubs.opengroup.org/onlinepubs/9699919799/utilities/echo.html>`__:
 
    — echo POSIX spec
 
-We can ``man ascii`` and look for the numeric value of ``\-\-``:
+We can ``man ascii`` and look for the numeric value of ``--``:
 
 **Excerpt from \`man ascii’.**
 

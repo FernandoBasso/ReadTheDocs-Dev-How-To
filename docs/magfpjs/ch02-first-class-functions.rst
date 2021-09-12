@@ -23,8 +23,8 @@ functions are first-class
 
       Functions are *first-class* in ECMAScript. If ``greet`` just
       gets an argument and merely forwards it to ``hi``, then there is
-      no need to make ``greet`` take that parameter and just pass it
-      along to ``hi``. We can just as well do this:
+      no need to make ``greet`` take that parameter and pass it along
+      to ``hi``. We can just as well do this:
 
       .. code-block:: js
 

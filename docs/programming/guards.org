@@ -1,0 +1,40 @@
+#+TITLE: Guards
+
+My reply to [[https://dev.to/oaraujocesar/clean-code-guards-you-shall-not-pass-3c5p][César Araújo post about guards]].
+
+Yeah, it is nice to combine guards with early
+returns to avoid nesting logic inside ifs.
+
+Your explanation is very good! I would like to add
+two more very simple snippets of code that help one
+to visualize how guards with early returns help
+avoid unnecessary NESTING. The snippets bellow don't
+bring anything new beyond what was already shown in
+the post. They just show and emphasize some points
+under a different perspective.
+
+#+begin_src
+function f(x) {
+  if (x > 0) {
+    // Logic NESTED inside if.
+  }
+}
+#+end_src
+
+We can do this:
+
+#+begin_src
+function f(x) {
+  if (x < 0) return 'Oops...';
+
+  //
+  // Main logic NOT nested inside if.
+  //
+}
+#+end_src
+
+By using this second approach, we reduce the need to
+write logic too deeply nested inside of ifs (or any
+other control structures for that matter). Less
+nesting is generally better :)
+
