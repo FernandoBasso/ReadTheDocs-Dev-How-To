@@ -4,6 +4,7 @@
   - [Headings a.k.a Sections](#headings-aka-sections)
   - [Include source code examples](#include-source-code-examples)
   - [Images](#images)
+  - [Typing Unicode](#typing-unicode)
 
 ## Headings a.k.a Sections
 
@@ -141,4 +142,75 @@ image like this:
 Always include the *alt* text.
 
 [Read more about Sphinx and images](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#images).
+
+## Typing Unicode
+
+When we need to write a unicode code point we write it with the following
+format ``<char> U+<hex-number> NAME``, i.e:
+
+```
+- U+2D HYPHEN MINUS
+💩 U+01F4A9 PILE OF POO
+	U+09 HORIZONTAL TABULATION, (also CHARACTER TABULATION)
+```
+
+All alphabetic characters are in UPPERCASE. Some characters have
+aliases. Use your judgement when to write the alternative names or
+not. These are all ways *not* to write the hex number:
+
+```
+u+002D
+u+002d
+\u002D
+\u002D
+```
+
+Always use 2, 4, 6 or 8 characters for the hex value. For example,
+these are valid (as per our guidelines):
+
+```
+U+002D
+U+2D
+
+U+01F4A9
+U+0001F4A9
+```
+
+### Application-Specific Syntax
+
+The guidelines above apply when writing Unicode code points in general
+terms, not related to application-specific syntax. It is okay to write
+application-specific notation when needed. For example, in Vim, to
+type a code point between 1 and 4 bytes, we can use either the
+lowercase "u" or the uppercase "U", like this:
+
+```
+Ctrl+v u 002d
+Ctrl+v U 002d
+```
+
+If Vim thinks is waiting for more characters you can still ask vim to
+process the current input so far:
+
+```
+Ctrl+v u 2d<Esc>
+Ctrl+v u 2d<Space>
+
+Ctrl+v U 1f4a9<Esc>
+Ctrl+v U 01f4a9<Esc>
+```
+
+Other key presses may also stop processing of the input entered so
+far, depending on the situation, like `<Tab>`, `<Enter>` and
+others. Also not that Vim does not require all uppercase, or an
+even-number of bytes (2, 4, 6 or 8). So, in these cases it is okay to
+write in whatever the syntax or requirements the given tool you are
+writing about needs them to be.
+
+For more vim-specific information, see `:help i_CTRL-v`.
+
+For emacs, we do `C-c q` to insert no-visible characters,
+and `C-x 8 RET` to insert a Unicode code point, either by its hex
+value or its Unicode name. See `M-x describe-function RET
+insert-char RET` or `M-x describe-key RET` followed by `C-x 8 RET`.
 
