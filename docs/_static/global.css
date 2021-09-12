@@ -1,0 +1,13 @@
+/**
+ * Comments in italic hurt readability. Even comments use a lot of
+ * non-alphanumeric characters that look awkward in italic. Some
+ * fonts make it a little better, some worse, but still, italics
+ * and comments don't go well together.
+ *
+ * • .cm → multiline comments
+ * • .c1 → single line comments
+ */
+.highlight .c1,
+.highlight .cm {
+  font-style: normal;
+}

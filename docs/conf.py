@@ -80,4 +80,5 @@ html_js_files = [
 
 html_css_files = [
   'qanda.css' + '?v=' + timestamp,
+  'global.css' + '?v=' + timestamp,
 ]
