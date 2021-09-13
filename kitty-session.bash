@@ -38,8 +38,14 @@ kitty @ launch \
 kitty @ launch \
   --type=tab \
   --cwd "$work_dir" \
-  --tab-title shell \
+  --tab-title server \
   --title "$win_title"
+
+kitty @ launch \
+	--type=tab \
+	--cwd "$work_dir" \
+	--tab-title shell \
+	--title "$win_title"
 
 kitty @ launch \
 	--type=window \
@@ -50,7 +56,7 @@ kitty @ launch \
 # Focus the shell tab on the left pane and start the
 # develpment server there.
 #
-kitty @ focus-tab -m title:shell
+kitty @ focus-tab -m title:server
 kitty @ send-text -m num:0 'make develop\n'
 
 ##
