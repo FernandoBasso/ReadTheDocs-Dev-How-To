@@ -38,7 +38,10 @@ Then access http://local.devhowto.dev:2001 from your browser.
 ## Branching and Publishing
 
 **NOTE** This is a work in progress and the things described below are
-an attempt to see how the workflow holds up in the long run.
+an attempt to see how the workflow holds up in the long run. This
+workflow works because I'm working on this by myself. I proper feature
+branch workflow would be necessary should more people interact with this
+repository.
 
 So far the two branches used for deploying to Read The Docs are `stage`
 and `main`. Generally, I try something on `stage` first and if things
@@ -56,8 +59,6 @@ Checkout to the `drafts` branch (we will always stay on this branch, as
 the other branches are updated from this branch using specific commands)
 and undo the last “drafts” commit and unstage everything.
 
-The `drafts` branch must **always** have a commit with the message
-“DRAFTS”. Then, we undo that last commit:
 
 ```
 $ git checkout drafts
@@ -75,7 +76,7 @@ published:
 ```
 $ git add -- ./path/to/NEW/files
 $ git add --patch -- ./path/to/CHANGED/files
-$ git commit <readl, professional, quality commit>
+$ git commit <real, professional, quality commit>
 ```
 
 This commit above is **NOT** the DRAFTS commit, but a real, publishable,
@@ -99,6 +100,13 @@ $ git commit -m 'DRAFTS'
 At this point, we published what we wanted and safely stored our drafts
 in the remote repo.
 
+**IMPORTANT**: The `drafts` branch always contains the good commits and
+the DRAFTS commit, except we never publish to `stage` or `main` with the
+DRAFT commit on the `drafts` branch. When pushing to `stage` or `main`
+branches, the DRAFTS commits must always be undone first. So, all
+branches end up having the same commits, except that `stage` and `main`
+never have the DRAFTS commit.
+
 It is possible to never have to leave the `drafts` branch to follow this
 workflow. Whatever unpublished things we have are always safe on the
 server. We just have to keep this somewhat awkward and verbose
@@ -114,7 +122,7 @@ $ git restore --staged -- ./
 
 $ git add -- ./path/to/NEW/files
 $ git add --patch -- ./path/to/CHANGED/files
-$ git commit <readl, professional, quality commit>
+$ git commit <real, professional, quality commit>
 
 $ git push gl drafts:stage
 $ git push gl drafts:main
