@@ -47,3 +47,31 @@ about the `difference between SUS and Open Group`_.
 
 .. _`Open Group Website`:
    https://pubs.opengroup.org/onlinepubs/9699919799
+
+GNU Coreutils
+-------------
+
+It is worth taking a look at following resources:
+
+- `GNU Coreutils Home Page`_
+- `GNU Coreutils FAQ`_
+- `GNU Coreutils Documentation`_
+
+.. _`GNU Coreutils FAQ`:
+   https://www.gnu.org/software/coreutils/faq/coreutils-faq.html
+
+.. _`GNU Coreutils Home Page`:
+   https://www.gnu.org/software/coreutils/
+
+.. _`GNU Coreutils Documentation`:
+   https://www.gnu.org/software/coreutils/manual/
+
+There is also the mind-blowing, awesome `Decoded GNU Coreutils`_
+project by MaiZure_.
+
+.. _`Decoded GNU Coreutils`:
+   http://www.maizure.org/projects/decoded-gnu-coreutils/
+
+.. _MaiZure:
+   http://www.maizure.org/projects/faq.html
+
