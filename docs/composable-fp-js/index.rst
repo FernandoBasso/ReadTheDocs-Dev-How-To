@@ -69,13 +69,17 @@ any given situation [#]_.
        advantages and disadvantages (that is stating the obvious), but
        worth keeping in mind.
 
-.. [#] I was amazed by John Carmack's humility when he said “now I
-       *think* I get functional programming” and “I wanted to make a
-       real program in Haskell so I could opine more concretely about
-       Haskell and FP than if I had just having done some exercises
-       from a book”. Then he implemented Wolfenstein 3D engine in
-       Haskell. See `John Carmack's keynote at Quakecon 2013`_.
+.. [#] I am amazed by John Carmack's (traditionally a C/C++
+       programmer) humility talking about his willingness to learn
+       Lisp and Functional Programming. He is also humble when he says
+       thinks like “I wanted to do some real project in Haskell”
+       so he could “talk about their merits on a concrete
+       sense rather than an abstract sense” and that he “does *think*
+       he *soft of* gets Lisp now.” Watch this `part about Haskell`_
+       and this `part about Lisp`_. They are from John Carmack's
+       keynote at Quakecon 2013.
 
-.. _`John Carmack's keynote at Quakecon 2013`:
-   https://www.youtube.com/watch?v=1PhArSujR_A
+.. _`part about Haskell`: https://youtu.be/1PhArSujR_A?t=283
+
+.. _`part about Lisp`: https://youtu.be/1PhArSujR_A?t=799
 
