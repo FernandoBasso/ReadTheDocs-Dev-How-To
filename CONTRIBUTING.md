@@ -1,9 +1,10 @@
 # Contributing
 
-* [Commit Messages](#commit-messages)
-* [Commit Types](#commit-types)
-  * [List of Previously Used Types](#list-of-previously-used-types)
-  * [Project-Specifc Commit Types](#project-specifc-commit-types)
+- [Contributing](#contributing)
+  - [Commit Messages](#commit-messages)
+  - [Commit Types](#commit-types)
+    - [List of Previously Used Types](#list-of-previously-used-types)
+    - [Project-Specific Commit Types](#project-specific-commit-types)
 
 ## Commit Messages
 
@@ -40,7 +41,7 @@ For programming langages, let's use the standard file extension:
 - rkt: Racket
 
 For notes on books, tutorials, courses, etc., create a type using some
-sort of abbreviation or accronym.
+sort of abbreviation or accronym. See [Project-Specific Commit Types](#project-specific-commit-types) below.
 
 For example, for the [Mostly Adequate Guide to Functional
 Programming](https://github.com/MostlyAdequate/mostly-adequate-guide),
@@ -79,7 +80,7 @@ the command line above):
 $ ./list-commit-message-types.bash
 ```
 
-### Project-Specifc Commit Types
+### Project-Specific Commit Types
 
 By “project-specific types” we mean commit types for books, tutorials,
 etc. (mentioned above), and not generic commit types like “rb” or “c".
