@@ -7,9 +7,11 @@ dev.hs
 _build
 
 ##
-# Emacs backup, temp and lock files.
+# Emacs backup, temp and lock files. (my vim setup
+# causes tmp and bkp files to be stored elsewhere).
 #
 *~
 \#*\#
 .\#*
 
+.vscode
