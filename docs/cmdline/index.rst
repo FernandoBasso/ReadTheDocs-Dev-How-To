@@ -14,6 +14,7 @@ Command Line
    bash-brace-expansion
    bash-parameter-expansion
    bash-aliases
+   bash-arrays
    git/index
    terminal/index
    hackerrank-shell
