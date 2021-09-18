@@ -79,12 +79,12 @@ Yes, That Website Sucks
 Yes, that website sucks. Not the contents of the website, but the way
 it works!
 
-The whole thing is full of iframes. URLs don't change when we click on
-sidebar links which means it is impossible to share or bookmark
-different URLs because they don't change -- only the iframes content
-do. HOWEVER, if we **open links on a new tab** then we get out of the
-iframe hell thing. So, open links on a new tab when you need the URL
-for that link.
+The whole thing is full of iframes. URLs don't change (only the
+iframes contents do) when we click on sidebar links which means it is
+impossible to share or bookmark different URLs do. HOWEVER, if we
+**open links on a new tab** then we get out of the iframe hell
+thing. So, open links on a new tab when you need the URL for that
+link.
 
 
 GNU Coreutils
