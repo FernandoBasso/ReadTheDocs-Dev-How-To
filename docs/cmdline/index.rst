@@ -22,32 +22,70 @@ Command Line
 Intro
 -----
 
-Command line tools have NOT faded out into the past. They keep
-evolving and being improved. A lot of GUI interfaces use command line
-tools behind the scenes.
+Command line tools have NOT faded out into the past. They have kept
+consistently evolving and being improved. They still do! A lot of GUI
+interfaces use command line tools behind the scenes.
 
 There exists a specification to standardize how command line utilities
 should behave so that they work in a cross-plataform, interoperable way.
 
+GNU and BSD command line utilities generally try to follow the specs
+but add the so called *extensions* which add further capabilities to
+the tools, making writing scripts and programs easier and sometimes
+less verbose, but also reduce the portability. Some tools can be run
+in a more restrict way that disallow extensions. The docs for each
+tool should specify those things. Information about these things is
+also scattered across this website's notes and examples when they are
+deemed important and/or worthwhile.
+
 Besides reading the specs, also take a look at the sidebar about
 reading and understanding man pages, info pages and help pages.
+
+.. note::
+
+   Assume all text and examples on this site is written considering
+   GNU tools and the Bash shell unless otherwise noted.
 
 Single Unix Specification (SUS)
 -------------------------------
 
-- XBD: Base Definitions
-- CCU: Shell and Utilities (Commands and Utilities)
-- XSH: System Interfaces and XBD Headers
+- `XBD: Base Definitions`_
+- `XSH: System Interfaces and XBD Headers`_
+- `XCU: Shell and Utilities (Commands and Utilities)`_
 
-More info on the link `Open Group Website`_. There is also a question
-about the `difference between SUS and Open Group`_.
+More info on the link `The Open Group Base Specifications Issue 7,
+2018 edition`_. There is also a question about the `difference between
+SUS and Open Group`_.
 
+.. _`The Open Group Base Specifications Issue 7, 2018 edition`:
+   https://pubs.opengroup.org/onlinepubs/9699919799
+
+.. _`XBD: Base Definitions`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/idx/xbd.html
+
+.. _`XSH: System Interfaces and XBD Headers`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/idx/xsh.html
+
+.. _`XCU: Shell and Utilities (Commands and Utilities)`:
+   https://pubs.opengroup.org/onlinepubs/9699919799/idx/xcu.html
 
 .. _`difference between SUS and Open Group`:
    https://unix.stackexchange.com/questions/14368/difference-between-posix-single-unix-specification-and-open-group-base-specifi/14369
 
-.. _`Open Group Website`:
-   https://pubs.opengroup.org/onlinepubs/9699919799
+
+Yes, That Website Sucks
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes, that website sucks. Not the contents of the website, but the way
+it works!
+
+The whole thing is full of iframes. URLs don't change when we click on
+sidebar links which means it is impossible to share or bookmark
+different URLs because they don't change -- only the iframes content
+do. HOWEVER, if we **open links on a new tab** then we get out of the
+iframe hell thing. So, open links on a new tab when you need the URL
+for that link.
+
 
 GNU Coreutils
 -------------
@@ -71,7 +109,7 @@ There is also the mind-blowing, awesome `Decoded GNU Coreutils`_
 project by MaiZure_.
 
 .. _`Decoded GNU Coreutils`:
-   http://www.maizure.org/projects/decoded-gnu-coreutils/
+ http://www.maizure.org/projects/decoded-gnu-coreutils/
 
 .. _MaiZure:
    http://www.maizure.org/projects/faq.html
