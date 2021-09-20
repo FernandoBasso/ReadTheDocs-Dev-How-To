@@ -54,7 +54,6 @@ These cases seem to be enough to cover the domain of our function.
 
 .. literalinclude:: /../src/composable-fp-js/vid01/box.spec.js
    :language: js
-   :linenos:
 
 
 A Note on the type 1String
@@ -88,35 +87,8 @@ Temporary Variables
 This first implementation uses temporary variables to store the result
 of each step in the process.
 
-.. code-block:: js
-
-   /**
-    * Produces the next char based on the numeric input string.
-    *
-    * @example
-    * nextCharFromNumStr('64');
-    * // → 'A'
-    *
-    * @example
-    * nextCharFromNumStr(' 64  ');
-    * // → 'A'
-    *
-    * ASSUME: The input is a valid numeric value.
-    *
-    * @param {string} value The numeric string.
-    * @return {string} The computed character.
-    */
-   const nextCharFromNumStr = value => {
-     const trimmed = value.trim();
-     const num = parseInt(trimmed, 10);
-     const nextNum = num + 1;
-     return String.fromCharCode(nextNum);
-   };
-
-   l(nextCharFromNumStr(' 64'));
-   l(nextCharFromNumStr(' 96  '));
-   // → A
-   // → a
+.. literalinclude:: /../src/composable-fp-js/vid01/box-v1.js
+   :language: js
 
 CONS:
 
@@ -130,42 +102,13 @@ See this:  `this file </../src/composable-fp-js/box-v3b.js>`_
 Nested Function Invocations
 ---------------------------
 
-.. code-block:: js
-
-   /**
-    * Produces the next char based on the numeric input string.
-    *
-    * ASSUME: The input is a valid numeric value.
-    *
-    * @param {string} value The numeric string.
-    * @return {string} The computed character.
-    *
-    * @sig String -> String
-    *
-    * @example
-    * nextCharFromNumStr('64');
-    * // → 'A'
-    *
-    * @example
-    * nextCharFromNumStr(' 64  ');
-    * // → 'A'
-    */
-   const nextCharFromNumStr = value => {
-     return String.fromCharCode(parseInt(value.trim(), 10) + 1);
-   };
-
+.. literalinclude:: /../src/composable-fp-js/vid01/box-v2.js
+   :language: js
 
 CONS:
 
 - Nesting of invocation is harder to read, easy to get lost.
 - Not scalable. Hard to add new stuff in anywhere in the chain.
-
-.. code-block:: js
-
-   l(nextCharFromNumStr('64'));
-   l(nextCharFromNumStr('96'));
-   // → A
-   // → a
 
 
 Manual Container
@@ -174,200 +117,66 @@ Manual Container
 This example use the concept of a “box” to map over values. We
 “manually” add the input value into a one-element array.
 
-.. code:: js
-
-   /**
-    * Produces the next char based on the numeric input string.
-    *
-    * ASSUME: The input is a valid numeric value.
-    *
-    * @param {string} value The numeric string.
-    * @return {string} The computed character.
-    *
-    * @example
-    * nextCharFromNumStr('64');
-    * // → 'A'
-    *
-    * @example
-    * nextCharFromNumStr(' 64  ');
-    * // → 'A'
-    */
-   const nextCharFromNumStr = value => {
-     return [value].map(s => s.trim())
-                   .map(s => parseInt(s, 10))
-                   .map(i => i + 1)
-                   .map(i => String.fromCharCode(i));
-   };
-
+.. literalinclude:: /../src/composable-fp-js/vid01/box-v3.js
+   :language: js
 
 PROS:
 
 - Easier to read the sequence of things that happen.
-- Easy to add new operaions any where in the chain.
+- Easy to add new operations any where in the chain.
 
-.. code-block:: js
+**(1)**: Note how we use index notation ``[0]`` at the very last thing
+in our processing. That is because we introduced the concept of
+containers but did not (yet) come up with a way to extract the value
+from the container without this manual, indexing approach (we'll
+improve on this soon).
 
-   l(nextCharFromNumStr('64'));
-   l(nextCharFromNumStr('96'));
-   // → ['A']
-   // → ['a']
+Manual Container With Helper Functions
+--------------------------------------
+
+All those arrow functions as callbacks to ``.map`` could be extracted,
+making the chaining look more neat and clean.
+
+.. literalinclude:: /../src/composable-fp-js/vid01/box-v4.js
+   :language: js
 
 
 Container Type
 --------------
 
-.. code:: js
-
-   /**
-    * A Value consumed and produced by the Container `map's function.
-    *
-    * @typedef {any} Value
-    */
-
-   /**
-    * @typedef {Object} Container
-    * @property {function(function(Value): Value): Container} map Map a
-    *   function over the Value.
-    * @property {function(): string} toString Our custom stringification
-    *   of the object.
-    */
-
-   /**
-    * Creates a chainable container.
-    *
-    * @param {Value} val
-    * @return {Container}
-    */
-   const Box = val => {
-     return {
-       map: f => Box(f(val)),
-       toString: () => `Box(${val})`,
-     };
-   };
-
-   /**
-    * Produces the next char based on the numeric input string.
-    *
-    * @example
-    * nextCharFromNumStr('64');
-    * // → 'A'
-    *
-    * @example
-    * nextCharFromNumStr(' 64  ');
-    * // → 'A'
-    *
-    * ASSUME: The input is a valid numeric value.
-    *
-    * @param {string} value The numeric string.
-    * @return {string} The computed character.
-    */
-   const nextCharFromNumStr = value => {
-     return Box(value)
-       .map(s => s.trim())
-       .map(s => parseInt(s, 10))
-       .map(i => i + 1)
-       .map(i => String.fromCharCode(i))
-       .map(c => c.toLowerCase());
-   };
-
-   const result1 = nextCharFromNumStr(' 64 ');
-   const result2 = nextCharFromNumStr(' 96 ');
-
-   l(result1 + '');
-   l(String(result2));
-   // → Box(a)
-   // → Box(a)
+.. literalinclude:: /../src/composable-fp-js/vid01/box-v5.js
+   :language: js
 
 .. note::
 
    The ``inspect`` thing used in the video doesn't work in recent
-   versions of node (2021, v14 at least). Overriding `toString' should
-   work. But then we must make sure we try to log the box as a string
-   to trigger the `toString' mechanism.
+   versions of node (2021, v14 at least). Overriding ``toString``
+   should work. But then we must make sure we try to log the box as a
+   string to trigger the `toString' mechanism.
 
-This example use the concept of a “box” to map over values.
+This example use the concept of a “box” to map over values. We also
+add a ``fold`` function that can also “map” a function over a value,
+but instead of returning another Container, it returns the value
+itself. ``fold`` should generally be used as the last thing in the
+chain.
 
-PROS:
+**(1)**: We use ``fold`` here to finally return the value itself,
+*unboxing* it from the container.
 
-- Easier to read the sequence of things that happen.
-- Easy to add new operations anywhere in the chain.
-- We can unify method invocations `s.trim()', function invocations
-  `parseInt(...)', operators  `1 + 1', and qualified invocations
-  `String.fromCharCode()'
-
-
-Unboxing Value
---------------
-
-Currently, our container return the value inside the container. We may
-also want to get the value itself. To do that, we add a ``fold``
-function that also maps over a value, but instead of returning the
-value inside the container, it returns the value by itself.
-
-.. code:: js
-
-   /**
-    * A Value consumed and produced by the Container `map`s function.
-    *
-    * @typedef {any} Value
-    */
-
-   /**
-    * @typedef {Object} Container
-    * @property {function(function(Value): Value): Container} map Map a
-    *   function over the Value.
-    * @property {function(): string} toString Our custom stringification
-    *   of the object.
-    */
-
-   /**
-    * Creates a chainable container.
-    *
-    * @param {Value} val
-    * @return {Container}
-    */
-   const Box = val => {
-     return {
-       map: f => Box(f(val)),
-       fold: f => f(val),
-       toString: () => `Box(${val})`,
-     };
-   };
-
-   /**
-    * Produces the next char based on the numeric input string.
-    *
-    * ASSUME: The input is a valid numeric value.
-    *
-    * @param {string} value The numeric string.
-    * @return {string} The computed character.
-    *
-    * @example
-    * nextCharFromNumStr('64');
-    * // → 'A'
-    *
-    * @example
-    * nextCharFromNumStr(' 64  ');
-    * // → 'A'
-    */
-   const nextCharFromNumStr = value => {
-     return Box(value)
-       .map(s => s.trim())
-       .map(s => parseInt(s, 10))
-       .map(i => i + 1)
-       .map(i => String.fromCharCode(i))
-       .fold(c => c.toLowerCase());
-   };
-
-   l(nextCharFromNumStr(' 64 '));
-   l(nextCharFromNumStr(' 96 '));
-   // → a
-   // → a
 
 ``map`` is not supposed to only loop over things. It has to do with
 *composition within a context*. ``Box`` is the context in this case.
 ``Box`` is a “container” type to capture different behaviours.
 ``Box`` is the **identity functor**.
+
+PROS:
+
+- Easier to read the sequence of things that happen.
+- Easy to add new operations anywhere in the chain.
+- We can unify method invocations ``s.trim()``, function invocations
+  ``parseInt(...)``, operators ``1 + 1``, and qualified invocations
+  ``String.fromCharCode()`` (in our case, turned into cleaner helper
+  functions).
 
 
 nextChar example

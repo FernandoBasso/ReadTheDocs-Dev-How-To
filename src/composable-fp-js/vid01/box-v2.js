@@ -1,38 +1,26 @@
-const l = console.log.bind(console);
-
 /**
  * Produces the next char based on the numeric input string.
  *
  * ASSUME: The input is a valid numeric value.
  *
+ * ASSUME: Client code is passing in a numeric value which
+ * produces the character they want.
+ *
  * @param {string} value The numeric string.
  * @return {string} The computed character.
  *
- * @sig String -> String
+ * @sig 1String -> 1String
  *
  * @example
  * nextCharFromNumStr('64');
  * // → 'A'
  *
  * @example
- * nextCharFromNumStr(' 64  ');
- * // → 'A'
+ * nextCharFromNumStr(' 121  ');
+ * // → 'z'
  */
-const nextCharFromNumStr = value => {
+function nextCharFromNumStr(value) {
   return String.fromCharCode(parseInt(value.trim(), 10) + 1);
-};
+}
 
-//
-// CONS:
-// • Nesting of invokations is hard to read, easy to get lost.
-// • Not scalable. Hard to add new stuff in anywhere in the chain.
-//
-
-l(nextCharFromNumStr('64'));
-l(nextCharFromNumStr('96'));
-// → A
-// → a
-
-//
-// vim: set tw=72:
-//
+export { nextCharFromNumStr }

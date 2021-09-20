@@ -1,4 +1,7 @@
-const l = console.log.bind(console);
+const trim = s => s.trim();
+const toInt = s => parseInt(s, 10);
+const add1 = n => n + 1;
+const intToChar = i => String.fromCharCode(i);
 
 /**
  * A Value consumed and produced by the Container `map's function.
@@ -33,6 +36,11 @@ const Box = val => {
  *
  * ASSUME: The input is a valid numeric value.
  *
+ * ASSUME: Client code is passing in a numeric value which
+ * produces the character they want.
+ *
+ * @sig 1String -> 1String
+ *
  * @param {string} value The numeric string.
  * @return {string} The computed character.
  *
@@ -41,39 +49,15 @@ const Box = val => {
  * // → 'A'
  *
  * @example
- * nextCharFromNumStr(' 64  ');
- * // → 'A'
+ * nextCharFromNumStr(' 121  ');
+ * // → 'z'
  */
-const nextCharFromNumStr = value => {
+function nextCharFromNumStr(value) {
   return Box(value)
-    .map(s => s.trim())
-    .map(s => parseInt(s, 10))
-    .map(i => i + 1)
-    .map(i => String.fromCharCode(i))
-    .fold(c => c.toLowerCase());
+    .map(trim)
+    .map(toInt)
+    .map(add1)
+    .fold(intToChar); /* (1) */
 };
 
-l(nextCharFromNumStr(' 64 '));
-l(nextCharFromNumStr(' 96 '));
-// → a
-// → a
-
-//
-// `map' is not supposed to _only_ loop over things. It has to do with
-// *composition within a context*. ```Box`` is the context in this case.
-// ``Box`` is a “container” type to capture different behaviours.
-// ``Box`` is the *identity functor*.
-//
-// → a
-// → a
-
-//
-// NOTE: The `inspect' thing used in the video doesn't work in recent
-// versions of node (2021, v14 at least). Overriding `toString' should
-// work. But then we must make sure we try to log the box as a string to
-// trigger the `toString' mechanism.
-//
-
-//
-// vim: set tw=72:
-//
+export { nextCharFromNumStr }
