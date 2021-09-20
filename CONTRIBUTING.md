@@ -1,10 +1,11 @@
 # Contributing
 
-- [Contributing](#contributing)
-  - [Commit Messages](#commit-messages)
-  - [Commit Types](#commit-types)
-    - [List of Previously Used Types](#list-of-previously-used-types)
-    - [Project-Specific Commit Types](#project-specific-commit-types)
+
+* [Commit Messages](#commit-messages)
+* [Commit Types](#commit-types)
+  * [commit-msg git hook](#commit-msg-git-hook)
+  * [List of Previously Used Types](#list-of-previously-used-types)
+  * [Project-Specific Commit Types](#project-specific-commit-types)
 
 ## Commit Messages
 
@@ -60,6 +61,21 @@ hffp: Add notes on foldr vs foldr
 
 It is important that once we use a type for a book or tutorial, we stick
 to that type for all commits related to that book or tutorial.
+
+### commit-msg git hook
+
+We have a pre-commit hook that validates the commit type. Take a look at
+`.githooks/commit-msg`.
+
+Update your local git settings to use the git hooks location for this project:
+
+```shell-session
+$ cd /path/to/this/project
+$ git config --local core.hooksPath '.githooks'
+```
+
+We manually update the script's array of valid commit types when a new one
+needs to be introduced.
 
 ### List of Previously Used Types
 
