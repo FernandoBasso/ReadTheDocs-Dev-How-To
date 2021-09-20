@@ -47,9 +47,46 @@ As a side note, take a look at what ``String.fromCharCode()`` does:
    chars precisely match the first 128 ASCII chars. `Read more
    <https://developer.mozilla.org/en-US/docs/Glossary/UTF-8>`_.
 
+The Test Suite
+--------------
 
-Temporary Varaibles
+These cases seem to be enough to cover the domain of our function.
+
+.. literalinclude:: /../src/composable-fp-js/vid01/box.spec.js
+   :language: js
+   :linenos:
+
+
+A Note on the type 1String
+--------------------------
+
+JavaScript doesn't have a type for ``Char``, therefore, we use the
+`HtDP 1String type`_:
+
+.. code-block:: js
+
+   //
+   // A 1String is a String of length 1, including:
+   // • "a"
+   // • "Z"
+   // • "\\" (the backslash),
+   // • " " (the space bar),
+   // • "\t" (tab),
+   // • "\r" (return), and
+   // • "\b" (backspace).
+   //
+   // INTERP: Represents keys on the keyboard and other 1 character strings.
+   //
+
+.. _`HtDP 1String type`:
+   https://htdp.org/2021-5-4/Book/part_one.html#%28tech._1string%29
+
+
+Temporary Variables
 -------------------
+
+This first implementation uses temporary variables to store the result
+of each step in the process.
 
 .. code-block:: js
 
@@ -76,20 +113,18 @@ Temporary Varaibles
      return String.fromCharCode(nextNum);
    };
 
-   //
-   // CONS:
-   // • Too many temporary variables.
-   // • Very prodecural.
-   //
-
    l(nextCharFromNumStr(' 64'));
    l(nextCharFromNumStr(' 96  '));
    // → A
    // → a
 
-   //
-   // vim: set tw=72:
-   //
+CONS:
+
+- Too many temporary variables (variables to store intermediary
+  results of each step);
+- Beginner-like approach and coding style;
+
+See this:  `this file </../src/composable-fp-js/box-v3b.js>`_
 
 
 Nested Function Invocations
@@ -119,20 +154,25 @@ Nested Function Invocations
      return String.fromCharCode(parseInt(value.trim(), 10) + 1);
    };
 
+
 CONS:
 
-- Nesting of invokation is hard to read, easy to get lost.
+- Nesting of invocation is harder to read, easy to get lost.
 - Not scalable. Hard to add new stuff in anywhere in the chain.
 
-.. code:: js
+.. code-block:: js
 
    l(nextCharFromNumStr('64'));
    l(nextCharFromNumStr('96'));
    // → A
    // → a
 
+
 Manual Container
 ----------------
+
+This example use the concept of a “box” to map over values. We
+“manually” add the input value into a one-element array.
 
 .. code:: js
 
@@ -159,8 +199,6 @@ Manual Container
                    .map(i => String.fromCharCode(i));
    };
 
-
-This example use the concept of a “box” to map over values.
 
 PROS:
 
