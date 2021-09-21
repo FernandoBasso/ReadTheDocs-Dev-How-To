@@ -8,6 +8,7 @@ Composable Functional JavaScript
    :caption: Composable Functional JavaScript
 
    vid01
+   vid02
 
 Intro
 -----
