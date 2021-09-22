@@ -3,6 +3,7 @@
 * [Intro](#intro)
 * [Running Locally](#running-locally)
 * [Branching and Publishing](#branching-and-publishing)
+* [License](#license)
 
 ## Intro
 
@@ -130,4 +131,22 @@ $ git push gl drafts:main
 $ git add -- ./
 $ git commit -m DRAFTS
 ```
+
+## License
+
+My intent with this website is to have the my study notes easily
+accessible online for my own personal use. I share them publicly with
+the hope that it may occasionally help others as well.
+
+Besides my own ideas, insights, examples and explanations, this website
+also includes personal notes from a wide range of resources I have been
+using over the years to learn and improve (mailing-lists, IRC chats,
+blog posts, forums, specs, man and info pages, tutorials, books,
+conversations with other people, etc.).
+
+Because of this, unless explicitly noted, this project is licensed under
+the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
+4.0):
+[human readable](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[actual license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
