@@ -41,7 +41,6 @@ while exemplifying the chaining. Take a look at the ``Box`` unit tests
 and see that I did some *currying* and *partial application* to work
 with ``split`` and ``join``, whose arity is two.
 
-
 moneyToFloat()
 --------------
 
@@ -151,4 +150,45 @@ all the operations from the container chaining. We can use our best
 judgement according to each situation. It is important to master the
 tools and techniques so we can then make informed decisions on how,
 where and when to use them.
+
+applyDiscount()
+---------------
+
+The Unit Tests
+~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid02/apply-discount.spec.js
+   :language: js
+
+Imperative Style
+~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid02/apply-discount-v1.js
+   :language: js
+
+Easy enough so far. Note that ``moneyToFloat()`` and
+``percentTofloat`` both return the value, not the container.
+
+
+Functional Style
+~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid02/apply-discount-v2.js
+   :language: js
+
+In the video, Brian decides to change ``moneyToFloat()`` and
+``percentTofloat`` so they return the container, not the value. In
+that case, the ``applyDiscount()`` implementation can be done like
+this:
+
+.. code-block:: js
+
+   function moneyToFloat(price, discount) {
+     return moneyToFloat(price)
+       .fold(cost => percentToFloat(discount)
+         .map(savings => cost - cost - savings));
+    }
+
+Both ways are OK. Just wanted to show that we don't need to change
+existing functions to implement ``applyDiscount()``.
 
