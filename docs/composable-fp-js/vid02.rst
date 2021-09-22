@@ -105,3 +105,50 @@ last step usually involves ``fold`` so we apply one last function to
 the value while also *unboxing* it so we have access to the value
 itself, and not the full container.
 
+percentToFloat()
+----------------
+
+The Unit Tests
+~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid02/percent-to-float.spec.js
+   :language: js
+
+Imperative Style
+~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid02/percent-to-float-v1.js
+   :language: js
+
+
+Instead of all the temp variables, we could implement with nesting of
+invocations, like this:
+
+.. code:: js
+
+   function percentToFloat(percentStr) {
+     return parseFloat(s.replace(/\%/g, '')) * 0.01;
+   }
+
+
+Functional Style
+~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid02/percent-to-float-v2.js
+   :language: js
+
+We are not required to pass the value directly to ``Box``. We can do
+some pre-processing beforehand, e.g:
+
+.. code-block:: js
+
+   Box(percentStr.replace(/\%/g, '')
+     .map(s => Number.parseFloat(s))
+     .fold(n => n * 0.01)
+
+We do not always need to use containers, and we are not forced to do
+all the operations from the container chaining. We can use our best
+judgement according to each situation. It is important to master the
+tools and techniques so we can then make informed decisions on how,
+where and when to use them.
+
