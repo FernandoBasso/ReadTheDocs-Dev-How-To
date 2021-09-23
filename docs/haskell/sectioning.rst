@@ -70,6 +70,7 @@ operator is placed makes no difference because the order of the arguments does
 not change the result.
 
 .. code-block::
+
   λ> (2+) 3
   5
   λ> (+2) 3
@@ -78,6 +79,7 @@ not change the result.
 But when the function is not commutative, like `(^)`, then it does change the results.
 
 .. code-block::
+
   λ> (2^) 3
   8
   λ> (^2) 3
@@ -86,6 +88,7 @@ But when the function is not commutative, like `(^)`, then it does change the re
 ``2 ^ 3`` is 8, but ``3 ^ 2`` is 9.
 
 .. code-block::
+
   λ> (1/) 2
   0.5
   λ> (/1) 2

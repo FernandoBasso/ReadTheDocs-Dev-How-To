@@ -34,7 +34,7 @@ but makes it a “reserved word”. Note, especially, this line:
    `OpenGroup POSIX Spec, “reserved words”
    <https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_09_01_01>`_.
 
-Shells implementation of `builtin'
+Shells implementation of builtin
 ----------------------------------
 
 Shells have implemented that utility called ``builtin`` (*builtin*

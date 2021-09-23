@@ -178,6 +178,31 @@ And we can't have NUL in the environment.
 
    This topic is hard and has tormented me for a long time 😅.
 
+
+Fernando-Basso
+About "variables cannot hold NUL", 2.5 Paramater and Variables states
+that "A parameter is set if it has an assigned value (null is a valid
+value)." And "a variable is a parameter denoted by name". The more I
+try to understand, the more I do not understand.
+
+Soliton
+they mean empty string with null there.
+
+phogg
+Fernando-Basso: a variable set to an empty string is indistinguishable from a variable set to null.
+
+Soliton
+i think they should just write empty string but...
+
+phogg
+probably should, but if you write a lot of C it can be hard to notice
+mistakes like that I assume that in the implementation there is a
+struct for the variable and it can be allocated (var defined) or not
+(var undefined), even if the allocated struct has a NUL where the
+value would go. From that POV it makes sense.  none of it means that
+the user can put a NUL into a variable
+
+
 field separator vs terminator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -190,4 +215,12 @@ lines would mean multiple fields.
 Some people say that it makes more sense to use ``\n`` as field
 separator and ``\0`` (NUL) as terminators rather than the other way around.
 
+
+Serialize a NUL-separated list of files to a variable
+-----------------------------------------------------
+
+.. code:: shell-session
+
+   $ mapfile -td '' files < <(find ... -print0)
+   $ printf %s\\0 "${files[@]}"
 

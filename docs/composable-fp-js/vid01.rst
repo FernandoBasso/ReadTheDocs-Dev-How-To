@@ -149,10 +149,10 @@ Container Type
 
 .. note::
 
-   The ``inspect`` thing used in the video doesn't work in recent
+   The ``inspect`` thing used in the video does not work in recent
    versions of node (2021, v14 at least). Overriding ``toString``
    should work. But then we must make sure we try to log the box as a
-   string to trigger the `toString' mechanism.
+   string to trigger the ``toString`` mechanism.
 
 This example use the concept of a “box” to map over values. We also
 add a ``fold`` function that can also “map” a function over a value,

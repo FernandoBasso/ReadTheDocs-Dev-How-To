@@ -43,10 +43,3 @@ things and solving problems. It is also a very unique language (in
 many respects). It is worth studying and learning it. A new universe
 awaits!
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

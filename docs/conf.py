@@ -45,7 +45,25 @@ release = '0.0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-  'sphinx.ext.autosectionlabel',
+  #
+  # Causes “warnign duplicate label <some heading> other instance in...”
+  #
+  # It seems we don't actually need it. We can add a label before a heading:
+  #
+  #   .. _foo bar:
+  #
+  #   My Foo Bar Heading
+  #   ------------------
+  #
+  # And then, on another page, reference the label:
+  #
+  #    More information on :ref:`foo bar`.
+  #
+  # This way, even if a heading changes, its label does not need to
+  # also changes (unless we want to) and the cross-page links still
+  # work.
+  #
+  # 'sphinx.ext.autosectionlabel',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

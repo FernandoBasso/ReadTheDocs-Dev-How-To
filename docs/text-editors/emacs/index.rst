@@ -8,6 +8,7 @@ Emacs
    :caption: Emacs
 
    practical-examples
+   org-mode-tips
 
 Installing on macOS
 -------------------

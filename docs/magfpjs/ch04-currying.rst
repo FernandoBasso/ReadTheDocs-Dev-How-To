@@ -70,3 +70,4 @@ Exercise C
       const max = reduce(keepHighest, -Infinity);
 
 
+An existing line!
