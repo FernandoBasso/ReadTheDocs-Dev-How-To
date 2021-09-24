@@ -11,3 +11,25 @@
 .highlight .cm {
   font-style: normal;
 }
+
+.related-information .copyright {
+  display: inline;
+}
+
+.related-information .divider {
+  display: inline;
+}
+
+@media (min-width: 960px) {
+  .related-information {
+    text-align: center;
+  }
+
+  .related-information .copyright {
+    display: block;
+  }
+
+  .related-information .divider {
+    display: none;
+  }
+}
