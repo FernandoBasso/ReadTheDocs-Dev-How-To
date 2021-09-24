@@ -14,7 +14,7 @@ Dev How To
    magfpjs/index
    composable-fp-js/index
    programming/index
-   macos/index
+   misc/index
 
 Intro
 -----
