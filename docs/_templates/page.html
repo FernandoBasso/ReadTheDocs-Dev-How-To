@@ -2,6 +2,7 @@
 
 <footer>
   {% block footer %}
+  {% if False %}
   <div class="related-pages">
     {% if next -%}
       <a class="next-page" href="{{ next.link }}">
@@ -30,6 +31,7 @@
       </a>
     {%- endif %}
   </div>
+  {% endif %}
 
   <div class="related-information">
     {%- if show_copyright %}
