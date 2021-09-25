@@ -11,6 +11,7 @@ Dev How To
    text-editors/index
    haskell/index
    javascript/index
+   scheme/index
    magfpjs/index
    composable-fp-js/index
    programming/index

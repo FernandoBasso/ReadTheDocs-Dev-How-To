@@ -10,6 +10,7 @@
 # Update manually when a new type needs to be added.
 #
 commit_types=(
+  chicken-scheme
   chore
   cmdline
   compfpjs
