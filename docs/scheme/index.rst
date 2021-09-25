@@ -47,20 +47,18 @@ Downloading and Unpacking the Source
 Installing GNU Make and GCC
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Compiling Chicken Scheme requires GNU Make. I'll also use GNU instead
-of the default compiler bundled with XCode command line tools.
+According to the README, ompiling Chicken Scheme requires GNU
+Make. I'll also use GCC instead of the default compiler bundled with
+XCode command line tools.
 
 .. note::
 
    brew installs stuff in ``/usr/local/Cellar/`` and then makes
-   aliases to ``/usr/local/opt/``. We set ``PATH`` to point to the
-   latter.
-
+   aliases to ``/usr/local/opt/``. When customizing ``PATH`` we should
+   point to ``/usr/local/opt/<program>``
 
 Installing GNU Make
 ...................
-
-Compiling Chicken requires GNU make:
 
 .. code:: bash
 
@@ -77,7 +75,7 @@ It'll print some information like:
      PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
 This way, we can invoke ``make`` and it will be our GNU make, not the
-BSD make. After the setup, check with this command:
+BSD make bundled with macOS. After the setup, check with this command:
 
 .. code:: shell-session
 
@@ -97,15 +95,17 @@ Installing GNU GCC
 
    $ brew install gcc
 
-It will get installed to ``/usr/local/Cellar/gcc/11.2.0``, but brew
-makes aliases to ``/usr/local/opt``.
-
 One caveat is that we do not have this newly installed ``gcc`` as a
 ``gcc`` command. If you do ``gcc<Tab><Tab>`` (no space before hitting
 <Tab>), you'll see a few different gcc commands.
 
-On my machine, ``gcc`` is ``/usr/bin/gcc`` (a Cang, XCode-setup
-thing), and ``gcc-11`` is ``/usr/local/opt/gcc/gcc-11``.
+On my machine, ``gcc`` is ``/usr/bin/gcc`` (a Clang, XCode-setup
+thing), and ``gcc-11`` is ``/usr/local/opt/gcc/gcc-11``. We should
+also add it to the path:
+
+.. code:: bash
+
+   PATH="/usr/local/opt/gcc/bin:$PATH"
 
 .. code:: shell-session
 
@@ -119,8 +119,8 @@ thing), and ``gcc-11`` is ``/usr/local/opt/gcc/gcc-11``.
 Trying to Compile
 ~~~~~~~~~~~~~~~~~~
 
-The build instructions are very simple. With GNU make all set up, we
-run:
+The build instructions are very simple. With GNU make available,
+simply run:
 
 .. code:: bash
 
@@ -166,8 +166,9 @@ So, ``Makefile.macosx``is making the compilation process look for
 Compiling With Appropriate Paths
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-So, we now know that we have ``gcc`` in ``/usr/bin/gcc`` and also
-``gcc-11`` in ``/usr/local/opt/gcc/bin/gcc-11``
+From the previous inspections we now know that we have ``gcc`` in
+``/usr/bin/gcc`` and also ``gcc-11`` in
+``/usr/local/opt/gcc/bin/gcc-11``
 
 Let's tell make to use ``gcc-11``:
 
@@ -179,7 +180,8 @@ Let's tell make to use ``gcc-11``:
        PREFIX=$HOME/local/bin/chicken-5.3.0rc3 \
        --jobs
 
-The compilation now gets done! But we end up with another error:
+The compilation now gets performed correctly! But we end up with
+another error:
 
 .. code:: text
 
@@ -210,7 +212,7 @@ Finally, if we run this command, it should work:
 Installing The Built Files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Finally, install the files to a something like
+Finally, install the files to a directory like
 ``~/local/bin/chicken-5.3.0rc3``:
 
 .. code:: bash
@@ -236,9 +238,9 @@ These are the Chicken-related command line tools installed:
   ├── csi*
   └── feathers*
 
-It is a good idea to also ad these command line programs to the
-``PATH``. For most shells, add a line like this on the shell's startup
-rc file:
+It is a good idea to also add these command line programs to the
+``PATH``. For most shells, a line like this on the shell's startup
+rc file would work:
 
 .. code:: bash
 
@@ -261,7 +263,7 @@ TL;DR
 ~~~~~
 
 Install GNU Make, GCC, and compile and install Chicken Scheme
-overriding some variables from ``Makefile.macosx``:
+overriding some path-related variables from ``Makefile.macosx``:
 
 .. code-block:: bash
 
@@ -302,3 +304,6 @@ overriding some variables from ``Makefile.macosx``:
 
 😅
 
+------------------------------------------------------------------------
+
+Page last updated on <2021-09-25 Sat 10:55>.
