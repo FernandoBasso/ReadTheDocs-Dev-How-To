@@ -13,6 +13,7 @@ commit_types=(
   chicken-scheme
   chore
   cmdline
+  codewars
   compfpjs
   conf
   docs

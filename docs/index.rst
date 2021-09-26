@@ -12,6 +12,7 @@ Dev How To
    haskell/index
    javascript/index
    scheme/index
+   codewars/index
    magfpjs/index
    composable-fp-js/index
    programming/index
@@ -54,6 +55,7 @@ repository`_.
    haskell/index
    javascript/index
    scheme/index
+   codewars/index
    magfpjs/index
    composable-fp-js/index
    programming/index
