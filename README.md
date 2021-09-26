@@ -7,8 +7,10 @@
 
 ## Intro
 
-This repository intends to be a wiki of sorts about Haskell (and functional
-programming in general).
+This repository holds code and text explanations about programming topics that
+interest me. Access the published website at:
+
+- https://www.devhowto.dev
 
 **NOTE**: The [Gitlab repo](https://gitlab.com/devhowto/Dev-HowTo) is the
 *main one where all the action happens and people can collaborate. The [Github
