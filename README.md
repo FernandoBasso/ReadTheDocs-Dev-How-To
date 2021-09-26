@@ -38,99 +38,16 @@ Then access http://local.devhowto.dev:2001 from your browser.
 
 ## Branching and Publishing
 
-**NOTE** This is a work in progress and the things described below are
-an attempt to see how the workflow holds up in the long run. This
-workflow works because I'm working on this by myself. I proper feature
-branch workflow would be necessary should more people interact with this
-repository.
-
-So far the two branches used for deploying to Read The Docs are `stage`
-and `main`. Generally, I try something on `stage` first and if things
-work (no extension is missing, some Sphinx syntax I tried does work,
-etc.) then I update `main` too.
-
-There is also a `drafts` branch where I store stuff that is not
-minimally suitable for being published to the site until further
-improvements are made. Things I want to keep track of to improve on
-later as time permits.
-
-The workflow goes as follows:
-
-Checkout to the `drafts` branch (we will always stay on this branch, as
-the other branches are updated from this branch using specific commands)
-and undo the last “drafts” commit and unstage everything.
-
+Develop on the `drafts` branch and push to the remote. When ready to
+publish (trigger RTD build), then also push to `main`. My remote is
+named `gl` (not `origin`), so I do:
 
 ```
-$ git checkout drafts
-$ git reset --soft HEAD~1
-$ git restore -- ./
-```
-
-**NOTE**: Make sure the last commit is indeed a *DRAFTS* commit before
-the `reset --soft` command.
-
-Work and write at will, and then commit only things to be pushed to
-either `stage` or `main` with a proper message for the thing to be
-published:
-
-```
-$ git add -- ./path/to/NEW/files
-$ git add --patch -- ./path/to/CHANGED/files
-$ git commit <real, professional, quality commit>
-```
-
-This commit above is **NOT** the DRAFTS commit, but a real, publishable,
-quality content commit. So, be professional with the message, body and
-the contents of the commit.
-
-Then, publish that commit to `stage` and possibly also `main`:
-
-```
-$ git push gl drafts:stage
 $ git push gl drafts:main
 ```
 
-Then, commit all the rest again (in `drafts`) and push:
-
-```
-$ git add -- ./
-$ git commit -m 'DRAFTS'
-```
-
-At this point, we published what we wanted and safely stored our drafts
-in the remote repo.
-
-**IMPORTANT**: The `drafts` branch always contains the good commits and
-the DRAFTS commit, except we never publish to `stage` or `main` with the
-DRAFT commit on the `drafts` branch. When pushing to `stage` or `main`
-branches, the DRAFTS commits must always be undone first. So, all
-branches end up having the same commits, except that `stage` and `main`
-never have the DRAFTS commit.
-
-It is possible to never have to leave the `drafts` branch to follow this
-workflow. Whatever unpublished things we have are always safe on the
-server. We just have to keep this somewhat awkward and verbose
-committing and uncommiting of the drafts. It is not that hard, though,
-it it works for our purposes.
-
-Here's a summary:
-
-```
-$ git checkout drafts
-$ git reset --soft HEAD~1
-$ git restore --staged -- ./
-
-$ git add -- ./path/to/NEW/files
-$ git add --patch -- ./path/to/CHANGED/files
-$ git commit <real, professional, quality commit>
-
-$ git push gl drafts:stage
-$ git push gl drafts:main
-
-$ git add -- ./
-$ git commit -m DRAFTS
-```
+After a few minutes the changes should be visible on
+https://www.devhowto.dev.
 
 ## License
 
