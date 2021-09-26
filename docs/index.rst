@@ -43,3 +43,18 @@ repository`_.
 .. _`Dev How To Gitlab repository`:
    https://gitlab.com/devhowto/Dev-How-To
 
+------------------------------------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Table of Contents
+
+   cmdline/index
+   text-editors/index
+   haskell/index
+   javascript/index
+   scheme/index
+   magfpjs/index
+   composable-fp-js/index
+   programming/index
+   misc/index
