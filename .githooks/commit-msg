@@ -21,6 +21,7 @@ commit_types=(
   fix
   git
   haskell
+  htdp
   kitty
   macos
   magfp

@@ -55,8 +55,9 @@ repository`_.
    haskell/index
    javascript/index
    scheme/index
-   codewars/index
+   htdp/index
    magfpjs/index
    composable-fp-js/index
+   codewars/index
    programming/index
    misc/index
