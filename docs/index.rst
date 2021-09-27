@@ -2,22 +2,6 @@
 Dev How To
 ==========
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Table of Contents
-
-   cmdline/index
-   text-editors/index
-   haskell/index
-   javascript/index
-   scheme/index
-   codewars/index
-   magfpjs/index
-   composable-fp-js/index
-   programming/index
-   misc/index
-
 Intro
 -----
 
@@ -44,10 +28,8 @@ repository`_.
 .. _`Dev How To Gitlab repository`:
    https://gitlab.com/devhowto/Dev-How-To
 
-------------------------------------------------------------------------
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 6
    :caption: Table of Contents
 
    cmdline/index
