@@ -1,9 +1,15 @@
-(import srfi-1)
+(import (only srfi-1 find filter))
 
 ;;;
-;;; Find the integer that appears an odd number of times.
+;;; Result is one of:
+;;; • #f
+;;; • Int
 ;;;
-;;; List-Of(Integer) -> Integer | #f
+
+;;;
+;;; Finds the integer that appears an odd number of times.
+;;;
+;;; ListOf<Int> -> Result
 ;;;
 (define (find-n xs)
   (find (lambda (x)

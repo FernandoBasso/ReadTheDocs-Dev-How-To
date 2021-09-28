@@ -7,7 +7,7 @@ Codewars Challenges
    :maxdepth: 6
    :caption: Codewars Challenges
 
-   fundamentals/int-odd-times
+   fundamentals/index
 
 My solutions to the Codewars challenges implemented in a few languages
 that interest me. I always do full TDD in everything I code, and these

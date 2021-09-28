@@ -1,5 +1,6 @@
 (import test)
-(load "find-n-v1.scm")
+;(load "find-n-v1.scm")
+(load "find-n-v2.scm")
 
 (test-group
  "find-n"
