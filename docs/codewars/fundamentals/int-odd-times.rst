@@ -57,3 +57,7 @@ Implementation using the composed functions
 .. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v2.scm
    :language: scheme
 
+In this case, we have a *curried* ``eqx?`` function that we partially
+apply inside ``oddx?`` to help filter out and then count the number of
+times the current ``x`` appear in the list.
+
