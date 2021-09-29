@@ -61,3 +61,28 @@ In this case, we have a *curried* ``eqx?`` function that we partially
 apply inside ``oddx?`` to help filter out and then count the number of
 times the current ``x`` appear in the list.
 
+v3 car cdr
+~~~~~~~~~~
+
+This implementation is a courtesy of `Mario Domenech Goulart`_. It
+does not use ``find`` and ``filter`` and instead makes use of ``car``,
+``cdr`` and ``null?``. It does not need any help of external libraries
+or SRFIs. It is probably the most idiomatic example in terms of
+techniques used, like the *loop pattern*, for instance.
+
+.. _`Mario Domenech Goulart`:
+   http://parenteses.org/mario/
+
+
+Unit Tests for the Helper Functions
+...................................
+
+.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v3-helpers.spec.scm
+   :language: scheme
+
+Implementation using car, cdr and null?
+.......................................
+
+.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v3.scm
+   :language: scheme
+
