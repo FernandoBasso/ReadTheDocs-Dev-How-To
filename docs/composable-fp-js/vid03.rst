@@ -2,29 +2,34 @@
 03 - Enforce a null check with composable code branching using Either
 =====================================================================
 
-Intro
------
+Intro to Either, Left and Right
+-------------------------------
 
-``Either`` is a type that provides two *sub types*, namely ``Right``,
-for success conditions, and ``Left`` for failure conditions.
+``Either`` is a type that provides two *sub types*:
+
+- ``Right``: for success conditions
+
+- ``Left``: for failure conditions.
 
 The difference between ``Left`` and ``Right`` when compared with
-``Box`` is in the way we define ``fold()``.
+``Box`` is in the way we define ``fold()``. ``Left().map()`` is also
+different than ``Box().map()``.
 
 We generally don't know beforehand if we have a success or failure
 case, and therefore, our fold must account for both. Instead of
-receiving one function, like ``Box().fold(f)``, both ``Left(v).fold(?,
-?)`` and ``Right(v).fold(?, ?)`` receive an error handling function,
-and a success handling function. Something like this:
+receiving one function, like ``Box(v).fold(f)``, both
+``Left(v).fold(?, ?)`` and ``Right(v).fold(?, ?)`` receive an error
+handling function and a success handling function. Something like
+this:
 
 .. code-block:: text
 
    .fold(errorFn, successFn)
 
-``Left().map()`` is also different because it refuses to apply its
-function argument to the value. Since we are dealing with some sort of
-failure, we can't map over the value. We don't have a “value”, but
-some sort of error instead.
+``Left().map()`` is peculiar because it refuses to apply its function
+argument to the value. Since we are dealing with some sort of failure,
+we can't map over the value. We don't have a “value”, but some sort
+of error instead.
 
 It is also common to say *left* and *right* functions to refer to
 error and success functions:
@@ -47,12 +52,16 @@ below.
    ignored.
 
 
-Unit Tests
-----------
+Left and Right Unit Tests
+-------------------------
 
 Pay special attention how the unit tests assert that ``Left().map()``
 **DOES NOT** apply the provided function to the value, and the value
 remains unmodified.
+
+Also, notice that we assert that ``fold()`` applies the *left*
+function for ``Left(v).fold(l, r)`` and the *right* function for
+``Right(v).fold(l, r)``.
 
 .. literalinclude:: /../src/composable-fp-js/vid03/Either.spec.js
    :language: javascript

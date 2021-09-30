@@ -1,6 +1,6 @@
-=====================================================
-Refactor Imperative  to Composed Expression using Box
-=====================================================
+==========================================================
+02 - Refactor Imperative  to Composed Expression using Box
+==========================================================
 
 Here's the `video lesson`_.
 
