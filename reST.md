@@ -146,34 +146,35 @@ Always include the *alt* text.
 ## Typing Unicode
 
 When we need to write a unicode code point we write it with the following
-format ``<char> U+<hex-number> NAME``, i.e:
+format ``<char> U+<hex-number> NAME``, i.e.:
 
 ```
 - U+2D HYPHEN MINUS
-💩 U+01F4A9 PILE OF POO
+💩 U+01f4a9 PILE OF POO
 	U+09 HORIZONTAL TABULATION, (also CHARACTER TABULATION)
 ```
 
-All alphabetic characters are in UPPERCASE. Some characters have
-aliases. Use your judgement when to write the alternative names or
-not. These are all ways *not* to write the hex number:
-
-```
-u+002D
-u+002d
-\u002D
-\u002D
-```
+Alphabetic characters can be written both in uppercase or lowercase,
+that is, both “U+01F4A9” and “U+01f4a9” are fine. Just make sure the
+leading “U” is uppercase. Some characters have
+[aliases](https://en.wikipedia.org/wiki/Unicode_alias_names_and_abbreviations).
+Use your judgement when to write the alternative names or not.
 
 Always use 2, 4, 6 or 8 characters for the hex value. For example,
-these are valid (as per our guidelines):
+these are valid as per our guidelines:
 
 ```
-U+002D
-U+2D
+U+002d HYPHEN MINUS
+U+2D HYPHEN MINUS
 
-U+01F4A9
-U+0001F4A9
+U+00a0 NO-BREAK SPACE
+U+00a0 NBSP
+
+U+a0 NO-BREAK SPACE
+U+a0 NBSP
+
+U+01F4A9 PILE OF POO
+U+0001f4A9 PILE OF POO
 ```
 
 ### Application-Specific Syntax
