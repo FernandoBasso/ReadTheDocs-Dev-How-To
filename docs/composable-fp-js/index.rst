@@ -2,14 +2,6 @@
 Composable Functional JavaScript
 ================================
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Composable Functional JavaScript
-
-   vid01
-   vid02
-
 Intro
 -----
 
@@ -83,4 +75,13 @@ any given situation [#]_.
 .. _`part about Haskell`: https://youtu.be/1PhArSujR_A?t=283
 
 .. _`part about Lisp`: https://youtu.be/1PhArSujR_A?t=799
+
+
+.. toctree::
+   :maxdepth: 6
+   :caption: Composable Functional JavaScript
+
+   vid01
+   vid02
+   vid03
 
