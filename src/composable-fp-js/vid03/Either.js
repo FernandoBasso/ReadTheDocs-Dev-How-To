@@ -1,26 +1,4 @@
-/**
- * A Value consumed and produced by `Right` or `Left` containers.
- *
- * @typedef {any} Value
- */
-
-/**
- * @typedef {Object} RightContainer
- * @property {function(function(Value): Value): Container} map Maps a
- *   function over the value.
- * @property {function(function(Value): Value, function(Value): Value): LeftContainer} fold
- *   Apply the right function over the value and ignores the left function.
- * @property {function(): string} toString
- */
-
-/**
- * @typedef {Object} LeftContainer
- * @property {function(function(Value): Value): LeftContainer} map Maps a
- *   function over the value.
- * @property {function(function(Value): Value, function(Value): Value): LeftContainer} fold
- *   Apply the left function over the value and ignores the right function.
- * @property {function(): string} toString
- */
+/// <reference path="./typedefs.js" />
 
 /**
  * Creates a chainable, `LeftContainer` container.
@@ -35,7 +13,7 @@
  *
  * @sig Value -> LeftContainer
  *
- * @param {Value} val
+ * @param {Value} value
  * @return {LeftContainer}
  *
  * @example
@@ -61,7 +39,7 @@ function Left(value) {
  *
  * @sig Value -> RightContainer
  *
- * @param {Value} val
+ * @param {Value} value
  * @return {RightContainer}
  *
  * @example
