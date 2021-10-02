@@ -8,4 +8,5 @@ Text Editors
    :caption: Text Editors
 
    emacs/index
+   vim/index
 
