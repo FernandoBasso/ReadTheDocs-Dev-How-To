@@ -53,6 +53,10 @@ parameters using the underscore.
    LINE to indicate that the parameter in that position should be
    ignored.
 
+Using this ``Either`` type we can do *pure functional* error handling,
+code branching, null checks and other things that capture the concept
+of **disjunction*, that is, the concept of “*or*”.
+
 OK, this is a high level overview of the subject. See the :ref:`v1
 impl Left Right` below.
 
