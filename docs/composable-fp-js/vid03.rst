@@ -209,3 +209,49 @@ appropriately.
 .. literalinclude:: /../src/composable-fp-js/vid03/vid03c.js
    :language: javascript
 
+
+Final Thoughts
+~~~~~~~~~~~~~~
+
+It is important to keep in mind that we are now branching out based on
+whether we have a value or not. Not having a value means ``undefined``
+or ``null`` as per our current implementation. Our ``fromNullable()``
+function branches to ``Left()`` in those two cases. Beware: we are not
+totally and magically free from problems. We just know that we have a
+value or not, but we don't know the type of that value.
+
+.. code-block:: javascript
+
+   function getId(user) {
+     return fromNullable(user.id);
+   }
+
+   log(
+     getId({ id: 103 })
+     .map(i => i.split(''))
+     .fold(_ => 'Oops', i => i),
+   );
+
+The code above results in an exception:
+
+.. code-block:: text
+
+   TypeError: i.split is not a function
+
+Our ``map()`` is the implementation from ``Right()``, which does apply
+its callback function to the value. But the value here is a number,
+and ``Number.prototype`` does not have a ``split()`` method. **We
+still have the responsibility of applying proper functions depending
+on the type of values we are dealing with**. So, for example, perhaps
+in the example above, we could try to make sure we have a string by
+first mapping ``String`` and then doing the splitting:
+
+.. code-block:: javascript
+
+   log(
+     getId({ id: 103 })
+     .map(String)
+     .fold(_ => 'Oops', i => i.split('')),
+   );
+   // → [ '1', '0', '3' ]
+

@@ -1,7 +1,6 @@
 /// <reference path="./typedefs.js" />
 
 import {
-  id,
   isNil,
   log,
 } from '../lib/lib.js';
