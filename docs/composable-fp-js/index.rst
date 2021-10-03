@@ -14,6 +14,11 @@ Functional Programming`_. This Dev How To project/site has a `section
 with solutions and extra notes`_ on that (awesome and free)
 book. Check it out!
 
+My notes and examples sometimes use a few helper functions that either
+I created or that I extracted from a video lesson into a reusable
+function. If you are reading a page and it seems there is no
+definition for a certain function, check the :doc:`helpers` page.
+
 .. _`Composable Functional JavaScript`:
    https://egghead.io/courses/professor-frisby-introduces-composable-functional-javascript
 
@@ -84,4 +89,4 @@ any given situation [#]_.
    vid01
    vid02
    vid03
-
+   helpers
