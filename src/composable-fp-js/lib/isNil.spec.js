@@ -1,6 +1,4 @@
-import {
-  isNil,
-} from './lib';
+import { isNil } from './isNil';
 
 describe('isNil()', () => {
   //
