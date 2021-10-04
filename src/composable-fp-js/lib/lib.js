@@ -90,6 +90,3 @@ export {
   log,
   isNil,
 };
-
-log('hey');
-log('h4ck3r', [1, 2]);
