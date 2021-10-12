@@ -12,6 +12,20 @@ describe('Left()', () => {
     });
   });
 
+  describe('Left().chain()', () => {
+    [
+      ['id', 'Tomb Raider I 1996', v => v, 'Tomb Raider I 1996'],
+      ['toLower', 'JEDI', s => s.toLowerCase(), 'JEDI'],
+      ['sub1', 0, i => i - 1, 0],
+    ].forEach(([name, input, fn, output]) => {
+      it(`should NOT apply ${name}`, () => {
+        expect(
+          String(Left(input).chain(fn))
+        ).toEqual(String(Left(output)));
+      });
+    });
+  });
+
   describe('Left().map()', () => {
     [
       ['id', 'Tomb Raider I 1996', v => v, 'Tomb Raider I 1996'],
@@ -62,6 +76,20 @@ describe('Right()', () => {
     ].forEach(([input, output]) => {
       it(`should toString ${input}`, () => {
         expect(String(Right(input))).toEqual(output);
+      });
+    });
+  });
+
+  describe('Right().chain()', () => {
+    [
+      ['id', 'Tomb Raider I 1996', v => v, 'Tomb Raider I 1996'],
+      ['toLower', 'JEDI', s => s.toLowerCase(), 'jedi'],
+      ['sub1', 0, i => i - 1, 0 - 1],
+    ].forEach(([name, input, fn, output]) => {
+      it(`should apply ${name} correctly`, () => {
+        expect(
+          Right(input).chain(fn)
+        ).toEqual(output);
       });
     });
   });

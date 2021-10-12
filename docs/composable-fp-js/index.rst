@@ -89,4 +89,5 @@ any given situation [#]_.
    vid01
    vid02
    vid03
+   vid04
    helpers

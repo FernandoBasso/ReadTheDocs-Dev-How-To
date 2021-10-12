@@ -6,8 +6,8 @@
   "main": "null",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --no-coverage",
-    "debug": "node --experimental-vm-modules --no-warnings --inspect-brk ./node_modules/.bin/jest --runInBand --no-coverage",
-    "file": "node --experimental-vm-modules",
+    "debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --no-coverage",
+    "file": "node",
     "watch": "NODE_OPTIONS=--experimental-vm-modules npx nodemon --quiet"
   },
   "repository": {

@@ -2,6 +2,12 @@
 03 - Enforce a null check with composable code branching using Either
 =====================================================================
 
+Here's the `video lesson`_.
+
+.. _`video lesson`:
+   https://egghead.io/lessons/javascript-composable-code-branching-with-either
+
+
 Intro to Either, Left and Right
 -------------------------------
 

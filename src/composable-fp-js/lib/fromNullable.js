@@ -1,4 +1,4 @@
-import { isNil } from './isNil';
+import { isNil } from './isNil.js';
 import { Left, Right } from './Either.js';
 
 /**

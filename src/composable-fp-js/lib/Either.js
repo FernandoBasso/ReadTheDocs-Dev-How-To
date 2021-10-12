@@ -25,6 +25,7 @@
  */
 function Left(value) {
   return {
+    chain: _ => Left(value),
     map: _ => Left(value),
     fold: (leftFn, _) => leftFn(value),
     toString: () => `Left(${value})`,
@@ -51,6 +52,7 @@ function Left(value) {
  */
 function Right(value) {
   return {
+    chain: f => f(value),
     map: f => Right(f(value)),
     fold: (_, rightFn) => rightFn(value),
     toString: () => `Right(${value})`,

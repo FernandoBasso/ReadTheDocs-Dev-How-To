@@ -1,9 +1,10 @@
 /// <reference path="./typedefs.js" />
 
 import {
-  isNil,
   log,
-} from '../lib/lib.js';
+  isNil,
+} from '../lib/index.js';
+
 import { Left, Right } from './Either.js';
 
 /**

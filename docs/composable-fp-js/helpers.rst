@@ -2,8 +2,11 @@
 Helper Functions
 ================
 
-Here is a collection of helper functions used across the examples.
+Here is a collection of helper functions used across the examples. You
+can always download and read the `full source code from Gitlab`_.
 
+.. _`full source code from Gitlab`:
+   https://gitlab.com/devhowto/Dev-How-To/-/tree/main/src/composable-fp-js/lib
 
 log
 ---
@@ -45,12 +48,33 @@ fromNullable
    :language: javascript
 
 
+.. _helper either:
+
 Either (Left, Right)
 --------------------
+
+.. _helper either unit tests:
+
+Either Unit Tests
+~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: /../src/composable-fp-js/lib/Either.spec.js
    :language: javascript
 
+.. _helper either implementation:
+
+Either Implementation
+~~~~~~~~~~~~~~~~~~~~~
+
 .. literalinclude:: /../src/composable-fp-js/lib/Either.js
+   :language: javascript
+
+tryCatch
+--------
+
+.. literalinclude:: /../src/composable-fp-js/lib/tryCatch.spec.js
+   :language: javascript
+
+.. literalinclude:: /../src/composable-fp-js/lib/tryCatch.js
    :language: javascript
 
