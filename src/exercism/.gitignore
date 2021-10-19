@@ -1,0 +1,5 @@
+##
+# Ignore the `.exercism/' directory for now.
+#
+.exercism
+**/HELP.md

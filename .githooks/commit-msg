@@ -18,6 +18,7 @@ commit_types=(
   conf
   docs
   emacs
+  exercism
   fix
   git
   haskell
