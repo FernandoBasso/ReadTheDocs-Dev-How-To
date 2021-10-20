@@ -3,8 +3,9 @@
   (load "leslies-lists")
   (ql:quickload :fiveam))
 
-;; Defines the testing package with symbols from leslies-lists and FiveAM in scope
-;; The `run-tests` function is exported for use by both the user and test-runner
+;; Defines the testing package with symbols from leslies-lists and
+;; FiveAM in scope The `run-tests` function is exported for use by
+;; both the user and test-runner
 (defpackage :leslies-lists-test
   (:use :cl :fiveam :leslies-lists)
   (:export :run-tests))
