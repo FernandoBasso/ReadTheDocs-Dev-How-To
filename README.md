@@ -16,6 +16,20 @@ interest me. Access the published website at:
 main/official one where all the action happens and people can collaborate. The
 [Github repo](https://github.com/FernandoBasso/Dev-How-To) is just a mirror.
 
+## Local Setup
+
+Xubuntu:
+
+```text
+$ sudo apt install python3-sphinx python3-pip
+```
+
+Then, with pip, install thse:
+
+```text
+$ pip install sphinx-autobuild furo
+```
+
 ## Running Locally
 
 From the root directory (not from the `docs/` directory) simply run this:
