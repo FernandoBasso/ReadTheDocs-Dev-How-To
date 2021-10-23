@@ -78,6 +78,37 @@ between `Char` and `Char`:
 h :: Char -> Char -> String
 ```
 
+### Currying and Type Signatures
+
+In Haskell, all functions are curried by default (as in Ramda
+JavaScript library). In these cases, a function that like `add` in
+curried in Haskell:
+
+```
+$ ghci
+> add :: Int -> Int -> Int; add x y = ((+) x y)
+λ> :type add
+add :: Int -> Int -> Int
+λ> add1 = add 1
+λ> add1 10
+11
+```
+
+As we we, we can indeed apply `add` to only one argument, which
+returns a function that expects the other argument. That is currying
+and partial application at work. Contrast these two type signatures:
+
+```text
+f :: Int -> Int -> Int
+g :: Int Int -> Int
+```
+
+`f` signature means it takes an Int, which returns a function that
+takes an Int and returns the final Int value. `f` is therefore curried.
+
+`g` signature takes two Ints. It is **not** curried. We can't pass
+just one argument. `g` requires both arguments at once.
+
 [hindley-milner]: https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system
 [ramda-wiki-type-signatures]: https://github.com/ramda/ramda/wiki/Type-Signatures
 [mostly-adequate-guide-FP]: https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch07.md
