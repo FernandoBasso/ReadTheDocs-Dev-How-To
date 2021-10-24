@@ -58,3 +58,6 @@ If running from Emacs + Geiser, make sure you execute ``run-geiser``
 in the directory of that file and the ``(load "..."``) directive does
 not fail saying it cannot find the files to load.
 
+To run the tests from Emacs/Geiser, visit the spec file, start Geiser
+with ``M-x geiser`` and then do a ``C-c C-b``
+(``geiser-eval-buffer``).
