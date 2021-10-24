@@ -247,6 +247,9 @@ concatUniq()
 Unit Tests
 ~~~~~~~~~~
 
+.. literalinclude:: /../src/composable-fp-js/vid05/concatUniq.spec.js
+   :language: javascript
+
 .. _vid05-concatUniq-imperative-style:
 
 Imperative Style
