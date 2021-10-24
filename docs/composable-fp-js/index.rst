@@ -29,6 +29,29 @@ definition for a certain function, check the :doc:`helpers` page.
    /magfpjs
 
 
+A Note on Extra Examples and Deviations From The Videos
+-------------------------------------------------------
+
+While studying this content myself and creating these notes and the
+unit tests, I sometimes change the original code a little bit, or add
+extra notes on “flaws” in his code and propose a different, “better”
+solution.
+
+Or course Brian Lonsdorf (the author of the original content and the
+videos) knows about all these things. He probably just wanted to focus
+on the main ideas, without digressions and to keep the code short and
+easy to read.
+
+Since we are writing notes and explanations from the videos in text on
+a web page, adding unit tests and sometimes showing different
+alternatives, we are OK with adding additional explanations on
+tangential topics, like in this case, in which we add extra, further
+information on basic JavaScript.
+
+One such example of this happening is on :ref:`Video 05, concatUniq()
+imperative style <vid05-concatUniq-imperative-style>`.
+
+
 A Note on the Wording Used
 --------------------------
 
