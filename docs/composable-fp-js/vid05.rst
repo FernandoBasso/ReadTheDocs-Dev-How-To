@@ -239,11 +239,92 @@ Here it is:
 
 I don't think it is necessarily better, but it is nice as well.
 
+concatUniq()
+------------
+
+
+
+Unit Tests
+~~~~~~~~~~
+
+.. _vid05-concatUniq-imperative-style:
+
+Imperative Style
+~~~~~~~~~~~~~~~~
+
+The original code in the video for the imperative style is this:
+
+.. code-block:: javascript
+
+   function concatUniq(x, ys = []) {
+     const found = ys.filter(y => y === x)[0];
+     return found ? ys : ys.concat(x);
+   }
+
+But many things can be considered *falsy* (zero, empty strings, among
+other things), which means, if ``x`` is, for instance, 0, and ``ys``
+contains zero, it is “found” but the way the condition is being tested
+is falsy (because zero is falsy) and we'll append another zero to an
+array which already contains zero. It will not “concat uniquely”. It
+will duplicate values in some cases.
+
+.. code-block:: javascript
+
+   concatUniq(0, [1, 0, 2]);
+   // → [1, 0, 2, 0]
+
+I therefore changed to explicitly only consider something to be found
+if the result is ``undefined``. ``Array.prorotype.filter`` returns an
+empty array if no element in the array being filtered satisfies the
+predicate. But note the code uses *subscript notation* and attempts to
+retrieve the element at index 0, which produces ``undefined`` if the
+``filter`` finds nothing and returns an empty array.
+
+.. code-block:: javascript
+
+   function concatUniq(x, ys = []) {
+     const found = ys.filter(y => y === x)[0];
+     return found !== undefined ? ys : ys.concat(x);
+   }
+
+
+Perhaps this would **convey intent** a little better‽
+
+.. code-block:: javascript
+
+   function concatUniq(x, ys = []) {
+     const found = ys.filter(y => y === x).length > 0;
+     return found ? ys : ys.concat(x);
+   }
+
+Here's the full example with JSDocs:
+
+.. literalinclude:: /../src/composable-fp-js/vid05/concatUniq-v1.js
+   :language: javascript
+
+
+Functional, Composable Style
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/composable-fp-js/vid05/concatUniq-v2.js
+   :language: javascript
+
+Note that here we went back to using subscript notation to retrieve
+the first element of the filtered array (returned from ``filter``). It
+works fine because ``formNullable`` internally uses ``isNil``, which
+correctly only considers ``undefined`` and ``null`` to be falsy (nil)
+values. In fact, we cannot use the ``.length > 0`` -- which produces a
+boolean -- in this case precisely because of ``isNil``.
+
+We also used ``_`` in ``fold`` left and right functions to ignore the
+parameters (and avoid linters and TSServers complaints about unused
+variables. We only use variables from the enclosing scope inside the
+``fold()``.
 
 Final Notes
 -----------
 
-Interesting comment from Brian:
+Interesting comment from Brian for a question in this video:
 
    "I think the best practice is to return Either's from low level
    partial functions that might return null. If they do that, then
@@ -252,5 +333,3 @@ Interesting comment from Brian:
    (paranoia-driven-development) checks in your main logic."
 
    -- Brian Lonsdorf
-
-
