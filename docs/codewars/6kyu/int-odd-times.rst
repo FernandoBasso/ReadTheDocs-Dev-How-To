@@ -33,13 +33,13 @@ Scheme
 The Test Suit
 ~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n.spec.scm
+.. literalinclude:: /../src/codewars/6kyu/scm/int-odd-times/find-n.spec.scm
    :language: scheme
 
 v1 single function
 ~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v1.scm
+.. literalinclude:: /../src/codewars/6kyu/scm/int-odd-times/find-n-v1.scm
    :language: scheme
 
 v2 smaller, composable functions
@@ -48,13 +48,13 @@ v2 smaller, composable functions
 Unit Tests for the Helper Functions
 ...................................
 
-.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v2-helpers.spec.scm
+.. literalinclude:: /../src/codewars/6kyu/scm/int-odd-times/find-n-v2-helpers.spec.scm
    :language: scheme
 
 Implementation using the composed functions
 ...........................................
 
-.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v2.scm
+.. literalinclude:: /../src/codewars/6kyu/scm/int-odd-times/find-n-v2.scm
    :language: scheme
 
 In this case, we have a *curried* ``eqx?`` function that we partially
@@ -77,12 +77,12 @@ techniques used, like the *loop pattern*, for instance.
 Unit Tests for the Helper Functions
 ...................................
 
-.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v3-helpers.spec.scm
+.. literalinclude:: /../src/codewars/6kyu/scm/int-odd-times/find-n-v3-helpers.spec.scm
    :language: scheme
 
 Implementation using car, cdr and null?
 .......................................
 
-.. literalinclude:: /../src/codewars/fundamentals/scm/int-odd-times/find-n-v3.scm
+.. literalinclude:: /../src/codewars/6kyu/scm/int-odd-times/find-n-v3.scm
    :language: scheme
 
