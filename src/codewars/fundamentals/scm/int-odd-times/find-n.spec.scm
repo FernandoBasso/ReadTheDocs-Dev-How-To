@@ -15,4 +15,3 @@
   (test "should return that number"
         7
         (find-n '(7)))))
-

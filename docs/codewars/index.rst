@@ -2,13 +2,6 @@
 Codewars Challenges
 ===================
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Codewars Challenges
-
-   fundamentals/index
-
 My solutions to the Codewars challenges implemented in a few languages
 that interest me. I always do full TDD in everything I code, and these
 are no exceptions. Therefore, unit tests are provided as well.
@@ -61,3 +54,11 @@ not fail saying it cannot find the files to load.
 To run the tests from Emacs/Geiser, visit the spec file, start Geiser
 with ``M-x geiser`` and then do a ``C-c C-b``
 (``geiser-eval-buffer``).
+
+
+.. toctree::
+   :maxdepth: 6
+   :caption: Codewars Challenges Solved
+
+   6kyu/index
+
