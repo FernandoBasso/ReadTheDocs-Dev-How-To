@@ -15,3 +15,5 @@ _build
 .\#*
 
 .vscode
+node_modules
+

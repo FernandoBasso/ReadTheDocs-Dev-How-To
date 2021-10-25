@@ -1,0 +1,33 @@
+{
+  "name": "codewars-solutions",
+  "version": "0.1.0",
+  "description": "My soutions for Codewars challenges in a few different languages",
+  "main": "",
+  "type": "module",
+  "engines": {
+    "node": "14.18.0",
+    "npm": "8.0.0"
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/programming-studies/codewars-challenges.git"
+  },
+  "keywords": [
+    "codewars",
+    "algorithm",
+    "programming",
+    "challenge"
+  ],
+  "author": "Fernando Basso",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://gitlab.com/programming-studies/codewars-challenges/issues"
+  },
+  "homepage": "https://gitlab.com/programming-studies/codewars-challenges#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}
