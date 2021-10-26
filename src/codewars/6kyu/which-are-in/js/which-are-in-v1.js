@@ -1,16 +1,27 @@
 /**
- * Finds maching substrings from the list of strings.
+ * Retruns a lexicographically sorted list of strings in `xs` which
+ * are substrings of the strings in `ys`.
  *
- * ASSUME: parameters are valid arrays of strings.
+ * ASSUME: parameters are valid lists of strings.
  *
- * @param {Array<string>} substrs
- * @param {Array<string>} haystack
+ * @signature
+ * [String] [String] -> [String]
+ *
+ * @param {Array<string>} xs
+ * @param {Array<string>} ys
  * @return {Array<string>}
+ *
+ *  @example
+ *  inArray(['hi'], ['good-bye']);
+ *  // → []
+ *
+ *  inArray(['live'], ['Portal' 'Still' 'Alive']);
+ *  // → ['live']
  */
-function inArray(substrs, haystack) {
-  return substrs.filter(function f (substr) {
-    return haystack.find(function g (str) {
-      return str.includes(substr);
+function inArray(xs, ys) {
+  return xs.filter(function f (x) {
+    return ys.find(function g (y) {
+      return y.includes(x);
     });
   }).sort();
 }
