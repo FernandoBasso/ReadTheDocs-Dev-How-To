@@ -9,7 +9,8 @@
     "npm": "8.0.0"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "file": "NODE_OPTIONS=--experimental-vm-modules node"
   },
   "repository": {
     "type": "git",
