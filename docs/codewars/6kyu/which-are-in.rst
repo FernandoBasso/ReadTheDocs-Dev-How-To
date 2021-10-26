@@ -1,21 +1,11 @@
-=========================================
+============
 Which Are In
-=========================================
+============
 
 - Challenge_
 
 .. _Challenge:
    https://www.codewars.com/kata/550554fd08b86f84fe000a58
-
-The names ``a1`` and ``a1`` in this exercise are ill-chosen. It would
-be better to name them like “haystack” (the list of strings to search
-in) and ``substrs`` (the list of substrings to be searched into each
-string in the haystack). My solution uses these names.
-
-Also, the parameters should have their order swapped. If we wanted to
-curry this thing, it would be more idiomatic and useful to have the
-haystack as the first parameter. I did not do it because then it
-wouldn't pass the Codewars unit tests.
 
 
 Approach 1
@@ -41,8 +31,8 @@ search for the *needle*.
 JavaScript
 ----------
 
-The Test Suit
-~~~~~~~~~~~~~
+The Test Suite
+~~~~~~~~~~~~~~
 
 .. literalinclude:: /../src/codewars/6kyu/which-are-in/js/which-are-in.spec.js
    :language: javascript
@@ -52,4 +42,20 @@ Solution 1
 
 .. literalinclude:: /../src/codewars/6kyu/which-are-in/js/which-are-in-v1.js
    :language: javascript
+
+Scheme
+------
+
+The Test Suite
+~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/codewars/6kyu/which-are-in/scm/which-are-in.spec.scm
+   :language: scheme
+
+Solution 1
+~~~~~~~~~~
+
+.. literalinclude:: /../src/codewars/6kyu/which-are-in/scm/which-are-in-v1.scm
+   :language: scheme
+
 
