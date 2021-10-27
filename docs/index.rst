@@ -37,6 +37,7 @@ repository`_.
    haskell/index
    javascript/index
    scheme/index
+   deno/index
    htdp/index
    magfpjs/index
    composable-fp-js/index
