@@ -55,6 +55,34 @@ To run the tests from Emacs/Geiser, visit the spec file, start Geiser
 with ``M-x geiser`` and then do a ``C-c C-b``
 (``geiser-eval-buffer``).
 
+TypeScript
+----------
+
+I use Deno_ to test and run the TypeScript solutions. Also be sure to
+check :ref:`these notes about Deno and absolute imports plus editor
+setup <deno project root absolute imports>` on this very site.
+
+.. _Deno: https://deno.land/
+
+Running Tests With Deno
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Change to the root directory of where these codewars solutions have
+been cloned, e.g:
+
+.. code-block:: text
+
+   $ cd /path/to/devhowto/src/codewars
+
+The run all tests, or specific tests:
+
+.. code-block:: text
+
+   $ deno test 6kyu
+   $ deno test 6kyu/friend-foe
+   $ deno test 6kyu/friend-foe/friend-foe.spec
+
+Check extra options with ``deno test --help | less``.
 
 .. toctree::
    :maxdepth: 6

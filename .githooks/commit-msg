@@ -16,6 +16,7 @@ commit_types=(
   codewars
   compfpjs
   conf
+  deno
   docs
   emacs
   exercism

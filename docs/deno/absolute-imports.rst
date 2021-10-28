@@ -2,6 +2,8 @@
 Project Root Absolute Imports and Import Maps in Deno
 =====================================================
 
+.. _deno project root absolute imports:
+
 Intro
 -----
 
