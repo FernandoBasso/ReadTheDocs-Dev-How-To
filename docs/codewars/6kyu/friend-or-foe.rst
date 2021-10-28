@@ -43,3 +43,28 @@ Solution 1
 .. literalinclude:: /../src/codewars/6kyu/friend-foe/js/friend-foe-v1.js
    :language: javascript
 
+TypeScript
+----------
+
+Unit Tests
+~~~~~~~~~~
+
+.. literalinclude:: /../src/codewars/6kyu/friend-foe/ts/friend-foe.test.ts
+   :language: typescript
+
+Solution 1
+~~~~~~~~~~
+
+.. literalinclude:: /../src/codewars/6kyu/friend-foe/ts/friend-foe-v1.ts
+   :language: typescript
+
+
+Scheme
+------
+
+Unit Tests
+~~~~~~~~~~
+
+
+
+
