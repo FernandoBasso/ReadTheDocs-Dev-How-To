@@ -78,11 +78,36 @@ The run all tests, or specific tests:
 
 .. code-block:: text
 
-   $ deno test 6kyu
-   $ deno test 6kyu/friend-foe
-   $ deno test 6kyu/friend-foe/friend-foe.spec
+   $ deno test --unstable 6kyu
+   $ deno test --unstable 6kyu/friend-foe
+   $ deno test --unstable 6kyu/friend-foe/friend-foe.spec
 
-Check extra options with ``deno test --help | less``.
+Check extra options with ``deno test  --help | less``.
+
+Unstable APIs
+~~~~~~~~~~~~~
+
+We are making use of ``"deno.unstable": true`` in the project
+configuration and the use of the ``--unstable`` command line flag for
+running the tests because we are sometimes using unstable APIs, like
+`Nested Testing API`_ from Deno v1.15.
+
+.. _`Nested Testing API`:
+   https://deno.com/blog/v1.15#nested-testing-api
+
+Here's my setup:
+
+.. code-block:: text
+
+   $ sed '' .vim/coc-settings.json
+    {
+      "deno.enable": true,
+      "deno.lint": true,
+      "deno.unstable": true,
+      "deno.importMap": "./import-map.json",
+      "tsserver.enable": false
+    }
+
 
 .. toctree::
    :maxdepth: 6
