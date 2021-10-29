@@ -43,6 +43,22 @@ Solution 1
 .. literalinclude:: /../src/codewars/6kyu/which-are-in/js/which-are-in-v1.js
    :language: javascript
 
+TypeScript
+----------
+
+The Test Suite
+~~~~~~~~~~~~~~
+
+.. literalinclude:: /../src/codewars/6kyu/which-are-in/ts/which-are-in.test.ts
+   :language:
+
+Solution 1
+~~~~~~~~~~
+
+.. literalinclude:: /../src/codewars/6kyu/which-are-in/ts/which-are-in-v1.ts
+   :language: typescript
+
+
 Scheme
 ------
 
