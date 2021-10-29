@@ -23,7 +23,7 @@ The Problem
 Following the documentation linked just above, we have this import
 map:
 
-.. code-block:: json
+.. code-block:: text
 
    $ sed '' ./import-map.json
    {
