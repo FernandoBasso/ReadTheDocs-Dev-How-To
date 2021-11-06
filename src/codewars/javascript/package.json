@@ -29,6 +29,10 @@
   },
   "homepage": "https://gitlab.com/programming-studies/codewars-challenges#readme",
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "jest": "^27.3.1"
+  },
+  "dependencies": {
+    "ramda": "^0.27.1"
   }
 }

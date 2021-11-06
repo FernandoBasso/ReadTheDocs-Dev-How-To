@@ -1,9 +1,12 @@
 # λ Dev How To λ
 
-* [Intro](#intro)
-* [Running Locally](#running-locally)
-* [Branching and Publishing](#branching-and-publishing)
-* [License](#license)
+- [λ Dev How To λ](#λ-dev-how-to-λ)
+  - [Intro](#intro)
+  - [Local Setup](#local-setup)
+  - [Running Locally](#running-locally)
+  - [Branching and Publishing](#branching-and-publishing)
+  - [Directory Structure](#directory-structure)
+  - [License](#license)
 
 ## Intro
 
@@ -64,6 +67,25 @@ $ git push gl drafts:main
 
 After a few minutes the changes should be visible on
 https://www.devhowto.dev.
+
+## Directory Structure
+
+Ideally, I would solve many challenges in the main languages that
+interest me (currently, at least). The directory structure would
+go like this:
+
+```text
+$ mkdir -pv \
+    {lisp,scheme,javascript,typescript,haskell,ruby,C}/{1..8}kyu
+```
+
+And to create the directories for each language's solution for a
+problem, like the ‘diplomas’ challenge, something like this:
+
+```text
+$ mkdir -pv \
+    {lisp,scheme,javascript,typescript,haskell,ruby,C}/6kyu/diplomas
+```
 
 ## License
 

@@ -34,13 +34,13 @@ JavaScript
 The Test Suite
 ~~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/which-are-in/js/which-are-in.spec.js
+.. literalinclude:: /../src/codewars/javascript/6kyu/which-are-in/which-are-in.spec.js
    :language: javascript
 
 Solution 1
 ~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/which-are-in/js/which-are-in-v1.js
+.. literalinclude:: /../src/codewars/javascript/6kyu/which-are-in/which-are-in-v1.js
    :language: javascript
 
 TypeScript
@@ -49,13 +49,13 @@ TypeScript
 The Test Suite
 ~~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/which-are-in/ts/which-are-in.test.ts
-   :language:
+.. literalinclude:: /../src/codewars/typescript/6kyu/which-are-in/which-are-in.test.ts
+   :language: typescript
 
 Solution 1
 ~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/which-are-in/ts/which-are-in-v1.ts
+.. literalinclude:: /../src/codewars/typescript/6kyu/which-are-in/which-are-in-v1.ts
    :language: typescript
 
 
@@ -65,13 +65,13 @@ Scheme
 The Test Suite
 ~~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/which-are-in/scm/which-are-in.spec.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/which-are-in/which-are-in.spec.scm
    :language: scheme
 
 Solution 1
 ~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/which-are-in/scm/which-are-in-v1.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/which-are-in/which-are-in-v1.scm
    :language: scheme
 
 

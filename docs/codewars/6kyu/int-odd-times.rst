@@ -97,7 +97,7 @@ Unit Tests
 The unit tests should work for all approaches and solutions. Changing
 the implementation should not produce different results.
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/ts/find-n.test.ts
+.. literalinclude:: /../src/codewars/typescript/6kyu/int-odd-times/find-n.test.ts
    :language: typescript
 
 
@@ -107,12 +107,12 @@ Solution 1 (single function, approach 1)
 Using :ref:`approach 1<int-odd-times-approach-1-search-and-count>`,
 one single function that takes care of the entire logic. Not bad.
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/ts/find-n-v1.ts
+.. literalinclude:: /../src/codewars/typescript/6kyu/int-odd-times/find-n-v1.ts
    :language: typescript
 
 
 Solution 2 (helper functions, approach 1)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Also using :ref:`approach
 1<int-odd-times-approach-1-search-and-count>`, we have the main
@@ -121,7 +121,7 @@ functions. Looks overkill for this case but the helper functions could
 be useful and used in other contexts as well, though. Therefore it is
 worth the example.
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/ts/find-n-v2.ts
+.. literalinclude:: /../src/codewars/typescript/6kyu/int-odd-times/find-n-v2.ts
    :language: typescript
 
 Solution 3 (bitwise XOR)
@@ -133,7 +133,7 @@ XOR! I did not come up with this solution myself, but instead saw it
 from other people's solution. What I did was to write an explanation
 on how it works.
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/ts/find-n-v3.ts
+.. literalinclude:: /../src/codewars/typescript/6kyu/int-odd-times/find-n-v3.ts
    :language: typescript
 
 
@@ -143,13 +143,13 @@ Scheme
 The Test Suit
 ~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/scm/find-n.spec.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/int-odd-times/find-n.spec.scm
    :language: scheme
 
 v1 single function
 ~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/scm/find-n-v1.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/int-odd-times/find-n-v1.scm
    :language: scheme
 
 v2 smaller, composable functions
@@ -158,13 +158,13 @@ v2 smaller, composable functions
 Unit Tests for the Helper Functions
 ...................................
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/scm/find-n-v2-helpers.spec.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/int-odd-times/find-n-v2-helpers.spec.scm
    :language: scheme
 
 Implementation using the composed functions
 ...........................................
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/scm/find-n-v2.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/int-odd-times/find-n-v2.scm
    :language: scheme
 
 In this case, we have a *curried* ``eqx?`` function that we partially
@@ -187,12 +187,12 @@ techniques used, like the *loop pattern*, for instance.
 Unit Tests for the Helper Functions
 ...................................
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/scm/find-n-v3-helpers.spec.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/int-odd-times/find-n-v3-helpers.spec.scm
    :language: scheme
 
 Implementation using car, cdr and null?
 .......................................
 
-.. literalinclude:: /../src/codewars/6kyu/int-odd-times/scm/find-n-v3.scm
+.. literalinclude:: /../src/codewars/scheme/6kyu/int-odd-times/find-n-v3.scm
    :language: scheme
 
