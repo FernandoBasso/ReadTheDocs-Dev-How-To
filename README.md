@@ -21,6 +21,12 @@ main/official one where all the action happens and people can collaborate. The
 
 ## Local Setup
 
+Arch Linux:
+
+```
+$ sudo pacman -S python-sphinx python-pip --needed
+```
+
 Xubuntu:
 
 ```text
