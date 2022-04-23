@@ -64,6 +64,11 @@ extensions = [
   # work.
   #
   # 'sphinx.ext.autosectionlabel',
+
+  ##
+  # https://www.sphinx-doc.org/en/master/usage/markdown.html
+  #
+  'myst_parser',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -85,6 +90,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'furo'
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

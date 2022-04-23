@@ -2,6 +2,6 @@
   "deno.enable": true,
   "deno.lint": true,
   "deno.unstable": true,
-  "deno.importMap": "./import-map.json",
+  "deno.importMap": "./src/codewars/typescript/import-map.json",
   "tsserver.enable": false
 }

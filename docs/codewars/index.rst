@@ -41,7 +41,7 @@ Then, run this command
    -- testing add ----------------------------------------------------
    should add zeroes ......................................... [ PASS]
    should add positive numbers ............................... [ PASS]
-   should add negabive numbers ............................... [ PASS]
+   should add negative numbers ............................... [ PASS]
    3 tests completed in 0.0 seconds.
    3 out of 3 (100%) tests passed.
    -- done testing add -----------------------------------------------
@@ -114,4 +114,5 @@ Here's my setup:
    :caption: Codewars Challenges Solved
 
    6kyu/index
+   7kyu/7kyu
 
