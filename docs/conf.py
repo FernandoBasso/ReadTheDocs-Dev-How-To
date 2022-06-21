@@ -46,7 +46,7 @@ release = '0.0.1'
 # ones.
 extensions = [
   #
-  # Causes “warnign duplicate label <some heading> other instance in...”
+  # Causes “warning duplicate label <some heading> other instance in...”
   #
   # It seems we don't actually need it. We can add a label before a heading:
   #
