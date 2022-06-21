@@ -39,6 +39,7 @@ repository`_.
    scheme/index
    deno/index
    htdp/index
+   algdsts/index.md
    magfpjs/index
    composable-fp-js/index
    codewars/index
