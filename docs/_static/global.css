@@ -12,6 +12,12 @@
   font-style: normal;
 }
 
+.related-information {
+  display: inline-block;
+  padding: 1em;
+  border-top: 1px solid #ccc;
+}
+
 .related-information .copyright {
   display: inline;
 }
