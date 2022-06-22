@@ -36,6 +36,7 @@ repository`_.
    text-editors/index
    haskell/index
    javascript/index
+   typescript/index.md
    scheme/index
    deno/index
    htdp/index
