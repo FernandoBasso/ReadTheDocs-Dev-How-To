@@ -1,9 +1,9 @@
 ---
 title: Union Types | TypeScript
-description: Let's understand how union type works, how it relates to sets, the emtpy type `never` (empty set ∅) and some practical examples.
+description: Let's understand how union type works in TypeScript, how it relates to sets, the empty type `never` (empty set ∅) and some practical examples.
 ---
 
-# Union Types | TypeScript
+# Union Types
 
 Think of types as sets. A type is a set in which certain values can inhabit.
 

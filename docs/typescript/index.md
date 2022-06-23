@@ -1,3 +1,7 @@
+---
+description: These pages describe things that I consider most important, hard or tricky in TypeScript and type systems in general.
+---
+
 # TypeScript
 
 Why do we need types in JavaScript anyway?

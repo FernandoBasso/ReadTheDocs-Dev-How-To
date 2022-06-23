@@ -94,7 +94,7 @@ type GetAgeReturnType = ReturnType<typeof getAge>;
 
 ## Examples Explained
 
-### Utility Type FirstArg
+### FirstArg Type Utility
 
 Here we have a utility type that returns the type of the first argument of the given function type:
 
@@ -144,6 +144,37 @@ type T6 = FirstArg<typeof g>;
 These all return the type of the first argument correctly. Special note to `T6`. Remember that we must provide a type, not a value. That is why we use `typeof g` here.
 
 - [TS Playground FirstArg](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3PgNIVR9VOIDmAS0QAbYsPFnUwKdLQB3RA6YstXHsBf-JGVd3QNkmUFBEAE8OPFwzdFpEWHQTAB4cQgAVGLwAPggAXlAIXGzciDwAD0Q8cloIAAoOAEZsM0J+dAgABRaAGghxYeJU7ghSKIBtAF0ASiKCyZKIAH5elpXsQhkCAG4I6NiILIAGIvjE5NS0pPQOkzyDyIqsloucBKSU9MJ4AFthAQIAAfCB-SyWUEQeDkPC8Dp4MhPQ6vABMHy+13SACU8Ap0GRboh7oQTIM-oCCHkUajjlkAMyYq4-NKNBaFArSVBmZHPI5xLIAFmZ3xujSq2wBQPQHK5PL5dMFAFZRdi2VVxpSZbNBuM7g85RBubzaVI5NZ0HFeLDVPZCBATI19SSHhSpVTZdgTWR+a8AGxq1kC1C8R0ooA)
+
+### ItemType Type Utility
+
+Recall that we can write array types in two ways, one using bracket syntax, the other using generic syntax. Let's exemplify with array of number:
+
+```typescript
+let xs: number[];
+let ys: Array<number>;
+```
+
+If we have an array `xs`, and want to infer the type of the elements, we can create a generic utility type — let's call it `ArrayItemType` — using `infer`.
+
+Bracket syntax:
+
+```typescript
+type ArrayItemType<T> = T extends (infer ItemType)[] ? Item : unknown;
+```
+
+Note that instead of  `type[]` syntax, we use `(infer ItemType)[]`. The `(infer ItemType)` thing stands for `type` in `type[]`. In other words, `(infer ItemType)` is the `string` in  `string[]` or `number` in `number[]`.
+
+![image-20220622073016418](infer.assets/infer-array-item-type.png)
+
+Generic syntax:
+
+```typescript
+type ArrayItemType<T> = T extends Array<infer Item> ? Item : unknown;
+```
+
+
+
+
 
 ## References
 

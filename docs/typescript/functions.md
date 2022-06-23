@@ -1,3 +1,8 @@
+---
+title: Functions | TypeScript
+description: In these page we describe how functions work with TypeScript, gotchas, tips, ideas and practical examples.
+---
+
 # Functions | TypeScript
 
 ## Matching the type
