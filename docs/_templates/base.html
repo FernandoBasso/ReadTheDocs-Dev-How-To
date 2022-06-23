@@ -1,0 +1,17 @@
+{% extends "furo/base.html" %}
+
+{%- block htmltitle -%}
+  {% if not docstitle %}
+    <title>{{ title | striptags | e }}</title>
+  {% elif pagename == master_doc %}
+    <title>{{ docstitle | striptags | e }}</title>
+  {% elif meta.title %}
+    <title>{{ meta.title }} | {{ docstitle | striptags | e }}</title>
+  {% else %}
+    <title>{{ title | striptags | e }} | {{ docstitle | striptags | e }}</title>
+  {% endif %}
+
+  {% if meta.description %}
+    <meta name="description" content="{{ meta.description }}">
+  {% endif %}
+{%- endblock -%}
