@@ -35,6 +35,7 @@ repository`_.
    cmdline/index
    text-editors/index
    haskell/index
+   purescript/index.md
    javascript/index
    typescript/index.md
    scheme/index
