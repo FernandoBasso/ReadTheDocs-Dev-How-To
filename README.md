@@ -15,7 +15,7 @@ interest me. Access the published website at:
 
 - https://www.devhowto.dev
 
-**NOTE**: The [Gitlab repo](https://gitlab.com/devhowto/Dev-HowTo) is the
+**NOTE**: The [Gitlab repo](https://gitlab.com/devhowto/Dev-How-To) is the
 main/official one where all the action happens and people can collaborate. The
 [Github repo](https://github.com/FernandoBasso/Dev-How-To) is just a mirror.
 
