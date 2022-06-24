@@ -11,6 +11,7 @@ Git
    commit-message
    commit-message-more-examples
    reset
+   merge.md
 
 
 Don't forget to read the README :).
