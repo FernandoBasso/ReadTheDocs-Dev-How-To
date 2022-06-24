@@ -1,5 +1,4 @@
-// import { getPrefs } from './getPrefs-v1.js';
-import { getPrefs } from './getPrefs-v2.js';
+import { getPrefs } from './getPrefs.js';
 import defaultPrefs from './getPrefs-default-prefs.json';
 
 describe('getPrefs()', () => {

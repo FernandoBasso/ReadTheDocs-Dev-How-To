@@ -172,10 +172,6 @@ Generic syntax:
 type ArrayItemType<T> = T extends Array<infer Item> ? Item : unknown;
 ```
 
-
-
-
-
 ## References
 
 - [TypeScript 2.8 Release Notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html)

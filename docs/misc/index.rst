@@ -1,6 +1,6 @@
-=============
+==================
 Miscellaneous Tips
-=============
+==================
 
 Here's a place where I share random tips that do not precisely any of
 the other categories in the site.
@@ -10,4 +10,3 @@ the other categories in the site.
    :caption: Miscellaneous Tips
 
    finder-paste-image
-

@@ -7,6 +7,7 @@ Command Line
    :maxdepth: 6
    :caption: Command Line:
 
+   grep
    help-info-man
    built-in
    argument-syntax
@@ -113,4 +114,3 @@ project by MaiZure_.
 
 .. _MaiZure:
    http://www.maizure.org/projects/faq.html
-
