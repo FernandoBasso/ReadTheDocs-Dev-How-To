@@ -164,7 +164,7 @@ type ArrayItemType<T> = T extends (infer ItemType)[] ? Item : unknown;
 
 Note that instead of  `type[]` syntax, we use `(infer ItemType)[]`. The `(infer ItemType)` thing stands for `type` in `type[]`. In other words, `(infer ItemType)` is the `string` in  `string[]` or `number` in `number[]`.
 
-![image-20220622073016418](infer.assets/infer-array-item-type.png)
+![TypeScript infer keyword diagram](infer.assets/infer-array-item-type.png)
 
 Generic syntax:
 
