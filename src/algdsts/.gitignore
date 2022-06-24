@@ -1,0 +1,29 @@
+##
+# .gitignore
+##
+
+node_modules
+
+##
+# Local notes and ramdom files I may use while studying.
+#
+bkp
+
+##
+# Xournal and Xournal++ files.
+#
+*.xoj
+*.xopp
+*.xoj~
+*.xopp~
+
+##
+# JSDoc generated stuff.
+#
+docs
+
+##
+# My generated ‘lib’ files. See ‘genlibjs.sh’ for details.
+#
+libjs.[jt]s
+libutils.[jt]s
