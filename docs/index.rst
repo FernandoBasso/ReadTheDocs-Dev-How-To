@@ -8,7 +8,11 @@ Intro
 This project is a compilation of my own work mixed with ideas and
 notes I learn from others. You'll find pages with tutorial-like
 explanations on things that interest me and code solutions for book
-exercises, challenge websites, etc.
+exercises, coding challenges, algorithms and data structures,
+functional programming stuff, etc.
+
+If you find any problems, or have suggestions, you are welcome to
+create an issue or a pull request in the `Dev How To Gitlab repository`_.
 
 Licensing Information
 ---------------------
