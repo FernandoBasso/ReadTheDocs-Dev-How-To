@@ -1,0 +1,18 @@
+{
+  "deno.enablePaths": ["./src/codewars/typescript"],
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "deno.importMap": "./src/codewars/typescript/import-map.json",
+  "esbonio.sphinx.confDir": "",
+  "cSpell.words": [
+    "Codewars",
+    "devel",
+    "literalinclude",
+    "maxdepth",
+    "Nums",
+    "oneline",
+    "toctree",
+    "unshift"
+  ]
+}
