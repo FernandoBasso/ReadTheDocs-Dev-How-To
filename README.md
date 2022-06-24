@@ -6,6 +6,7 @@
   - [Running Locally](#running-locally)
   - [Branching and Publishing](#branching-and-publishing)
   - [Directory Structure](#directory-structure)
+  - [Markdown](#markdown)
   - [License](#license)
 
 ## Intro
@@ -93,6 +94,30 @@ $ mkdir -pv \
     {lisp,scheme,javascript,typescript,haskell,ruby,C}/6kyu/diplomas
 ```
 
+## Markdown
+
+When writing in Markdown, we use the [One Sentence Per Line](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line) approach.
+
+Quoted directly from [Asciidoctor recommended practices](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line):
+
+> Don’t wrap text at a fixed column width.
+> Instead, put each sentence on its own line, a technique called sentence per line.
+> This technique is similar to how you write and organize source code.
+> The result can be spectacular.
+>
+> Here are some of the advantages of using the sentence per line style:
+>
+> - It prevents reflows (meaning a change early in the paragraph won’t cause the remaining lines in the paragraph to reposition).
+> - You can easily swap sentences.
+> - You can easily separate or join paragraphs.
+> - You can comment out sentences or add commentary to them.
+> - You can spot sentences which are too long or sentences that vary widely in length.
+> - You can spot redundant (and thus mundane) patterns in your writing.
+>
+> We picked up this idea from the writing guide in the Neo4j documentation.
+> However, it seems like the idea dates back a discovery by Buckminster Fuller in the 1930s, who called it [ventilated prose](https://vanemden.wordpress.com/2009/01/01/ventilated-prose/).
+> The technique was also recommended in 2009 by Brandon Rhodes in a blog post about [Semantic Linefeeds](https://rhodesmill.org/brandon/2012/one-sentence-per-line/).
+
 ## License
 
 My intent with this website is to have the my study notes easily
@@ -110,4 +135,3 @@ the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
 4.0):
 [human readable](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [actual license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
-
