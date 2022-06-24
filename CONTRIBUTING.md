@@ -1,11 +1,12 @@
 # Contributing
 
 
-* [Commit Messages](#commit-messages)
-* [Commit Types](#commit-types)
-  * [commit-msg git hook](#commit-msg-git-hook)
-  * [List of Previously Used Types](#list-of-previously-used-types)
-  * [Project-Specific Commit Types](#project-specific-commit-types)
+- [Contributing](#contributing)
+  - [Commit Messages](#commit-messages)
+  - [Commit Types](#commit-types)
+    - [commit-msg git hook](#commit-msg-git-hook)
+    - [List of Previously Used Types](#list-of-previously-used-types)
+    - [Project-Specific Commit Types](#project-specific-commit-types)
 
 ## Commit Messages
 
@@ -20,9 +21,10 @@ We also use “types”. See next section.
 ## Commit Types
 
 Anyone is welcome to add, fix, correct and enlighten anything in this
-project. Since this is a wiki of sorts project, which is published at Read The
-Docs using Sphinx, many different topics are commited here. Therefore, let's
-try to write commit title (subjects) with a commit *type* prefix.
+project.
+Since this is a wiki of sorts project, which is published at Read The
+Docs using Sphinx, many different topics are committed here.
+Therefore, let's try to write commit title (subjects) with a commit *type* prefix.
 
 Examples of types:
 
@@ -31,9 +33,9 @@ Examples of types:
 - chore: update configs and dependencies
 - cmdline: for anything command line, coreutils, unix tools
 
-For programming langages, let's use the standard file extension:
+For programming languages, let's use the standard file extension:
 
-- c: C programming Langage.
+- c: C programming Language.
 - js: JavaScript
 - hs: Haskell
 - rb: Ruby
@@ -42,11 +44,13 @@ For programming langages, let's use the standard file extension:
 - rkt: Racket
 
 For notes on books, tutorials, courses, etc., create a type using some
-sort of abbreviation or accronym. See [Project-Specific Commit Types](#project-specific-commit-types) below.
+sort of abbreviation or acronym.
+See [Project-Specific Commit Types](#project-specific-commit-types) below.
 
 For example, for the [Mostly Adequate Guide to Functional
 Programming](https://github.com/MostlyAdequate/mostly-adequate-guide),
-the type is “magfp”. So, the commit message would look like:
+the type is “magfp”.
+So, the commit message would look like:
 
 ```
 magfp: Add solutions for chapter 5 on composition
@@ -64,8 +68,8 @@ to that type for all commits related to that book or tutorial.
 
 ### commit-msg git hook
 
-We have a pre-commit hook that validates the commit type. Take a look at
-`.githooks/commit-msg`.
+We have a pre-commit hook that validates the commit type.
+Take a look at `.githooks/commit-msg`.
 
 Update your local git settings to use the git hooks location for this project:
 
