@@ -151,10 +151,10 @@ Recall that we can write array types in two ways, one using bracket syntax, the 
 
 ```typescript
 let xs: number[];
-let ys: Array<number>;
+let ys: Array<string>;
 ```
 
-If we have an array `xs`, and want to infer the type of the elements, we can create a generic utility type — let's call it `ArrayItemType` — using `infer`.
+If we have an array `xs`, and want to infer the type of the elements, we can create a generic utility type — let's call it `ArrayItemType` — which uses a combination of a generic type parameter and `infer`.
 
 Bracket syntax:
 
@@ -162,7 +162,7 @@ Bracket syntax:
 type ArrayItemType<T> = T extends (infer ItemType)[] ? Item : unknown;
 ```
 
-Note that instead of  `type[]` syntax, we use `(infer ItemType)[]`. The `(infer ItemType)` thing stands for `type` in `type[]`. In other words, `(infer ItemType)` is the `string` in  `string[]` or `number` in `number[]`.
+Note that instead of  `type[]` syntax, we use `(infer ItemType)[]` (note the parenthesis an the brackets outside the parenthesis). The `(infer ItemType)` thing stands for `type` in `type[]`. In other words, `(infer ItemType)` is the `string` in  `string[]` or `number` in `number[]`.
 
 ![TypeScript infer keyword diagram](infer.assets/infer-array-item-type.png)
 
@@ -171,6 +171,33 @@ Generic syntax:
 ```typescript
 type ArrayItemType<T> = T extends Array<infer Item> ? Item : unknown;
 ```
+
+In any case, we now have a generic that extracts the type of the elements of an array
+
+```typescript
+let xs: string[];
+let ys: Array<Record<string, number>>;
+let jedis: Array<{ name: string, level: number }>;
+
+type T1 = ArrayItemType<string[]>;
+
+type T2 = ArrayItemType<typeof xs>;
+
+type T3 = ArrayItemType<typeof ys>;
+
+type T4 = ArrayItemType<typeof jedis>
+```
+
+- `T1` is `string`. We are passing a type.
+- `T2` is also `string`. We are using the value `xs` but in combination with `typeof`. Remember. Type utilities take types, not values.
+- `T3` is of type `{ [k: string] :number }`. Again we use a *value* with `typeof`.
+- `T4` is of type `{ name: string, age: number }`. We are getting the type of the array items, and each array item an object with the properties `name` and `age` whose types are `string` and `number` respectively.
+
+**NOTE**: Arrays must have elements of homogeneous types (unlike tuples). Our utility type works for these sorts of arrays, not tuples.
+
+- [TS Playground for ArrayItemType](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKq08EVLwgADAJaF+6ExADWeAJ4B3DGQiJKc9HmKIDxdwcOAyQzABszRAd3ZF9tb0R4IloYgyjg1IhIvABbFKMIUkL0dGIHcS1QMLxECAAPbghaRHQLAHMAbQBdAG4qmogHRtgSsoAeACU8BXQyMebWwjaAGghCeBzhAgA+bb7q2oArPDIzYdGHMYBvNeIcvGwF9tXq6Tww7HXNgggAXz3NOkDCNSg4AJJ+HIAFSCeDGUO2EAAvBAoRA8HU-OQUgAKCxWCAQ3IASm6EAA-ITIRBsPBCLZCKgnIQ+togVTcjDgvDESi0RisWQUiDxvifkScojKRKaRA6QymSzAbDUQBGZFwC4Srlwp5LboA0DsqEAJg1IvBkJ1YyBBQahuNAGZzVqrbCbbCCkMHSqoQAWF2g7Xu23GY6nWgAoA).
+
+
 
 ## References
 
