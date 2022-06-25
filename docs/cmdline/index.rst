@@ -7,7 +7,6 @@ Command Line
    :maxdepth: 6
    :caption: Command Line:
 
-   grep
    help-info-man
    built-in
    argument-syntax
@@ -18,6 +17,7 @@ Command Line
    bash-arrays
    git/index
    terminal/index
+   find.md
    hackerrank-shell
 
 Intro
