@@ -3,7 +3,7 @@ title: apply, $ | Functions Explained | PureScript
 description: Concepts, implementation and examples on the use of `apply' (the `$' operator) in PureScript
 ---
 
-# apply, $
+# apply, ‘$’
 
 Type signature:
 

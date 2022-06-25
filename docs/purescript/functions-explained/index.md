@@ -20,4 +20,5 @@ caption: PureScript
 
 const.md
 apply.md
+apply-flipped.md
 ```
