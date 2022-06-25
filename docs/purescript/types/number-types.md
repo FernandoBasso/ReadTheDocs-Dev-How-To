@@ -3,13 +3,11 @@ title: Number Types | PureScript
 description: Learn about PureScript number types, their use and some useful tips and considerations about them.
 ---
 
-# Simple Types | PureScript
-
-## Numbers
+# Number Types
 
 Numbers can be of type `Number` and `Int`. Both are represented as normal JavaScript numbers at runtime. `Int`, however, has operations defined differently so that we always get integer results:
 
-```haskell
+```text
 > div 7 2
 3
 
@@ -25,7 +23,7 @@ Numbers can be of type `Number` and `Int`. Both are represented as normal JavaSc
 
 Note how `div 7 2` results in 3, rather than 3.5. A number *without* a decimal is always considered an `Int`, while a number *with* a decimal is always considered a `Number`. Exponential notation always means the type is `Number`:
 
-```haskell
+```text
 > 1
 1
 
@@ -72,7 +70,8 @@ n = 1
 
 The above will produce an error:
 
-```  Could not match type
+```text
+Could not match type
   Could not match type
     Int
   with type
@@ -85,21 +84,17 @@ in value declaration n
 PureScript(TypesDoNotUnify)
 ```
 
-
-
 ## Negative Numbers
 
 To make negative numbers, use the unary `-` operator (requires parenthesis) or the `negate` function.
 
-```purescript
+```text
 > 1 + (-1)        
 0
 
 > 1 + negate 1    
 0
 ```
-
-
 
 ## References
 

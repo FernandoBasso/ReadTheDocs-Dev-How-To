@@ -13,7 +13,7 @@ apply :: ∀ a b. (a -> b) -> a -> b
 
 It takes a function a from *a* to *b*, a parameter of type *a*, and returns something of the type *b*. Presumably, the given function turns *a* into *b*.
 
-The implementation couldn't be simpler:
+The implementation couldn't be simpler. We take a function and some other value (could be another function, as functions are also values) and apply the function to the value:
 
 ```haskell
 apply :: ∀ a b. (a -> b) -> a -> b
@@ -22,13 +22,13 @@ apply f x = f x
 
 And then we call it like this:
 
-```repl
+```text
 > apply identity 1
 ```
 
 Or
 
-```repl
+```text
 > import Prelude ((/))
 
 > apply (_ / 2.0) 5.0
@@ -55,7 +55,7 @@ Remember that 0 (zero) is the lowest possible precedence. Something of precedenc
 
 We attempt this:
 
-```repl
+```text
 > import Effect.Console (log)
 
 > log identity "hello"
@@ -64,14 +64,14 @@ We attempt this:
 
 `log` takes a string, but we are passing it a function (`identity`). We need to parenthesize it like this:
 
-```repl
+```text
 > log (identity "hello")
 hello
 ```
 
 If we want to log a number, first convert it to a string (since `log` takes a string):
 
-```repl
+```text
 > import Prelude (show, identity)
 
 > log (show (identity 1))
@@ -80,7 +80,7 @@ If we want to log a number, first convert it to a string (since `log` takes a st
 
 We can replace parentheses with `$`:
 
-```repl
+```text
 > log $ identity "hello"
 hello
 
@@ -88,7 +88,7 @@ hello
 1
 ```
 
-Because `$` is **infixr**, it associates to the right, meaning it will first evaluate things on the right, passing the result those evaluations to the things on the left, which end up being evaluated last. This should help illustrate:
+Because `$` is **infixr**, it associates to the right, meaning it will first evaluate things on the right, passing the result those evaluations to the things on the left, which end up being evaluated last. This should help to illustrate:
 
 ```text
 log (identity "hello")
@@ -97,4 +97,3 @@ log $ identity "hello"
 log (show (identity 1))
 log $ show $ identity 1 
 ```
-

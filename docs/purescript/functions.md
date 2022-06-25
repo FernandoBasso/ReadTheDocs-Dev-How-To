@@ -41,7 +41,7 @@ Note that functions are not *printable*; they do not have an instance of the typ
 
 It produces an error that we cannot "print" something that does not implement `Show`.
 
-```haskell-repl
+```text
 > (\n -> n)
 
 Error found:

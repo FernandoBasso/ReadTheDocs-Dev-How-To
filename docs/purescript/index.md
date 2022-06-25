@@ -31,8 +31,8 @@ functions.md
 
 types/intro.md
 types/char-string-types.md
-types/data-types.md
 types/number-types.md
+types/data-types.md
 
 functions-explained/index.md
 ```
