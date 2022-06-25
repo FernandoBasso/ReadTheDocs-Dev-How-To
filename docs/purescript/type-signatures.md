@@ -43,7 +43,7 @@ Since we don't know the concrete types for *a* and *b*, it could be that they ar
 
 So, if we give the function some value of type *a*, and it gives use back some value of type *b*, clearly, it does something to *a* to turn it into *b*. If it does something to *a*, clearly, the function `f` takes a function, an array of *a*, and returns an array of *b*. That means the function `f` changes the input in some way before returning it.
 
-```spago-repl
+```text
 import Data.Functor (map)
 
 map (\x -> show x) [1, 2, 3]

@@ -91,7 +91,7 @@ As explained in the book Haskell From First Principles
 
 In other words, *kinds* are types of types. Try this in the REPL:
 
-```haskell-repl
+```text
 > import WhyCancel
 
 > :kind WhyCancel
@@ -105,7 +105,7 @@ In the first case, we get `Type -> Type`, which means `WhyCancel` is not fully r
 
 We can, of course, create a type alias for it:
 
-```haskell-repl
+```text
 > type T = WhyCancel String
 > :kind T
 Type
