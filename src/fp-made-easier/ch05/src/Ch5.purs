@@ -42,4 +42,3 @@ test = do
   --
   log $ show $ flip const 1 2
   flip const 1 2 # show # log
-

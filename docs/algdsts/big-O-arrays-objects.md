@@ -2,7 +2,12 @@
 
 Let's take a look at time complexity of array and object methods in JavaScript.
 
-## Big O of Objects
+## Time Complexity
+
+How much CPU work do our data structures need to perform their basic operations?
+Let's take a look.
+
+### Big O of Object Operations
 
 Objects are *unordered* key/value pairs. Nice to use when order is not needed or required. Most operations on objects are fast. They have no concept of beginning, middle or end.
 
@@ -18,7 +23,7 @@ Same concrete examples:
 - `Object.entries`: O(n).
 - `obj.hasOwnProperty`: O(1).
 
-## Big O of Arrays
+### Big O of Array Operations
 
 Arrays are like ordered lists. Use them when order is needed. Some operations are fast, some are not so fast.
 
@@ -34,3 +39,33 @@ Arrays are like ordered lists. Use them when order is needed. Some operations ar
 Removing at index 0 is O(n) because it has to change the index of all elements.  Removing last is O(1) because it doesn't need to change the index of other elements.
 
 Removing at some other position is O(n) (it depends). Removing elements near the end requires less indexes changes; removing more to the beginning requires more indexes changes.
+
+## Space Complexity
+
+We also have to consider space complexity — how much memory our data structures take.
+
+There is something called *auxiliary space complexity*, which has to do the space an algorithm requires to perform its computation, not including the input.
+We will not care about input space, but with the space the algorithm itself needs.
+Unless otherwise noted, when we say “space complexity”, we'll be referring to the *auxiliary space*.
+
+### Primitive Types
+
+Most primitive types are constant space:
+
+- booleans;
+- undefined;
+- null;
+- numbers;
+
+All of the above are O(1) (constant space).
+It doesn't matter if you have `x = 1` or `x = 1e256`.
+The space required does not change (or not in any significant way).
+
+Strings are not constant space, since their space requirement depends on the length.
+They are O(n), with `n` being the length of the string.
+As the length grows, the space complexity grows.
+
+### Reference Types
+
+For both objects and arrays, it is O(n), `n` being the number of keys in the object or the length for arrays.
+
