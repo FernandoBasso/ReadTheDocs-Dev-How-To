@@ -7,3 +7,5 @@ Vim
    :caption: Vim
 
    search-replace-to-next-uppercase-char
+   nvim-telescope.md
+
