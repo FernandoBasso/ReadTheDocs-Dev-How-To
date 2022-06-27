@@ -164,6 +164,37 @@ That is why we use `typeof g` here.
 
 - [TS Playground FirstArg](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3PgNIVR9VOIDmAS0QAbYsPFnUwKdLQB3RA6YstXHsBf-JGVd3QNkmUFBEAE8OPFwzdFpEWHQTAB4cQgAVGLwAPggAXlAIXGzciDwAD0Q8cloIAAoOAEZsM0J+dAgABRaAGghxYeJU7ghSKIBtAF0ASiKCyZKIAH5elpXsQhkCAG4I6NiILIAGIvjE5NS0pPQOkzyDyIqsloucBKSU9MJ4AFthAQIAAfCB-SyWUEQeDkPC8Dp4MhPQ6vABMHy+13SACU8Ap0GRboh7oQTIM-oCCHkUajjlkAMyYq4-NKNBaFArSVBmZHPI5xLIAFmZ3xujSq2wBQPQHK5PL5dMFAFZRdi2VVxpSZbNBuM7g85RBubzaVI5NZ0HFeLDVPZCBATI19SSHhSpVTZdgTWR+a8AGxq1kC1C8R0ooA)
 
+### SecondArg Type Utility
+
+Here's the implementation:
+
+```typescript
+type SecondArg<FnType> =
+  FnType extends (_: any, p2: infer P2, ...args: any[]) => any
+  ? P2
+  : never
+```
+
+We don't care about the first parameter.
+It is there to satisfy the syntax and consume the first positional parameter so we can focus on the second one.
+Notice it *has* to be `any`.
+If we make it `unknown`, or the `{}` type, it would only match when the type of the function passed would really be of that type.
+But since any is a *top type* that encompasses all other types, it is perfect for this case.
+
+```typescript
+function getProp(obj: { [k: string]: number }, key: string): number {
+  return obj[key];
+}
+
+type T1 = SecondArg<(x: number, s: string) => void>;
+
+type T2 = SecondArg<typeof getProp>
+```
+
+`T1` is `string` and `T2` is `number` (again note the use of `typeof` on *type context*).
+
+- [TS Playground SecondArg](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKq08EVLwgADAJaF+6ExADWeAJ4B3DGQiJKc9HmKIDxdwcOAyQzABszRAd3ZF9tb0R4IloYgyjgw2MUA30FcggOYnRiAFs8P3RMiADeeEJVM0VxLVB0gwBlPDyyWHQAcwAeHEIAFSC8AD4IAF5QCFxR8Yg8AA8-chSACgB9bFIHABoCgCZsCysIAAVjo-E7or7uasIHAG0AXQBKGan9uYgAPxXY7-bCEGQEADcmlq9UQjUIED65Uu6FQHE2IgAVtgAN4QV62bC0RDoCx9d5g+AlYQECAAXyO9gcxNJ5M+VJpdNx-wSSUR2MJjne0PpmjaEBGAEYZhBOt1eoNNitObT0EcniSyYQ+t9plNpKgzGQJtDWksRsdZfLFD1+gM2kYkSi0RxTZogA)
+
 ### ItemType Type Utility
 
 Recall that we can write array types in two ways, one using bracket syntax, the other using generic syntax:
