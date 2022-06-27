@@ -1,0 +1,10 @@
+#
+# .gitignore
+#
+
+#
+# Damn node_modules in every project. Why did they not do it like gem or
+# pip which install stuff in a global system location?
+#
+node_modules
+
