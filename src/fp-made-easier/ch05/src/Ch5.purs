@@ -33,7 +33,11 @@ applyFlipped = flip apply
 applyFlipped' :: ∀ a b. a -> (a -> b) -> b
 applyFlipped' x f = f x
 
-infixl 0 applyFlipped as #
+--
+-- Make it 1 not to conflict with ‘$’ when both ‘#’ and
+-- ‘$’ are used together.
+--
+infixl 1 applyFlipped as #
 
 test :: Effect Unit
 test = do

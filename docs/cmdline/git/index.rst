@@ -12,10 +12,7 @@ Git
    commit-message-more-examples
    reset
    merge.md
-
-
-Don't forget to read the README :).
-
+   revisions.md
 
 Indices and tables
 ==================
