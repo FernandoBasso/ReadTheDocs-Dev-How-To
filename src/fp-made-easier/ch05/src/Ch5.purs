@@ -1,6 +1,12 @@
 module Ch5 where
 
 import Prelude (Unit, show, discard)
+
+--
+-- $ npx spago install lists
+--
+import Data.List (List(..), (:))
+
 import Effect (Effect)
 import Effect.Console (log)
 

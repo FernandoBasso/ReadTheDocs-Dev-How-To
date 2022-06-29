@@ -28,6 +28,7 @@ caption: PureScript
 repl.md
 type-signatures.md
 functions.md
+modules.md
 
 types/intro.md
 types/char-string-types.md
