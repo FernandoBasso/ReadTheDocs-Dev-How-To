@@ -1,4 +1,4 @@
-# Big-O of Arrays and Objects
+# Big-O of Arrays and Objects 
 
 Let's take a look at time complexity of array and object methods in JavaScript.
 
