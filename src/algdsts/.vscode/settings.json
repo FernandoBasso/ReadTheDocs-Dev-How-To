@@ -8,6 +8,7 @@
   "deno.unstable": false,
   "deno.importMap": "./import-map.json",
   "cSpell.words": [
-    "mathy"
+    "mathy",
+    "Nums"
   ]
 }

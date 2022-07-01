@@ -28,4 +28,24 @@ Therefore, this algorithm's space complexity is O(1).
 
 ![Sum Array Space Complexity](./space-complexity-examples.assets/space-complexity-sum-array.png)
 
-- [See drawing on Onenote](https://onedrive.live.com/redir?resid=9AFB7727964AE703%21650&authkey=%21ABP34qAE2QaSFk0&page=View&wd=target%2803%20BigO%20Arrays%20and%20Objects.one%7C3ebd2ca2-55fb-4436-9eb3-372198d403dc%2FSpace%20Complexity%7C0b3691e3-bc92-4cea-a6fa-a135cf9ae773%2F%29&wdorigin=703)
+## Double Array of Numbers
+
+```typescript
+function doubleNums(xs: number[]): number[] {
+  const doubled: number[] = [];
+
+  for (let i = 0; i < xs.length; ++i)
+    doubled[i] = xs[i] * 2;
+
+  return doubled;
+}
+
+export { doubleNums };
+```
+
+The `doubled` array starts empty, but gets longer and longer directly in proportion to the length of the input, which is significant!
+Incrementing `i`, however, is not significant for space complexity.
+It will always hold a number, no matter how large that number is.
+But the `doubled` array will keep storing more and more numbers.
+
+![Double Array of Numbers Space Complexity](!./../space-complexity-examples.assets/space-complexity-double-array.png)
