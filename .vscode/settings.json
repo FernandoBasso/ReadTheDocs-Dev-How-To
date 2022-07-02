@@ -12,6 +12,7 @@
     "maxdepth",
     "Nums",
     "oneline",
+    "pygments",
     "toctree",
     "unshift"
   ]

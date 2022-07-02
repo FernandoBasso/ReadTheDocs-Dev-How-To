@@ -39,3 +39,30 @@
     display: none;
   }
 }
+
+/*
+ * ============================================================================
+ * pygments.css overrides
+ * ======================
+ */
+
+ /**
+  * Code block background color. The original one seems too greyish. Let's
+  * make it a little less gray, nearer to white.
+  */
+.highlight {
+  background-color: #fafafa;
+}
+
+/**
+ * Code block font. The default ones were too small and not so readable
+ * as Source Code Pro, which we make the first in the list so it is used
+ * if available.
+ */
+.highlight code,
+.highlight pre,
+.highlight kbd,
+.highlight samp {
+  font-family: "Source Code Pro", SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace;
+  font-size: 1em;
+}
