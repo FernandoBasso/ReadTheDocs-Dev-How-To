@@ -195,7 +195,7 @@ type T2 = SecondArg<typeof getProp>
 
 - [TS Playground SecondArg](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKq08EVLwgADAJaF+6ExADWeAJ4B3DGQiJKc9HmKIDxdwcOAyQzABszRAd3ZF9tb0R4IloYgyjgw2MUA30FcggOYnRiAFs8P3RMiADeeEJVM0VxLVB0gwBlPDyyWHQAcwAeHEIAFSC8AD4IAF5QCFxR8Yg8AA8-chSACgB9bFIHABoCgCZsCysIAAVjo-E7or7uasIHAG0AXQBKGan9uYgAPxXY7-bCEGQEADcmlq9UQjUIED65Uu6FQHE2IgAVtgAN4QV62bC0RDoCx9d5g+AlYQECAAXyO9gcxNJ5M+VJpdNx-wSSUR2MJjne0PpmjaEBGAEYZhBOt1eoNNitObT0EcniSyYQ+t9plNpKgzGQJtDWksRsdZfLFD1+gM2kYkSi0RxTZogA)
 
-### ItemType Type Utility
+### ArrayItemType Type Utility
 
 Recall that we can write array types in two ways, one using bracket syntax, the other using generic syntax:
 
@@ -254,7 +254,78 @@ Our utility type works on these sorts of arrays, not tuples.
 
 - [TS Playground for ArrayItemType](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKq08EVLwgADAJaF+6ExADWeAJ4B3DGQiJKc9HmKIDxdwcOAyQzABszRAd3ZF9tb0R4IloYgyjg1IhIvABbFKMIUkL0dGIHcS1QMLxECAAPbghaRHQLAHMAbQBdAG4qmogHRtgSsoAeACU8BXQyMebWwjaAGghCeBzhAgA+bb7q2oArPDIzYdGHMYBvNeIcvGwF9tXq6Tww7HXNgggAXz3NOkDCNSg4AJJ+HIAFSCeDGUO2EAAvBAoRA8HU-OQUgAKCxWCAQ3IASm6EAA-ITIRBsPBCLZCKgnIQ+togVTcjDgvDESi0RisWQUiDxvifkScojKRKaRA6QymSzAbDUQBGZFwC4Srlwp5LboA0DsqEAJg1IvBkJ1YyBBQahuNAGZzVqrbCbbCCkMHSqoQAWF2g7Xu23GY6nWgAoA).
 
-## References
+**NOTE**: Some people would call this utility type `UnpackArrayType` or `UnboxArrayType`, since we are conceptually *unpacking*, or *unboxing* nested type.
 
-- [TypeScript 2.8 Release Notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html)
-- [TypeScript typeof type operator](https://www.typescriptlang.org/docs/handbook/2/typeof-types.html)
+## UnboxObjType, `infer' in Co-variant Position
+
+The [2.8 TypeScript release notes say](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types):
+
+> Multiple candidates for the same type variable in co-variant positions causes a union type to be inferred.
+
+Let's understand what it means through examples.
+
+This utility type takes some type `T`.
+If it is an object containing the properties `x` and `y`, return an *union* type of the type of those properties; else return the empty/uninhabitable type `never` (∅).
+
+```typescript
+type UnpackObjType<T> =
+  T extends {
+    x: infer P,
+    y: infer P,
+  } ? P : never;
+```
+
+And then we use the utility to unpack the type of an object:
+
+```typescript
+type T1 = UnpackObjType<{ x: 1, y: "one" }>;
+```
+
+First of all, `{ x: 1, y: "one" }` above is **not** an object, but a type!
+That object-looking thing is being used in *type context*, not in *value (or expression) context*.
+It says the property `x` has the value type (or literal type) `1`,
+and the property `y` has the value type (or literal type) `"one"`.
+
+`T1` type is the union `1 | "one"` because “multiple candidates for the same type variable in co-variant positions causes a union type to be inferred.”
+The “same type variable” is our uppercase `P`, and it is in *co-variant* (*contra-variant*) position.
+
+Note that a type with different keys will not match and will return `never` (the order of properties doesn't matter, only their names):
+
+```typescript
+type T2 = UnpackObjType<{ y: "one", x: 1 }>;
+
+type T3 = UnpackObjType<{ y: 1, z: "one" }>;
+```
+
+`T2` is still `1 | "one"` (the order of property names doesn't matter, as ECMASCript objects are unordered collections of key/value pairs, unlike arrays, where order is maintained), but `T3` is `never`, because the conditional type fails to match (it has to match all properties).
+
+We can also use an object in conjunction with `typeof` type operator:
+
+```typescript
+const o1 = { x: 1, y: "one" };
+//
+// What if someone did o1.x = "Gotcha!!!" here?
+//
+type T4 = UnpackObjType<typeof o1>;
+```
+
+In this case, `o1` is indeed an object (not a type).
+Someone could modify this object and change `1` and `"one"` to some other values, like doing `o1.x = "foo"`.
+(Yes, `const` in ECMAScript is misleading...).
+Therefore, TSC cannot say, “I'm sure x is 1 and y is "one"”, because it could be changed.
+
+`T4` is not `1 | "one"` (because both values could have been changed between the object creation and its use), but `number | string`.
+
+In this next example, we use *const context* to lock `o2` so it cannot ever be changed again.
+`x` is not `number`, but the value type `1`, and `y` is not `string` but the value type `"two"`.
+
+```typescript
+const o2 = { p1: 1, p2: "one" } as const;
+type T5 = UnpackObjType<typeof o2>;
+```
+
+`T5`'s type is, therefore, the union type `1 | "two"`.
+
+- [TS Playground infer co-variant union type UnpackObjType example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3PgNIVR9VOIDmAS0QAbYsPFnUwKdLQB3RA6YstXHsBf-JGVd3QNkmUFAFQlpECEtUE2wAYUUGSzwAbQAieJMsgF0IAF4IKLS8cVzxYTNyAAoy1HSASgBuCMQATw48CABVQg4VAGsAeWEAKwAVbrwAHimAPmLQCAgpiDwAD0Q8cloIAG9VtYgt7Fr+dAgABQAaE7XOi8Ir24e1gF8IAH5biGwhBkBHaoC6PXWAEZiv1BiNxtNZnNDmdsJC7hBnhAsoo8FkIJ9Fu1IGsAHo-DqzdYAJhhAyGcjGkxmPWRmOwOKBWQx5wg0MJxOYZIpYKpUwAzHS4YyESz5iiseiIAAvDm4-ECzzCiJlWKoaElFG8pVYzl4gmg8G9KYAFilDKZiNZVtQvAg+qJWog5J1qT1tMNqL5GNN6oJEDopT9lrFAFZ7fDmUiXW7UNTPSTvRSgA).
+
+
