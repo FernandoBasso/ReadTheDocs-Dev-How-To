@@ -1,3 +1,5 @@
+import { add } from "/src/lib/index.ts";
+
 /**
  * Sum an all the elements in `xs`.
  *
@@ -10,7 +12,9 @@
  *   ghci> sum []
  *   0
  *
- * This solution uses a very imperative approach with a for loop.
+ * This solution uses a reducing function, which makes it a bit FP-ish.
+ * A function `add` is imported from lib instead of creating an `add`
+ * callback on the fly.
  *
  * **TIME COMPLEXITY**: O(n). The number of times we add is proportional
  * to the length of the input.
@@ -23,12 +27,7 @@
  * @return The total.
  */
 function sum(xs: number[]): number {
-  let total = 0;
-
-  for (let i = 0; i < xs.length; ++i)
-    total += xs[i];
-
-  return total;
+  return xs.reduce(add, 0);
 }
 
 export { sum };

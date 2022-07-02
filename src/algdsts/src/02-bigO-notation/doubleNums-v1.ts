@@ -15,8 +15,6 @@
  * @param xs The input array of numbers.
  * @returns The doubled array.
  */
-
-
 function doubleNums(xs: number[]): number[] {
   const doubled: number[] = [];
 
