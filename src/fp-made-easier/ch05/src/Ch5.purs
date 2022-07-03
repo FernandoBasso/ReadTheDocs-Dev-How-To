@@ -5,7 +5,7 @@ import Prelude (Unit, show, discard)
 --
 -- $ npx spago install lists
 --
-import Data.List (List(..), (:))
+import Data.List (List(Cons, Nil), (:))
 
 import Effect (Effect)
 import Effect.Console (log)
@@ -45,6 +45,14 @@ applyFlipped' x f = f x
 --
 infixl 1 applyFlipped as #
 
+singleton :: ∀ a. a -> List a
+singleton e = Cons e Nil
+--
+-- Using `:` istead of `Cons`:
+--
+--   singleton e = e : Nil
+--
+
 test :: Effect Unit
 test = do
   --
@@ -53,3 +61,4 @@ test = do
   log $ show $ flip const 1 2
   flip const 1 2 # show # log
 
+  log $ show $ singleton "xyz"

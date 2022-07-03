@@ -35,5 +35,7 @@ types/char-string-types.md
 types/number-types.md
 types/data-types.md
 
+lists.md
+
 functions-explained/index.md
 ```
