@@ -37,5 +37,5 @@ types/data-types.md
 
 lists.md
 
-functions-explained/index.md
+explained/index.md
 ```
