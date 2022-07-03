@@ -3,7 +3,7 @@ title: Cons, Data.List | PureScript
 description: Ins and outs of PureScript `Cons' data constructor with practical examples.
 ---
 
-# Cons (Data.List)
+# Cons, Data.List
 
 `Cons` is data constructor from `Data.List` `List` type.
 It conses (short for *construct*, from Lisp parlance) a list by prepending an element to the *head* of a list.

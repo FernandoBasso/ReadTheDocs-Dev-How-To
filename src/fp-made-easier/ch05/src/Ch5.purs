@@ -53,6 +53,10 @@ singleton e = Cons e Nil
 --   singleton e = e : Nil
 --
 
+null :: ∀ a. List a -> Boolean
+null Nil = true
+null _ = false
+
 test :: Effect Unit
 test = do
   --
@@ -62,3 +66,6 @@ test = do
   flip const 1 2 # show # log
 
   log $ show $ singleton "xyz"
+
+  log $ show $ null Nil
+  log $ show $ null (Cons "abc" Nil)
