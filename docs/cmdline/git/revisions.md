@@ -17,13 +17,17 @@ When we push a branch to a remote repository, we can use `--set-upstream` or or 
 $ git push origin --set-upstream drafts
 ```
 
-That is, after se “set upstream” for a branch, `git status` and (and possibly a few other commands) inform us of differences between them.
+That is, after se “set upstream” for a branch, `git status`, `git checkout` (and possibly a few other commands) inform us of differences between them.
 E.g.:
 
 ```shell-session
 $ git status
 On branch drafts
 Your branch is behind 'gl/drafts' by 3 commits, and can be fast-forwarded.
+
+$ git checkout typescript 
+Switched to branch 'typescript'
+Your branch is up to date with 'gl/typescript'.
 ```
 
 So, it means there are tree commits in upstream that are not present on our local branch.
