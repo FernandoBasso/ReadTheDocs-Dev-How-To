@@ -20,7 +20,7 @@ caption: TypeScript
 ---
 
 union-types.md
-keyof-in-keyof-key-in.md
+keyof.md
 functions.md
 infer.md
 ```

@@ -1,12 +1,15 @@
 ---
-title: keyof, in keyof, key in | TypeScript
-description: In this article we'll explore TypeScript's `keyof', `in keyof', `key in' with mapped types and other techniques with explanations and practical examples.
-tags: typescript, keyof, in-keyof, key-in
+title: keyof type operator | TypeScript
+description: This text discusses concepts and ideas related to TypeScript's typeof type operator with practical examples explained.
 ---
 
-# keyof, in keyof, key in
+# keyof
 
-## keyof
+`keyof` is the *Index Type Query*.
+From the docs:
+
+> An indexed type query `keyof T`  yields the type of permitted property names for `T`.
+> A `keyof T` type is considered a subtype of `string`.
 
 The `keyof` operator takes an object type and produces a string or numeric literal union of its keys.
 
@@ -32,9 +35,9 @@ Therefore, those are the only thee possible values we can assign to `h`.
 
 Intellisense works as expected:
 
-![infer 2d intellisense](./keyof-in-keyof-key-in.assets/keyof-2D-types.png)
+![infer 2d intellisense](./keyof.assets/keyof-2D-types.png)
 
-![infer 2d intellisense](./keyof-in-keyof-key-in.assets/keyof-2D-if.png)
+![infer 2d intellisense](./keyof.assets/keyof-2D-if.png)
 
 - [TS Playground 2D/3D example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3PgNIVR9VOIDmAS0QAbYsPFnUwKdLQB3RA6YstXHsBf-JGVd3QNkmTwBrPABPVF4IRGiOPAhUZPRid3RPAF48-ILCgvDQMwBbDgxEBKSUgG8IAFEAR3hiSwAaJoAPZNUIAF8IXnRUMogAIgABROSAWjlkdss8QhM8WmAkM0taCYBuUCPZlIARACYIHIg60AgICLNybAnz04O7iG7sQngy4QIh3u0R+fwB6EOA2OtQgpwAzFcbp9Hs9JnD3vsIJ9vhBfv9AZ8QbiwQT7gAvUH4iGgAaHI4KQi0apkc7YKKxeIXRETAA8iHQZhM63QECeiDwlksZloqxlrAIeAAfB9QAymRAyHC2TE4rCEddefzBcLRUoJVKZYyUsgFcq6SBPAAVdDRCCLUjmNYQQAYBGTvRAXBZkD7ot6uhgfSiyIBMAnEEEdNsICRdWMg3oi0dSIu9hDSeEz+lNtD61RQKQIo3Q4nCauqyG1HL13IiKpOsPOAGkYrREezdRdDm34V3oj3rn3OXC6W3HRtEABhOgbREAbU+jV6eFUPJabUsPIn7a6EyjEwgAB9Jt0z5eJtEJorFR115vt7v2jyLiPaMfTxerzekz3o+z4viWO6tB+h7wr+TxkIBEzXv+d4IWSD5PmBW6IBBe6fnC36weQCFIbe97IWhIGgAAuocQA).
 
@@ -103,3 +106,10 @@ All of the above work as expected, correctly indexing the property `x` of the ob
 ## References
 
 - [keyof type operator on TypeScript handbook](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html).
+
+
+## References
+
+- [keyof TypeScript 2.1 Release Notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html)
+
+
