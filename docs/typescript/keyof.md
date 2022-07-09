@@ -278,3 +278,94 @@ displayObjProp("name", luke);
 ```
 
 [TS Playground isKey() type predicate](https://www.typescriptlang.org/play?ssl=67&ssc=4&pln=7&pc=1#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U1CgFhWoggAbVAHNsAYUUMHeANoAiJ2c-AF0IAF4IGy88cUDxYQBLcgAKKNRvAEoAbitEAE8OPAgAKTwyBPCIAG9QCAgSAFs8bDt0JOccutoAawSHB24IVvafYM6IDlQkxEHCeAbhAhyAXxzwACp12vWIABUCoo50MoS5YkQi00jkPDluiF0blAIIAANuvDzXiDwADwS7LQIEk3iIAFavcTbMC8eCEVQJRTA2gAaU+AB4APLCMEAPmStQgHzyLUQbUIzggAB8hnkFulqfV5ot0AAaQng7DYsHsjLYYnIomfVC8CDc6qE46IeBEIV5YGECDglZWYCbbYQABKeGlRCBzwg0mIDngRRFEANR1QhXQ+TeVo4ADliE1vrx0KgGqCcZDoaBYfDEIjFc4dQAFD0cdGE7nsuoR60-X4XchA4nm2OgfGEh3OprYBMcONKnFcnG8stgnyF0I1OpSmWK8E+XMuvBjUDLVXqiA7AAiAI4DmIeX1N0NxtNStFxAmkYI+ShvYgGs2jsxuwAoptsLtkADBbOyPMGnlWZFFNJ0kgyhBSGQhgkGkOin8XS+hoxl7oimdFbxUDkeAgSRA18kKWgl3WGE4QRJFyloIcR25QsCTqB1SXJSkaTmBYXhpWg6WEdJi05LVbgwMh0WGClzzhbpCFQXRCFxCtDSmB862BUVkgAQgBNE8mSB1z3BDIMggBsiDWOpAmSUNEFQkSSzBcSVWsTx7BND5sFKcpKi4xpmggPwABl4A+CAAGVujyXRjQ+dA-GLHo+gGbB-D3IocAwOQ8GckzTISZw2FoYgWRCYtJmmQYAE4AHZ2VWKwEKQvIUMjZI-AALwCqoIF+bAAEZzxJCAACYIGWbJLEgCMYvqVAUHaKEQBAFLB2HdKcVQvwjIC7S8Bq9rIEAJMJAosoobLshyCD8Vq2tAIA).
+
+## keyof with mapped types
+
+`keyof` is also useful to map over types and iterate over its keys.
+
+### Partial type utility
+
+```typescript
+type Jedi = {
+  name: string;
+  skills: string[];
+  points: number;
+};
+
+type MyPartial<Obj> = {
+  [Key in keyof Obj]?: Obj[Key];
+  //                ^
+  //               /
+  //              /
+  // Note the use of ‘?’ to cause each mapped property
+  // to be made optional.
+  //
+};
+
+type JediOptionalProps = MyPartial<Jedi>;
+
+const yoda: Jedi = {
+  name: "Yoda",
+  skills: ["The Force", "Teaching", "Lightsaber"],
+  points: 100,
+};
+
+const luke: JediOptionalProps = {
+  name: "Luke Skywalker",
+  //
+  // Type is valid, even if we don't provide skills and points.
+  //
+};
+
+//
+// Even empty object satisfy the type.
+//
+const other: JediOptionalProps = {}
+```
+
+Try commenting out `yoda` properties to see how it really requires all three properties, while with `luke` has all of them optional.
+
+- [TS Playground Partial type utility with keyof and mapped types example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U0uQA1ngCeqXhACWhCAAVi6RM+IAbCCRnP2dEOwgwjjwmCABeeITEpOSU2MtQBUJaRAg-VABzbABhRQY-PABtACI8-KqAXTiITLK8cVrxYVcyAAoW1HKASgBuUFBIvAgAKTwyZyaAb1AICBIAWzxsbPRXfNGV2mtgv24Ibd2K+v2IDlRXRFPCeDXhAlGAX1HxuyiIAFk7J5vL4-AAeADywgAVgA+RbLCAVADS9hcblsDickKh9QA-Nhscj7FcEZAVuSKZSIAA9UnMKkMiBgFZkxkU5lM5gAOVQiEmKEm8Fok0cEEAGAS4wCYBBFKHJiELJngVMgIGtiBwomQbuhUFFvHY6TKIK9VcQpBBdT5FP5xHTQJ8xhNprNnOCOFaSH53DquE0AUCfP5QTM5jCvi0cg4yMRsCH5rEIEsVutNhAqgBNVDRqoAGgRh2Op2qABVkJMcBg5Hhc2ni0q5MhdjWqgAZZz5Ni0YivdANPMrW73U4ARgADKO8w6MqUcn54LZYy63R7-N7dbR4cniBtsK355MAMrWOy6fy2Xv9zmG4s-SbODfSfzOMg5iAyPBuZxOXSTCiEADkOQcDq0jPpMBZ+CcECkFqg5KLQtosmAU4gDEACi0gfm+azuuEIhQngqhnMQPi0Lw4QChEt62qhEYWgKWDOnMy7ONaXo+huCYLFOzg4RgOROgsEBoQAjvA-ivmhAAeUREe8EC8DqaxpgAAhMAC0Db+OUhD5HgtDAEEJxVF8Tp1tkRR0PpTQVAi0myYgoKieJYL+l4gZgnGMKvkm5IpviZyIDsumXgcRyQbQAXnLplyhTcdzwQFTwvAQl7vDCMKgFcQA).
+
+### Required type utility
+
+In this case we start with a type where each property is optional, and create a type where all of them become required:
+
+```typescript
+//
+// Note all properties are optional.
+//
+type Jedi = {
+  name?: string;
+  skills?: string[];
+  points?: number;
+};
+
+/**
+ * A type utility to make all properties in `Obj` required.
+ */
+type MyRequired<Obj> = {
+  [Key in keyof Obj]: Obj[Key];
+  //                ^
+  //               /
+  //              /
+  // Note we do not have a “?” between “]” and “:”.
+  //
+};
+
+type JediRequiredProps = Required<Jedi>;
+
+const yoda: JediRequiredProps = {
+  name: "Yoda",
+  // skills: ["The Force", "Teaching", "Lightsaber"],
+  points: 100,
+};
+//
+// Property 'skills' is missing in type '{ name: string; points: number; }'
+// but required in type 'Required<Jedi>'
+///
+```
+
+Uncomment `skills` above and see the type checker is then appeased 🤣.
+
+- [TS Playground key of with mapped types Required type utility example](https://www.typescriptlang.org/play?ssl=44&ssc=4&pln=13&pc=1#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U0uQA1ngCeqXhACWhCAAVi6RM+IAbCCRnP2dEOwgwjjwmCABeeITEpOSU2MtQBUJaRAg-VABzbABhRQY-PABtACI8-KqAXTiITLK8cVrxYVcyAAoW1HKASgBuUCtmADlURDwIfwCOdFQo72c8Wjn0WeWfRX9xS0jZgCk8MmcmgG9QCAgSAFs8AH5sbPRXfNHb2mtgv1oXhA3h8KvUvhAOKhXIgAdhCPB7sICKMAL6jcAAKgxNwxcAidiigR8ITCEUo92ItjmfgWSxWPnWLjcAAMAPLCABWzIgWwAjvBnFsyAcIBiwEcIABZOwAJTw-MFZwAPOyOQA+K43CAVADS9iZEFsDicqvq2FVuvsYK1kFudvtDogAD0bcxHe6IGBbraPfavZ7JtNZrpZhQ7tNWMRpLNiBBADgET0AuAQQJGIEN4Nxx+rJ0hkeOYRMigOgNFjCWnc5yhVC9x0jaxCBVgVCpUV5xq9EtHIOMjEbBtpuKsi15b1iDXW4PPDYKoATVQvaqABpXUDfjTuNqqgAVZCzHAYOR4ZcQHd4FTID4nqoAGWc+TYtGISPQDRXt0h0M3AEYAAy-ldSxAGIR3pcIAHIfj+WhwJcDZ7mcegPgNCVwMuO5iEeV5EHeQhPghKElE3eFEWRCAUXAmJhCQHl5WbM4UIJWZwMHFs2zVSiQGAsZnHuSFvHxQl0IAUX5fwlwgYSAA8olUciIF4JZ7lPAABI4AFo5GQeYM3ydZgCCf4qnRCVt3WRAijoRkGwqLVpNkxAlVE+B-CVaVWOVAc6KHUDaDVCSJztKdsNw-J3ztKCNxCkF6nCj9CJhOEERfcKUTVNVQDBIA).
