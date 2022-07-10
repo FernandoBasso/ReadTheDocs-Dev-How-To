@@ -13,7 +13,7 @@ From the docs:
 
 The `keyof` operator takes an object type and produces a string or numeric literal union of its keys.
 
-### keyof 2D example
+### keyof D2 example
 
 ```typescript
 type D2 = {
@@ -41,7 +41,7 @@ Intellisense works as expected:
 
 - [TS Playground 2D/3D example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3PgNIVR9VOIDmAS0QAbYsPFnUwKdLQB3RA6YstXHsBf-JGVd3QNkmTwBrPABPVF4IRGiOPAhUZPRid3RPAF48-ILCgvDQMwBbDgxEBKSUgG8IAFEAR3hiSwAaJoAPZNUIAF8IXnRUMogAIgABROSAWjlkdss8QhM8WmAkM0taCYBuUCPZlIARACYIHIg60AgICLNybAnz04O7iG7sQngy4QIh3u0R+fwB6EOA2OtQgpwAzFcbp9Hs9JnD3vsIJ9vhBfv9AZ8QbiwQT7gAvUH4iGgAaHI4KQi0apkc7YKKxeIXRETAA8iHQZhM63QECeiDwlksZloqxlrAIeAAfB9QAymRAyHC2TE4rCEddefzBcLRUoJVKZYyUsgFcq6SBPAAVdDRCCLUjmNYQQAYBGTvRAXBZkD7ot6uhgfSiyIBMAnEEEdNsICRdWMg3oi0dSIu9hDSeEz+lNtD61RQKQIo3Q4nCauqyG1HL13IiKpOsPOAGkYrREezdRdDm34V3oj3rn3OXC6W3HRtEABhOgbREAbU+jV6eFUPJabUsPIn7a6EyjEwgAB9Jt0z5eJtEJorFR115vt7v2jyLiPaMfTxerzekz3o+z4viWO6tB+h7wr+TxkIBEzXv+d4IWSD5PmBW6IBBe6fnC36weQCFIbe97IWhIGgAAuocQA).
 
-### keyof 3D example index signature
+### keyof D3 example index signature
 
 Suppose this type is in context:
 
@@ -102,11 +102,6 @@ const val4 = shape3d[k4];
 All of the above work as expected, correctly indexing the property `x` of the object.
 
 - [TS Playground with D3 const context example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2UyYQA1ngCeqXhER2OeCKjfpip9FYC8gUHBIcGWoC5uEAAiAMwQ-hAA3qAQNgCW5NgARLHR2QDcEKkQAB7YhPAAtsIEBSV2FdW16PVpAF5NNXWgAL71oKBScgA2xOjuCoS0iBC0yMRusWTYcQMjeLPWAIwJENmlhVYQAHoA-IOg0uM2AEx7B9kQdBBTM-WQpxegG1vxiY9nrRXop3sdzoM3lsACwPQ4fZhpL6Q0Gza4jXaJeaLPDLADaOwAugikcjQFCIOj7liFksyATbsTjmkIeTUZTiCN-nNabj6dZYkzPizvhT0bCaTj8dZoULESLQEA)
-
-## References
-
-- [keyof type operator on TypeScript handbook](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html).
-
 
 ## keyof with getProp() function
 
@@ -318,14 +313,14 @@ const luke: JediOptionalProps = {
 };
 
 //
-// Even empty object satisfy the type.
+// Even empty object satisfies the type.
 //
 const other: JediOptionalProps = {}
 ```
 
 Try commenting out `yoda` properties to see how it really requires all three properties, while with `luke` has all of them optional.
 
-- [TS Playground Partial type utility with keyof and mapped types example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U0uQA1ngCeqXhACWhCAAVi6RM+IAbCCRnP2dEOwgwjjwmCABeeITEpOSU2MtQBUJaRAg-VABzbABhRQY-PABtACI8-KqAXTiITLK8cVrxYVcyAAoW1HKASgBuUFBIvAgAKTwyZyaAb1AICBIAWzxsbPRXfNGV2mtgv24Ibd2K+v2IDlRXRFPCeDXhAlGAX1HxuyiIAFk7J5vL4-AAeADywgAVgA+RbLCAVADS9hcblsDickKh9QA-Nhscj7FcEZAVuSKZSIAA9UnMKkMiBgFZkxkU5lM5gAOVQiEmKEm8Fok0cEEAGAS4wCYBBFKHJiELJngVMgIGtiBwomQbuhUFFvHY6TKIK9VcQpBBdT5FP5xHTQJ8xhNprNnOCOFaSH53DquE0AUCfP5QTM5jCvi0cg4yMRsCH5rEIEsVutNhAqgBNVDRqoAGgRh2Op2qABVkJMcBg5Hhc2ni0q5MhdjWqgAZZz5Ni0YivdANPMrW73U4ARgADKO8w6MqUcn54LZYy63R7-N7dbR4cniBtsK355MAMrWOy6fy2Xv9zmG4s-SbODfSfzOMg5iAyPBuZxOXSTCiEADkOQcDq0jPpMBZ+CcECkFqg5KLQtosmAU4gDEACi0gfm+azuuEIhQngqhnMQPi0Lw4QChEt62qhEYWgKWDOnMy7ONaXo+huCYLFOzg4RgOROgsEBoQAjvA-ivmhAAeUREe8EC8DqaxpgAAhMAC0Db+OUhD5HgtDAEEJxVF8Tp1tkRR0PpTQVAi0myYgoKieJYL+l4gZgnGMKvkm5IpviZyIDsumXgcRyQbQAXnLplyhTcdzwQFTwvAQl7vDCMKgFcQA).
+- [TS Playground Partial type utility with keyof and mapped types example]().
 
 ### Required type utility
 
@@ -369,3 +364,7 @@ const yoda: JediRequiredProps = {
 Uncomment `skills` above and see the type checker is then appeased 🤣.
 
 - [TS Playground key of with mapped types Required type utility example](https://www.typescriptlang.org/play?ssl=44&ssc=4&pln=13&pc=1#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U0uQA1ngCeqXhACWhCAAVi6RM+IAbCCRnP2dEOwgwjjwmCABeeITEpOSU2MtQBUJaRAg-VABzbABhRQY-PABtACI8-KqAXTiITLK8cVrxYVcyAAoW1HKASgBuUCtmADlURDwIfwCOdFQo72c8Wjn0WeWfRX9xS0jZgCk8MmcmgG9QCAgSAFs8AH5sbPRXfNHb2mtgv1oXhA3h8KvUvhAOKhXIgAdhCPB7sICKMAL6jcAAKgxNwxcAidiigR8ITCEUo92ItjmfgWSxWPnWLjcAAMAPLCABWzIgWwAjvBnFsyAcIBiwEcIABZOwAJTw-MFZwAPOyOQA+K43CAVADS9iZEFsDicqvq2FVuvsYK1kFudvtDogAD0bcxHe6IGBbraPfavZ7JtNZrpZhQ7tNWMRpLNiBBADgET0AuAQQJGIEN4Nxx+rJ0hkeOYRMigOgNFjCWnc5yhVC9x0jaxCBVgVCpUV5xq9EtHIOMjEbBtpuKsi15b1iDXW4PPDYKoATVQvaqABpXUDfjTuNqqgAVZCzHAYOR4ZcQHd4FTID4nqoAGWc+TYtGISPQDRXt0h0M3AEYAAy-ldSxAGIR3pcIAHIfj+WhwJcDZ7mcegPgNCVwMuO5iEeV5EHeQhPghKElE3eFEWRCAUXAmJhCQHl5WbM4UIJWZwMHFs2zVSiQGAsZnHuSFvHxQl0IAUX5fwlwgYSAA8olUciIF4JZ7lPAABI4AFo5GQeYM3ydZgCCf4qnRCVt3WRAijoRkGwqLVpNkxAlVE+B-CVaVWOVAc6KHUDaDVCSJztKdsNw-J3ztKCNxCkF6nCj9CJhOEERfcKUTVNVQDBIA).
+
+## References
+
+- [keyof type operator on TypeScript handbook](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html).
