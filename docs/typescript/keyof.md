@@ -62,11 +62,11 @@ declare const shape3d: D3;
 let k1 = "x";
 
 //
-//    k1 indexing errors out 😭
-//    -------------------------
-//                \
-//                 \
+//      k1 indexing errors 😭
+//      ---------------------
 //                  \
+//                   \
+//                    v
 const val1 = shape3d[k1];
 //
 // ERROR:
@@ -138,7 +138,7 @@ getProp<Jedi, keyof Jedi>("points", luke);
 ////
 ```
 
-Note how we use `Prop extends keyof ObjType` as the second generic type parameter in the definition of `getProp()` and then the parameter `propName` anotated with that type `Prop`.
+Note how we use `Prop extends keyof ObjType` as the second generic type parameter in the definition of `getProp()` and then the parameter `propName` annotated with that type `Prop`.
 It causes the type checker to only allow property names that actually exist in the type `ObjType`, which in our example is bound to the type `Jedi`.
 
 - [TS Playground for getProp() with keyof in prop name type](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U1ChEATw54IAKTxkAlhAC8EAN6gIEEgBbPGxaRHRXQgBzAG4-CFoAa1cAGxTuBPDIqIBtAF04-w5USMQMwnhA4QI4gF840F54QlVXRQgovEQABXRUDgAeeIB5YQArABU7PAAaeN7+iDwAD0Q8cloIRLwbVF4IUcnpuYA+AAoOPo4AOWJg7AWOGYgRMexDqfsASnfxz7wco88j54uguvAiC9xjlLv1bsECqBalZQFI5CliGCIApCGEICl4NtsM43A1Oj0rmcAETFUpU54E7ZfOIgJgQACiACVOcNOZhLJBYOgopV1ogXvtbPYIAByGklJRUmUQVybQiocViVxREjCFIOUwQDiYu5dAhsvYQKUOGXbXb7EmuGXiSygcmPAaO552y2O85UgZZKKddAqpR4NKq9a0BzIAh4E70-GEvDMqwgDOZrPZnO5vP5guF9TMCZ4PEAYToZbZAFo6-WG5ZXIFiuhxdafByAI7wYgpZ7s5b2VQQWoQXh9QIQKkAAWtNbkyD7+uiZeASFStCpDRxeMZeHhDi87spVKCeCT+7Tu-F+4Aysk0ptj11HtSkql0peU9fFHuU90CplJ4HSvqetJKFuDI-g0HZyFWz4QDk8SDsOiADOyPZ9oG0yWvuh7PGEETRCcJxzP4qF4KoGFYSkOH2HhKYPp+tCEVk0T5KR5EckOVHoZhvZ0dajHbIBpSsQElTVOgXGgIiQA).
@@ -340,7 +340,7 @@ type Jedi = {
  * A type utility to make all properties in `Obj` required.
  */
 type MyRequired<Obj> = {
-  [Key in keyof Obj]: Obj[Key];
+  [Key in keyof Obj]-?:Obj[Key];
   //                ^
   //               /
   //              /
@@ -363,8 +363,12 @@ const yoda: JediRequiredProps = {
 
 Uncomment `skills` above and see the type checker is then appeased 🤣.
 
-- [TS Playground key of with mapped types Required type utility example](https://www.typescriptlang.org/play?ssl=44&ssc=4&pln=13&pc=1#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U0uQA1ngCeqXhACWhCAAVi6RM+IAbCCRnP2dEOwgwjjwmCABeeITEpOSU2MtQBUJaRAg-VABzbABhRQY-PABtACI8-KqAXTiITLK8cVrxYVcyAAoW1HKASgBuUCtmADlURDwIfwCOdFQo72c8Wjn0WeWfRX9xS0jZgCk8MmcmgG9QCAgSAFs8AH5sbPRXfNHb2mtgv1oXhA3h8KvUvhAOKhXIgAdhCPB7sICKMAL6jcAAKgxNwxcAidiigR8ITCEUo92ItjmfgWSxWPnWLjcAAMAPLCABWzIgWwAjvBnFsyAcIBiwEcIABZOwAJTw-MFZwAPOyOQA+K43CAVADS9iZEFsDicqvq2FVuvsYK1kFudvtDogAD0bcxHe6IGBbraPfavZ7JtNZrpZhQ7tNWMRpLNiBBADgET0AuAQQJGIEN4Nxx+rJ0hkeOYRMigOgNFjCWnc5yhVC9x0jaxCBVgVCpUV5xq9EtHIOMjEbBtpuKsi15b1iDXW4PPDYKoATVQvaqABpXUDfjTuNqqgAVZCzHAYOR4ZcQHd4FTID4nqoAGWc+TYtGISPQDRXt0h0M3AEYAAy-ldSxAGIR3pcIAHIfj+WhwJcDZ7mcegPgNCVwMuO5iEeV5EHeQhPghKElE3eFEWRCAUXAmJhCQHl5WbM4UIJWZwMHFs2zVSiQGAsZnHuSFvHxQl0IAUX5fwlwgYSAA8olUciIF4JZ7lPAABI4AFo5GQeYM3ydZgCCf4qnRCVt3WRAijoRkGwqLVpNkxAlVE+B-CVaVWOVAc6KHUDaDVCSJztKdsNw-J3ztKCNxCkF6nCj9CJhOEERfcKUTVNVQDBIA).
+- [TS Playground key of with mapped types Required type utility example](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMJBhtO3EAHd9kmWl2JUh2U0uQA1ngCeqXhACWhCAAVi6RM+IAbCCRnP2dEOwgwjjwmCABeeITEpOSU2MtQBUJaRAg-VABzbABhRQY-PABtACI8-KqAXTiITLK8cVrxYVcyAAoW1HKASgBuUCtmADlURDwIfwCOdFQo72c8Wjn0WeWfRX9xS0jZgCk8MmcmgG9QCAgSAFs8AH5sbPRXfNHb2mtgv1oXhA3h8KvUvhAOKhXIgAdhCPB7sICKMAL6jcAAKgxNwxcAidiigR8ITCEUo92ItjmfgWSxWPnWLjcAAMAPLCABWzIgWwAjvBnFsyAcIBiwEcIABZOwAJTw-MFZwAPOyOQA+K43CAVADS9iZEFsDicqvqAFpAardfYwVrILcHY6nRAAHp25jOz0QMC3e1ex0+72TaazFDEHK6WbwWizQAYBBbAJgEABoILpkM45MgXBsULNaHYlMQAB5knl4e6oaTRX3MUgQHbOPYBcOId7CJCzXhLe5zCF0ghhEVB0BosYS07nOUKoXuOkbWIQKcCoVKifONXolo5BxkYjYNdLxVkWfLecQa63B54bBVACaqF3VST7qBvxp3G1VQAKshZjgMHIeBPhA354Co6aEHUKZVAAMs4+RsLQxBIugDTPrckLQh+ACMAAMuHPqOIAxCe9LhAA5D8fy0OR2YQPczj0B8BoSuRlx3MQjyvK2HzDBCUJKB+8KIsiEAouRMTtjkfLLmcLEErM5GHiua5qhJIDEWMzj3JC3j4oS7EAKL8v4KaGUWUSqGJEBdqgPZVAAAkcZqZvMeCQeswBBP8VTohKX7rIgRR0IyC4VFq5mWYgSrGfA-hKtKynKge8qycec5qimF4Ole3HvJB6EOlR755SC9SFRhAkwnCCIoYVKJqmqoBgkAA).
+
+Strictly speaking, in my tests, it seems we don't actually need `-?` to remove the optional attribute from a property; just not using `?` altogether seems to suffices.
+Still, being explicit makes it evident about what is going on.
 
 ## References
 
-- [keyof type operator on TypeScript handbook](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html).
+- [keyof type operator on the TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html).
+- [Mapped Types on the TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
