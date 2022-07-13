@@ -49,5 +49,6 @@ repository`_.
    magfpjs/index
    composable-fp-js/index
    codewars/index
+   hackerrank/index.md
    programming/index
    misc/index
