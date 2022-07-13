@@ -20,3 +20,12 @@ Do not use these solutions (or others found in repositories over the web) on Hac
 
 You don't learn by just copying code.
 ```
+
+```{toctree}
+---
+maxdepth: 6
+caption: HackerRank
+---
+
+1-easy/very-big-sum.md
+```
