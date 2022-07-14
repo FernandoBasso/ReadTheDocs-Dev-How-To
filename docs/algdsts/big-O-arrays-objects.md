@@ -69,3 +69,18 @@ As the length grows, the space complexity grows.
 
 For both objects and arrays, it is O(n), `n` being the number of keys in the object or the length for arrays.
 
+## Code Examples
+
+### calcSubtotals()
+
+#### Unit Tests
+
+```{literalinclude} /../src/algdsts/src/02-bigO-notation/calcSubtotals.test.ts
+:language: typescript
+```
+
+#### Implementation
+
+```{literalinclude} /../src/algdsts/src/02-bigO-notation/calcSubtotals-v1.ts
+:language: typescript
+```

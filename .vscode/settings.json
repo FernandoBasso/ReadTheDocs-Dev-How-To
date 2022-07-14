@@ -6,6 +6,7 @@
   "deno.importMap": "./src/codewars/typescript/import-map.json",
   "esbonio.sphinx.confDir": "",
   "cSpell.words": [
+    "algdsts",
     "Codewars",
     "devel",
     "hackerrank",

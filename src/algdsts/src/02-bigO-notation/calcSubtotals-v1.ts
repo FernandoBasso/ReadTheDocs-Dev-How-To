@@ -16,14 +16,14 @@
  * next element in turn. For example, the array `[1, 2, 3, 4]` has these
  * subtotals:
  *
- * ```text
- * 1 → sum of just the first element.
- * 3 → sum of 1 and 2.
- * 6 → sum of 1, 2 and 3.
+ * ```
+ *  1 → sum of just the first element.
+ *  3 → sum of 1 and 2.
+ *  6 → sum of 1, 2 and 3.
  * 10 → sum of 1, 2, 3 and 4.
  * ```
  *
- * So, `[1, 2, 3]` produces `[1, 3, 6]
+ * So, for example, the sum of `[1, 2, 3]` produces `[1, 3, 6].
  */
 function calcSubtotals(xs: number[]): number[] {
   const subtotals = [];
