@@ -9,8 +9,8 @@ description: Notes and solutions for Big Sum Hacker Rank Challenge.
 
 ## TypeScript
 
-The TypeScript version of this challenge sounds very difficult because they mention things like `LONG_INTEGER` and `LONG_INTEGER_ARRAY`, which doesn't matter for languages like ECMAScript (JavaScript, TypeScript) or other languages that don't bother too much with different numeric types.
-It was probably ported from C or C++, or some other language where you can't store a `long int` into an `int` without losing precision.
+The TypeScript version of this challenge sounds very difficult because they mention things like `LONG_INTEGER` and `LONG_INTEGER_ARRAY`, which don't matter for languages like ECMAScript (JavaScript, TypeScript) or other languages that don't bother too much with different numeric types.
+It was probably ported from C or C++, or some other language where you can't store a `long int` into an `int` (or other similar situations) without losing precision.
 
 ### Test Cases
 

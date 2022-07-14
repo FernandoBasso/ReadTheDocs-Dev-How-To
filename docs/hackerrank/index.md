@@ -16,16 +16,18 @@ The code is hosted in the [Gitlab repository for this site](https://gitlab.com/d
 ```{admonition} About these solutions and explanations
 :class: danger
 
-Do not use these solutions (or others found in repositories over the web) on HackerRank. Try solving them yourself and only them see how others have done it to try to learn from them.
+Do not use these solutions (or others found in repositories over the web) on HackerRank.
+Try solving them yourself and only them see how others have done it to try to learn from them.
 
 You don't learn by just copying code.
 ```
 
 ```{toctree}
 ---
+hidden:
 maxdepth: 6
-caption: HackerRank
+caption: Easy HackerRank Challenges
 ---
 
-1-easy/very-big-sum.md
+1-easy/index.md
 ```
