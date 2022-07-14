@@ -91,24 +91,24 @@ Read the [Empty sum article on Wikipedia](https://en.wikipedia.org/wiki/Empty_su
 :language: typescript
 ```
 
-#### sum() v1
+#### sum(xs) v1
 
 ```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum-v1.ts
 :language: typescript
 ```
 
-#### sum() v2
+#### sum(xs) v2
 
 ```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum-v2.ts
 :language: typescript
 ```
-#### sum() v3
+#### sum(xs) v3
 
 ```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum-v3.ts
 :language: typescript
 ```
 
-### calcSubtotals()
+### calcSubtotals(xs)
 
 #### Unit Tests
 
@@ -116,7 +116,7 @@ Read the [Empty sum article on Wikipedia](https://en.wikipedia.org/wiki/Empty_su
 :language: typescript
 ```
 
-#### calcSubtotals() v1
+#### calcSubtotals(xs) v1
 
 ```{literalinclude} /../src/algdsts/src/02-bigO-notation/calcSubtotals-v1.ts
 :language: typescript
