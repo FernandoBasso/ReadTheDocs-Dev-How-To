@@ -15,7 +15,6 @@ Command Line
    bash-parameter-expansion
    bash-aliases
    bash-arrays
-   git/index
    terminal/index
    find.md
    hackerrank-shell

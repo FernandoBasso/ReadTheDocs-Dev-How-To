@@ -37,6 +37,7 @@ repository`_.
    :caption: Table of Contents
 
    cmdline/index
+   git/index
    text-editors/index
    haskell/index
    purescript/index.md
