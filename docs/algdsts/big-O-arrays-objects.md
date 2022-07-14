@@ -71,6 +71,43 @@ For both objects and arrays, it is O(n), `n` being the number of keys in the obj
 
 ## Code Examples
 
+### sum() array
+
+Following the concept of *empty sum*, a sum of an empty list results in 0 (zero).
+That is what Haskell `sum` Prelude function does, for example:
+
+```text
+$ stack exec -- ghci
+GHCi, version 9.0.2: https://www.haskell.org/ghc/ :? for help
+ghci> sum []
+0
+```
+
+Read the [Empty sum article on Wikipedia](https://en.wikipedia.org/wiki/Empty_sum).
+
+#### Unit Tests
+
+```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum.test.ts
+:language: typescript
+```
+
+#### sum() v1
+
+```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum-v1.ts
+:language: typescript
+```
+
+#### sum() v2
+
+```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum-v2.ts
+:language: typescript
+```
+#### sum() v3
+
+```{literalinclude} /../src/algdsts/src/02-bigO-notation/sum-v3.ts
+:language: typescript
+```
+
 ### calcSubtotals()
 
 #### Unit Tests
@@ -79,7 +116,7 @@ For both objects and arrays, it is O(n), `n` being the number of keys in the obj
 :language: typescript
 ```
 
-#### Implementation
+#### calcSubtotals() v1
 
 ```{literalinclude} /../src/algdsts/src/02-bigO-notation/calcSubtotals-v1.ts
 :language: typescript
