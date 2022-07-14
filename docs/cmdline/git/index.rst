@@ -11,6 +11,7 @@ Git
    commit-message
    commit-message-more-examples
    reset
+   branching.md
    merge.md
    revisions.md
 

@@ -17,9 +17,8 @@ When we push a branch to a remote repository, we can use `--set-upstream` or or 
 $ git push origin --set-upstream drafts
 ```
 
-Sufice
-
 That is, after se “set upstream” for a branch, `git status`, `git checkout` (and possibly a few other commands) inform us of differences between them.
+
 E.g.:
 
 ```shell-session
