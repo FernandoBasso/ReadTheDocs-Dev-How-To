@@ -21,5 +21,6 @@ caption: Topics
 
 big-O-arrays-objects.md
 space-complexity-examples.md
+logarithms.md
 helper-functions.md
 ```
