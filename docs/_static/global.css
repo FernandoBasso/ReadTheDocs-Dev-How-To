@@ -55,6 +55,14 @@
 }
 
 /**
+ * There is a selector `.highlight .go` which makes fonts italic.
+ * I never liked italics in source code... Not even in comments.
+ */
+.highlight .go {
+  font-style: normal;
+ }
+
+/**
  * Code block font. The default ones were too small and not so readable
  * as Source Code Pro, which we make the first in the list so it is used
  * if available.
