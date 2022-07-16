@@ -30,4 +30,5 @@ caption: Easy HackerRank Challenges
 ---
 
 1-easy/index.md
+helper-functions.md
 ```
