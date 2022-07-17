@@ -101,6 +101,7 @@ timestamp = str(time.time())
 
 html_js_files = [
   'qanda.js' + '?v=' + timestamp,
+  'left-nav.js' + '?v=' + timestamp,
 ]
 
 html_css_files = [
