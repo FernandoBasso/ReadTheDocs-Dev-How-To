@@ -3,9 +3,9 @@ title: Helper Functions | Algorithms and Data Structures in TypeScript and JavaS
 description: This page contains a list of helper functions we use, either to improve readability or to reduce rewriting some functions over and over again.
 ---
 
-This page contains a list of helper generic helper functions we use either to improve readability or to reduce rewriting some functions over and over again. The goal is to make them very specific (do one thing and do it well) so they can be combined and composed easily with other functions.
-
 ## Helper Functions
+
+This page contains a list of helper generic helper functions we use either to improve readability or to reduce rewriting some functions over and over again. The goal is to make them very specific (do one thing and do it well) so they can be combined and composed easily with other functions.
 
 ### add(x, y)
 
