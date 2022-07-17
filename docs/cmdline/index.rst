@@ -22,12 +22,15 @@ Command Line
 Intro
 -----
 
+.. image:: ./index.assets/bash-help-1.png
+   :alt: Bash Help Command Line
+
 Command line tools have NOT faded out into the past. They have kept
 consistently evolving and being improved. They still do! A lot of GUI
 interfaces use command line tools behind the scenes.
 
 There exists a specification to standardize how command line utilities
-should behave so that they work in a cross-plataform, interoperable way.
+should behave so that they work in a cross-platform, interoperable way.
 
 GNU and BSD command line utilities generally try to follow the specs
 but add the so called *extensions* which add further capabilities to
