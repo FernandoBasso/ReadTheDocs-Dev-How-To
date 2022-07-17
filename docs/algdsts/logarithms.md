@@ -29,3 +29,15 @@ But for analyzing algorithms' time and space complexity, we only care about the 
 In general let's simplify that log = log₂, (even though a logarithm MUST have a base, that is, simply "log" is not a real math operation, we can use that simplification informally).
 
 A loose definition is that a logarithm of a number roughly measures the number of times you can divide a number by 2 before you get a value that is less than or equal to one.
+
+See this slide from Colt Steele for some visual clue on how good logarithimic time complexity fairs in comparison with some others:
+
+- [Colt Steele Slides on Logarithms](https://cs.slides.com/colt_steele/big-o-notation#/28/0/5)
+
+![Colt Steele on Logarithms](./logarithms.assets/colt-steele-logarithms.png)
+
+Types of algorithms that sometimes involves logarithmic time and/or space complexity:
+
+- Certain searching algorithms have logarithmic time complexity.
+- Sorting algorithms (especially some of the most efficient ones).
+- Recursive algorithms sometimes have logarithmic space complexity.
