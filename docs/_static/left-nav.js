@@ -15,6 +15,15 @@
  * correctly the the Furo theme JS itself through gumshoe-patched.js. See:
  *
  * - https://pradyunsg.me/furo/contributing/internals/#contents-sidebar
+ *
+ * For some reason, `block: 'center'` causes the main content to scroll a bit as
+ * well. After some research, it seems `block: 'nearest'` is the best we can do.
+ * It does not center the active menu item, but still makes it visible and at
+ * least the main content does not scroll anymore.
+ *
+ * - https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+ * - https://stackoverflow.com/questions/11039885/scrollintoview-causing-the-whole-page-to-move
+ * - https://stackoverflow.com/questions/48634459/scrollintoview-block-vs-inline
  */
 (function improveLeftNav() {
 
@@ -23,8 +32,8 @@ function onWindowLoad() {
 
   curNavItem.scrollIntoView({
     behavior: 'smooth',
-    block: 'center',
-    inline: 'nearest',
+    block: 'nearest',
+    inline: 'start',
   });
 }
 
