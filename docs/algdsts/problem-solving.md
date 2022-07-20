@@ -120,3 +120,26 @@ Let's assume we are to handle only alphanumeric `[A-Za-z0-9]` and ignore any oth
         - If that char is not in frequencies, then add it with as key with value 1.
         - If that char is found in frequencies, increment its value by 1.
 - Return frequencies object.
+
+## Solve the problem (or a simplified version of it)
+
+If the problem seems unsurmountable to you, try to solve a simplified version of it first.
+You can initially leave of the edge cases, ignore time and space complexity, and/or any other fancy stuff that seems to make the problem harder.
+
+This is what the book Think Like a Programmer calls “reducing the problem”.
+It means “make it simpler”.
+
+By solving simpler version of it, you also gain insights into the harder, real problem you are trying to solve.
+
+For the char frequency count problem described above, we could initially count all characters, including non alphanumeric ones, and consider uppercase and lowercase letters to be different.
+Then, later we could improve the solution and make it consider uppercase and lowercase letters to be the same, followed by making sure we ignore non alphanumeric chars.
+
+### charCount() example step by step
+
+Let's suppose we want to count the chars in the string "Hi. Are you there?".
+We want to collect the frequency of alphanumeric characters only, ignoring any other character that is not alphanumeric.
+
+### v1
+
+The first attempt just implements the very basic loop and counts each character indiscriminately.
+
