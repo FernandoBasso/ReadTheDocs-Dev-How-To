@@ -139,7 +139,201 @@ Then, later we could improve the solution and make it consider uppercase and low
 Let's suppose we want to count the chars in the string "Hi. Are you there?".
 We want to collect the frequency of alphanumeric characters only, ignoring any other character that is not alphanumeric.
 
-### v1
+#### v1 Simplest Scenario
 
 The first attempt just implements the very basic loop and counts each character indiscriminately.
+We start with a simple test case that doesn't include uppercase or non-alphanumeric characters.
 
+```js
+const { charCount } = require('./charCount-v1');
+
+describe('charCount()', () => {
+  it('should work with lowercase alphabetic strings', () => {
+    expect(charCount('hello')).toEqual({
+      h: 1,
+      e: 1,
+      l: 2,
+      o: 1,
+    });
+  }) ;
+});
+```
+
+```js
+function charCount(s) {
+  const freq = {};
+
+  for (let i = 0; i < s.length; ++i) {
+    let chr = s[i];
+
+    if (freq[chr] === undefined)
+      freq[chr] = 1;
+    else
+      freq[chr] += 1;
+  }
+
+  return freq;
+}
+```
+
+This first version has one test for a simple, single word, lowercase alphabetic string and the logic inside the function just counts every character (be it alphanumeric or not).
+If we pass it a string with punctuation, spaces, and other non alphanumeric characters, it would count those.
+Uppercase and lowercase chars would be considered different and counted separately too.
+
+#### v2 Uppercase and Lowercase
+
+With this second version, we also handle uppercase and lowercase characters as the same.
+We achieve this by lowercasing the character.
+
+```js
+describe('charCount()', () => {
+  //
+  // ...previous test case...
+  //
+
+  it('should handle input in a case insensitive way', () => {
+    expect(charCount('Racecar')).toEqual({
+      r: 2, // R and r.
+      a: 2,
+      c: 2,
+      e: 1,
+    });
+  });
+});
+```
+
+```js
+function charCount(s) {
+  const frequencies = {};
+
+  for (let i = 0; i < s.length; ++i) {
+    let c = s[i].toLowerCase();
+
+    if (frequencies[c] === undefined)
+      frequencies[c] = 1;
+    else frequencies[c] += 1;
+  }
+
+  return frequencies;
+}
+```
+
+#### v3 Ignore Non-Alphanumeric Chars
+
+We now reach a complete implementation.
+We ignore non-alphanumeric characters using a regular expression.
+
+```js
+describe('charCount()', () => {
+  //
+  // ...previous test cases...
+  //
+
+  it('should ignore non-alphanumeric chars', () => {
+    //
+    // Should ignore the space " " and "!".
+    //
+    expect(charCount('Hi there!')).toEqual({
+      h: 2,
+      i: 1,
+      t: 1,
+      e: 2,
+      r: 1,
+    });
+  });
+
+  it('should work with strings including digits', () => {
+    expect(charCount('3-way handshake (SYN, SYN-ACK, ACK)')).toEqual({
+      3: 1,
+      a: 5,
+      c: 2,
+      d: 1,
+      e: 1,
+      h: 2,
+      k: 3,
+      n: 3,
+      s: 3,
+      w: 1,
+      y: 3,
+    });
+  });
+});
+```
+
+```js
+function charCount(s) {
+  const frequencies = {};
+
+  for (let i = 0; i < s.length; ++i) {
+    let c = s[i].toLowerCase();
+
+    if (!/[a-z0-9]/.test(c)) continue;
+
+    if (frequencies[c] === undefined)
+      frequencies[c] = 1;
+    else frequencies[c] += 1;
+  }
+
+  return frequencies;
+}
+```
+
+#### v4 Refactor Regexp Bit Into Helper Function
+
+The `if` handling the regexp test is probably simple enough, but it is a good approach to extract it into a helper function.
+We can give the function a name, making it much more self-documenting, add JSDoc to the function, test it if we want, etc.
+
+```{admonition} Should I Unit-Test Helper Functions‽
+:class: info
+
+There are two schools of though regarding testing helper functions used for specific purposes.
+If a function is generic and reused many times in a project, it is recommended to test and document it as thoroughly ans humanly possible.
+
+However, if it is used for a specific purpose in a single place or module, some people argue it does not need (or should) be tested separately because it is implicitly tested with the code that uses it.
+```
+
+```js
+/**
+ * Checks whether the `c` is an alphanumeric character.
+ *
+ * @param {string} A 1-character string.
+ * @return {boolean}
+ */
+function isAlphaNum(c) {
+  return /[a-z0-9]/.test(c);
+}
+
+/**
+ * Count the frequency of alphanumeric chars in the input string.
+ *
+ * This third version finally makes sure we ignore non-alphanumeric
+ * characters through the use of the `/[a-z0-9]/`  regexp.
+ *
+ * @param {string} s
+ * @return {object} An object whose keys are the char counted
+ *   and the value is the number occurrences of that char.
+ *
+ * @example
+ * charCount("racecar");
+ * // → { r: 2, a: 2, c: 2, e: 1}
+ *
+ * @example
+ * charCount("hey");
+ * // → { h: 1, e: 1, y: 1 }
+ */ 
+function charCount(s) {
+  const frequencies = {};
+
+  for (let i = 0; i < s.length; ++i) {
+    let c = s[i].toLowerCase();
+
+    if (!isAlphaNum(c)) continue;
+
+    if (frequencies[c] === undefined)
+      frequencies[c] = 1;
+    else frequencies[c] += 1;
+  }
+
+  return frequencies;
+}
+```
