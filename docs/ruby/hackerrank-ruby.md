@@ -263,3 +263,43 @@ Careful with precedence:
 
 The parentheses on `reject()` causes problems. Drop them:
 
+## Hashes
+
+Create an empty hash:
+
+```rb
+h = {}
+g = Hash.new
+```
+
+Create hash with all keys having 1 as default value:
+
+```rb
+> h = Hash.new(1)
+» {}
+
+> h[:k]
+» 0
+
+> g = {}
+» {}
+
+> g.default = 1
+» 1
+
+> g[:foo]
+» 1
+```
+
+Two syntaxes:
+
+```rb
+> yoda = { 'name' => 'Yoda', 'skill' => 'The Force' }
+» {"name"=>"Yoda", "skill"=>"The Force"}
+
+> luke = { :name => 'Luke', :skill => 'Fast Learner' }
+» {:name=>"Luke", :skill=>"Fast Learner"}
+
+> ahsoka = { name: 'Ahsoka Tano', skill: 'Lightsaber' }
+» {:name=>"Ahsoka Tano", :skill=>"Lightsaber"}
+```
