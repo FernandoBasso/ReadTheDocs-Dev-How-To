@@ -303,3 +303,155 @@ Two syntaxes:
 > ahsoka = { name: 'Ahsoka Tano', skill: 'Lightsaber' }
 » {:name=>"Ahsoka Tano", :skill=>"Lightsaber"}
 ```
+
+We can iterate over hash keys with `each`:
+
+```rb
+jedi {
+  id: 1,
+  name: 'Yoda',
+  skill: 'The Force'
+}
+
+jedi.each do |k, v|
+  p k v
+  p v
+end
+#
+# → :id
+# → 1
+# → :name
+# → "Yoda"
+# → :skill
+# → "The Force"
+##
+
+jedi.each do |arr|
+  p arr
+end
+#
+# → [:id, 1]
+# → [:name, "Yoda"]
+# → [:skill, "The Force"]
+##
+```
+
+Other cool stuff:
+
+```irb
+> h = { 1 => 1, 2 => 4, 3 => 9, 4 => 16, 5 => 25 }
+
+> h.keep_if { |k, v| k > 3 }
+» {4=>16, 5=>25}
+```
+
+```irb
+h = { 4 => 16, 5 => 25 }
+> h[:foo] = :bar
+» :bar
+> h
+» {4=>16, 5=>25, :foo=>:bar}
+
+> h.delete_if { |k, v| k.is_a? Integer }
+» {:foo=>:bar}
+```
+
+## unless
+
+```rb
+class User
+  def initialize(name, is_admin)
+    @name = name
+    @admin = is_admin
+  end
+
+  def say_hello
+    p "Hello, #{@name}!"
+  end
+
+  def admin?
+    @admin
+  end
+end
+
+users = [
+  User.new('Yoda', true),
+  User.new('Ahsoka', false),
+  User.new('Aayla', false),
+]
+
+users.each do |user|
+  unless user.admin?
+    user.say_hello
+  end
+end
+#
+# → "Hello, Ahsoka!"
+# → "Hello, Aayla!"
+##
+```
+
+## loop, break if
+
+```rb
+class Coder
+  def initialize(name)
+    @name = name
+    @level = 0;
+  end
+
+  def level
+    @level
+  end
+
+  def master?
+    @level >= 100
+  end
+
+  def practice
+    @level = @level + 10
+    p "Got to level #{@level}"
+  end
+end
+
+##
+# Practice until you become a master.
+#
+coder = Coder.new('Aayla Secura')
+
+loop do
+  break if coder.master?
+  coder.practice
+end
+#
+# → "Got to level 10"
+# → "Got to level 20"
+# → "Got to level 30"
+# → "Got to level 40"
+# → "Got to level 50"
+# → "Got to level 60"
+# → "Got to level 70"
+# → "Got to level 80"
+# → "Got to level 90"
+# → "Got to level 100"
+##
+```
+
+What about this oneliner?
+
+```rb
+developer = Coder.new('Ahsoka Tano')
+developer.practice until developer.master?
+#
+# → "Got to level 10"
+# → "Got to level 20"
+# → "Got to level 30"
+# → "Got to level 40"
+# → "Got to level 50"
+# → "Got to level 60"
+# → "Got to level 70"
+# → "Got to level 80"
+# → "Got to level 90"
+# → "Got to level 100
+##
+```
