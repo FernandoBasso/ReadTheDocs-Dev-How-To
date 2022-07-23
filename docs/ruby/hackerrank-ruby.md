@@ -455,3 +455,95 @@ developer.practice until developer.master?
 # → "Got to level 100
 ##
 ```
+
+## group_by
+
+Note how in the first two cases numbers are grouped into `true` and `false`, while in the third example, they are grouped into `0` and `1`.
+The comparison inside the block causes the grouping to be in a certain way.
+With the first two cases, the block returns a boolean, while in the third case, it returns ether 0 or 1.
+
+```irb
+> (1..5).group_by(&:odd?)
+» {true=>[1, 3, 5], false=>[2, 4]}
+
+> (1..5).group_by { |n| n % 2 == 0 }
+» {false=>[1, 3, 5], true=>[2, 4]}
+
+> (1..5).group_by { |n| n % 2 }
+» {1=>[1, 3, 5], 0=>[2, 4]}
+```
+
+### Hash Gotcha!
+
+:::::{container} qanda
+::::{container} question
+```rb
+yoda = { name: 'Yoda', level: 100 }
+p yoda.level
+#
+# NoMethodError (undefined method `level' for
+# {:name=>"Yoda", :level=>100}
+##
+```
+::::
+
+::::{container} answer
+`yoda.level` syntax is trying to send the message `level` (call the method `level`) to the receiver `yoda`.
+
+What we need is to access the symbol:
+
+```rb
+p yoda[:level]
+```
+::::
+:::::
+
+To be a jedi master, your skill level must be >= 80.
+A padawan has skill level < 80.
+
+```rb
+jedis = {
+  'Yoda': 100,
+  'Ahsoka Tano': 93,
+  'Aayla Secura': 91,
+  'Luke Skywalker': 93,
+  'Anakin Skywalker': 60
+}
+
+groups = jedis.group_by do |_k, v|
+  v < 80 ? :padawan : :master
+end
+
+ap groups[:padawan]
+#
+# → [
+# →     [0] [
+# →         [0] :"Anakin Skywalker",
+# →         [1] 60
+# →     ]
+# → ]
+##
+
+ap groups[:master]
+#
+# → [
+# →     [0] [
+# →         [0] :Yoda,
+# →         [1] 100
+# →     ],
+# →     [1] [
+# →         [0] :"Ahsoka Tano",
+# →         [1] 93
+# →     ],
+# →     [2] [
+# →         [0] :"Aayla Secura",
+# →         [1] 91
+# →     ],
+# →     [3] [
+# →         [0] :"Luke Skywalker",
+# →         [1] 93
+# →     ]
+# → ]
+##
+
+```

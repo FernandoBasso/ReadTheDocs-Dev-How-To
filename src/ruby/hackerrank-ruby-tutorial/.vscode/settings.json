@@ -1,0 +1,13 @@
+{
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": false,
+    },
+    "reek": {
+      "useBundler": false,
+    },
+  },
+  "ruby.format": "rubocop",
+}
