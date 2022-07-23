@@ -547,3 +547,86 @@ ap groups[:master]
 ##
 
 ```
+
+## Arrays
+
+Create an empty array:
+
+```rb
+xs = []
+ys = Array.new
+```
+
+An array with 3 single `nil` elements:
+
+```rb
+xs = [nil, nil, nil]
+ys = Array.new(3)
+zs = Array.new(3, nil)
+```
+
+An array with 5 elements whose values are false.
+
+```rb
+xs = [false, false, false, false, false]
+ys = Array.new(5, false)
+```
+
+We can use subscript notation with range syntax to return a slice of the array:
+
+```rb
+> xs = (1..9).to_a
+
+> xs[0..3]
+» [1, 2, 3, 4]
+
+> xs[0...3]
+» [1, 2, 3]
+
+>xs[2, 5]
+» [3, 4, 5, 6, 7]
+```
+
+## Currying
+
+> Currying is a technique in which a function accepts `n` parameters and turns it into a sequence of `n` functions, each of them take 1 parameter.
+
+```rb
+add = ->(x, y) { x + y }
+
+ap add.call(-1, 1)
+#
+# → 0
+##
+
+##
+# Partially apply `call` to 1.
+#
+add1 = add.curry.call(2)
+
+ap add1.call(10)
+#
+# → 11
+##
+```
+
+Remember we can use the `.()` short syntax (among others, more obscure 😱).
+
+```rb
+add = ->(x, y) { x + y }
+
+ap add.(-1, 1)
+#
+# → 0
+##
+
+##
+# Partially apply `add` to 1.
+#
+add1 = add.curry.(2)
+
+ap add1.(10)
+#
+# → 11
+##
+```
