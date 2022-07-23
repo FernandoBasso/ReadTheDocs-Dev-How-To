@@ -23,3 +23,12 @@ Unfortunately, it seems there is not video recording of it.
 
 - [I Love Ruby](https://i-love-ruby.gitlab.io/book.html) free, online book (rendered in Asciidoctor) by Karthikeyan A K.
 - [Official Ruby Docs](https://ruby-doc.org/).
+
+
+Nice tools:
+
+- [Ruby Style Guide](https://rubystyle.guide/).
+- [Awesome Print](https://github.com/awesome-print/awesome_print).
+- [pry (irb alternative with powerful introspection capabilities)](https://github.com/pry/pry).
+- [Rubocop Docs](https://docs.rubocop.org/rubocop/).
+- [Solargraph Ruby Langauge Server](https://solargraph.org/guides).
