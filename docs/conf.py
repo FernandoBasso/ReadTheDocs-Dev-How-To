@@ -71,6 +71,14 @@ extensions = [
   'myst_parser',
 ]
 
+myst_enable_extensions = [
+  ##
+  # • https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html?highlight=directives#nesting-directives
+  # • https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-colon-fence
+  #
+  'colon_fence',
+]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
