@@ -630,3 +630,18 @@ ap add1.(10)
 # → 11
 ##
 ```
+
+## Lazy
+
+Ruby 2.0 introduced lazy evaluation, which can work with potentially infinite data structures (more or less like in Haskell 💖 λ).
+
+```irb
+1.upto(Float::INFINITY).lazy.first(5)
+[1, 2, 3, 4, 5]
+```
+
+An example with lazy to generate an array of powers:
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/e11_lazy_pow.rb
+:language: ruby
+```
