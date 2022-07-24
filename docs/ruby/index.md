@@ -12,6 +12,7 @@ maxdepth: 6
 caption: Ruby
 ---
 
+unit-tests.md
 scope.md
 hackerrank-ruby.md
 ```

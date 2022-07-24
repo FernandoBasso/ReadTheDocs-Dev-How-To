@@ -3,7 +3,7 @@ title: Ruby | HackerRank
 description: Notes on Ruby Tutorial on HackerRank
 ---
 
-# Ruby HackerRank Tutorial
+# HackerRank Ruby Tutorial
 
 ## Hello World
 ```rb
