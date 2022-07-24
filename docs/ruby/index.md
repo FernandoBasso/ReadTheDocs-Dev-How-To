@@ -12,6 +12,7 @@ maxdepth: 6
 caption: Ruby
 ---
 
+scope.md
 hackerrank-ruby.md
 ```
 
