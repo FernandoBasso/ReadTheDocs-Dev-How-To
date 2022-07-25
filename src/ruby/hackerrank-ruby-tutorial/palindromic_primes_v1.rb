@@ -9,4 +9,3 @@ def prime_palind(len)
     prime?(n) && palind?(n.to_s)
   end.first(len)
 end
-

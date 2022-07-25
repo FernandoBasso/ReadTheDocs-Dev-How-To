@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'is_palindrome_v1'
+require_relative 'is_palindrome_v2'
 
 describe 'palind?()' do
   it 'should be true for empty string' do
