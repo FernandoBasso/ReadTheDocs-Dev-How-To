@@ -9,6 +9,7 @@
     "algdsts",
     "Codewars",
     "devel",
+    "downto",
     "hackerrank",
     "infixr",
     "irb",
@@ -20,6 +21,7 @@
     "qanda",
     "Racecar",
     "toctree",
-    "unshift"
+    "unshift",
+    "upto"
   ]
 }

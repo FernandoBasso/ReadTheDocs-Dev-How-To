@@ -33,3 +33,7 @@ Style/SpaceAroundOperators:
 Style/MethodParameterName:
   Enabled: true
   MinNameLength: 1
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 24

@@ -5,6 +5,10 @@ description: Notes on Ruby Tutorial on HackerRank
 
 # HackerRank Ruby Tutorial
 
+Here are my notes on the HackerRank Ruby tutorial.
+Many examples are my own (some based on their examples, some entirely mine).
+Most notes and explanations are my own too and not just a verbatim copy from the website.
+
 ## Hello World
 ```rb
 print "Hello, world!"
@@ -635,13 +639,84 @@ ap add1.(10)
 
 Ruby 2.0 introduced lazy evaluation, which can work with potentially infinite data structures (more or less like in Haskell 💖 λ).
 
+Some initial, simple examples:
+
+The first five positive integers:
+
 ```irb
-1.upto(Float::INFINITY).lazy.first(5)
+> 1.upto(Float::INFINITY).lazy.first(5)
 [1, 2, 3, 4, 5]
 ```
+
+The first five negative integers:
+
+```irb
+>> -1.downto(-Float::INFINITY).lazy.first(5)
+=> [-1, -2, -3, -4, -5]
+```
+
+The first eight odd positive numbers:
+
+```irb
+1.upto(Float::INFINITY).lazy.select {|n| n.odd?}.first(8)
+[1, 3, 5, 7, 9, 11, 13, 15]
+```
+
+10 negative even integers starting at -1e5:
+
+```irb
+(-1e5.to_i).downto(-Float::INFINITY).lazy.select {|n| n.even?}.first(10)
+=> [-100000,
+ -100002,
+ -100004,
+ -100006,
+ -100008,
+ -100010,
+ -100012,
+ -100014,
+ -100016,
+ -100018]
+```
+
+Note that we do `.to_i` because exponential notation makes the value a `Float`, not a `Integer`, and `upto` and `downto` work on `Integer` (not `Float`). See:
+
+```irb
+>> -1e1.class
+=> Float
+>> (-1e1.to_i).class
+=> Integer
+```
+
+### Lazy Array of Powers
 
 An example with lazy to generate an array of powers:
 
 ```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/e11_lazy_pow.rb
+:language: ruby
+```
+
+### Lazy Array of Palindromic Primes
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/is_palindrome.spec.rb
+:language: ruby
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/is_palindrome_v1.rb
+:language: ruby
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/is_prime.spec.rb
+:language: ruby
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/is_prime_v1.rb
+:language: ruby
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/palindromic_primes.spec.rb
+:language: ruby
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/palindromic_primes_v1.rb
 :language: ruby
 ```
