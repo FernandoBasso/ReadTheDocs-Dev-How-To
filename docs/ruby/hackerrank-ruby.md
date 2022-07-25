@@ -720,3 +720,39 @@ An example with lazy to generate an array of powers:
 ```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/palindromic_primes_v1.rb
 :language: ruby
 ```
+
+## Blocks
+
+This is what HackerRank expect in that “fill the blanks” ill-explained exercise:
+
+```rb
+def factorial
+  yield
+end
+
+n = gets.to_i
+factorial do 
+  puts (1..n).inject(:*)
+end
+```
+
+Just for kicks, here's a recursive definition of factorial:
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/factorial_v1.rb
+:language: ruby
+```
+
+And this using `inject`:
+
+```rb
+##
+# Computes the factorial of `n`.
+#
+# This approach uses `inject` cleverly :)
+#
+# ASSUME: `n` is an integer greater than or equal to 1.
+#
+def factorial(n)
+  (1..n).inject(&:*) # <1>
+end
+```
