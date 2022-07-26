@@ -16,6 +16,7 @@ Command Line
    bash-aliases
    bash-arrays
    terminal/index
+   tar.md
    find.md
    hackerrank-shell
 
