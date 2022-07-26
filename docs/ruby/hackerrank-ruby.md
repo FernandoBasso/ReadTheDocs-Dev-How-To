@@ -917,3 +917,130 @@ p c
 p d
 p e
 ```
+
+## Closures
+
+A closure is a function or method that can be passed around like objects and remembers scope after parent scope function has returned.
+Blocks, procs and lambdas are closures in Ruby.
+
+Example challenge from HackerRank:
+
+```rb
+def block_message_printer
+  message = "Welcome to Block Message Printer"
+  if block_given?
+    yield
+  end
+  puts "But in this function/method message is :: #{message}"
+end
+
+message = gets
+block_message_printer { puts "This message remembers message :: #{message}" }
+
+#####################################################################################
+
+def proc_message_printer(my_proc)
+  message = "Welcome to Proc Message Printer"
+  my_proc.call(message) # Call my_proc
+  puts "But in this function/method message is :: #{message}"
+end
+
+
+my_proc = proc { puts "This message remembers message :: #{message}" }
+proc_message_printer(my_proc)
+    
+######################################################################################    
+    
+def lambda_message_printer(my_lambda)
+  message = "Welcome to Lambda Message Printer"
+  my_lambda.call # Call my_lambda
+  puts "But in this function/method message is :: #{message}"
+end
+
+my_lambda = -> { puts "This message remembers message :: #{message}" }
+lambda_message_printer(my_lambda)   
+```
+
+### Example 1 (remembers x)
+
+```rb
+def add1(f)
+  f.call
+end
+
+x = 1
+
+fn = -> { x + 1 }
+
+#
+# `x` is in the top level scope. Yet, `fn` can remember its value
+# when called inside `add1`.
+#
+# When we define `fn`, it references `x`. `fn` will remember the
+# value of `x`
+
+p add1(fn)
+# → 2
+```
+
+### Example 2 (error)
+
+```rb
+def add1(f)
+  f.call
+end
+
+#
+# We intentionally do NOT define `x` before creating the lambda/closure.
+#
+# x = 1 (we don't do this on purpose).
+#
+
+#
+# `x` is not yet defined. It is defined only later.
+#
+fn = -> { x + 1 }
+
+x = 10
+#
+# Useless assignment to variable - `x`
+##
+
+p add1(fn)
+#
+# undefined local variable or method `x'
+#
+# Because no `x` was defined before we defined the lambda/closure,
+# we get an error saying `x` does not exist.
+##
+```
+
+### Example 3 (remembers 2nd x)
+
+```rb
+def add1(f)
+  f.call
+end
+
+x = 1
+
+fn = -> { x + 1 }
+
+x = 10
+
+p add1(fn)
+
+#
+# Which `x` will the closure remember?
+#
+# x = 10 will be remembered. The output is 12.
+#
+# So, if `x` is defined earlier, and then reassigned, it remembers
+# its last value. But as we saw in the previous example, if it is
+# only defined after we declare the closure, then it throws an error.
+#
+```
+
+:::{admonition} tip
+Take a look at the source code in [Gitlab](https://gitlab.com/devhowto/Dev-How-To/-/tree/main/src/ruby/hackerrank-ruby-tutorial) and compare the closure examples with Ruby and JavaScript.
+:::

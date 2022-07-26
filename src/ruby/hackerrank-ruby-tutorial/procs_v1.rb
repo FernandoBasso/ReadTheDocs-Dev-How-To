@@ -1,3 +1,7 @@
+##
+# A function-like object that takes one numeric parameter and
+# increments it by 1.
+#
 add1 = proc { |n| n + 1 }
 
 ##
