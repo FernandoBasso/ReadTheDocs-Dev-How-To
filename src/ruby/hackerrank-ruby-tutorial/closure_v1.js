@@ -9,7 +9,5 @@ function f() {
 log(f());
 
 //
-// Which `x` will be remembered by the closure created by `f`?
-//
-// It will be the second one. The output is 2.
+// `x` will be remembered by the closure and the output is 2.
 //
