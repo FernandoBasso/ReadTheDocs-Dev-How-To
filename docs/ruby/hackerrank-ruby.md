@@ -816,3 +816,104 @@ puts square_of_sum(my_array, proc_square_number, proc_sum_array)
 
 ## Lambdas
 
+A method that returns a lambda using the affectionately called *stabby* lambda syntax.
+
+```rb
+def add1(x)
+  -> { x + 1 }
+end
+
+p add1.call(0)
+```
+
+Note that `x` is in scope inside the lambda braces.
+
+Define `add1` without the method surrounding the returned lambda.
+Again, using the stabby syntax:
+
+```rb
+add1 ->(x) { x + 1 }
+p add1.call(x)
+```
+
+No spaces between `->` and the opening parenthesis.
+It has to do with Rubocop default rule checking for that space.
+It seems Ruby 1.8 would produce an error if there was a space there.
+Later versions started allowing it, but now some people think it should always be without the space as a matter of style.
+See:
+
+- [No rule for space after stab (Rubocop issue)](https://github.com/rubocop/ruby-style-guide/issues/603).
+- [Rubocop Layout/SpaceInLambdaLiteral](https://docs.rubocop.org/rubocop/cops_layout.html#layoutspaceinlambdaliteral)
+
+Using `lambda` keyword:
+
+```rb
+add1 = lambda { |x| x + 1 }
+```
+
+- [What's the difference between a proc and a lambda in Ruby? (StackOverflow)](https://stackoverflow.com/questions/1740046/whats-the-difference-between-a-proc-and-a-lambda-in-ruby).
+
+Example for calculating area of rectangle and triangle:
+
+```rb
+##
+# A lambda that computes the area of a rectangle.
+#
+# The math formula is:
+#
+#   A = base * length
+#
+area ->(b, l) { b * l }
+
+#
+# The area of a triangle is computed by the following formula:
+#
+#   A = 1/2 * base * length
+#
+
+area_rectangle = area(2, 3).call
+area_triangle = (1 / 2) * area(2.0, 3).call
+
+p area_rectangle
+p area_triangle
+```
+
+1/2 is 0.5, but in Ruby operations with integers results in integers.
+`1 / 2` is `0` 😲, unless we make at least one of the numbers a decimal, like `1.0 / 2`, which then prints `0.5`.
+That is why we pass 2.0 above, so that we have at least one decimal/floating point number, which in turn causes all the others to be treated as floats as well.
+
+Finally, this is the challenge on HackerRank:
+
+```rb
+# Write a lambda which takes an integer and square it.
+square      = ->(x) { x * x }
+
+# Write a lambda which takes an integer and increment it by 1.
+plus_one    = lambda { |x| x + 1 }
+
+# Write a lambda which takes an integer and multiply it by 2.
+into_2      = lambda { |x| x * 2 }
+
+# Write a lambda which takes two integers and adds them.
+adder       = ->(x, y) { x + y }
+
+# Write a lambda which takes a hash and returns an array of hash values.
+values_only = lambda { |h| h.values }
+
+input_number_1 = gets.to_i
+input_number_2 = gets.to_i
+input_hash = eval(gets)
+
+a = square.(input_number_1)
+b = plus_one.(input_number_2)
+c = into_2.(input_number_1)
+
+d = adder.(input_number_1, input_number_2);
+e = values_only.(input_hash)
+
+p a
+p b
+p c
+p d
+p e
+```
