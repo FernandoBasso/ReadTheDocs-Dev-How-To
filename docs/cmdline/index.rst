@@ -93,11 +93,19 @@ link.
 GNU Coreutils
 -------------
 
+.. note::
+
+   The examples on this site assume GNU tools and GNU Coreutils.
+   If you find something that doesn't work on your version/vendor
+   of the tool, feel free to open a PR to this project proposing
+   an alternative working solution.
+
 It is worth taking a look at following resources:
 
 - `GNU Coreutils Home Page`_
 - `GNU Coreutils FAQ`_
 - `GNU Coreutils Documentation`_
+- `GNU Coreutils Decoded`_
 
 .. _`GNU Coreutils FAQ`:
    https://www.gnu.org/software/coreutils/faq/coreutils-faq.html
@@ -107,6 +115,9 @@ It is worth taking a look at following resources:
 
 .. _`GNU Coreutils Documentation`:
    https://www.gnu.org/software/coreutils/manual/
+
+.. _`GNU Coreutils Decoded`:
+   http://www.maizure.org/projects/decoded-gnu-coreutils/
 
 There is also the mind-blowing, awesome `Decoded GNU Coreutils`_
 project by MaiZure_.
