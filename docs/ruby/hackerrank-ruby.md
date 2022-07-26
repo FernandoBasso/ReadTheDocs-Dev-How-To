@@ -753,6 +753,66 @@ And this using `inject`:
 # ASSUME: `n` is an integer greater than or equal to 1.
 #
 def factorial(n)
-  (1..n).inject(&:*) # <1>
+  (1..n).inject(&:*)
 end
 ```
+
+Blocks are not objects (a rare exception when something is not an object in Ruby) therefore they can't be referenced by variables.
+
+## Procs
+
+Procs are like “saved blocks”, except that procs *are* objects (unlike blocks).
+They can be bound to a set of local variables.
+
+```rb
+##
+# A function-like object that takes one numeric parameter and
+# increments it by 1.
+#
+add1 = proc { |n| n + 1 }
+
+##
+# Takes an `x` value and a proc and call the proc with the value.
+#
+def f(x, a_proc)
+  a_proc.call(x)
+end
+
+p f(0, add1)
+```
+
+We run the passed proc with `.call()`. Other way would be `a_proc.(x)` and `a_proc[x]` and `a_proc === 1`.
+You don't believe ~~in the force~~ me, do you‽
+See it for yourself:
+
+```irb
+>> f = proc {|n| n + 1}
+=> #<Proc:0x000055ca6bc6b200 (pry):1>
+>> f.call(1)
+=> 2
+>> f.(1)
+=> 2
+>> f[1]
+=> 2
+>> f === 1
+=> 2
+```
+
+This is the challenge in HackerRank:
+
+```rb
+def square_of_sum (my_array, proc_square, proc_sum)
+  sum = proc_sum.call(my_array)
+  proc_square.call(sum)
+end
+
+proc_square_number = proc { |x| x * x }
+proc_sum_array     = proc { |xs| xs.inject(&:+) }
+
+my_array = gets.split().map(&:to_i)
+
+puts square_of_sum(my_array, proc_square_number, proc_sum_array)
+```
+
+## Lambdas
+
