@@ -21,7 +21,7 @@ p (-3..3).to_a.reject(&is_negative)
 # → [0, 1, 2, 3]
 ##
 
-is_positive = -> (n) { n > 0 }
+is_positive = ->(n) { n > 0 }
 p (-3..3).to_a.select(&is_positive)
 #
 # → [1, 2, 3]

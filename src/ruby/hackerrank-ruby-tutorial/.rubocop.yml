@@ -7,12 +7,12 @@ Style/FrozenStringLiteralComment:
 #   x * b**e
 #
 # That is, multiplication and short var names (single char,
-# in this case), but uggly in situations like this (especially
+# in this case), but ugly in situations like this (especially
 # because Rubocop enforces 3-or-more-char identifier names):
 #
 #   base**exponent
 #
-# Unacceptably uggly. Sorry, but no... Thanks.
+# Unacceptably ugly. Sorry, but no... Thanks.
 #
 # • https://rubystyle.guide/#spaces-operators
 # • https://www.rubydoc.info/gems/rubocop/0.10.0/Rubocop/Cop/Style/SpaceAroundOperators
@@ -20,7 +20,7 @@ Style/FrozenStringLiteralComment:
 #
 Style/SpaceAroundOperators:
   Enabled: true
-  EnforcedStyleForExponentOperator: space 
+  EnforcedStyleForExponentOperator: space
 
 ##
 # I want to allow developers to use their judgement. A method like
@@ -37,3 +37,7 @@ Style/MethodParameterName:
 Metrics/MethodLength:
   Enabled: true
   Max: 24
+  Exclude: ['keyword_args_2.rb']
+
+Lint/MissingCopEnableDirective:
+  Enabled: false

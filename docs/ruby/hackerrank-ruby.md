@@ -1074,3 +1074,25 @@ Example from HackerRank challenge:
 ```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/args_splat_2.rb
 :language: ruby
 ```
+
+## Keyword Arguments
+
+Before Ruby 2, people used the “options (or config) object” pattern (like we do in ECMAScript) to provide multiple parameters to a function/method in a saner way than having too many positional parameters. 
+Ruby 2 introduced *keyword arguments*.
+
+- [Keyword Arguments in Ruby 2.0 (brainspec.com)](http://brainspec.com/blog/2012/10/08/keyword-arguments-ruby-2-0/).
+
+Here's one example where we use `tries` keyword argument defaulting to 2.
+It is a made-up example show to showcase keyword arguments (and as a by-product, also show how to mock `Kernel#random`).
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/keyword_args_1.rb
+:language: ruby
+```
+
+### Temperature Converter
+
+This is my solution for the temperature converter challenge using keyword arguments.
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/temperature_converter_v2.rb
+:language: ruby
+```

@@ -10,4 +10,7 @@
     },
   },
   "ruby.format": "rubocop",
+  "cSpell.words": [
+    "Rubocop"
+  ],
 }

@@ -25,6 +25,7 @@ coder = Coder.new('Aayla Secura')
 
 loop do
   break if coder.master?
+
   coder.practice
 end
 #
