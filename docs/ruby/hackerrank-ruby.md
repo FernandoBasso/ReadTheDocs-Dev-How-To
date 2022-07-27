@@ -1044,3 +1044,33 @@ p add1(fn)
 :::{admonition} tip
 Take a look at the source code in [Gitlab](https://gitlab.com/devhowto/Dev-How-To/-/tree/main/src/ruby/hackerrank-ruby-tutorial) and compare the closure examples with Ruby and JavaScript.
 :::
+
+## Currying and Partial Application
+
+This is manual currying. We return a lambda that takes one parameter, which returns another lambda that takes another parameter, which then returns the final result.
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/part_application_v1.rb
+:language: ruby
+```
+
+Another example, this one from the HackerRank challenge:
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/part_application_v2.rb
+:language: ruby
+```
+
+## Arguments and Splat Operator
+
+We can use `*` splat operator in many situations.
+Here's one case where it works as the rest `...params` in ECMAScript, that is, it collects all parameters into an array.
+Zero params would mean an empty array.
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/args_splat_1.rb
+:language: ruby
+```
+
+Example from HackerRank challenge:
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/args_splat_2.rb
+:language: ruby
+```
