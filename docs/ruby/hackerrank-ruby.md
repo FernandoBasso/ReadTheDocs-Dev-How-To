@@ -1096,3 +1096,183 @@ This is my solution for the temperature converter challenge using keyword argume
 ```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/temperature_converter_v2.rb
 :language: ruby
 ```
+
+## String Indexing
+
+### Accessing
+
+Consider this string:
+
+```irb
+>> s = 'Hello!'
+=> "Hello!"
+```
+
+Get the char at the last position:
+
+```irb
+>> s[s.size - 1]
+=> "!"
+
+>> s[-1]
+=> "!"
+```
+
+Last but one (penultimate, second last):
+
+```irb
+>> s[-2]
+=> "o"
+```
+
+Last but 2 (antepenultimate, third last):
+
+```irb
+>> s[-3]
+=> "l"
+```
+
+First:
+
+```irb
+>> s[0]
+=> "H"
+```
+
+From first to fourth, inclusive:
+
+```irb
+>> s[0,4]
+=> "Hell"
+```
+
+A range from 0 to fourth means five characters:
+
+```irb
+>> s[0..4]
+=> "Hello"
+
+A range from the first to the last one (the entire string):
+
+```irb
+>> s[0..-1]
+=> "Hello!"
+```
+
+Looks like it would mean “from first to the last one”, but nope...
+
+```irb
+>> s[0,-1]
+=> nil
+```
+
+From the last position, get the next zero chars:
+
+```irb
+>> s[-1,0]
+=> ""
+```
+
+From the last position, get the next one char:
+
+```irb
+>> s[-1,1]
+=> "!"
+```
+
+From the last position, get the next two chars (except from the last position, we can only get that last one, there no next two, only the single one):
+
+```irb
+>> s[-1, 2]
+=> "!"
+```
+
+BEWARE! Our string has length 6, and indexed from 0 to 5 (not 0 to 6 or 1 to 6).
+
+```irb
+>> s.size
+=> 6
+```
+
+But compare these results. Why don't `[6,1]` and `[6,3]` return `nil`?:
+
+```irb
+>> s[6]
+=> nil
+
+>> s[6,1]
+=> ""
+
+>> s[6,3]
+=> ""
+```
+
+Only after index 6 we get `nil` with the interval:
+
+```irb
+>> s[7]
+=> nil
+
+>> s[7,3]
+=> nil
+```
+
+### Mutating, Changing
+
+Let's start with this string:
+
+```irb>> s = 'Hello!'
+=> "Hello!"
+```
+
+Replace the last char:
+
+```irb
+>> s[-1] = '.'
+=> "."
+>> s
+=> "Hello."
+```
+
+Delete the last char (the “.”):
+
+```irb
+
+```
+
+Append ' World!':
+
+```irb
+>> s[5,0] = ' World!'
+=> " World!"
+>> s
+=> "Hello World!"
+```
+
+Add a comma after the 5th position without replacing/overriding any other char, effectively shifting the space after “Hello” and the rest of the string to the right:
+
+```irb
+>> s[5,0] = ','
+=> ","
+>> s
+=> "Hello, World!"
+```
+
+Position 7 is “W”.
+Let's replace from that position, all characters in “World”, with “Ruby”.
+“World” has 5 chars.
+So, from position 7, replace the next 5 chars:
+
+```irb
+>> s = 'Hello, World!'
+=> "Hello, World!"
+
+>> s[7]
+=> "W"
+
+>> s[7,5] = "Ruby"
+=> "Ruby"
+
+>> s
+=> "Hello, Ruby!"
+```
