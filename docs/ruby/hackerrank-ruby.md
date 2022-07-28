@@ -1276,3 +1276,26 @@ So, from position 7, replace the next 5 chars:
 >> s
 => "Hello, Ruby!"
 ```
+
+### Serial Average
+
+Note that `-10.00` and `-20.00` have 6 chars.
+Also note we index from 0 to 3, then from 3 to 6, which combined makes 9. That is why we start at 0, then at 3, then at 9.
+
+```irb
+>> s = '002-10.00-20.00'
+=> "002-10.00-20.00"
+
+>> s[0,3]
+=> "002"
+
+>> s[3,6]
+=> "-10.00"
+
+>> s[9,6]
+=> "-20.00"
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/serial_avg_v1.rb
+:language: ruby
+```
