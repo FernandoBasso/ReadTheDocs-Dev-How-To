@@ -13,4 +13,5 @@
   "cSpell.words": [
     "Rubocop"
   ],
+  "editor.rulers": [72, 80],
 }

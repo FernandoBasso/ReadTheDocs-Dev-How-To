@@ -16,6 +16,7 @@
     "irb",
     "literalinclude",
     "maxdepth",
+    "multibyte",
     "Nums",
     "oneline",
     "procs",
