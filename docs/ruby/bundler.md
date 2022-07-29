@@ -7,6 +7,8 @@ description: Some tips and examples on using Ruby Bundler to installing and mana
 
 - [Bundler official site](https://bundler.io/).
 
+## Error Could not find gem 'pry-doc
+
 Consider this `Gemfile`:
 
 ```gemfile
@@ -53,7 +55,7 @@ And yet this error showed up when using `bundler install`:
 
 ```shell-session
 $ bundler install
-Could not find gem 'pry_doc x86_64-linux' in any of the gem
+Could not find gem 'pry-doc x86_64-linux' in any of the gem
 sources listed in your Gemfile.
 ```
 
