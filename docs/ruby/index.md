@@ -16,6 +16,7 @@ unit-tests.md
 scope.md
 hackerrank-ruby.md
 bundler.md
+pry-repl.md
 ```
 
 Ruby is a delightful programming language designed for programmer happiness 💖.
