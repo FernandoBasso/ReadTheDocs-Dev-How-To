@@ -15,6 +15,7 @@ caption: Ruby
 unit-tests.md
 scope.md
 hackerrank-ruby.md
+bundler.md
 ```
 
 Ruby is a delightful programming language designed for programmer happiness 💖.
