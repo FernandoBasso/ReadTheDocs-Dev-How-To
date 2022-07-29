@@ -4,7 +4,20 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+##
+# Helps better visualize data structures on STDOUT.
+#
 gem 'awesome_print'
+
+##
+# Remember to `require 'pry-doc' from a pry session` or
+# add the require line to `~/.pryrc` to have it always loaded
+# by default.
+#
 gem 'pry'
 gem 'pry-doc'
+
+##
+# TDD all things!
+#
 gem 'rspec'
