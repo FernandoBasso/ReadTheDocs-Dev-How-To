@@ -16,6 +16,7 @@ unit-tests.md
 scope.md
 hackerrank-ruby.md
 bundler.md
+rvm.md
 pry-repl.md
 ```
 
