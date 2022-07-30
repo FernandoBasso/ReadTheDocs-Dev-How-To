@@ -14,4 +14,10 @@
     "Rubocop"
   ],
   "editor.rulers": [72, 80],
+  ////
+  // With this setting we can do "gq" in a comment paragraph/line (or
+  // visual selection) and have text easily and nicely formatted to
+  // 72 chars per line.
+  //
+  "vim.textwidth": 72,
 }

@@ -1405,3 +1405,25 @@ def count_mbc(s)
 end
 
 ```
+
+## String Methods
+
+- [ HackerRank String Methods Challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-i/problem).
+- [String Ruby 3.1.2 docs](https://ruby-doc.org/core-3.1.2/String.html).
+
+`String#chomp` removes `\n`, `\r` and `\r\n` from the end of a string (unless the default separator has been changed to something else).
+
+`String#chop` removes the last char, and note that `\n`, `\r` and `\r\n` are all threated as one single char.
+
+`String#strip` is like `trim()` in some other languages, which removes leading and trailing whitespace.
+
+Here's my solution to the process text challenge:
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/process_text.spec.rb
+:language: ruby
+```
+
+```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/process_text_v1.rb
+:language: ruby
+:lines: 5-
+```

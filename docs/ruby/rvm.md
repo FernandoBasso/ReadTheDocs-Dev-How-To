@@ -7,6 +7,8 @@ description: Some notes and useful tips on using rvm to manage Rubies
 
 ## `rvm list known' not showing latest rubies
 
+Published: Sat, July 30, 2022.
+
 ```shell-session
 $ rvm --version
 rvm 1.29.12 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
@@ -25,6 +27,7 @@ Still, running `rvm install ruby-3.1.2` worked.
 `rvm` itself had just been upgraded to the latest version with `nvm get stable`.
 
 - [My comment on StackOverflow (question about Ruby 3.1 on macOS)](https://stackoverflow.com/questions/70672711/whats-the-right-string-to-use-when-installing-ruby-3-1-through-rvm-on-mac-os-bi#comment129235266_70673017).
+
 
 ## Default Ruby on New Shells
 
