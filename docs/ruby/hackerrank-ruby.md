@@ -1406,7 +1406,7 @@ end
 
 ```
 
-## String Methods
+## String Methods I
 
 - [ HackerRank String Methods Challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-i/problem).
 - [String Ruby 3.1.2 docs](https://ruby-doc.org/core-3.1.2/String.html).
@@ -1427,3 +1427,14 @@ Here's my solution to the process text challenge:
 :language: ruby
 :lines: 5-
 ```
+
+## String Methods II
+
+- [String literals docs](https://ruby-doc.org/core-3.1.2/doc/syntax/literals_rdoc.html#label-String+Literals)
+
+We'll use `includes?` and `gsub`.
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/mask_article_v1.rb
+:language: ruby
+:lines: 5-
+:::

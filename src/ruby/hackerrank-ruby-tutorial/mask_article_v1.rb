@@ -1,68 +1,56 @@
+#
+# tags: [string, gsub, regex, inject]
+#
+
 require 'rspec'
 
 ##
-# Add <strike> HTML tag around `word`.
+# Add HTML `<strike>` tag around `s`.
 #
-# If both `str` and `word` are empty, we don't wan't an empty
-# `<strike><strike>`, therefore, we do a guard check to handle that
-# case.
+# Empty strings do not get surrounded with the tag lest we would get
+# `<strike></strike>`.
 #
-# Partial matches (like 'hell' in 'hello' or 'ana' in 'banana') are
-# not enclosed by `<strike>` either. Only full matches will do. That
-# is why we use word boundaries in the regex.
-#
-def strike(str, word_to_strike)
-  return str if word_to_strike.empty?
+def strike(s)
+  return s if s.empty?
 
-  str.gsub(
-    /\b#{word_to_strike}\b/,
-    "<strike>#{word_to_strike}</strike>"
-  )
+  "<strike>#{s}</strike>"
 end
 
-def mask_article(str, words_to_strike)
-  words_to_strike.inject(str) do |memo, word_to_strike|
-    return memo if word_to_strike.empty?
-
-    memo.gsub(
-      /\b#{word_to_strike}\b/,
-      "<strike>#{word_to_strike}</strike>"
-    )
+##
+# Strikes all strings in `strs_to_mask` found in `str`.
+#
+# NOTE: We use `String#dup` so we don't modify the original string
+# parameter.
+#
+def mask_article(str, strs_to_mask)
+  strs_to_mask.inject(str.dup) do |acc_str, str_to_mask|
+    acc_str.gsub(str_to_mask, strike(str_to_mask))
   end
 end
 
 describe 'strike()' do
-  it 'should return string unmodified' do
-    expect(strike('Hello, world!', 'crap')).to eq 'Hello, world!'
-    expect(strike('Hello, world!', '')).to eq 'Hello, world!'
-    expect(strike('', 'crap')).to eq ''
-    expect(strike('', '')).to eq ''
+  it 'should not strike empty strings' do
+    expect(strike('')).to eq ''
   end
 
-  it 'should not strike partial matches' do
+  it 'should strike non-empty strings' do
+    expect(strike('crap')).to eq '<strike>crap</strike>'
     expect(
-      strike('Hi, hello there!', 'hell')
-    ).to eq 'Hi, hello there!'
+      strike('crappy shit')
+    ).to eq '<strike>crappy shit</strike>'
+  end
+end
 
+describe 'mask_article()' do
+  it 'should mask one matching string' do
     expect(
-      strike('Oh look! A banana!', 'ana')
-    ).to eq 'Oh look! A banana!'
+      mask_article('What a crap!', %w[crap])
+    ).to eq 'What a <strike>crap</strike>!'
   end
 
-  it 'should add <strike> tag around ‘word’' do
+  it 'should mask multiple matching strings' do
     expect(
-      strike('Holly crap!', 'crap')
-    ).to eq 'Holly <strike>crap</strike>!'
-
-    expect(
-      strike('Holly crap! The word crap is rude!', 'crap')
-    ).to eq(
-      ##
-      # Note the space before the closign quote and the line
-      # continuation backslash.
-      #
-      'Holly <strike>crap</strike>! ' \
-      'The word <strike>crap</strike> is rude!'
-    )
+      mask_article('What a shitty dumb crap!', %w[crap shitty])
+    ).to eq 'What a <strike>shitty</strike> dumb <strike>crap</strike>!'
   end
 end
