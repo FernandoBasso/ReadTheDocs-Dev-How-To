@@ -21,3 +21,8 @@ gem 'pry-doc'
 # TDD all things!
 #
 gem 'rspec'
+
+##
+# Language Server.
+#
+gem 'solargraph'
