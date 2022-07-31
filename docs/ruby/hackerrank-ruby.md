@@ -9,6 +9,15 @@ Here are my notes on the HackerRank Ruby tutorial.
 Many examples are my own (some based on their examples, some entirely mine).
 Most notes and explanations are my own too and not just a verbatim copy from the website.
 
+While solving the challenges, one can observe that to make things simple, many of them do not handle edge cases.
+One such example is the `skip_animals()` method.
+What if we skip more then the length of the input array?
+Nothing seems to account for that in the description or the example.
+
+In any case, most of the examples on this page try to be a bit careful with edge cases.
+For example, in the `mask_article()`, we do not add `<strike>` tags around empty strings and have proper test cases for such scenarios.
+We apply the same thoughtful care to in many other situations as well.
+
 ## Hello World
 ```rb
 print "Hello, world!"
