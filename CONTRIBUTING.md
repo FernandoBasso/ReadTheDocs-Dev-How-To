@@ -7,6 +7,7 @@
     - [commit-msg git hook](#commit-msg-git-hook)
     - [List of Previously Used Types](#list-of-previously-used-types)
     - [Project-Specific Commit Types](#project-specific-commit-types)
+  - [Including Files and File Names](#including-files-and-file-names)
 
 ## Commit Messages
 
@@ -109,3 +110,64 @@ etc. (mentioned above), and not generic commit types like “rb” or “c".
 - magfp: [Mostly Adequate Guide to Functional Programming](https://github.com/MostlyAdequate/mostly-adequate-guide)
 - compfpjs: [Composable Functional JavaScript](https://egghead.io/courses/professor-frisby-introduces-composable-functional-javascript)
 
+## Including Files and File Names
+
+Many `.md` and `.rst` files include other files, something like this:
+
+```text
+:::{literalinclude} /../src/haskell/folds/FooBar.hs
+:language: haskell
+:lines: 9-
+:::
+```
+
+Whenever a source file is removed or renamed, we **MUST** make sure to check if its included in any other file and update the includes accordingly.
+
+For example, with `grep`:
+
+```shell-session
+$ grep \
+    --color \
+    --recursive \
+    --exclude-dir=.git \
+    --include='*.md' \
+    --include='*.rst' \
+    FooBar.hs
+```
+
+Or with Ripgrep:
+
+```shell-session
+$ rb \
+    --type md
+    -- type rst \
+    --fixed-strings \
+    FooBar.hs
+```
+
+Of course, searches can be made from most editors as well.
+And it is probably a good idea to do a search without specifying the file types just in case.
+
+**NOTE**: Make sure to do the search from the root of the project so we are sure to find matches if there are any.
+
+As an example, suppose we have `docs/haskell/intro.md`, and it contains this include:
+
+```text
+:::{literalinclude} /../src/haskell/folds/FooBar.hs
+:language: haskell
+:lines: 9-
+:::
+```
+
+And we rename `src/haskell/FooBar.hs` to `src/haskell/HelloWorld.hs`.
+Then, we **MUST** do a search for `FooBar.hs`, which causes us to find out it is being used/included in `docs/haskell/intro.md`.
+We than update that include to the new name:
+
+```text
+:::{literalinclude} /../src/haskell/folds/FooBar.hs
+:language: haskell
+:lines: 9-
+:::
+```
+
+It is a annoying having to go through such troubles, but this way we can use literal includes without copying and pasting examples left and right, and still avoid broken pages with broken includes and empty examples in the middle of text and explanations.
