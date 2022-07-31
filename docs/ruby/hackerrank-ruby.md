@@ -18,6 +18,8 @@ In any case, most of the examples on this page try to be a bit careful with edge
 For example, in the `mask_article()`, we do not add `<strike>` tags around empty strings and have proper test cases for such scenarios.
 We apply the same thoughtful care to in many other situations as well.
 
+The solutions are implemented using the methods and approaches indicated in the description of the challenge, but keep in mind that many of them could d probably implemented in a better way if we used other ideas and concepts.
+
 ## Hello World
 ```rb
 print "Hello, world!"
@@ -1417,7 +1419,7 @@ end
 
 ## String Methods I
 
-- [ HackerRank String Methods `process_text()' challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-i/problem).
+- [ HackerRank String Methods ‘process_text’ challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-i/problem).
 - [String Ruby 3.1.2 docs](https://ruby-doc.org/core-3.1.2/String.html).
 
 `String#chomp` removes `\n`, `\r` and `\r\n` from the end of a string (unless the default separator has been changed to something else).
@@ -1439,7 +1441,7 @@ Here's my solution to the process text challenge:
 
 ## String Methods II
 
-- [HackerRAnk String Methods II `mask_article()' challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-ii)
+- [HackerRAnk String Methods II ‘mask_article()’ challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-ii)
 - [String literals docs](https://ruby-doc.org/core-3.1.2/doc/syntax/literals_rdoc.html#label-String+Literals)
 
 We'll use `includes?` and `gsub`.
@@ -1447,4 +1449,13 @@ We'll use `includes?` and `gsub`.
 :::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/mask_article_v1.rb
 :language: ruby
 :lines: 5-
+:::
+
+## Enumerables ‘each_with_index’
+
+- [HackerRank Enumerables ‘each_with_index’ ‘skip_animals’ challenge](https://www.hackerrank.com/challenges/ruby-enumerable-each-with-index)
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/skip_animals_v1.rb
+:language: ruby
+:lines: 9-
 :::
