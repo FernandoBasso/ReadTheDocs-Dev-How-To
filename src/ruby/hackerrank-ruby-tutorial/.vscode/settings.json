@@ -20,4 +20,5 @@
   // 72 chars per line.
   //
   "vim.textwidth": 72,
+  "cSpell.enabled": true,
 }
