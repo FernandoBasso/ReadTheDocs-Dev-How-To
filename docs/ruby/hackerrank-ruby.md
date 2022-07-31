@@ -1459,3 +1459,12 @@ We'll use `includes?` and `gsub`.
 :language: ruby
 :lines: 9-
 :::
+
+## rot13, map, collect
+
+- [HackerRank ‘collect’ ‘rot13’ challenge](https://www.hackerrank.com/challenges/ruby-enumerable-collect)
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/decrypt_msgs_v1.rb
+:language: ruby
+:lines: 5-
+:::
