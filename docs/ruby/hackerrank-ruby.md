@@ -1408,7 +1408,7 @@ end
 
 ## String Methods I
 
-- [ HackerRank String Methods Challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-i/problem).
+- [ HackerRank String Methods `process_text()' challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-i/problem).
 - [String Ruby 3.1.2 docs](https://ruby-doc.org/core-3.1.2/String.html).
 
 `String#chomp` removes `\n`, `\r` and `\r\n` from the end of a string (unless the default separator has been changed to something else).
@@ -1430,6 +1430,7 @@ Here's my solution to the process text challenge:
 
 ## String Methods II
 
+- [HackerRAnk String Methods II `mask_article()' challenge](https://www.hackerrank.com/challenges/ruby-strings-methods-ii)
 - [String literals docs](https://ruby-doc.org/core-3.1.2/doc/syntax/literals_rdoc.html#label-String+Literals)
 
 We'll use `includes?` and `gsub`.
