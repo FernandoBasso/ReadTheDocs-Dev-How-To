@@ -1468,3 +1468,31 @@ We'll use `includes?` and `gsub`.
 :language: ruby
 :lines: 5-
 :::
+
+The `String#tr` version above is the same one I once learned with the `tr` command line:
+
+```shell-session
+$ printf '%s' aBc | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+nOp
+```
+
+Or, using bash Here Strings:
+
+```shell-session
+$ tr 'A-Za-z' 'N-ZA-Mn-za-m' | <<< 'aBc'
+nOp
+```
+
+## Enumerable reduce, inject
+
+- [HackerRank ‘reduce/inject’ ‘sum_terms’ arithmetico-geometric sequence challenge](https://www.hackerrank.com/challenges/ruby-enumerable-reduce)
+- [Arithmetico-geometric sequence (Wikipedia)](https://en.wikipedia.org/wiki/Arithmetico%E2%80%93geometric_sequence)
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/arith_geometric_seq_sum.spec.rb
+:language: ruby
+:::
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/arith_geometric_seq_sum_v1.rb
+:language: ruby
+:lines: 5-
+:::
