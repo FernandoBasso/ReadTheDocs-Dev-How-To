@@ -1,0 +1,20 @@
+##
+# Env files.
+#
+.env
+
+##
+# Every .env-like file that does not start with `.env` and
+# end with `.example`.
+#
+!.env*.example
+
+##
+# Add this shell script which I only use locally for now.
+#
+reset_pg1.sh
+
+##
+# Ignore .sql files.
+#
+*.sql

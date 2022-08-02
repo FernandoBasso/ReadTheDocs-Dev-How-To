@@ -1,0 +1,15 @@
+
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14
+    container_name: postgresql14-playground-1
+    restart: always
+    env_file: .env
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+
+volumes:
+  dbdata:

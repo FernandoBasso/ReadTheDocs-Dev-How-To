@@ -53,4 +53,5 @@ repository`_.
    codewars/index
    hackerrank/index.md
    programming/index
+   databases-sql/index.md
    misc/index
