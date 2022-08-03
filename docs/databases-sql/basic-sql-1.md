@@ -1,6 +1,6 @@
 # Basic SQL
 
-**NOTE**: Assume these examples are run on PostgreSQL >= 9.6. As of 2022, I'm running these on Arch Linux with PostgreSQL 14.
+**NOTE**: Assume these examples are run on PostgreSQL >= 13 at least. As of 2022, I'm running these on Arch Linux with PostgreSQL 14.
 
 Sometimes I do `\x` to turn on extended display in `psql` prompt.
 
@@ -32,7 +32,6 @@ Looks like we can also use `POW(b, e)`.
 ## Calculating Batting Average
 
 - [Calculating Batting Average Codewars SQL Challenge](https://www.codewars.com/kata/5994dafcbddc2f116d000024/train/sql)
-
 
 ```sql
 SELECT
@@ -78,7 +77,8 @@ num | 3.3333333333333333
 To make it do fractional division, we must make the expression decimal/fractional somehow.
 Technically, one value being `NUMERIC` is enough to make the whole expression `NUMERIC` (instead of doing integer division).
 
-As a side note, Ruby (and some other languages) accept the same “trick”. One value being fractional makes the entire expression fractional:
+As a side note, Ruby (and some other languages) accept the same “trick”.
+One value being fractional makes the entire expression fractional:
 
 ```irb
 $ pry --simple-prompt

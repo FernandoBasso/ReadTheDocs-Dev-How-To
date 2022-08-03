@@ -11,6 +11,49 @@ description: Some useful commands to create and manage roles (users), databases 
 Many of these examples use a role (user) called *devel*.
 :::
 
+## Miscellaneous Commands
+
+Get PostgresSQL version:
+
+```sql
+SELECT version();
+```
+
+Get type of a value:
+
+```text
+SELECT pg_typeof(1);
+pg_typeof | integer
+
+SELECT pg_typeof(1) as type_of_1;
+type_of_1 | integer
+
+SELECT pg_typeof(1::NUMERIC);
+pg_typeof | numeric
+
+blog1_dev=# SELECT pg_typeof('xyz');
+pg_typeof | unknown
+
+blog1_dev=# SELECT pg_typeof('xyz'::VARCHAR(8));
+pg_typeof | character varying
+
+blog1_dev=# SELECT pg_typeof('xyz'::TEXT);
+pg_typeof | text
+```
+
+List pg types:
+
+```text
+SELECT oid, typname, typlen FROM pg_type;
+```
+
+See:
+
+- [System Information Functions and Operators (pg docs)](https://www.postgresql.org/docs/14/functions-info.html)
+
+
+## Roles (users)
+
 Create role:
 
 ```sql
@@ -18,6 +61,8 @@ CREATE ROLE devel
 WITH LOGIN PASSWORD 's3cr37' CREATEDB REPLICATION
 VALID UNTIL 'infinity';
 ```
+
+## Creating Databases
 
 Create database:
 
@@ -31,13 +76,13 @@ CREATE DATABASE devel WITH
     CONNECTION LIMIT=3;
 ```
 
-Make use as powerful as postgres user:
+Make role `devel` as powerful as postgres role:
 
 ```sql
 ALTER USER devel WITH SUPERUSER;
 ```
 
-Reverse the command above:
+Reverse the effects of the command above:
 
 ```sql
 ALTER USER devel WITH NOSUPERUSER;
