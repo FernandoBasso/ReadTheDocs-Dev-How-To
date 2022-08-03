@@ -131,3 +131,28 @@ References:
 
 - [ALTER DATABASE PostgreSQL docs](https://www.postgresql.org/docs/current/sql-alterdatabase.html).
 
+## Tables
+
+PostgreSQL has `\d` and `\dt` to inspect a table.
+Those are not standard SQL, but PostgreSQL specific features.
+We can also use standard SQL to inspect a table (should work across many different database vendors):
+
+```sql
+SELECT 
+    table_name
+  , column_name 
+  , data_type 
+FROM 
+   information_schema.columns
+WHERE 
+   table_name = 'users';
+```
+
+There is an overwhelming number of columns to display.
+See it for yourself:
+
+```sql
+SELECT *
+FROM information_schema.columns
+WHERE table_name = 'users';
+```

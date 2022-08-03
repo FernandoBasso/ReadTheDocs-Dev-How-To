@@ -1,0 +1,8 @@
+SELECT * FROM multipliers;
+
+id  element  multiplier
+1   Fire     1.25
+2   Water    0.75
+3   Grass    1
+4   Normal   1
+5   Dragon   1

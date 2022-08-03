@@ -88,3 +88,19 @@ $ pry --simple-prompt
 >> 10.0 / 3
 => 3.3333333333333335
 ```
+
+## SQL with Pokemon: Damage Multipliers
+
+- [SQL with Pokemon: Damage Multipliers Codewars SQL Challenge](https://www.codewars.com/kata/5ab828bcedbcfc65ea000099/train/sql)
+
+```sql
+SELECT
+    pokemon_name
+  , element
+  , (str * multiplier) as modifiedStrength
+FROM pokemon
+JOIN multipliers
+ON element_id = multipliers.id
+WHERE str * multiplier >= 40
+ORDER BY modifiedStrength DESC;
+```
