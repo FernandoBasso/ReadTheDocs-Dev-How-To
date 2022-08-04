@@ -9,20 +9,20 @@ This page contains a list of helper generic helper functions we use either to im
 
 ### add(x, y)
 
-```{literalinclude} /../src/algdsts/src/lib/add.test.ts
+```{literalinclude} /../src/algds/ts/lib/add.test.ts
 :language: typescript
 ```
 
-```{literalinclude} /../src/algdsts/src/lib/add.ts
+```{literalinclude} /../src/algds/ts/lib/add.ts
 :language: typescript
 ```
 
 ### isEven(n)
 
-```{literalinclude} /../src/algdsts/src/lib/isEven.test.ts
+```{literalinclude} /../src/algds/ts/lib/isEven.test.ts
 :language: typescript
 ```
 
-```{literalinclude} /../src/algdsts/src/lib/add.ts
+```{literalinclude} /../src/algds/ts/lib/add.ts
 :language: typescript
 ```
