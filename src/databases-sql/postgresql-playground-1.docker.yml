@@ -11,5 +11,14 @@ services:
       - "dbdata:/var/lib/postgresql/data"
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
 
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file: .env
+    ports:
+      ##
+      # http://localhost:8081
+      #
+      - "8081:80"
+
 volumes:
   dbdata:

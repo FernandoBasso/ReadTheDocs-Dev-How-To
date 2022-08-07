@@ -107,3 +107,27 @@ Restore a Heroku Postgres dump:
 ```shell-session
 $ pg_restore -U devel -d mydb mydb.backup
 ```
+
+## Renaming a Database
+
+Make sure no user or application is connected to the database otherwise this command will not work:
+
+```text
+devel=# ALTER DATABASE blog RENAME TO blog_dev;
+ERROR:  database "blog" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+```
+
+After no sessions are active, it should work:
+
+```text
+devel=# ALTER DATABASE blog RENAME TO blog_dev;
+ALTER DATABASE
+```
+
+Note the output is simply “ALTER DATABASE”, which means the command ran successfully.
+
+References:
+
+- [ALTER DATABASE PostgreSQL docs](https://www.postgresql.org/docs/current/sql-alterdatabase.html).
+

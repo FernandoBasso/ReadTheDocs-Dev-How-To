@@ -13,8 +13,3 @@
 # Add this shell script which I only use locally for now.
 #
 reset_pg1.sh
-
-##
-# Ignore .sql files.
-#
-*.sql
