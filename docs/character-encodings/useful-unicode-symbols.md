@@ -45,8 +45,12 @@ Get hex from char:
 $ echo -n 💩 | hexdump
 ```
 
-vim: ga on char
-emacs: C-8 C-x = on char
+Get info on a char:
+
+- vim: ga on char
+- emacs: C-8 C-x = on char
+
+Make the menu key as the compose key on Linux:
 
 ```shell-session
 $ setxkbmap -option compose:menu
@@ -110,7 +114,6 @@ Examples:
 'ção'.upcase    # çãO  incorrect...
 'ÇÃO'.downcase  # ÇÃo  incorrect...
 ```
-
 
 Using rails active support:
 
