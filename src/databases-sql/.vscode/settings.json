@@ -3,6 +3,7 @@
     "dbdata",
     "devel",
     "env",
-    "INITDB"
+    "INITDB",
+    "VARCHAR"
   ]
 }

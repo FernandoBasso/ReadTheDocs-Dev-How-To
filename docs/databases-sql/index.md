@@ -58,6 +58,67 @@ The identifiers are `jedis` (table name) and `id`, `name`, `skill` and `power` (
 
 `SELECT`, `FROM` and `WHERE` (among many others) are also *clauses*. We say “the WHERE clause”, or “the SELECT clause”, etc.
 
+## Data Definition Language
+
+The most used DDL languages involve `CREATE`, `ALTER` and `DROP` clauses.
+
+Let's create a new database in PostgreSQL:
+
+```sql
+CREATE DATABASE starwars_dev
+    WITH
+    OWNER = devel
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = 3
+    IS_TEMPLATE = False;
+```
+
+And then create a table:
+
+```sql
+CREATE TABLE jedis
+(
+    id INTEGER NOT NULL PRIMARY KEY
+  , name VARCHAR(64) NOT NULL
+  , power SMALLINT NOT NULL DEFAULT 50
+);
+```
+
+And alter `name` to be `VARCHAR(128)`:
+
+```sql
+ALTER TABLE jedis
+  ALTER COLUMN name TYPE VARCHAR(128);
+```
+
+Make column `name` nullable:
+
+```sql
+ALTER TABLE jedis
+  ALTER COLUMN name SET NOT NULL;
+```
+
+Make column name not nullable:
+
+```sql
+ALTER TABLE jedis
+  ALTER COLUMN name DROP NOT NULL;
+```
+
+Remove a column:
+
+```sql
+ALTER TABLE jedis
+  DROP COLUMN power;
+```
+
+## Data Manipulation Language
+
+The most used DML language statements involve `INSERT`, `UPDATE` and `DELETE`.
+
 ```{toctree}
 ---
 hidden: true
