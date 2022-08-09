@@ -11,12 +11,15 @@ SQL does much more than just *query* data, though.
 
 It is common to pronounce SQL as three letters S Q L (and not as the word “sequel”), which means we say “*an* SQL statement” rather than “*a* SQL (sequel) statement”.
 
-Some notes, concepts, ideas, examples and guides on how to do work with:
+Here you'll find some notes, concepts, ideas, examples and guides on how to do work with:
 
 - Data Definition Language (DDL).
 - Data Manipulation Language (DML).
 - Data Control Language (DCL). 
 - A few other types of queries.
+
+All of the above are different kinds of SQL statements, but all SQL statements nonetheless.
+DDL is about the structure of the database structure, while DML operates on the data.
 
 I use mostly PostgreSQL and MariaDB, so expect most examples to work on those.
 
@@ -52,6 +55,8 @@ The identifiers are `jedis` (table name) and `id`, `name`, `skill` and `power` (
 78 is a numeric constant.
 
 `>=` is an operator, which is a special kind of keyword.
+
+`SELECT`, `FROM` and `WHERE` (among many others) are also *clauses*. We say “the WHERE clause”, or “the SELECT clause”, etc.
 
 ```{toctree}
 ---
