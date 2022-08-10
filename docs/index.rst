@@ -41,6 +41,7 @@ repository`_.
    text-editors/index
    haskell/index
    ruby/index.md
+   ruby-on-rails/index.md
    purescript/index.md
    javascript/index
    typescript/index.md
