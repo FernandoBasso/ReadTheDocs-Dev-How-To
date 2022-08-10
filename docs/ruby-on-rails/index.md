@@ -13,5 +13,6 @@ caption: Contents
 ---
 
 command-line.md
+ruby-on-rails-docker.md
 models-migrations.md
 ```
