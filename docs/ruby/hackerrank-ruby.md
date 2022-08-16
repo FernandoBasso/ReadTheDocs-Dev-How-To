@@ -1106,6 +1106,7 @@ This is my solution for the temperature converter challenge using keyword argume
 
 ```{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/temperature_converter_v2.rb
 :language: ruby
+:lines: 9-
 ```
 
 ## String Indexing

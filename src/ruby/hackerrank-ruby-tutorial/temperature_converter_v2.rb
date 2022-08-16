@@ -1,4 +1,8 @@
 #
+# tags: [temperature, converter, lookup-table]
+#
+
+#
 # rubocop:disable Metrics/BlockLength
 #
 
