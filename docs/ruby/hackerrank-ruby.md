@@ -1497,3 +1497,87 @@ nOp
 :language: ruby
 :lines: 5-
 :::
+
+## Enumerables any, all, none, find
+
+- [HackerRank Enumerable any, all, none and find HackerRank challenge](https://www.hackerrank.com/challenges/ruby-enumerable-any-all-none-find/).
+- [Enumerable Docs](https://ruby-doc.org/core-3.1.2/Enumerable.html).
+
+### any
+
+Is there *any* even number in the array?
+
+```irb
+>> [1, 3, 5].any? { |x| x.even? }
+=> false
+
+>> [1, 3, 8, 5].any? { |x| x.even? }
+=> true
+```
+
+Are any values in the hash of the type `Integer`?
+
+```irb
+>> h = { one: 1, two_1: 2.1 }
+
+>> h.any? { |k, v| v.is_a? Integer }
+=> true
+```
+
+Are any of the keys a `Symbol`?
+
+```irb
+>> h = { 'one' => 1, :two => 2 }
+
+>> :foo.is_a? Symbol
+=> true
+
+>> h.any? { |k, v| k.is_a? Symbol }
+=> true
+```
+
+### all
+
+Do *all* elements satisfy the predicate? E.g, are all elements integers?
+
+```irb
+>> [1, 1.1, 2].all? { |x| x.is_a? Integer }
+=> false
+
+>> [1, 2].all? { |x| x.is_a? Integer }
+=> true
+```
+
+### none
+
+Are *none* of the elements are `nil`:
+
+```irb
+>> [:foo, nil, :bar].none? { |e| e.nil? }
+=> false
+
+>> [:foo, :bar].none? { |e| e.nil? }
+=> true
+``` 
+
+**TIP**: Remember we could simply do `arr.none?(&:nil?)`.
+
+### find
+Can we *find* an element that is greater than 5?
+
+```irb
+>> (1..5).find { |x| x > 5 }
+=> nil
+
+>> (1..6).find { |x| x > 5 }
+=> 6
+```
+
+`find` returns `nil` if it can't find what we are looking for, or it returns the thing we are looking for if we actually find it.
+
+### Solution for the challenge
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/enumerables1.rb
+:language: ruby
+:lines: 3-
+:::
