@@ -1620,3 +1620,49 @@ See these quotes from the [challenge comments](https://www.hackerrank.com/challe
 >
 > — [Torumori](https://www.hackerrank.com/torumori)
 
+## Methods Intro
+
+- [HackerRank methods intro challenge](https://www.hackerrank.com/challenges/ruby-methods-introduction/).
+
+Global methods like:
+
+```rb
+def hello
+  'Hello!'
+end
+
+p hello
+#
+# → "Hello!"
+##
+```
+
+Are the same as:
+
+```rb
+class Object
+  private
+
+  def hello
+    'Hello!'
+  end
+end
+
+p Object.send(:hello)
+#
+# → "Hello!"
+##
+```
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/methods_v1.rb
+:language: ruby
+:::
+
+We already did a `prime?` method before. Here's another version, though:
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/is_prime_v2.rb
+:language: ruby
+:lines: 3-
+:::
+
+
