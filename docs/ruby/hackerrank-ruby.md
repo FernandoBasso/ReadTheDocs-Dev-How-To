@@ -1665,4 +1665,29 @@ We already did a `prime?` method before. Here's another version, though:
 :lines: 3-
 :::
 
+## Method Arguments
 
+- [HackerRank method arguments challenge](https://www.hackerrank.com/challenges/ruby-methods-arguments).
+
+The challenge calls this method `take`, but it sounds more like `drop`, because it *drops*, or *skips* the first `skip` elements:
+
+```rb
+def take(xs, skip = 1)
+  xs[skip, xs.size]
+end
+
+>> take([1, 2, 3, 4], 2)
+=> [3, 4]
+```
+
+Anyway, the above method `take` *skips* `skip` elements and return the rest of the array.
+
+See what `drop` and `take` do in Haskell:
+
+```text
+ghci> drop 2 [1..5]
+[3,4,5]
+
+ghci> take 2 [1..5]
+[1,2]
+```

@@ -1,7 +1,7 @@
 # tags: [self, method, object]
 
 ##
-# A sample object.
+# A sample object with a `hello` private method.
 #
 class Object
   private
@@ -12,4 +12,3 @@ class Object
 end
 
 p Object.send(:hello)
-
