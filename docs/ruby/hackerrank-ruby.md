@@ -70,22 +70,22 @@ $ irb --simple-prompt
 
 > xs = (-3..5).to_a
 » [-3, -2, -1, 0, 1, 2, 3, 4, 5]
- 
+
 > xs.first
 » -3
 
 > xs[0]
 » -3
- 
+
 > xs.last
 » 5
 
 > xs[-1]
 » 5
- 
+
 > xs.take(3)
 » [-3, -2, -1]
- 
+
 > xs.drop(3)
 » [0, 1, 2, 3, 4, 5]
 ```
@@ -107,13 +107,13 @@ At position 1, insert 10 and 20, moving 2 “to the right”.
 > xs.insert(1, 10, 20)
 » [1, 10, 20, 2]
 ```
- 
+
  Add 3 and 4 to the end of the array.
 
 ```irb
 > xs.push(3, 4)
 » [1, 10, 20, 2, 3, 4]
-``` 
+```
 
 Prepend -1 and 0 to the beginning of the array.
 
@@ -130,7 +130,7 @@ Prepend -1 and 0 to the beginning of the array.
 ```irb
 > xs = (1..9).to_a
 » [1, 2, 3, 4, 5, 6, 7, 8, 9]
-``` 
+```
 
 Delete the last element. 9 is gone from `xs`.
 
@@ -146,27 +146,27 @@ Delete the first element. 1 is gone from `xs`.
 ```irb
 > xs.shift
 » 1
- 
+
 > xs
 » [2, 3, 4, 5, 6, 7, 8]
 ```
- 
+
 Delete at position 3. 5 is gone from `xs`.
 
 ```irb
 > xs.delete_at(3)
 » 5
- 
+
 > xs
 » [2, 3, 4, 6, 7, 8]
 ```
- 
+
 Delete all occurrences of 6. We only have one 6, but it is gone from `xs`.
 
 ```irb
 > xs.delete(6)
 » 6
-> 
+>
 > xs
 » [2, 3, 4, 7, 8]
 ```
@@ -191,7 +191,7 @@ To modify the array in place, we use `keep_if` and `delete_if`.
 ```irb
 > xs = (1..9).to_a
 » [1, 2, 3, 4, 5, 6, 7, 8, 9]
- 
+
 > xs.keep_if { |x| x < 5 }
 » [1, 2, 3, 4]
 
@@ -202,10 +202,10 @@ To modify the array in place, we use `keep_if` and `delete_if`.
 ```irb
 > xs = (1..9).to_a
 » [1, 2, 3, 4, 5, 6, 7, 8, 9]
-> 
+>
 > xs.delete_if { |x| x < 5 }
 » [5, 6, 7, 8, 9]
-> 
+>
 > xs
 » [5, 6, 7, 8, 9]
 ```
@@ -742,7 +742,7 @@ def factorial
 end
 
 n = gets.to_i
-factorial do 
+factorial do
   puts (1..n).inject(:*)
 end
 ```
@@ -959,9 +959,9 @@ end
 
 my_proc = proc { puts "This message remembers message :: #{message}" }
 proc_message_printer(my_proc)
-    
-######################################################################################    
-    
+
+######################################################################################
+
 def lambda_message_printer(my_lambda)
   message = "Welcome to Lambda Message Printer"
   my_lambda.call # Call my_lambda
@@ -969,7 +969,7 @@ def lambda_message_printer(my_lambda)
 end
 
 my_lambda = -> { puts "This message remembers message :: #{message}" }
-lambda_message_printer(my_lambda)   
+lambda_message_printer(my_lambda)
 ```
 
 ### Example 1 (remembers x)
@@ -1088,7 +1088,7 @@ Example from HackerRank challenge:
 
 ## Keyword Arguments
 
-Before Ruby 2, people used the “options (or config) object” pattern (like we do in ECMAScript) to provide multiple parameters to a function/method in a saner way than having too many positional parameters. 
+Before Ruby 2, people used the “options (or config) object” pattern (like we do in ECMAScript) to provide multiple parameters to a function/method in a saner way than having too many positional parameters.
 Ruby 2 introduced *keyword arguments*.
 
 - [Keyword Arguments in Ruby 2.0 (brainspec.com)](http://brainspec.com/blog/2012/10/08/keyword-arguments-ruby-2-0/).
@@ -1314,7 +1314,7 @@ Also note we index from 0 to 3, then from 3 to 6, which combined makes 9. That i
 
 ## String Iteration
 
-Before ruby 1.9, strings where enumerable, and we could do `my_str.each` (from `Enumerable`). 
+Before ruby 1.9, strings where enumerable, and we could do `my_str.each` (from `Enumerable`).
 There were some problems with it because of encoding and people could not iterate over bytes without resorting to tricks.
 
 Since ruby 1.9, the `String` class does not bear a `each` method anymore.
@@ -1558,7 +1558,7 @@ Are *none* of the elements are `nil`:
 
 >> [:foo, :bar].none? { |e| e.nil? }
 => true
-``` 
+```
 
 **TIP**: Remember we could simply do `arr.none?(&:nil?)`.
 
@@ -1581,3 +1581,42 @@ Can we *find* an element that is greater than 5?
 :language: ruby
 :lines: 3-
 :::
+
+## String Encoding
+
+- [HackerRank string encoding challenge](https://www.hackerrank.com/challenges/ruby-strings-encoding/).
+- [Ruby docs on String#encode](https://ruby-doc.org/core-3.1.2/String.html#method-i-encode).
+
+Useful snippets regarding encoding:
+
+- `str.encoding`
+- `str.encoding.name`
+- `str.encode(dst_encoding, **options)`
+- `str.encode(dst_encoding, src_encoding, **options)`
+
+Solution:
+
+:::{literalinclude} /../src/ruby/hackerrank-ruby-tutorial/transcode_v1.rb
+:language: ruby
+:lines: 3-
+:::
+
+NOTE: The solution presented here DOES NOT pass HackerRank tests.
+The comments in the challenge explain the tests are probably buggy.
+To make tests pass, use `s.force_encoding('UTF-8')`.
+
+See these quotes from the [challenge comments](https://www.hackerrank.com/challenges/ruby-strings-encoding/forum):
+
+> First of all, the exercise is wrong.
+> `force_encoding` forces the encoding of a string without changing the internal byte representation of the string.
+> `encode` changes the encoding and the internal byte representation.
+> The exercise asks for transcode a string, but `force_encoding` isn't a transcode method but encode actually is a transcode method.
+>
+> — [Juan Manuel Furattini](https://www.hackerrank.com/juan_furattini)
+
+> this exercise passes only with a wrong answer (as the official doc states, `force_encoding` doesn't change the internal byte representation).
+> `force_encoding` should be used only when a string's internal representation doesn't match the Encoding information associated to the string.
+> K-
+>
+> — [Torumori](https://www.hackerrank.com/torumori)
+
