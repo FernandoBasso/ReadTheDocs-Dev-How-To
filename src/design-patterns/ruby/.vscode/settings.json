@@ -1,0 +1,24 @@
+{
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": false,
+    },
+    "reek": {
+      "useBundler": false,
+    },
+  },
+  "ruby.format": "rubocop",
+  "cSpell.words": [
+    "Rubocop"
+  ],
+  "editor.rulers": [72, 80],
+  ////
+  // With this setting we can do "gq" in a comment paragraph/line (or
+  // visual selection) and have text easily and nicely formatted to
+  // 72 chars per line.
+  //
+  "vim.textwidth": 72,
+  "cSpell.enabled": true,
+}
