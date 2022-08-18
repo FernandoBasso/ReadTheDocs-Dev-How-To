@@ -70,3 +70,10 @@ Saw this first in a solution for [resistor color duo exercism challenge](https:/
 
 If we define `to_proc` we can use this *trick* for any object.
 
+### Hash Transform Values and &:next to_proc
+
+```
+>> {one: 1, two: 2}.transform_values(&:next)
+=> {:one=>2, :two=>3}
+```
+
