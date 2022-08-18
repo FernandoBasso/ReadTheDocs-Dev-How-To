@@ -42,3 +42,31 @@ Nice tools:
 
 - The name of the language is spelled *Ruby* (not RUBY or ruby) because it is a proper noun (therefore, the first letter is capitalized). `ruby` is the name of the program we use to run Ruby programs, like `ruby -w fib.rb`.
 - A *mix-in* (also spelled *mix in*) is the including of a module inside a class. We say things like “The Enumerable mix-in module provides...”. See [Ruby doc on modules](https://ruby-doc.com/core/doc/syntax/modules_and_classes_rdoc.html).
+
+## Bits and Bytes of Syntax Suggar
+
+### Hash Values
+We can get all the values of a hash by doing this:
+
+```
+>> { one: 1, two: 2 }.map(&:last)
+=> [1, 2]
+```
+
+Which is similar to doing `hash.values`
+
+### Map and Hash to Proc to Get Values
+
+```
+>> h = { one: 1, two: 2 }
+
+>> [:one, :two].map(&h)
+=> [1, 2]
+```
+
+With an array of keys, we map over those keys, and *turn the hash into a proc*😲!
+
+Saw this first in a solution for [resistor color duo exercism challenge](https://exercism.org/tracks/ruby/exercises/resistor-color-duo).
+
+If we define `to_proc` we can use this *trick* for any object.
+
