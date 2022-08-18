@@ -1693,3 +1693,20 @@ ghci> take 2 [1..5]
 ```
 
 Made a [comment about this naming thin in the discussions for this challenge](https://www.hackerrank.com/challenges/ruby-methods-arguments/forum).
+
+
+## Ruby Enumerable Intro
+
+- [HackerRank colors each challenge](https://www.hackerrank.com/challenges/ruby-enumerable-introduction/).
+
+```rb
+def iterate_colors(colors)
+  color_values = []
+    
+  colors.each do |color|
+    color_values << color
+  end
+    
+  color_values
+end
+
