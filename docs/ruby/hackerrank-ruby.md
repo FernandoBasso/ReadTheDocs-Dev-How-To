@@ -1691,3 +1691,5 @@ ghci> drop 2 [1..5]
 ghci> take 2 [1..5]
 [1,2]
 ```
+
+Made a [comment about this naming thin in the discussions for this challenge](https://www.hackerrank.com/challenges/ruby-methods-arguments/forum).

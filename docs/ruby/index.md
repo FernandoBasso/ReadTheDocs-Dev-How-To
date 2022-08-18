@@ -37,3 +37,8 @@ Nice tools:
 - [pry (irb alternative with powerful introspection capabilities)](https://github.com/pry/pry).
 - [Rubocop Docs](https://docs.rubocop.org/rubocop/).
 - [Solargraph Ruby Langauge Server](https://solargraph.org/guides).
+
+## Ruby Concepts and Ideas
+
+- The name of the language is spelled *Ruby* (not RUBY or ruby) because it is a proper noun (therefore, the first letter is capitalized). `ruby` is the name of the program we use to run Ruby programs, like `ruby -w fib.rb`.
+- A *mix-in* (also spelled *mix in*) is the including of a module inside a class. We say things like “The Enumerable mix-in module provides...”. See [Ruby doc on modules](https://ruby-doc.com/core/doc/syntax/modules_and_classes_rdoc.html).
