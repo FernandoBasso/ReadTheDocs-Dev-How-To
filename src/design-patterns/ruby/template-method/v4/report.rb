@@ -37,7 +37,12 @@ class Report
   # subclasses.
   #
   # We throw exceptions for “abstract” methods so subclasses are
-  # forced to implement then.
+  # forced to implement then. However, we DO NOT throw for methods
+  # that do not always need to be overridden, because a few would
+  # be implemented as empty/do nothing in the concrete classes.
+  #
+  # For example, `output_body_end` (and a few others) need to do nothing
+  # for Plain Text, so, why force `PlainTextReport` to implement then?
   #
   def output_report
     output_start
@@ -54,29 +59,48 @@ class Report
     end
   end
 
-  def output_start
-    raise 'Called abstract method: output_start'
-  end
+  ##
+  # A hook method. Does nothing by default. `HTMLReport` would override
+  # it, but perhaps `PlainTextReport` would not.
+  def output_start; end
 
+  ##
+  # This hook method outputs the title by default. It helps document
+  # what is expected from child classes should they wish to override
+  # this method: “Oh, I need to output the title here!”
+  #
   def output_head
-    raise 'Called abstract method: output_head'
+    output_line(@title)
   end
 
-  def output_body_start
-    raise 'Called abstract method: output_body_start'
-  end
+  ##
+  # Another hook method. May or may not be overridden.
+  #
+  def output_body_start; end
 
+  ##
+  # This one MUST be overridden by all subclasses. We throw an exception
+  # to make sure if it is called without implementation, client code
+  # will know immediately about it.
+  #
+  # All report types must output “a line” according to their type.
+  #
   def output_line(_line)
     raise 'Called abstract method: output_line'
   end
 
-  def output_body_end
-    raise 'Called abstract method: output_body_end'
-  end
+  ##
+  # Hook method. Not all report types need a specific body end. Some
+  # will simply need nothing at all so they can use this default, empty
+  # implementation.
+  #
+  def output_body_end; end
 
-  def output_end
-    raise 'Called abstract method: output_end'
-  end
+  ##
+  # Hook method. Not all report types need a special “output ending”
+  # therefore not all report types will need to override this
+  #
+  def output_end; end
 end
 
 ##
