@@ -13,7 +13,7 @@
 #   should isolate code that changes from code that doesn't
 #   change. HTML output was already working, but to add
 #   Plain Text format we had to add logic to HTML-related
-#   and mixed everything up. This is bad.
+#   code and mixed everything up. This is bad.
 #
 class Report
   def initialize

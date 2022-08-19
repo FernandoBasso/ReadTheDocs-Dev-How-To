@@ -1,6 +1,3 @@
-# rubocop:disable Style/CaseLikeIf
-# rubocop:disable Style/GuardClause
-
 ##
 # A report generator that outputs HTML or plain text.
 #
@@ -35,6 +32,10 @@ class Report
     @text = ['Things are going', 'really, really well.']
   end
 
+  ##
+  # The methods we call here should be overridden accordingly by
+  # subclasses.
+  #
   def output_report
     output_start
     output_head
