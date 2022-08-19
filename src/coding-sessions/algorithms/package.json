@@ -1,0 +1,27 @@
+{
+  "name": "algorithms",
+  "version": "0.0.1",
+  "description": "Sample code from coding sessions with friends",
+  "main": "none.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/devhowto/Dev-How-To.git"
+  },
+  "keywords": [
+    "programming",
+    "algorithms",
+    "data-structures"
+  ],
+  "author": "Fernando Basso <fernandobasso.br@gmail.com>",
+  "license": "LGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://gitlab.com/devhowto/Dev-How-To/issues"
+  },
+  "homepage": "https://gitlab.com/devhowto/Dev-How-To#readme",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
