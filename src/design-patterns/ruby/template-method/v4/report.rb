@@ -1,30 +1,9 @@
 ##
 # A report generator that outputs HTML or plain text.
 #
-# Note that we always output these, no matter the format:
-#
-# • Header.
-# • Title.
-# • Each line of actual report (the content/body of the report).
-# • Footer (any trailing stuff required by the format).
-#
-# So, we can Define an abstract base class with a master method that
-# performs the basic steps listed above, but that leaves the details of
-# each step to a subclass.
-#
-# Pros of this implementation:
-#
-# • Adheres to the principle of separating code that stay
-#   the same from code that changes.
-##
-
-##
 # An *abstract* report class (except Ruby does not have abstract
 # classes, so, we make do by throwing exceptions if client code try to
 # invoke those methods directly).
-#
-# Format-specific report classes will inherit from this `Report` class
-# and override all methods, except `output_report`.
 #
 class Report
   def initialize
