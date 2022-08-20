@@ -55,5 +55,6 @@ repository`_.
    hackerrank/index.md
    programming/index
    databases-sql/index.md
+   design-patterns/index.md
    character-encodings/index.md
    misc/index
