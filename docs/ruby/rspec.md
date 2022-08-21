@@ -23,7 +23,7 @@ describe PlainTextFormatter do
     report = Report.new(PlainTextFormatter.new)
 
     expect do
-      report.output_report
+      report.output
     end.to output(/===== Nostromo Report =====/).to_stdout
   end
 
@@ -35,7 +35,7 @@ describe PlainTextFormatter do
       'Signing off.'
     ].join("\n")
 
-    expect { report.output_report }.to output(/#{lines}/).to_stdout
+    expect { report.output }.to output(/#{lines_to_match}/).to_stdout
   end
 end
 ```
