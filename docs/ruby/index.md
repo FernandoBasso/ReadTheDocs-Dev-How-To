@@ -13,6 +13,7 @@ caption: Ruby
 ---
 
 unit-tests.md
+rspec.md
 scope.md
 hackerrank-ruby.md
 bundler.md
