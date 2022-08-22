@@ -13,4 +13,5 @@ caption: Topics
 ---
 
 template-method.md
+strategy.md
 ```
