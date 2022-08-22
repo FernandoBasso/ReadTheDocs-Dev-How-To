@@ -1,7 +1,7 @@
 require_relative 'formatter'
 
 ##
-# Prints a report in HTML format.
+# Formats the report in HTML.
 #
 class HTMLFormatter < Formatter
   def output_report(title, text)

@@ -20,7 +20,7 @@ class Report
   end
 
   ##
-  # `output_report` is implemented in the `Formatter` subclasses.
+  # `output_report` is implemented in subclass of `Formatter`.
   #
   def output_report
     @formatter.output_report(@title, @text)
