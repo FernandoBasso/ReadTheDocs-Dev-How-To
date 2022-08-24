@@ -20,13 +20,17 @@ function tail(str) {
 }
 
 /**
- * Capitalize first char of input string.
+ * Uppercases the first char of input string.
  *
  * @param {string} str
- * @return {string}
+ * @returns {string}
+ *
+ * @example
+ * capitalize('hello');
+ * // → 'Hello'
  */
 function capitalize(str) {
-  return str.toLocaleUpperCase();
+  return head(str).toUpperCase() + tail(str);
 }
 
 /**
@@ -38,12 +42,7 @@ function capitalize(str) {
 function capitalizeAll(sentence) {
   const words = sentence.split(' ');
 
-  return words.map(word => {
-    const first = head(word);
-    const rest = tail(word);
-
-    return capitalize(first) + rest;
-  }).join(' ');
+  return words.map(capitalize).join(' ');
 }
 
 module.exports = { capitalizeAll };
