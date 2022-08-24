@@ -1,4 +1,4 @@
-const { capitalizeAll } = require('./capitalize-v2');
+const { capitalizeAll } = require('./capitalize-v1');
 
 describe('capitalizeAll()', () => {
   it('should return empty string', () => {
