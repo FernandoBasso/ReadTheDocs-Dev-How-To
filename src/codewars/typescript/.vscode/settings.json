@@ -1,0 +1,8 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "deno.importMap": "./import-map.json",
+  "editor.rulers": [72, 80],
+  "vim.textwidth": 72,
+}
