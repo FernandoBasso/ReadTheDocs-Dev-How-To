@@ -21,6 +21,7 @@ commit_types=(
   emacs
   exercism
   algds
+  codesess
   fix
   git
   haskell

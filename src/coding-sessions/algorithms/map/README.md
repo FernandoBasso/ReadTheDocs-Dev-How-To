@@ -14,4 +14,3 @@ function f(num) {
 // OK
 [1, 2, 3].map(f);
 ```
-
