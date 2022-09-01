@@ -1,4 +1,4 @@
-const { numToWords } = require('./numToWords-v2');
+const { numToWords } = require('./numToWords-v3');
 
 describe('toWords()', () => {
   it('should convert single number words (7, 1, 9, 0)', () => {
