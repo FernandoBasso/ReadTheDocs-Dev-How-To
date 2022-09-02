@@ -1,8 +1,4 @@
-const {
-  filterStudents,
-  isApproved,
-  isFailed,
-} = require('./filterStudents-v2');
+const { filterApproved, filterFailed } = require('./filterApprovedFailed-v1');
 
 const bruna = { name: 'Bruna', average: 9.5 };
 const natalia = { name: 'Natália', average: 6.5 }; // !!!
@@ -14,10 +10,10 @@ const julia = { name: 'Julia', average: 3.4 };
 // average: 6.5
 //
 
-describe('filterStudents() - approved', () => {
+describe('filterApproved()', () => {
   describe('when the array is empty', () => {
     it('should return an empty array', () => {
-      expect(filterStudents([], isApproved)).toEqual([]);
+      expect(filterApproved([])).toEqual([]);
     });
   });
 
@@ -25,7 +21,7 @@ describe('filterStudents() - approved', () => {
     it('should return an empty array', () => {
       const failedStudents = [tiago, diogo, julia];
 
-      expect(filterStudents(failedStudents, isApproved)).toEqual([]);
+      expect(filterApproved(failedStudents)).toEqual([]);
     });
   });
 
@@ -33,7 +29,7 @@ describe('filterStudents() - approved', () => {
     it('should return the array itself', () => {
       const approvedStudents = [bruna, natalia];
 
-      expect(filterStudents(approvedStudents, isApproved)).toEqual(approvedStudents);
+      expect(filterApproved(approvedStudents)).toEqual(approvedStudents);
     });
   });
 
@@ -42,15 +38,15 @@ describe('filterStudents() - approved', () => {
       const mixedStudents = [bruna, natalia, tiago, diogo, julia];
       const expectedApprovedStudents = [bruna, natalia];
 
-      expect(filterStudents(mixedStudents, isApproved)).toEqual(expectedApprovedStudents);
+      expect(filterApproved(mixedStudents)).toEqual(expectedApprovedStudents);
     });
   });
-});
+})
 
-describe('filterStudents() -- failed', () => {
+describe('filterFailed()', () => {
   describe('when the array is empty', () => {
     it('should return an empty array', () => {
-      expect(filterStudents([], isFailed)).toEqual([]);
+      expect(filterFailed([])).toEqual([]);
     });
   });
 
@@ -58,7 +54,7 @@ describe('filterStudents() -- failed', () => {
     it('should return an empty array', () => {
       const approvedStudents = [bruna, natalia];
 
-      expect(filterStudents(approvedStudents, isFailed)).toEqual([]);
+      expect(filterFailed(approvedStudents)).toEqual([]);
     });
   });
 
@@ -66,7 +62,7 @@ describe('filterStudents() -- failed', () => {
     it('should return the array itself', () => {
       const failedStudents = [tiago, diogo, julia];
 
-      expect(filterStudents(failedStudents, isFailed)).toEqual(failedStudents);
+      expect(filterFailed(failedStudents)).toEqual(failedStudents);
     });
   });
 
@@ -75,7 +71,7 @@ describe('filterStudents() -- failed', () => {
       const mixedStudents = [bruna, natalia, tiago, diogo, julia];
       const expectedFailedStudents = [tiago, diogo, julia];
 
-      expect(filterStudents(mixedStudents, isFailed)).toEqual(expectedFailedStudents);
+      expect(filterFailed(mixedStudents)).toEqual(expectedFailedStudents);
     });
   });
 });

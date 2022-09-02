@@ -12,3 +12,5 @@ Create a `filterOdd()` function that takes an array of integers and returns only
 ## Callback
 
 Talk about onload() vs onload, callback functions, and we calling vs code calling a function.
+
+## Strategy Pattern

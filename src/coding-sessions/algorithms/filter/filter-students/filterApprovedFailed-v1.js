@@ -1,3 +1,9 @@
+//
+// Avoid magic constants!!!
+//
+
+const MIN_AVERAGE_TO_BE_APPROVED = 6.5;
+
 /**
  * A predicate to check whether the student is approved or not.
  *
@@ -5,7 +11,7 @@
  * @returns {boolean}
  */
 function isApproved(student) {
-  return student.average >= 6.5;
+  return student.average >= MIN_AVERAGE_TO_BE_APPROVED;
 }
 
 /**
