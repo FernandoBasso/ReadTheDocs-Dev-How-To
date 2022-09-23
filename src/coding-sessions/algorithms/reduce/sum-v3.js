@@ -1,8 +1,8 @@
 /**
  * Adds two numbers.
  *
- * @param {number} x
- * @param {number} y
+ * @param {number} acc
+ * @param {number} num
  * @returns {number}
  */
 function add(acc, num) {
@@ -10,7 +10,7 @@ function add(acc, num) {
 }
 
 /**
- * Sums the numbers of the array of numbers.
+ * Sums the elements of the array of numbers.
  *
  * @param {number[]} xs
  * @returns {number}
