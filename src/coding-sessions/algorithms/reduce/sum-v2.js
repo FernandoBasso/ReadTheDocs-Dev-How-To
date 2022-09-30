@@ -8,11 +8,9 @@
  * // → 6
  */
 function sum(xs) {
-  const total = xs.reduce(function performSum(acc, num) {
+  return xs.reduce(function performSum(acc, num) {
     return acc + num;
   }, 0);
-
-  return total;
 }
 
 module.exports = { sum };

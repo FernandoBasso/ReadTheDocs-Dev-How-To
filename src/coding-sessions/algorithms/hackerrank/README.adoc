@@ -1,0 +1,4 @@
+= HackerRank Easy Problem
+
+* [ ] https://www.hackerrank.com/challenges/simple-array-sum[Simple Array Sum^]
+* [ ] https://www.hackerrank.com/challenges/compare-the-triplets[Compare the Triplets^]
