@@ -20,3 +20,8 @@ node_modules
 # Drawio backup files.
 #
 *.drawio.svg.bkp
+
+##
+# python -m venv stuff.
+#
+localsphinx
