@@ -69,6 +69,11 @@ extensions = [
   # https://www.sphinx-doc.org/en/master/usage/markdown.html
   #
   'myst_parser',
+
+  ##
+  # https://github.com/sphinx-contrib/plantuml
+  #
+  'sphinxcontrib.plantuml',
 ]
 
 myst_enable_extensions = [

@@ -56,5 +56,6 @@ repository`_.
    programming/index
    databases-sql/index.md
    design-patterns/index.md
+   solid-principles/index.md
    character-encodings/index.md
    misc/index
