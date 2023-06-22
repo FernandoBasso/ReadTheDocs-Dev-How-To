@@ -7,3 +7,4 @@
    :caption: 7kyu
 
    sort-numbers.md
+   valid-parentheses.md
