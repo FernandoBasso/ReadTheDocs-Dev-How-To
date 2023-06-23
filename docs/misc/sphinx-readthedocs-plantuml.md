@@ -104,7 +104,7 @@ The file should look like this:
 ##
 # https://myst-parser.readthedocs.io/en/latest/index.html
 #
-myst-parser==0.18.0
+myst-parser==2.0.0
 
 ##
 # https://github.com/pradyunsg/furo
