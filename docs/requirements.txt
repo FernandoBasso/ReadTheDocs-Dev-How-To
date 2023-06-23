@@ -1,7 +1,14 @@
-furo==2022.6.21
+##
+# https://myst-parser.readthedocs.io/en/latest/index.html
+#
 myst-parser==0.18.0
 
+##
+# https://github.com/pradyunsg/furo
 #
+furo==2022.6.21
+
+##
 # https://github.com/sphinx-contrib/plantuml
 #
 sphinxcontrib-plantuml==0.25

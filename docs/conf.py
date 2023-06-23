@@ -83,6 +83,11 @@ myst_enable_extensions = [
   #
   'colon_fence',
   'strikethrough',
+
+  ##
+  # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block
+  #
+  'attrs_block',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
