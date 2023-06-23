@@ -109,7 +109,7 @@ myst-parser==2.0.0
 ##
 # https://github.com/pradyunsg/furo
 #
-furo==2022.6.21
+furo==2023.5.20
 
 ##
 # https://github.com/sphinx-contrib/plantuml
@@ -122,7 +122,7 @@ sphinxcontrib-plantuml==0.25
 Read The Docs uses (probably Docker) containers to build your docs.
 The possible settings for `.readthedocs.yaml` are mentioned [in their docs](https://docs.readthedocs.io/en/stable/config-file/v2.html).
 
-Let's use on of the allowed values for the OS as per [ReadTheDocs configuration schema](https://github.com/readthedocs/readthedocs.org/blob/5508303484cc72e6244633ef1a1ad5e48b6a98b1/readthedocs/rtd_tests/fixtures/spec/v2/schema.json#L85-L92).
+Let's use one of the allowed values for the OS as per [ReadTheDocs configuration schema](https://github.com/readthedocs/readthedocs.org/blob/5508303484cc72e6244633ef1a1ad5e48b6a98b1/readthedocs/rtd_tests/fixtures/spec/v2/schema.json#L85-L92).
 
 We should have a `.readthedocs.yaml` that looks like this:
 
