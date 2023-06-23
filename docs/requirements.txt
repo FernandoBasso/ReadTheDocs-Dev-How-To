@@ -6,7 +6,7 @@ myst-parser==2.0.0
 ##
 # https://github.com/pradyunsg/furo
 #
-furo==2022.6.21
+furo==2023.5.20
 
 ##
 # https://github.com/sphinx-contrib/plantuml
