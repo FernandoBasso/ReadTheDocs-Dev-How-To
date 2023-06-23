@@ -4,4 +4,4 @@ myst-parser==0.18.0
 #
 # https://github.com/sphinx-contrib/plantuml
 #
-sphinxcontrib-plantuml=0.25
+sphinxcontrib-plantuml==0.25
