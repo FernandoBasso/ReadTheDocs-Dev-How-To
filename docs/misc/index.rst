@@ -9,4 +9,5 @@ the other categories in the site.
    :maxdepth: 6
    :caption: Miscellaneous Tips
 
+   sphinx-readthedocs-plantuml.md
    finder-paste-image
