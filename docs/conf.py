@@ -88,6 +88,12 @@ myst_enable_extensions = [
   # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block
   #
   'attrs_block',
+
+  ##
+  # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#math-shortcuts
+  #
+  'dollarmath',
+  'amsmath'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
