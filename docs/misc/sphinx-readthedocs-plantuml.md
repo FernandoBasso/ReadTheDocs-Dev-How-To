@@ -5,11 +5,10 @@ description: Learn to to setup .readthedocs.yaml config file to setup PlantUML t
 
 # PlantUML on Sphinx/Read The Docs
 
-## Intro
+## Motivation
 
-We want to use PlantUML to add diagrams (using the concept as Diagramas as Code, just like we have Infrastructure as Code, etc.)
-
-We want to write and see diagramse like the following:
+We want to use PlantUML to add diagrams (using the concept as Diagrams as Code, just like we have Infrastructure as Code, etc.).
+That is, we use some markup language specific to write diagrams (PlantUML), and have their result embedded in our web pages just like these:
 
 :::{uml}
 ```plantuml
@@ -80,15 +79,17 @@ class InsurancePremiumDiscountCalculator {
 @enduml
 ```
 
-Check more diagrams on our [SOLID Principle pages](https://www.devhowto.dev/solid-principles/dependency-inversion-principle.html).
+Check out a few more diagrams on our [SOLID Principle pages](https://www.devhowto.dev/solid-principles/dependency-inversion-principle.html).
+
+## Getting Started
 
 We'll need:
 
-- [Sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html), the documentation generator which allows writting in both reStructuredText and Markdown.
+- [Sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html), the documentation generator which allows writing in both reStructuredText and Markdown.
 - [PlantUML](https://plantuml.com/) to generate diagrams of any kind.
 - [sphinx-contrib/plantuml](https://github.com/sphinx-contrib/plantuml) to allow embedding diagrams into the output content during build.
 
-## sphinxcontrib-plantuml
+## PlantUML Sphinx Contrib
 
 Add something like this to your `./docs/requirements.txt`:
 
@@ -117,9 +118,50 @@ furo==2023.5.20
 sphinxcontrib-plantuml==0.25
 ```
 
-## plantuml package on the container
+## Extensions on conf.py
 
-Read The Docs uses (probably Docker) containers to build your docs.
+Enable `myst_parser` and `plantuml` Sphinx extensions:
+
+```{code-block} python
+:caption: extensions section of docs/conf.py
+
+extensions = [
+  ##
+  # https://www.sphinx-doc.org/en/master/usage/markdown.html
+  #
+  'myst_parser',
+
+  ##
+  # https://github.com/sphinx-contrib/plantuml
+  #
+  'sphinxcontrib.plantuml',
+]
+```
+
+Enable the `colon_fence` and `attrs_block` myst parser extensions in `./docs/conf.py`:
+
+```{code-block} python
+:caption: myst_parser extensions section of docs/conf.py
+
+myst_enable_extensions = [
+  'colon_fence',
+  'attrs_block',
+  # ... other extensions
+]
+```
+
+Take a look at the [conf.py config file for this very project](https://gitlab.com/devhowto/dev-how-to-sphinx/-/blob/fc5748ba036b9c1281e3a347a68f60a82aa25a6f/docs/conf.py) for more info.
+
+Read more about myst extensions:
+
+- [Attributes Block :: myst parser](https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block)
+- [Colon Fence :: myst parser](https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-colon-fence)
+- [Roles and Directives :: myst parser](https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html)
+
+
+## PlantUML package on the container
+
+Read The Docs uses (probably Docker) containers to build our docs.
 The possible settings for `.readthedocs.yaml` are mentioned [in their docs](https://docs.readthedocs.io/en/stable/config-file/v2.html).
 
 Let's use one of the allowed values for the OS as per [ReadTheDocs configuration schema](https://github.com/readthedocs/readthedocs.org/blob/5508303484cc72e6244633ef1a1ad5e48b6a98b1/readthedocs/rtd_tests/fixtures/spec/v2/schema.json#L85-L92).
@@ -184,7 +226,81 @@ As of this writing (Jun 2023), they allow these:
     ]
   }
 }
+```
 
 [The docs](https://docs.readthedocs.io/en/stable/config-file/v2.html#build-os) should have an up to date list, though.
-```
 :::
+
+## An example diagram
+
+So now, to generate and embed the diagram output image into the output HTML, use a syntax like this:
+
+```{code-block}
+@startuml
+skinparam DefaultFontName Source Code Pro
+skinparam DefaultFontSize 15
+
+... diagram code ...
+
+@enduml
+```
+
+For example, this code:
+
+```{code-block}
+:caption: PlantUML Example Diagram Markup
+
+@startuml
+skinparam DefaultFontName Source Code Pro
+skinparam DefaultFontSize 15
+skinparam RankSep 50
+
+package "eCommerce" {
+  node "High Level Components" {
+    component ProductCatalog
+  }
+
+  node "Abstractions" {
+    component ProductFactory
+  }
+
+  node "Low Level Components" {
+    component SQLProductRepository
+  }
+
+  ProductCatalog ..> ProductFactory: depends on
+  ProductFactory ..> SQLProductRepository: depends on
+}
+@enduml
+```
+
+...results in this output:
+
+```{uml}
+@startuml
+skinparam DefaultFontName Source Code Pro
+skinparam DefaultFontSize 15
+skinparam RankSep 50
+
+package "eCommerce" {
+  node "High Level Components" {
+    component ProductCatalog
+  }
+
+  node "Abstractions" {
+    component ProductFactory
+  }
+
+  node "Low Level Components" {
+    component SQLProductRepository
+  }
+
+  ProductCatalog ..> ProductFactory: depends on
+  ProductFactory ..> SQLProductRepository: depends on
+}
+@enduml
+```
+
+## Conclusion
+
+At this point, whenever changes are pushed to the repository, a new build will be triggered on ReadTheDocs (depending on your own project settings, of course), and you should have the diagrams built and embedded onto the output web pages.

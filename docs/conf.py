@@ -78,7 +78,7 @@ extensions = [
 
 myst_enable_extensions = [
   ##
-  # • https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html?highlight=directives#nesting-directives
+  # • https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html
   # • https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-colon-fence
   #
   'colon_fence',
