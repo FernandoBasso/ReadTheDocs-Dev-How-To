@@ -1,8 +1,13 @@
-# Valid Parenthesis :: 7kyu Codewars Challenge
+---
+title: Valid Parentheses :: 7kyu Codewars Challenge
+description: Some solutions and explanations on Valid Parentheses 7kyu Codewars challenge using different approaches and programming languages.
+----
+
+# Valid Parentheses
 
 ## Intro
 
-- [Valid Parenthesis 7kyu Codewars challenge](https://www.codewars.com/kata/6411b91a5e71b915d237332d)
+- [Valid Parentheses 7kyu Codewars challenge](https://www.codewars.com/kata/6411b91a5e71b915d237332d)
 
 In the comments, people say this problem should bin in the 6kyu category.
 
