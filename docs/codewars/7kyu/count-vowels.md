@@ -70,3 +70,38 @@ The iteration of the vowels in `isVowel` is of little concern as it is a short s
 The space complexity is $O(1)$ as our function doesn't need extra storage besides a numeric variable accumulator.
 
 - [Discussion on Haskell Discord](https://discord.com/channels/280033776820813825/505367988166197268/1122267086400540722).
+
+### v2
+
+```haskell
+isVowel :: Char -> Bool
+isVowel = (`elem` "aeiou")
+
+--
+-- T.C: O(n).
+-- S.C: O(1).
+--
+vowelCount :: [Char] -> Int
+vowelCount = length . filter isVowel
+```
+
+Point-free style and function composition.
+T.C. $O(1)$ because computing the result of `filter` and `length` is done on a single pass.
+
+- [Discussion on one or two passes on Haskell Discord](https://discord.com/channels/280033776820813825/505367988166197268/1122492590844031127).
+
+### v3
+
+```haskell
+isVowel :: Char -> Bool
+isVowel = (`elem` "aeiou")
+
+--
+-- T.C: O(n).
+-- S.C: O(1).
+--
+vowelCount :: [Char] -> Int
+vowelCount str = length [c | c <- str, isVowel c]
+```
+
+Using list comprenhesions.
