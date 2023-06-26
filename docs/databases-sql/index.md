@@ -128,4 +128,5 @@ caption: Databases and SQL
 
 useful-postgresql-commands.md
 basic-sql-1.md
+basic-hackerrank-sql-challenges.md
 ```
