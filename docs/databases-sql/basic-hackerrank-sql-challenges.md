@@ -132,3 +132,23 @@ mydb=# SELECT ROUND(3.141592653589793, 5) AS my_pi;
 ---------
  3.14159
 ```
+
+## Weather Observation Station 3
+
+- [Weather Observation Station 3 :: HackerRank SQL Challenge](https://www.hackerrank.com/challenges/weather-observation-station-3).
+
+```sql
+SELECT DISTINCT city
+FROM station
+WHERE id % 2 = 0;
+```
+
+We just `SELECT DISTINCT` to avoid duplicates.
+
+For the “even IDs”, the old, battle-tested tested integer division compared with 0 does the trick. It seems `%` has higher precedence than `=`, but we could wrap the remainder division in parentheses too if we wanted to make sure or make it more explicit/clear:
+
+```sql
+SELECT DISTINCT city
+FROM station
+WHERE (id % 2) = 0;
+```
