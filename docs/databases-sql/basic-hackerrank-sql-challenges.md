@@ -152,3 +152,92 @@ SELECT DISTINCT city
 FROM station
 WHERE (id % 2) = 0;
 ```
+
+## Weather Observation Station 4
+
+- [Weather Observation Station 4 :: HackerRank SQL Challenge](https://www.hackerrank.com/challenges/weather-observation-station-4).
+
+```sql
+SELECT (COUNT(city) - COUNT(DISTINCT city)) AS count
+FROM station;
+```
+
+Looks like they consider only the city name (`city`) column to determine if the city is the same or not.
+
+`COUNT(city)` returns some number, and `COUNT(DISTINCT city)` can potentially return another number, which we subtract from the first, producing the correct result expected by the challenge.
+
+Note we didn't call `DISTINCT` as a function, with parentheses, like `DISTINCT(city)`.
+
+Assume this table and data:
+
+```sql
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY
+  , name VARCHAR(128) NOT NULL
+);
+
+INSERT INTO users (
+    id
+  , name
+) VALUES
+    (1, 'Yoda')
+  , (2, 'Ahsoka tano')
+  , (3, 'Aayla Secura')
+  , (4, 'Leia')
+  , (5, 'Leia');
+```
+
+Then see how it is possible to use both `DISTINCT name` or `DISTINCT(name)` inside `COUNT()`:
+
+```text
+> SELECT id, name FROM users;
+ id |     name     
+----+--------------
+  1 | Yoda
+  2 | Ahsoka tano
+  3 | Aayla Secura
+  4 | Leia
+  5 | Leia
+(5 rows)
+
+> SELECT COUNT(name) FROM users;
+ count 
+-------
+     5
+(1 row)
+
+                 parentheses
+               --------------
+> SELECT COUNT(DISTINCT(name)) FROM users;
+ count 
+-------
+     4
+(1 row)
+
+               no parentheses
+               -------------
+> SELECT COUNT(DISTINCT name) FROM users;
+ count 
+-------
+     4
+(1 row)
+
+                                parentheses
+                              --------------
+> SELECT (COUNT(name) - COUNT(DISTINCT(name))) AS count FROM users;
+ count 
+-------
+     1
+(1 row)
+
+                              no parentheses
+                              -------------
+> SELECT (COUNT(name) - COUNT(DISTINCT name)) AS count FROM users;
+ count 
+-------
+     1
+(1 row)
+
+```
+
+I tested this on both PostgreSQL and MariaDB and both vendors accept both syntaxes.
