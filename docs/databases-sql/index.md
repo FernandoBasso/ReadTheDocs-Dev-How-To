@@ -126,6 +126,7 @@ maxdepth: 6
 caption: Databases and SQL
 ---
 
+psql-cli.md
 useful-postgresql-commands.md
 basic-sql-1.md
 basic-hackerrank-sql-challenges.md
