@@ -54,7 +54,7 @@ ON col_a = col_b;
 (4 rows)
 ```
 
-Note the last cell, to the rigth of 107 simply shows nothing at all.
+Note the last cell, to the right of 107 simply shows nothing at all.
 Is that an empty string or really null?
 Not sure...
 Well, we can instruct psql to show a specific string for `null` values:
@@ -105,5 +105,149 @@ ON col_a = col_b;
 (4 rows)
 ```
 
-Note it now misleadingly shows `null` as an emtpy string `""`.
+Note it now misleadingly shows `null` as an empty string `""`.
 Probably not what we wanted.
+
+Could also use a more fancy _empty set_ unicode character 0x2205 ∅:
+
+```text
+SQL> \pset null ∅ 
+Null display is "∅".
+
+SQL> SELECT col_a, col_b
+FROM tbl_a LEFT OUTER JOIN tbl_b
+ON col_a = col_b;
+
+ col_a | col_b 
+-------+-------
+   102 |   102
+   104 |   104
+   106 |   106
+   107 |     ∅
+(4 rows)
+```
+
+```{note} Unicode Fonts
+Your system must have unicode fonts installed for the “∅” (or other unicode chars) to be displayed properly.
+
+Check the [Arch Wiki page on fonts](https://wiki.archlinux.org/title/Fonts) for more info on fonts and fonts that support Unicode. That page is useful even if you don't run Arch Linux or Linux.
+```
+
+## Visually display empty string
+
+Null was covered above.
+What about displaying empty strings and space-only strings?
+
+First, let's create a test database and table with sample data:
+
+```sql
+CREATE DATABASE blog WITH
+    ENCODING='UTF-8'
+    OWNER=devel
+    LC_CTYPE='en_US.UTF-8'
+    LC_COLLATE='en_US.UTF-8'
+    TEMPLATE=template0
+    CONNECTION LIMIT=3;
+\c blog;
+
+CREATE TABLE posts (
+    id NUMERIC(3,0) PRIMARY KEY
+  , title VARCHAR(128)
+  , intro VARCHAR(254)
+);
+
+INSERT INTO posts (
+    id
+  , title
+  , intro
+) VALUES
+  (1, 'Post 1', 'foo')
+, (2, 'Post 2', ' ')
+, (3, 'Post 3', '')
+, (4, 'Post 4', NULL);
+```
+
+Note how the `intro` field was a non-empty string for post 1, then an empty string for post 2, a string consisting of a single space for post 3, and finally, a `NULL` for post 4.
+
+This is how it shows on default setting for psql:
+
+```text
+SQL> SELECT id, title, intro FROM posts;
+ id | title  | intro 
+----+--------+-------
+  1 | Post 1 | foo
+  2 | Post 2 |
+  3 | Post 3 |
+  4 | Post 4 |
+(4 rows)
+
+SQL> SELECT intro FROM posts;
+ intro 
+-------
+ foo
+
+
+
+(4 rows)
+```
+
+Null was covered above.
+For the string stuff, we could concatenate the `intro` inside double quotes to visually represent it.
+
+```text
+SQL> \pset null '∅'
+Null display is "∅".
+
+SQL> SELECT
+    id
+  , title
+  , '"' || intro || '"' AS intro
+FROM posts;
+ id | title  | intro 
+----+--------+-------
+  1 | Post 1 | "foo"
+  2 | Post 2 | " "
+  3 | Post 3 | ""
+  4 | Post 4 | ∅
+(4 rows)
+```
+
+Or by creating a small helper function `VGDB` (visual debug):
+
+```sql
+CREATE FUNCTION VDBG(str VARCHAR) RETURNS VARCHAR
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT
+    RETURN '"' || str || '"';
+```
+
+Then in psql:
+
+```text
+SQL> \pset null '∅'
+Null display is "∅".
+
+SQL> SELECT VDBG(intro) AS intro FROM posts;
+ intro 
+-------
+ "foo"
+ " "
+ ""
+ ∅
+(4 rows)
+
+SQL> SELECT id, title, VDBG(intro) AS intro FROM posts;
+ id | title  | intro 
+----+--------+-------
+  1 | Post 1 | "foo"
+  2 | Post 2 | " "
+  3 | Post 3 | ""
+  4 | Post 4 | ∅
+(4 rows)
+```
+
+```{note}
+In order to work, the `VGDB` function has to be run in `psql`, not in PG Admin or some other GUI tool.
+I'm still investigating on this.
+```
