@@ -148,7 +148,8 @@ CREATE DATABASE blog WITH
     LC_COLLATE='en_US.UTF-8'
     TEMPLATE=template0
     CONNECTION LIMIT=3;
-\c blog;
+
+-- \c blog
 
 CREATE TABLE posts (
     id NUMERIC(3,0) PRIMARY KEY
@@ -167,9 +168,9 @@ INSERT INTO posts (
 , (4, 'Post 4', NULL);
 ```
 
-Note how the `intro` field was a non-empty string for post 1, then an empty string for post 2, a string consisting of a single space for post 3, and finally, a `NULL` for post 4.
+Note how the `intro` field was a non-empty string for post 1, then an empty string for post 2, a string consisting of a single space for post 3, and finally, `NULL` for post 4.
 
-This is how it shows on default setting for psql:
+This is how it shows on defaults setting for psql:
 
 ```text
 SQL> SELECT id, title, intro FROM posts;
@@ -191,8 +192,7 @@ SQL> SELECT intro FROM posts;
 (4 rows)
 ```
 
-Null was covered above.
-For the string stuff, we could concatenate the `intro` inside double quotes to visually represent it.
+But we can concatenate `intro` with surrounding double quotes to help us visualize the string values and differentiate empty string from space-only strings:
 
 ```text
 SQL> \pset null '∅'
