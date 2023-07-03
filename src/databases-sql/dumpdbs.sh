@@ -35,6 +35,7 @@ dbs=(
 )
 
 dumpsdir=./dbdumps
+pguser="$1"
 
 mkdir -pv "$dumpsdir"
 
@@ -54,8 +55,9 @@ do
 	##
 	# PGHOST, PGUSER and PGPASSWORD must be provided as env vars.
 	#
-	PGDATABASE="$db" pg_dump \
-		--create --file "$outfile" && \
+	PGDATABASE="$db" docker exec -it "$CONTAINER_NAME" \
+		pg_dump -U "$pguser" -C -Fp "$db" \
+		| tee "$outfile" &&
 		printf "• File created: '%s'\n" "$outfile"
 done
 

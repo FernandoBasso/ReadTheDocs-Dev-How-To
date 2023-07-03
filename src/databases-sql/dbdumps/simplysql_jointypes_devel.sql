@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.8 (Debian 14.8-1.pgdg120+1)
--- Dumped by pg_dump version 15.3
+-- Dumped by pg_dump version 14.8 (Debian 14.8-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,7 +20,7 @@ SET row_security = off;
 -- Name: simplysql_jointypes_devel; Type: DATABASE; Schema: -; Owner: devel
 --
 
-CREATE DATABASE simplysql_jointypes_devel WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.UTF-8';
+CREATE DATABASE simplysql_jointypes_devel WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
 
 
 ALTER DATABASE simplysql_jointypes_devel OWNER TO devel;
@@ -57,15 +57,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: devel
---
-
--- *not* creating schema, since initdb creates it
-
-
-ALTER SCHEMA public OWNER TO devel;
 
 SET default_tablespace = '';
 
@@ -132,14 +123,6 @@ ALTER TABLE ONLY public.a
 
 ALTER TABLE ONLY public.b
     ADD CONSTRAINT b_pkey PRIMARY KEY (b);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: devel
---
-
-REVOKE USAGE ON SCHEMA public FROM PUBLIC;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
