@@ -19,6 +19,20 @@ Get PostgresSQL version:
 SELECT version();
 ```
 
+Or, from a running container:
+
+```
+$ docker exec pgsql1 bash -c "psql -U devel <<<'SELECT VERSION()'"
+                   version                                                       
+-----------------------------------------------------------------------
+ PostgreSQL 14.8 (Debian 14.8-1.pgdg120+1) on x86_64-pc-linux-gnu,
+ compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+```
+
+We say `docker exec` followed by the name of the container.
+Then, on that container, run `bash -c` to run a bash command, and the command is the psql command we want.
+In this case, drop into psql with the user `devel` and provide it with the `SELECT VERSION()` SQL command through a bash here string.
+
 Get type of a value:
 
 ```text
@@ -122,7 +136,7 @@ Restore a Heroku Postgres dump:
 $ pg_restore -U devel -d mydb mydb.backup
 ```
 
-## From Docker Container
+### From Docker Container
 
 One approach is to use `pg_dump` from the host machine, if available.
 
@@ -155,6 +169,14 @@ We could also replace the _pipe_ and `tee` with a redirection:
 $ docker exec pgsql-container \
     pg_dump -U devel -C -Fp mydb \
     > ./mydb.sql
+```
+
+```{note}
+DO NOT use the `-it` `docker exec` options.
+Those are used if you want an interactive terminal, but here, we just want a non-interactive terminal to dump the database and pipe it to a file.
+
+If you use them (specifically `-t`), it will insert pseudo tty bytes into the output, potentially corrupting it.
+I observed, for example, that it was causing CRLF line terminators being inserted into the dumped `.sql` files, which is not correct since both the host machine and the container were using Linux, and PostgreSQL should be using standard Linux newlines (`\n`, or linefeed, or 0x0a) for line terminators.
 ```
 
 ## Renaming a Database
