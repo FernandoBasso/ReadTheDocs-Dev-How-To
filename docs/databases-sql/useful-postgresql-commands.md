@@ -173,10 +173,14 @@ $ docker exec pgsql-container \
 
 ```{note}
 DO NOT use the `-it` `docker exec` options.
-Those are used if you want an interactive terminal, but here, we just want a non-interactive terminal to dump the database and pipe it to a file.
+Those are used if you want an interactive terminal/shell session with the running container, but here, we just want a non-interactive terminal to dump the database and pipe it to a file on the host machine.
 
 If you use them (specifically `-t`), it will insert pseudo tty bytes into the output, potentially corrupting it.
-I observed, for example, that it was causing CRLF line terminators being inserted into the dumped `.sql` files, which is not correct since both the host machine and the container were using Linux, and PostgreSQL should be using standard Linux newlines (`\n`, or linefeed, or 0x0a) for line terminators.
+I observed, for example, that it was causing CRLF line terminators being inserted into the dumped `.sql` files.
+Because Docker runs Linux, and my local desktop was Arch Linux, that was not expected.
+PostgreSQL inside the container should be using standard Linux newlines (`\n`, or linefeed, or 0x0a) for line terminators, not `\r\n` Windows line terminators.
+
+Anyways, removing `-it` from the command for dumping and piping data “fixed” the issue.
 ```
 
 ## Renaming a Database
