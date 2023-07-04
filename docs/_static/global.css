@@ -40,6 +40,14 @@
   }
 }
 
+/**
+ * Looks like admonitions use a font size which is too small. Not sure.
+ * Let's try a larger font to some time and see how it feels.
+ */
+.admonition {
+  font-size: 0.96rem;
+}
+
 /*
  * ============================================================================
  * pygments.css overrides
