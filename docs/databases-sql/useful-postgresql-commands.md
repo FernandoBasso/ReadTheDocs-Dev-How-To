@@ -90,13 +90,27 @@ ALTER USER devel WITH NOSUPERUSER;
 
 ## Backup & Restore
 
-Dump:
+### Intro Notes
+
+`pg_dump` can dump data in a few different formats.
+SQL (plain text) dump output must be fed back into `psql`.
+The “other formats” should be fed to `pg_restore`.
+
+Also:
+
+> It is not guaranteed that `pg_dump`'s output can be loaded into a server of an older major version — not even if the dump was taken from a server of that version. 
+> Loading a dump file into an older server may require manual editing of the dump file to remove syntax not understood by the older server.
+> -- [pg_dump v15 docs](https://www.postgresql.org/docs/current/app-pgdump.html)
+
+### From local database
+
+Dump a local database in plain text (SQL) format:
 
 ```shell-session
-$ pg_dump -U devel -W mydb -f mydb.sql
+$ pg_dump -U devel -W -C -Fp mydb -f mydb.sql
 ``` 
 
-Import:
+Import a plain text (SQL) dump:
 
 ```shell-session
 psql -U devel -d mydb -f _stuff/mydb.sql
@@ -106,6 +120,41 @@ Restore a Heroku Postgres dump:
 
 ```shell-session
 $ pg_restore -U devel -d mydb mydb.backup
+```
+
+## From Docker Container
+
+One approach is to use `pg_dump` from the host machine, if available.
+
+```
+$ pg_dump -h <host> -U <user> -C -Fp mydb --file ./mydb.sql
+```
+
+But if `pg_dump` version is older than the one on the server, it will refuse to try to dump the data from a newer version, or some other incompatibilities (see pg_dump docs).
+If it is newer, it could introduce syntax and options that would then fail to be fed back to a server running an older version, thus requiring manual fixes on the dumped SQL.
+
+Another approach is to use `docker exec` and dump the database using the container’s version of `pg_dump`.
+This way, `pg_dump` does NOT need to be installed on the host machine and it will certainly match the version of the PostgreSQL server running on the container, reducing the likelihood of problems and incompatibilities.
+
+```
+$ docker exec postgresql14-playground-1 pg_dump --version
+pg_dump (PostgreSQL) 14.8 (Debian 14.8-1.pgdg120+1)
+```
+
+So, we can do something like this:
+
+```
+$ docker exec pgsql-container \
+    pg_dump -U devel -C -Fp mydb \
+    | tee ./mydb.sql
+```
+
+We could also replace the _pipe_ and `tee` with a redirection:
+
+```
+$ docker exec pgsql-container \
+    pg_dump -U devel -C -Fp mydb \
+    > ./mydb.sql
 ```
 
 ## Renaming a Database
