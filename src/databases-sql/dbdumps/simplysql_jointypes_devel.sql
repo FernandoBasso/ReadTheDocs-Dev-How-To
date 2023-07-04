@@ -63,32 +63,32 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: a; Type: TABLE; Schema: public; Owner: devel
+-- Name: tbl_a; Type: TABLE; Schema: public; Owner: devel
 --
 
-CREATE TABLE public.a (
-    a smallint NOT NULL
+CREATE TABLE public.tbl_a (
+    col_a smallint NOT NULL
 );
 
 
-ALTER TABLE public.a OWNER TO devel;
+ALTER TABLE public.tbl_a OWNER TO devel;
 
 --
--- Name: b; Type: TABLE; Schema: public; Owner: devel
+-- Name: tbl_b; Type: TABLE; Schema: public; Owner: devel
 --
 
-CREATE TABLE public.b (
-    b smallint NOT NULL
+CREATE TABLE public.tbl_b (
+    col_b smallint NOT NULL
 );
 
 
-ALTER TABLE public.b OWNER TO devel;
+ALTER TABLE public.tbl_b OWNER TO devel;
 
 --
--- Data for Name: a; Type: TABLE DATA; Schema: public; Owner: devel
+-- Data for Name: tbl_a; Type: TABLE DATA; Schema: public; Owner: devel
 --
 
-COPY public.a (a) FROM stdin;
+COPY public.tbl_a (col_a) FROM stdin;
 102
 104
 106
@@ -97,10 +97,10 @@ COPY public.a (a) FROM stdin;
 
 
 --
--- Data for Name: b; Type: TABLE DATA; Schema: public; Owner: devel
+-- Data for Name: tbl_b; Type: TABLE DATA; Schema: public; Owner: devel
 --
 
-COPY public.b (b) FROM stdin;
+COPY public.tbl_b (col_b) FROM stdin;
 101
 102
 104
@@ -110,19 +110,19 @@ COPY public.b (b) FROM stdin;
 
 
 --
--- Name: a a_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
+-- Name: tbl_a tbl_a_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
 --
 
-ALTER TABLE ONLY public.a
-    ADD CONSTRAINT a_pkey PRIMARY KEY (a);
+ALTER TABLE ONLY public.tbl_a
+    ADD CONSTRAINT tbl_a_pkey PRIMARY KEY (col_a);
 
 
 --
--- Name: b b_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
+-- Name: tbl_b tbl_b_pkey; Type: CONSTRAINT; Schema: public; Owner: devel
 --
 
-ALTER TABLE ONLY public.b
-    ADD CONSTRAINT b_pkey PRIMARY KEY (b);
+ALTER TABLE ONLY public.tbl_b
+    ADD CONSTRAINT tbl_b_pkey PRIMARY KEY (col_b);
 
 
 --
