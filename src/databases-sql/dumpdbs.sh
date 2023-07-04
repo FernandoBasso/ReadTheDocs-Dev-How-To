@@ -9,9 +9,10 @@
 # Usage:
 #
 #   PGHOST=<host> \
-#     PGUSER=<user> \
-#     PGPASSWORD='h4ck3r' \
-#     bash dump_dbs.sh
+#   PGUSER=<user> \
+#   PGPASSWORD=<password> \
+#   CONTAINER_NAME=<docker-container-name> \
+#   bash dump_dbs.sh
 #
 # BEWARE: The password will be saved on your shell history. You may
 # start the dump command with a space to cause bash to NOT save the
@@ -35,7 +36,7 @@ dbs=(
 )
 
 dumpsdir=./dbdumps
-pguser="$1"
+outfiles=()
 
 mkdir -pv "$dumpsdir"
 
@@ -55,10 +56,15 @@ do
 	##
 	# PGHOST, PGUSER and PGPASSWORD must be provided as env vars.
 	#
-	PGDATABASE="$db" docker exec -it "$CONTAINER_NAME" \
-		pg_dump -U "$pguser" -C -Fp "$db" \
-		| tee "$outfile" &&
-		printf "• File created: '%s'\n" "$outfile"
+	PGDATABASE="$db" docker exec "$CONTAINER_NAME" \
+		pg_dump -U "$PGUSER" -C -Fp "$db" > "$outfile" &&
+		outfiles+=("$outfile")
+done
+
+printf '\n\nSQL dumps created:\n\n'
+for file in "${outfiles[@]}"
+do
+	printf '  • %s\n' "$file"
 done
 
 # vim: set tw=72:
