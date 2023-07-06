@@ -113,6 +113,7 @@ COPY public.entries (id, title, created, updated, category, content) FROM stdin;
 573	Hello Statue	2009-03-17 00:00:00	\N	humor	\N
 598	The Size of Our Galaxy	2009-04-03 00:00:00	\N	science	\N
 524	Uncle Karl and the Gasoline	2009-02-28 00:00:00	\N	humor	When I was about nine or ten, my Uncle Karl, who\nwould've been in his late teens or early twenties, once performed\nwhat to me seemed like a magic trick.\n\nUsing a rubber hose, which he snaked down into the gas tank of my \nfather's car, he siphoned some gasoline into his mouth, lit a match, \nheld it up a few inches in front of his face, and then, with explosive \nforce, sprayed the gasoline out towards the lit match.\n\nOf course, a huge fireball erupted, much to the delight of the kids\nwatching. I don't recall if he did it more than once.\n\nThe funny part of this story? We lived to tell it.\n\nKarl was like that.
+605	Windows Media Center Rocks	2009-04-29 00:00:00	\N	computers	\N
 \.
 
 
