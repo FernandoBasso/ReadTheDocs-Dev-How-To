@@ -241,3 +241,41 @@ Then see how it is possible to use both `DISTINCT name` or `DISTINCT(name)` insi
 ```
 
 I tested this on both PostgreSQL and MariaDB and both vendors accept both syntaxes.
+
+## Weather Observation Station 6
+
+- [Weather Observation Station 6 :: HackerRank SQL Challenge](https://www.hackerrank.com/challenges/weather-observation-station-6).
+
+Works on DB vendors whose collation allows case insensitive matches:
+
+```sql
+SELECT DISTINCT city
+FROM station
+WHERE
+     city LIKE 'a%'
+  OR city LIKE 'e%'
+  OR city LIKE 'i%'
+  OR city LIKE 'o%'
+  OR city LIKE 'u%';
+```
+
+This approach extracts the first char of the `title` column and uses `IN` to compare.
+It relies on the fact that cities start with an uppercase letter:
+
+```sql
+SELECT DISTINCT title
+FROM entries
+WHERE
+  SUBSTR(title, 1, 1)
+  IN('A', 'E', 'I', 'O', 'U');
+```
+
+And this one, similar to the above, just lowercases the first char of the title before doing the comparison:
+
+```sql
+SELECT DISTINCT title
+FROM entries
+WHERE
+  LOWER(SUBSTR(title, 1, 1))
+  IN('a', 'e', 'i', 'o', 'u');
+```
