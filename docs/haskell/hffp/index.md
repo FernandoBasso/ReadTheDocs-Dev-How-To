@@ -5,9 +5,11 @@ description: My notes, solutions and explanations for the Haskell Programming Fr
 
 # Haskell Programming From First Principles (book)
 
+My notes, solutions and explanations on the exercises of the book.
+
 ```{toctree}
 ---
-hidden: true
+hidden: false
 maxdepth: 6
 caption: Haskell Programming From First Principles
 ---
