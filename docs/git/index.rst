@@ -3,7 +3,6 @@ Git
 ===
 
 .. toctree::
-   :hidden:
    :maxdepth: 6
    :caption: Git:
 

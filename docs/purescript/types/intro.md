@@ -14,9 +14,8 @@ PureScript ships with a few type facilities to help us deal with types. Basicall
 
 See their related pages for more details.
 
-<!-- ```{toctree}
+```{toctree}
 ---
-hidden: true
 maxdepth: 6
 caption: PureScript
 ---
@@ -24,4 +23,4 @@ caption: PureScript
 char-string-types.md
 data-types.md
 number-types.md
-``` -->
+```

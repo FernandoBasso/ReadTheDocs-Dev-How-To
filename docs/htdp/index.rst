@@ -2,11 +2,6 @@
 How to Design Programs
 ======================
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Topics
-
 The Book
 --------
 
@@ -270,4 +265,9 @@ Other People’s Notes and Solutions
 
 ------------------------------------------------------------------------
 
+.. toctree::
+   :maxdepth: 6
+   :caption: Topics
+
 Page updated on <2021-09-27 Mon>.
+

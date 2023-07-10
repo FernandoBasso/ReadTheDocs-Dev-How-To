@@ -31,7 +31,6 @@ Other:
 ---
 maxdepth: 6
 caption: Topics
-hidden: true
 ---
 
 useful-unicode-symbols.md

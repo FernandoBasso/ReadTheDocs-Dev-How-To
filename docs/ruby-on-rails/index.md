@@ -7,7 +7,6 @@ description: Notes, concepts, tips and examples on Ruby on Rails.
 
 ```{toctree}
 ---
-hidden: true
 maxdepth: 6
 caption: Contents
 ---

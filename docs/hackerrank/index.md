@@ -54,7 +54,6 @@ $ deno test --import-map ./import-map.json \
 
 ```{toctree}
 ---
-hidden:
 maxdepth: 6
 caption: Easy HackerRank Challenges
 ---

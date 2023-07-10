@@ -121,7 +121,6 @@ The most used DML language statements involve `INSERT`, `UPDATE` and `DELETE`.
 
 ```{toctree}
 ---
-hidden: true
 maxdepth: 6
 caption: Databases and SQL
 ---

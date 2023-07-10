@@ -2,14 +2,6 @@
 Emacs
 =====
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Emacs
-
-   practical-examples
-   org-mode-tips
-
 Installing on macOS
 -------------------
 
@@ -29,4 +21,11 @@ instance.
 
    $ brew tap d12frosted/emacs-plus
    $ brew install emacs-plus
+
+.. toctree::
+   :maxdepth: 6
+   :caption: Emacs
+
+   practical-examples
+   org-mode-tips
 

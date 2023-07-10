@@ -2,14 +2,6 @@
 Haskell
 =======
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Haskell:
-
-   sectioning
-   hffp/index
-
 .. image:: ./ash-alien-haskell.png
    :alt: Ash from Alien 1979 movie talking about the perfect organism.
 
@@ -43,3 +35,9 @@ things and solving problems. It is also a very unique language (in
 many respects). It is worth studying and learning it. A new universe
 awaits!
 
+.. toctree::
+   :maxdepth: 6
+   :caption: Haskell:
+
+   sectioning
+   hffp/index

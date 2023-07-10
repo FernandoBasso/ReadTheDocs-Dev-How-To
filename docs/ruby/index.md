@@ -5,22 +5,6 @@ description: Notes, tips and examples on the Ruby programming languages
 
 # Ruby
 
-```{toctree}
----
-hidden: true
-maxdepth: 6
-caption: Ruby
----
-
-unit-tests.md
-rspec.md
-scope.md
-hackerrank-ruby.md
-bundler.md
-rvm.md
-pry-repl.md
-```
-
 Ruby is a delightful programming language designed for programmer happiness 💖.
 
 Yukihiro Matsumoto once presented [How Emacs Changed My Life (PDF)](./Yukihiro-Matsumoto-How-Emacs-Changed-My-Life.pdf) which goes into how [Emacs](https://www.gnu.org/software/emacs/) and [emacs-lisp](https://www.gnu.org/software/emacs/manual/html_node/eintr/) influenced Matz and the design of the Ruby programming language.
@@ -76,5 +60,20 @@ If we define `to_proc` we can use this *trick* for any object.
 ```
 >> {one: 1, two: 2}.transform_values(&:next)
 => {:one=>2, :two=>3}
+```
+
+```{toctree}
+---
+maxdepth: 6
+caption: Ruby
+---
+
+unit-tests.md
+rspec.md
+scope.md
+hackerrank-ruby.md
+bundler.md
+rvm.md
+pry-repl.md
 ```
 

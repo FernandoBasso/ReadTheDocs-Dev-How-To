@@ -15,7 +15,6 @@ The goal is to make evaluation steps shorter in the text.
 
 ```{toctree}
 ---
-hidden: true
 maxdepth: 6
 caption: PureScript
 ---

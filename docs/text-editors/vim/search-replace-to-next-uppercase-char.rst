@@ -27,7 +27,7 @@ cursor is under “L”::
                ^
 
 Then, start the editing proper with this sequence: :kbd:`c` :kbd:`/`
-`\\` :kbd:`u` :kbd:`Enter`. Now you have::
+:kbd:`\\` :kbd:`u` :kbd:`Enter`. Now you have::
 
    ... Value): Container} LeftContainer
                ^

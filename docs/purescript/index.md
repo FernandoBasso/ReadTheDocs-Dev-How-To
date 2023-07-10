@@ -20,7 +20,6 @@ description: Some introductory notes about TypeScript, resources documentation, 
  
 ```{toctree}
 ---
-hidden: true
 maxdepth: 6
 caption: PureScript
 ---

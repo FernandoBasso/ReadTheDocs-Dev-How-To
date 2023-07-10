@@ -2,24 +2,6 @@
 Command Line
 ============
 
-.. toctree::
-   :hidden:
-   :maxdepth: 6
-   :caption: Command Line:
-
-   help-info-man
-   built-in
-   argument-syntax
-   echo-printf
-   bash-brace-expansion
-   bash-parameter-expansion
-   bash-aliases
-   bash-arrays
-   terminal/index
-   tar.md
-   find.md
-   hackerrank-shell
-
 Intro
 -----
 
@@ -128,3 +110,21 @@ project by MaiZure_.
 
 .. _MaiZure:
    http://www.maizure.org/projects/faq.html
+
+.. toctree::
+   :maxdepth: 6
+   :caption: Command Line:
+
+   help-info-man
+   built-in
+   argument-syntax
+   echo-printf
+   bash-brace-expansion
+   bash-parameter-expansion
+   bash-aliases
+   bash-arrays
+   terminal/index
+   tar.md
+   find.md
+   hackerrank-shell
+

@@ -94,8 +94,8 @@ NOTE: Of course, if we place that `undefined` in a value position (rather than i
 take 1 $ filter even [1, 2, 3, undefined]
 ```
 
-Because of `take 1`, we’ll stop as soon as we find the even number `2`.
-We won’t reach `undefined`. The result is `[2]`.
+Because of `take 1`, we’ll stop as soon as we find the even number `2` and we won’t reach `undefined`.
+The result is `[2]`.
 
 ### Exercise 07
 
@@ -463,7 +463,7 @@ dropArticles :: [Char] -> [[Char]]
 dropArticles str = filter (not . isArticle) (words str)
 ```
 
-```
+```text
 λ> dropArticles snake
 ["there","snake","here"]
 

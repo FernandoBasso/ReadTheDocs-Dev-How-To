@@ -9,7 +9,6 @@ My notes, solutions and explanations on the exercises of the book.
 
 ```{toctree}
 ---
-hidden: false
 maxdepth: 6
 caption: Haskell Programming From First Principles
 ---
