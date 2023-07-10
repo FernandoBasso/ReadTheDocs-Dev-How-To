@@ -378,6 +378,8 @@ How might we write a filter function that would give us all the multiples of 3 o
 
 A multiple of 3 is a number whose remainder of it by 3 is 0.
 
+One approach is to make a tiny helper function to check if a number is a multiple of three and then use it in the “main” function.
+
 ```haskell
 isMultipleOf3 :: Int -> Bool
 isMultipleOf3 n = rem n 3 == 0
@@ -447,7 +449,9 @@ jedi :: [Char]
 jedi = "may the force be with you"
 ```
 
-One approach:
+#### Solution 1
+
+One approach is maybe create a tiny `isArticle` function that is then used in the “main” function:
 
 ```haskell
 --
@@ -463,6 +467,8 @@ dropArticles :: [Char] -> [[Char]]
 dropArticles str = filter (not . isArticle) (words str)
 ```
 
+Note the `not . isArticle` composition.
+
 ```text
 λ> dropArticles snake
 ["there","snake","here"]
@@ -473,3 +479,19 @@ dropArticles str = filter (not . isArticle) (words str)
 λ> dropArticles jedi
 ["may","force","be","with","you"]
 ```
+
+```{hint}
+The type `[Char] -> [[Char]` is the same as `String -> [String]`.
+```
+
+#### Solution 2
+
+Another approach is to do it all at once in the same function:
+
+```haskell
+f :: [Char] -> [[Char]]
+f = filter (\s -> not (elem s ["a", "an", "the"])) . words
+```
+
+First split the string into individual words and then drop it if it is not "a", "an" or "the".
+Function composition and point-free style were used for this soltuion.
