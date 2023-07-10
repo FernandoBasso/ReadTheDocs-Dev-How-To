@@ -14,7 +14,7 @@ On Emacs with `C-x u RET 22a5 RET`.
 
 Will the expressions return a value or ⊥ (*bottom*)?
 
-```
+```text
 1. [x^y | x <- [1..5], y <- [2, undefined]]
 
 2. take 1 $ [x^y | x <- [1..5], y <- [2, undefined]]
@@ -57,7 +57,7 @@ Because it is a list comprehension, it returns `1 ^ 2` (which is 1) inside a lis
 
 ### Exercise 03
 
-```
+```haskell
 sum [1, undefined, 3]
 ```
 
@@ -83,7 +83,7 @@ Because of `++ undefined`, that `undefined` is part of the spine, and `length` n
 
 NOTE: Of course, if we place that `undefined` in a value position (rather than in a spine position), then all is fine for `length`:
 
-```
+```text
 λ> length $ [1, 2, 3] ++ [undefined]
 4
 ```
@@ -178,7 +178,7 @@ Neither because it is a function application to all possible arguments.
 
 ### Exercise 04
 
-```
+```haskell
 length [1, 2, 3, 4, 5]
 ```
 
@@ -187,7 +187,7 @@ It is a function application.
 
 ### Exercise 05
 
-```
+```haskell
 sum (enumFromTo 1 10)
 ```
 
@@ -196,7 +196,7 @@ It is a function application, which results in a value, which is also applied to
 
 ### Exercise 06
 
-```
+```haskell
 ['a'..'m'] ++ ['n'..'z']
 ```
 
@@ -205,7 +205,7 @@ The outermost part is a function application of `++`.
 
 ### Exercise 07
 
-```
+```haskell
 (_, 'b')
 ```
 
@@ -269,7 +269,7 @@ It returns a list of `Bool`.
 
 It's type is `[Char] -> [Bool]`.
 
-```
+```text
 λ> isMistery "hello"
 [False,True,False,False,True]
 
@@ -289,7 +289,7 @@ c. `map sum [[1..5], [1..5], [1..5]]`
 
 Each element in the list will be raised to the second power:
 
-```
+```text
 λ> map (^ 2) [1 .. 10]
 [1,4,9,16,25,36,49,64,81,100]
 ```
@@ -298,7 +298,7 @@ Each element in the list will be raised to the second power:
 
 It will return a list with the smallest (minimum) value of each sub-list.
 
-```
+```text
 λ> minimum [1 .. 10]
 1
 λ> minimum [10 .. 20]
@@ -313,7 +313,7 @@ It will return a list with the smallest (minimum) value of each sub-list.
 
 It will return a list with three elements which sums `[1 .. 5]` in each case.
 
-```
+```text
 λ> map sum [[1 .. 5], [1 .. 5], [1 .. 5]]
 [15,15,15]
 ```
@@ -340,7 +340,7 @@ First, here’s how `bool` from `Data.Bool` works:
 It takes an argument of type $a$ and another argument of type $a$ and a `Bool`.
 If the `Bool` is `False`, return the first argument; else return the second argument.
 
-```
+```text
 λ> import Data.Bool (bool)
 λ> :type bool
 bool :: a -> a -> Bool -> a
@@ -357,7 +357,7 @@ bool :: a -> a -> Bool -> a
 
 So, the solution:
 
-```
+```text
 import Data.Bool (bool)
 
 λ> map (\n -> bool n (- n) (n == 3)) [1 .. 5]
@@ -383,7 +383,7 @@ isMultipleOf3 :: Int -> Bool
 isMultipleOf3 n = rem n 3 == 0
 ```
 
-```
+```text
 λ> filter isMultipleOf3 [1 .. 30]
 [3,6,9,12,15,18,21,24,27,30]
 ```
@@ -415,7 +415,7 @@ countMultiplesOf :: Integer -> [Integer] -> Int
 countMultiplesOf n = length . filter (isMultipleOf n)
 ```
 
-```
+```text
 λ> countMultiplesOf 3 [1 .. 30]
 10
 λ> countMultiplesOf 5 [1 .. 30]
@@ -429,7 +429,7 @@ countMultiplesOf n = length . filter (isMultipleOf n)
 Next, we’re going to work on removing all articles (“the,” “a,” and “an”) from sentences.
 You want to get to something that works like this:
 
-```
+```text
 λ> myFilter "the brown dog was a goof"
 ["brown","dog","was","goof"]
 ```
