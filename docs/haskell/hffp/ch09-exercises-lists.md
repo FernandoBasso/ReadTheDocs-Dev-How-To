@@ -553,7 +553,28 @@ myZip xs ys = go xs ys []
     go :: [a] -> [b] -> [(a, b)] -> [(a, b)]
     go [] _ acc                = acc
     go _ [] acc                = acc
-    go (x : lox) (y : loy) acc = go lox loy ((x, y) : acc)
+    go (x : lox) (y : loy) acc = go lox loy (acc ++ [(x, y)])
 ```
 
 Note how an accumulator was introduced so the _consing_ of the list happens at the last position, thus enable TCO.
+
+### Exercise 2
+
+Do what you did for zip but now for `zipWith`:
+
+```haskell
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith = undefined
+```
+
+#### Solution 1
+
+```haskell
+myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+myZipWith f xs ys = go f xs ys []
+  where
+    go :: (a -> b -> c) -> [a] -> [b] -> [c] -> [c]
+    go _ [] _ acc                 = acc
+    go _ _ [] acc                 = acc
+    go fn (x : lox) (y : loy) acc = go fn lox loy (acc ++ [(fn x y)])
+```
