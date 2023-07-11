@@ -489,9 +489,18 @@ The type `[Char] -> [[Char]` is the same as `String -> [String]`.
 Another approach is to do it all at once in the same function:
 
 ```haskell
-f :: [Char] -> [[Char]]
-f = filter (\s -> not (elem s ["a", "an", "the"])) . words
+dropArticles :: [Char] -> [[Char]]
+dropArticles = filter (\s -> not . elem s $ ["a", "an", "the"]) . words
 ```
 
 First split the string into individual words and then drop it if it is not "a", "an" or "the".
-Function composition and point-free style were used for this soltuion.
+Function composition and point-free style were used for this solution
+and also the application operator `$`.
+
+And instead of `not . elem`, let's remember that `notElem` exists in
+Prelude:
+
+```haskell
+dropArticles :: [Char] -> [[Char]]
+dropArticles = filter (\s -> notElem s $ ["a", "an", "the"]) . words
+```
