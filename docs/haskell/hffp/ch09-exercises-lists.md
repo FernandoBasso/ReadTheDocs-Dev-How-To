@@ -504,3 +504,56 @@ Prelude:
 dropArticles :: [Char] -> [[Char]]
 dropArticles = filter (\s -> notElem s $ ["a", "an", "the"]) . words
 ```
+
+## Zipping exercises
+
+Page 337.
+
+### Exercise 1
+
+Write your own version of zip, and ensure it behaves the same as the original:
+
+```haskell
+zip :: [a] -> [b] -> [(a, b)]
+zip = undefined
+```
+
+#### Solution 1
+
+```haskell
+myZip :: [a] -> [b] -> [(a, b)]
+myZip [] _              = []
+myZip _ []              = []
+myZip (x : xs) (y : ys) = (:) (x, y) $ myZip xs ys
+```
+
+Pattern matching and the cons operator.
+The application operator `$` is used too, and it is possible because the cons operator `:` was placed in prefix position.
+
+We could also use parentheses instead of `$`:
+
+```haskell
+... = (:) (x, y) (myZip xs ys)
+```
+
+And use the cons in infix position:
+
+```haskell
+... = (x, y) : (myZip xs ys)
+```
+
+#### Solution 2
+
+Using the _go_ function pattern, which allows us to use tail call recursion:
+
+```haskell
+myZip :: [a] -> [b] -> [(a, b)]
+myZip xs ys = go xs ys []
+  where
+    go :: [a] -> [b] -> [(a, b)] -> [(a, b)]
+    go [] _ acc                = acc
+    go _ [] acc                = acc
+    go (x : lox) (y : loy) acc = go lox loy ((x, y) : acc)
+```
+
+Note how an accumulator was introduced so the _consing_ of the list happens at the last position, thus enable TCO.
