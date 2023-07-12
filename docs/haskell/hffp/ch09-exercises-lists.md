@@ -562,7 +562,7 @@ Also, we do `acc ++ [(x, y)]` rather than `[(x, y)] ++ acc`, because we want to 
 
 ### Exercise 2
 
-Do what you did for zip but now for `zipWith`:
+Do what you did for `zip` but now for `zipWith`:
 
 ```haskell
 zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
@@ -599,3 +599,25 @@ The accumulator always has the latest computation thus far.
 With TCO, we are not just storing expressions that will be evaluated later, in the unwinding phase of the execution.
 
 So, if we do `(f x) ++ rest` or `acc ++ (f x)` depends on the type of recursion we are doing.
+
+## Exercise 3
+
+Rewrite your `zip` in terms of the `zipWith` you wrote.
+
+### Solution 1
+
+Well, `zip` must create a tuple, and to create a tuple we use the tuple constructor `(,)`.
+`zipWith` takes a function.
+We can simply partially apply `myZipWith` to `(,)` and we are done!
+
+```haskell
+myZip :: [a] -> [b] -> [(a, b)]
+myZip = myZipWith (,)
+```
+
+```text
+λ> myZip [1, 2] "ab"
+[(1,'a'),(2,'b')]
+```
+
+We also made `myZip` point-free.
