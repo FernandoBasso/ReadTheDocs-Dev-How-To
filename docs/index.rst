@@ -39,7 +39,7 @@ repository`_.
    cmdline/index
    git/index
    text-editors/index
-   haskell/index
+   haskell/index.md
    ruby/index.md
    ruby-on-rails/index.md
    purescript/index.md
