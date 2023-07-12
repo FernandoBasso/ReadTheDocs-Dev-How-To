@@ -556,7 +556,9 @@ myZip xs ys = go xs ys []
     go (x : lox) (y : loy) acc = go lox loy (acc ++ [(x, y)])
 ```
 
-Note how an accumulator was introduced so the _consing_ of the list happens at the last position, thus enable TCO.
+Note how an accumulator was introduced so the _consing_ of the list happens at the last position, thus enabling TCO.
+
+Also, we do `acc ++ [(x, y)]` rather than `[(x, y)] ++ acc`, because we want to append to the accumulator, not prepend to it.
 
 ### Exercise 2
 
@@ -570,6 +572,19 @@ zipWith = undefined
 #### Solution 1
 
 ```haskell
+myZipWith :: (a -> b -> c) -> [] a -> [] b -> [] c
+myZipWith _ [] _              = []
+myZipWith _ _ []              = []
+myZipWith f (x : xs) (y : ys) = [f x y] ++ (myZipWith f xs ys)
+```
+
+Because we are NOT doing tail call in this solution, we do `[f x y] ++ “the rest of the recursion”`.
+
+#### Solution 2
+
+Using the _go_ function pattern and tail call optimization.
+
+```haskell
 myZipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 myZipWith f xs ys = go f xs ys []
   where
@@ -578,3 +593,9 @@ myZipWith f xs ys = go f xs ys []
     go _ _ [] acc                 = acc
     go fn (x : lox) (y : loy) acc = go fn lox loy (acc ++ [(fn x y)])
 ```
+
+Because we are doing TCO, we do `acc ++ [(fn x y)]`.
+The accumulator always has the latest computation thus far.
+With TCO, we are not just storing expressions that will be evaluated later, in the unwinding phase of the execution.
+
+So, if we do `(f x) ++ rest` or `acc ++ (f x)` depends on the type of recursion we are doing.
