@@ -621,3 +621,79 @@ myZip = myZipWith (,)
 ```
 
 We also made `myZip` point-free.
+
+## Chapter exercises
+
+Page 338.
+
+NOTE: We'll need to import functions from `Data.Char`.
+
+### Exercise 1
+
+Query the types of isUpper and toUpper.
+
+#### Solution
+
+```text
+λ> import Data.Char (isUpper, isLower)
+
+λ> :type isUpper
+isUpper :: Char -> Bool
+
+λ> :type isLower
+isLower :: Char -> Bool
+```
+
+### Exercise 1
+
+Given the following behaviors, which would we use to write a function that filters all the uppercase letters out of a String?
+
+```text
+λ> isUpper 'J'
+True
+λ> toUpper 'j'
+'J'
+```
+
+Write that function such that, given the input `"HbEfLrLxO"`, your function will return `"HELLO"`.
+
+#### Which function?
+
+If we want to filter all uppercase letters, it means we want to ignore the lowercase letters.
+We could use `not . isLower`, but simpler yet is to simply use `isUpper`.
+
+#### Solution 1
+
+Very idiomatic approach making use of stdfn `filter` and simply partially applying it to `isUpper`.
+We also use point-free style.
+
+```haskell
+import Data.Char (isUpper)
+
+onlyUppers :: [Char] -> [Char]
+onlyUppers = filter isUpper
+
+--
+-- λ> onlyUppers "HbEfLrLxO"
+-- "HELLO"
+--
+```
+
+#### Solution 2
+
+Pattern matching, _go_ function approach, and manually accumulating the upper case letters.
+
+```haskell
+import Data.Char (isUpper)
+
+onlyUppers :: [Char] -> [Char]
+onlyUppers str = go str []
+  where
+    go :: [Char] -> [Char] -> [Char]
+    go [] loc       = loc
+    go (c : cs) loc =
+      if isUpper c
+      then go cs (c : loc)
+      else go cs loc
+```
+
