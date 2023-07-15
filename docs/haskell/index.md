@@ -122,5 +122,6 @@ maxdepth: 6
 caption: Haskell
 ---
 
+syntax.md
 sectioning.rst
 hffp/index.md
