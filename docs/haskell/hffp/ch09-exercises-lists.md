@@ -724,3 +724,20 @@ capitalize (c : cs) = toUpper c : cs
 -- "Ahsoka tano"
 --
 ```
+
+### Exercise 3
+
+Now make a new version of that function that is recursive, such that if you give it the input "woot", it will holler back at you "WOOT".
+The type signature won’t change, but you will want to add a base case.
+
+#### Solution
+
+```haskell
+capitalizeAll :: [Char] -> [Char]
+capitalizeAll []       =      ""
+capitalizeAll (c : cs) =  toUpper c : capitalizeAll cs
+--
+-- λ> capitalizeAll "https"
+-- "HTTPS"
+--
+```
