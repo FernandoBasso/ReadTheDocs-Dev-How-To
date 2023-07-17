@@ -662,9 +662,12 @@ Write that function such that, given the input `"HbEfLrLxO"`, your function will
 If we want to filter all uppercase letters, it means we want to ignore the lowercase letters.
 We could use `not . isLower`, but simpler yet is to simply use `isUpper`.
 
+Also, we don't to transform a letter to uppercase, but just check if it is uppercase.
+Thus, we use `isUpper` instead of `toUpper`.
+
 #### Solution 1
 
-Very idiomatic approach making use of stdfn `filter` and simply partially applying it to `isUpper`.
+Idiomatic approach making use of stdfn `filter` and simply partially applying it to `isUpper`.
 We also use point-free style.
 
 ```haskell
@@ -681,7 +684,7 @@ onlyUppers = filter isUpper
 
 #### Solution 2
 
-Pattern matching, _go_ function approach, and manually accumulating the upper case letters.
+Pattern matching, _go_ function approach, and manually accumulating the uppercase letters.
 
 ```haskell
 import Data.Char (isUpper)
@@ -697,3 +700,27 @@ onlyUppers str = go str []
       else go cs loc
 ```
 
+### Exercise 2
+
+Write a function that will capitalize the first letter of a string and return the entire string.
+For example, if given the argument "julie", it will return "Julie".
+
+#### Solution
+
+Pattern match on the first char and the rest of the string uppercase the first char and cons it to the rest of the unmodified string.
+
+```haskell
+--
+-- ASSUME: The input has length >= 1.
+--
+capitalize :: [Char] -> [Char]
+capitalize [] = ""
+capitalize (c : cs) = toUpper c : cs
+--
+-- λ> capitalize "yoda"
+-- "Yoda"
+--
+-- λ> capitalize "ahsoka tano"
+-- "Ahsoka tano"
+--
+```
