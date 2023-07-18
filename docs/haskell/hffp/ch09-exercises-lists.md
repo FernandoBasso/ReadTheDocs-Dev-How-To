@@ -730,7 +730,9 @@ capitalize (c : cs) = toUpper c : cs
 Now make a new version of that function that is recursive, such that if you give it the input "woot", it will holler back at you "WOOT".
 The type signature won’t change, but you will want to add a base case.
 
-#### Solution
+#### Solution 1
+
+Pattern matching and the cons operator `:`.
 
 ```haskell
 capitalizeAll :: [Char] -> [Char]
@@ -741,3 +743,15 @@ capitalizeAll (c : cs) =  toUpper c : capitalizeAll cs
 -- "HTTPS"
 --
 ```
+
+#### Solution 2
+
+Point-free style using `foldr` (not yet learned in the book at this point) and function composition.
+
+```haskell
+capitalizeAll :: [Char] -> [Char]
+capitalizeAll = foldr ((:) . toUpper) ""
+```
+
+`:` cons is composed with `toUpper`.
+Each character is then uppercased and consed onto the accumulator, producing the final all-uppercase string result.
