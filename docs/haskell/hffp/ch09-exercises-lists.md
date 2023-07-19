@@ -628,11 +628,13 @@ Page 338.
 
 NOTE: We'll need to import functions from `Data.Char`.
 
-### Exercise 1
+### Data.Char
+
+#### Exercise 1
 
 Query the types of isUpper and toUpper.
 
-#### Solution
+##### Solution
 
 ```text
 λ> import Data.Char (isUpper, isLower)
@@ -644,7 +646,7 @@ isUpper :: Char -> Bool
 isLower :: Char -> Bool
 ```
 
-### Exercise 1
+#### Exercise 2
 
 Given the following behaviors, which would we use to write a function that filters all the uppercase letters out of a String?
 
@@ -657,7 +659,7 @@ True
 
 Write that function such that, given the input `"HbEfLrLxO"`, your function will return `"HELLO"`.
 
-#### Which function?
+##### Which function?
 
 If we want to filter all uppercase letters, it means we want to ignore the lowercase letters.
 We could use `not . isLower`, but simpler yet is to simply use `isUpper`.
@@ -665,7 +667,7 @@ We could use `not . isLower`, but simpler yet is to simply use `isUpper`.
 Also, we don't to transform a letter to uppercase, but just check if it is uppercase.
 Thus, we use `isUpper` instead of `toUpper`.
 
-#### Solution 1
+##### Solution 1
 
 Idiomatic approach making use of stdfn `filter` and simply partially applying it to `isUpper`.
 We also use point-free style.
@@ -682,7 +684,7 @@ onlyUppers = filter isUpper
 --
 ```
 
-#### Solution 2
+##### Solution 2
 
 Pattern matching, _go_ function approach, and manually accumulating the uppercase letters.
 
@@ -700,16 +702,18 @@ onlyUppers str = go str []
       else go cs loc
 ```
 
-### Exercise 2
+#### Exercise 3
 
 Write a function that will capitalize the first letter of a string and return the entire string.
 For example, if given the argument "julie", it will return "Julie".
 
-#### Solution
+##### Solution
 
 Pattern match on the first char and the rest of the string uppercase the first char and cons it to the rest of the unmodified string.
 
 ```haskell
+import Data.Char (toUpper)
+
 --
 -- ASSUME: The input has length >= 1.
 --
@@ -725,16 +729,18 @@ capitalize (c : cs) = toUpper c : cs
 --
 ```
 
-### Exercise 3
+#### Exercise 4
 
 Now make a new version of that function that is recursive, such that if you give it the input "woot", it will holler back at you "WOOT".
 The type signature won’t change, but you will want to add a base case.
 
-#### Solution 1
+##### Solution 1
 
 Pattern matching and the cons operator `:`.
 
 ```haskell
+import Data.Char (toUpper)
+
 capitalizeAll :: [Char] -> [Char]
 capitalizeAll []       =      ""
 capitalizeAll (c : cs) =  toUpper c : capitalizeAll cs
@@ -744,14 +750,52 @@ capitalizeAll (c : cs) =  toUpper c : capitalizeAll cs
 --
 ```
 
-#### Solution 2
+##### Solution 2
 
 Point-free style using `foldr` (not yet learned in the book at this point) and function composition.
 
 ```haskell
+import Data.Char (toUpper)
+
 capitalizeAll :: [Char] -> [Char]
 capitalizeAll = foldr ((:) . toUpper) ""
 ```
 
 `:` cons is composed with `toUpper`.
 Each character is then uppercased and consed onto the accumulator, producing the final all-uppercase string result.
+
+#### Exercise 5
+
+To do the final exercise in this section, we’ll need another standard function for lists called head.
+Query the type of head, and experiment with it to see what it does.
+Now write a function that will capitalize the first letter of a String and return only that letter as the result.
+
+```text
+λ> :type head
+head :: [a] -> a
+```
+
+##### Solution 1
+
+The `$` ‘infixr 0’ function application operator causes `head` to be applied to `str` first.
+That result is then the argument to toUpper.
+
+```haskell
+capitalizeFirst :: [Char] -> Char
+capitalizeFirst str = toUpper $ head str
+```
+
+##### Solution 2
+
+Point-free, function composition.
+`head` returns the first char of the string which `toUpper` is then applied.
+
+```haskell
+capitalizeFirst :: [Char] -> Char
+capitalizeFirst = toUpper . head
+--
+-- λ> capitalizeFirst "haskell"
+-- 'H'
+--
+```
+
