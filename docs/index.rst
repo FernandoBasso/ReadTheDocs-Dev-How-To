@@ -54,6 +54,7 @@ repository`_.
    codewars/index
    hackerrank/index.md
    programming/index
+   docker/index.md
    databases-sql/index.md
    design-patterns/index.md
    solid-principles/index.md
