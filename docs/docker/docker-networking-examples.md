@@ -76,3 +76,98 @@ $ docker stop pingserv1
 
 ## Pinging containers through their IPs
 
+Let's run two containers from our previously created ‘nginx_ping’ custom image.
+Run this command line on your terminal:
+
+```text
+$ for n in 1 2 ; do
+    docker run --rm --detach --name "serv$n" nginx_ping
+  done
+
+22019a981e986869791eee9d32d2f3b21dec482b880c92257d846162986219b2
+a5c2f180fd8803916bbe927df56271c508652c1dfce2e8263378aff1adcb1180
+```
+
+Now `docker ps` should show `serv1` and `serv2` are running.
+For example, we can inspect them.
+
+```text
+$ docker inspect serv1
+$ docker inspect serv2
+```
+
+Because `docker inspect` returns a JSON output, we could use [jq](https://github.com/jqlang/jq) to help us filter out the output:
+
+```text
+$ docker inspect serv1 | jq '.[0].NetworkSettings.Networks'
+{
+  "bridge": {
+    "IPAMConfig": null,
+    "Links": null,
+    "Aliases": null,
+    "NetworkID": "f3a83b1d58b94272b4344a530061dd206d3f5fbf837316a7456d2acf80034e06",
+    "EndpointID": "8ed0975e8da0949300fcf093d7446665cf4252bd683c6cd74aecd9e7dce4d840",
+    "Gateway": "172.17.0.1",
+    "IPAddress": "172.17.0.2",
+    "IPPrefixLen": 16,
+    "IPv6Gateway": "",
+    "GlobalIPv6Address": "",
+    "GlobalIPv6PrefixLen": 0,
+    "MacAddress": "02:42:ac:11:00:02",
+    "DriverOpts": null
+  }
+}
+```
+
+In my case when writting this, Docker assinged the IP 172.17.0.2 to serv1, and 172.17.0.3 to serv2.
+
+Let's look at their `/etc/hosts`:
+
+```text
+$ docker exec serv1 cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.17.0.2	22019a981e98
+
+$ docker exec serv2 cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.17.0.3	a5c2f180fd88
+```
+
+```text
+$ docker exec serv1 hostname
+22019a981e98
+
+$ docker exec serv2 hostname
+a5c2f180fd88
+```
+
+Both containers can ping themselves and also one another using their IP addresses.
+
+For example, let's make serv1 ping serv2's by IP address:
+
+```text
+$ docker exec serv1 ping -c 1 172.17.0.3
+PING 172.17.0.3 (172.17.0.3): 56 data bytes
+64 bytes from 172.17.0.3: icmp_seq=0 ttl=64 time=0.062 ms
+--- 172.17.0.3 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.062/0.062/0.062/0.000 ms
+```
+
+Let's stop the two running containers as we are going to try something else next.
+
+```text
+$ docker stop serv{1,2}
+serv1
+serv2
+```
