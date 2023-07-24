@@ -5,6 +5,14 @@ description: Some practical examples of working with, inspecting and debugging D
 
 # Networking Example 1
 
+## Intro
+
+By default, containers connect to the so-called “default bridge network”.
+In this post, we'll explore a few options including the default and user defined bridge networks.
+
+- [Networking overview :: Docker Engine docs](https://docs.docker.com/network/)
+- [Bridge network driver :: Docker Engine docks](https://docs.docker.com/network/drivers/bridge/)
+
 ## A custom nginx image with ping utility
 
 Create a `Dockerfile` to build an image derived from `nginx` official image and install the `ping` command line utility:
@@ -202,7 +210,7 @@ PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.045/0.045/0.045/0.000 ms
 ```
 
-## Pinging my hostname
+## Pinging by hostname
 
 As the containers do have a hostname (an auto-generated hash) as we saw earlier, let's try to ping one container from the other using that hostname:
 
