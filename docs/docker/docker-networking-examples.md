@@ -119,7 +119,19 @@ $ docker inspect serv1 | jq '.[0].NetworkSettings.Networks'
 }
 ```
 
-In my case when writting this, Docker assinged the IP 172.17.0.2 to serv1, and 172.17.0.3 to serv2.
+In my case when testing and writing this, Docker assigned the IP 172.17.0.2 to serv1, and 172.17.0.3 to serv2.
+Also, by default Docker creates “bridge” networks for our containers.
+On the host machine (I'm running Arch Linux as I write this), Docker also creates a lot of stuff, including the `docker0` network bridge:
+
+```text
+$ ip addr show docker0
+4: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 02:42:16:6f:0d:76 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:16ff:fe6f:d76/64 scope link proto kernel_ll 
+       valid_lft forever preferred_lft forever
+```
 
 Let's look at their `/etc/hosts`:
 
@@ -143,6 +155,8 @@ ff02::2	ip6-allrouters
 172.17.0.3	a5c2f180fd88
 ```
 
+And note how the (auto-generated) host names for each container matches what is their `/etc/hosts` (as one would expect):
+
 ```text
 $ docker exec serv1 hostname
 22019a981e98
@@ -153,7 +167,7 @@ a5c2f180fd88
 
 Both containers can ping themselves and also one another using their IP addresses.
 
-For example, let's make serv1 ping serv2's by IP address:
+For example, from serv1, ping serv2 by IP address:
 
 ```text
 $ docker exec serv1 ping -c 1 172.17.0.3
@@ -164,6 +178,44 @@ PING 172.17.0.3 (172.17.0.3): 56 data bytes
 round-trip min/avg/max/stddev = 0.062/0.062/0.062/0.000 ms
 ```
 
+And, dropping into serv2's shell, ping serv1 by IP address:
+
+```text
+$ docker exec -it serv2 bash
+root@41e947121645:/# ping -c 1 172.17.0.2
+PING 172.17.0.2 (172.17.0.2): 56 data bytes
+64 bytes from 172.17.0.2: icmp_seq=0 ttl=64 time=0.088 ms
+--- 172.17.0.2 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.088/0.088/0.088/0.000 ms
+```
+
+And as a side note, from the host, it is possible to ping the containers by their IPs:
+
+```text
+$ ping -c 1 172.17.0.2
+PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.
+64 bytes from 172.17.0.2: icmp_seq=1 ttl=64 time=0.045 ms
+
+--- 172.17.0.2 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.045/0.045/0.045/0.000 ms
+```
+
+## Pinging my hostname
+
+As the containers do have a hostname (an auto-generated hash) as we saw earlier, let's try to ping one container from the other using that hostname:
+
+```text
+$ docker exec serv2 hostname
+41e947121645
+
+$ docker exec serv1 ping -c 1 41e947121645
+ping: unknown host
+```
+
+With the current setup, it is not possible to ping containers from one another or the host system using their (auto-generated) host names.
+
 Let's stop the two running containers as we are going to try something else next.
 
 ```text
@@ -171,3 +223,4 @@ $ docker stop serv{1,2}
 serv1
 serv2
 ```
+
