@@ -10,6 +10,10 @@ description: Some practical examples of working with, inspecting and debugging D
 By default, containers connect to the so-called “default bridge network”.
 In this post, we'll explore a few options including the default and user defined bridge networks.
 
+When the Docker daemon is started, it creates a default bridge network (which is inferior to user-defined bridge networks), and then, when containers are run, unless otherwise specified, they attach to that default bridge network by default.
+
+Read more:
+
 - [Networking overview :: Docker Engine docs](https://docs.docker.com/network/)
 - [Bridge network driver :: Docker Engine docks](https://docs.docker.com/network/drivers/bridge/)
 
@@ -232,3 +236,63 @@ serv1
 serv2
 ```
 
+And then let's run two new containers and giving them an explicit, custom (not auto-generated) hostname:
+
+```text
+$ for n in 1 2 ; do
+    docker run --rm --detach \
+      --hostname "$serv_$n" \
+      --name "serv_$n" nginx_ping
+  done
+
+798d3628c5baab3a5e133e60836ca95b4c8020abf7b006eb5719ee9aa00e8bcc
+263c7a760a1dcd4af81243fda2722b410b4fc8ecace7c778cff77572c7062556
+```
+
+The host names will simply be the same as the container name, that is, ‘serv_1’ and ‘serv_2’.
+
+To recap, in the previous attempt, we could only reach one container from another through their IP addresses because we were using the default bridge network and letting the containers auto-generate a host name.
+However, by running containers and giving them explicit host names, they still automatically attach to the default bridge network, but the still cannot reach one another by host name.
+
+```text
+$ docker inspect bridge | jq '.[0].Containers'
+{
+  "0a5ca3ab2989c6c192d5d4a81c49b107d9fde5f639efb0c3169ce23c7fbbdac2": {
+    "Name": "serv_1",
+    "EndpointID": "d6a51b6b24b3be4371ab186a569bd378eff733455cb30800db9c8143afe7fc97",
+    "MacAddress": "02:42:ac:11:00:02",
+    "IPv4Address": "172.17.0.2/16",
+    "IPv6Address": ""
+  },
+  "87991a26c7efe30a8677a8cc0c826850c03f687d4b8c31eb1099a87b4c358814": {
+    "Name": "serv_2",
+    "EndpointID": "41f674d8d72fe8fa2a2ebbf619f7859043294eb02856e118641524e47010b6d7",
+    "MacAddress": "02:42:ac:11:00:03",
+    "IPv4Address": "172.17.0.3/16",
+    "IPv6Address": ""
+  }
+}
+```
+
+![Docker Network Example 1](/staticassets/docker-hostname-ex-1.png)
+
+Observe how our containers are using the host names we provided, besides IP address and other related stuff.
+
+Finally, let's try to ping one another by the custom host name:
+
+```text
+$ docker exec serv_1 ping -c 1 serv_2
+ping: unknown host
+```
+
+Still not working!
+
+If we read [the docs](https://docs.docker.com/network/drivers/bridge/#differences-between-user-defined-bridges-and-the-default-bridge), as of 2023, they say this:
+
+> Containers on the default bridge network can only access each other by IP addresses, unless you use the --link option, which is considered legacy.
+> On a user-defined bridge network, containers can resolve each other by name or alias.
+
+Well, let's refrain from resorting to legacy features.
+Software development presents enough challenges already without we looking for trouble 😅.
+
+On the next example we'll explore a user-defined bridge network, which is recommended over the default bridge.
