@@ -1,9 +1,9 @@
 ---
-title: Networking Examples :: Docker
+title: Bridge Networking Examples :: Docker
 description: Some practical examples of working with, inspecting and debugging Docker networking
 ---
 
-# Networking Example 1
+# Bridge Network Examples
 
 ## Intro
 
@@ -86,7 +86,7 @@ Finally, stop the container:
 $ docker stop pingserv1
 ```
 
-## Pinging containers through their IPs
+## Default Bridge Networking
 
 Let's run two containers from our previously created ‘nginx_ping’ custom image.
 Run this command line on your terminal:
@@ -167,7 +167,7 @@ ff02::2	ip6-allrouters
 172.17.0.3	a5c2f180fd88
 ```
 
-And note how the (auto-generated) host names for each container matches what is their `/etc/hosts` (as one would expect):
+And note how the (auto-generated) hostnames for each container matches what is their `/etc/hosts` (as one would expect):
 
 ```text
 $ docker exec serv1 hostname
@@ -226,7 +226,7 @@ $ docker exec serv1 ping -c 1 41e947121645
 ping: unknown host
 ```
 
-With the current setup, it is not possible to ping containers from one another or the host system using their (auto-generated) host names.
+With the current setup, it is not possible to ping containers from one another or the host system using their (auto-generated) hostnames.
 
 Let's stop the two running containers as we are going to try something else next.
 
@@ -249,10 +249,10 @@ $ for n in 1 2 ; do
 263c7a760a1dcd4af81243fda2722b410b4fc8ecace7c778cff77572c7062556
 ```
 
-The host names will simply be the same as the container name, that is, ‘serv_1’ and ‘serv_2’.
+The hostnames will simply be the same as the container name, that is, ‘serv_1’ and ‘serv_2’.
 
-To recap, in the previous attempt, we could only reach one container from another through their IP addresses because we were using the default bridge network and letting the containers auto-generate a host name.
-However, by running containers and giving them explicit host names, they still automatically attach to the default bridge network, but the still cannot reach one another by host name.
+To recap, in the previous attempt, we could only reach one container from another through their IP addresses because we were using the default bridge network and letting the containers auto-generate a hostname.
+However, by running containers and giving them explicit hostnames, they still automatically attach to the default bridge network, but the still cannot reach one another by hostname.
 
 ```text
 $ docker inspect bridge | jq '.[0].Containers'
@@ -276,9 +276,9 @@ $ docker inspect bridge | jq '.[0].Containers'
 
 ![Docker Network Example 1](/staticassets/docker-hostname-ex-1.png)
 
-Observe how our containers are using the host names we provided, besides IP address and other related stuff.
+Observe how our containers are using the hostnames we provided, besides IP address and other related stuff.
 
-Finally, let's try to ping one another by the custom host name:
+Finally, let's try to ping one another by the custom hostname:
 
 ```text
 $ docker exec serv_1 ping -c 1 serv_2
@@ -296,3 +296,227 @@ Well, let's refrain from resorting to legacy features.
 Software development presents enough challenges already without we looking for trouble 😅.
 
 On the next example we'll explore a user-defined bridge network, which is recommended over the default bridge.
+
+## Example using an user-defined bridge network
+
+First, create a custom bridge network called ‘mynet’.
+For now, let's only specify the driver explicitly, and let other details like IP address, gateway and subnet mask be handled by Docker.
+
+```text
+$ docker network create --driver bridge mynet
+ba14f42c069e2d94c4ca0d9e068a03d04d95580cc0b117421aed6fe3eaf7d83c
+```
+
+And then we run the containers specifying they should attach to the ‘mynet’ network rather than to the default bridge network:
+
+```
+$ for n in 1 2 ; do
+    docker run --rm --detach \
+    --name "serv_$n" \
+    --network mynet \
+    nginx_ping
+  done
+```
+
+As a side note, observe we did not specify a hostname for the containers, so Docker will generate some automatically.
+
+If we now inspect the default bridge network, our two containers do now show meaning they did not connect to that default bridge:
+
+```text
+$ docker network inspect bridge | jq '.[0].Containers'
+{}
+```
+
+But inspecting the ‘mynet’ network, they are listed there:
+
+```text
+$ docker network inspect mynet | jq '.[0].Containers'
+{
+  "0d73d29c48f0b5a806d37be25117225a26d940459d8cff4e26d0c0a9bcb4b03d": {
+    "Name": "serv_2",
+    "EndpointID": "e3cc8c383813fbc0ca6cdf7e066dd6b1893dff4cad4123834569eada02dc1c88",
+    "MacAddress": "02:42:ac:16:00:03",
+    "IPv4Address": "172.22.0.3/16",
+    "IPv6Address": ""
+  },
+  "601b811b1a13441504efa67ba7eb345e5896ac10823d0e1e97a1d1cc30dbd75c": {
+    "Name": "serv_1",
+    "EndpointID": "218abf6acb8e23686cf1a9fc903b3b5064c72c33f7772cc859be089389daf8b5",
+    "MacAddress": "02:42:ac:16:00:02",
+    "IPv4Address": "172.22.0.2/16",
+    "IPv6Address": ""
+  }
+}
+```
+
+Remember we did not specify hostnames for our containers this time.
+Docker generated them for us:
+
+```text
+$ docker exec serv_1 hostname
+c3e3d8760bf4
+
+$ docker exec serv_1 cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+172.23.0.2	c3e3d8760bf4
+
+$ docker exec serv_2 hostname
+971d7e69d428
+
+$ docker exec serv_2 cat /etc/hosts
+127.0.0.1	localhost
+ff02::2	ip6-allrouters
+172.23.0.3	971d7e69d428
+```
+
+Now, because we are not using the default bridge networks, but a custom, user-defined bridge network instead, we are allowed to reach one another by their container names:
+
+```text
+$ docker exec serv_1 ping -c 1 serv_2
+PING serv_2 (172.23.0.3): 56 data bytes
+64 bytes from 172.23.0.3: icmp_seq=0 ttl=64 time=0.074 ms
+--- serv_2 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.074/0.074/0.074/0.000 ms
+
+$ docker exec -it serv_2 bash
+root@971d7e69d428:/# ping -c 1 serv_1
+PING serv_1 (172.23.0.2): 56 data bytes
+64 bytes from 172.23.0.2: icmp_seq=0 ttl=64 time=0.062 ms
+--- serv_1 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.062/0.062/0.062/0.000 ms
+```
+
+NOTE: ‘serv_1’ and ‘serv_2’ here are NOT hostnames.
+They are our container names.
+The hostnames are the auto-generated, hash-like ones.
+
+That said, the containers can now (because we are using a custom bridge, not the default one) reach one another using those hostnames:
+
+```text
+$ for n in 1 2 ; do docker exec "serv_$n" hostname ; done
+c3e3d8760bf4
+971d7e69d428
+
+$ docker exec serv_1 ping -c 1 971d7e69d428
+PING 971d7e69d428 (172.23.0.3): 56 data bytes
+64 bytes from 172.23.0.3: icmp_seq=0 ttl=64 time=0.056 ms
+--- 971d7e69d428 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.056/0.056/0.056/0.000 ms
+
+$ docker exec -it serv_2 bash
+root@971d7e69d428:/# ping -c 1 c3e3d8760bf4
+PING c3e3d8760bf4 (172.23.0.2): 56 data bytes
+64 bytes from 172.23.0.2: icmp_seq=0 ttl=64 time=0.057 ms
+--- c3e3d8760bf4 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.057/0.057/0.057/0.000 ms
+```
+
+Of course, those hostnames are impossible to remember and hard to type.
+We can do like we did earlier and specify custom hostnames.
+Because we can already ping using ‘serv_1’ and ‘serv_2’ (which are our container names), let's use different values for the hostnames.
+
+First, stop the existing running containers:
+
+```text
+$ docker container stop serv_{1,2}
+serv_1
+serv_2
+```
+
+Then recreate them similar to the way we did earlier, but now also providing a hostname of ‘host_1’ and ‘host_2’:
+
+```
+$ for n in 1 2 ; do
+    docker run --rm --detach \
+    --name "serv_$n" \
+    --hostname "host_$n"
+    --network mynet \
+    nginx_ping
+  done
+```
+
+And inspecting ‘serv_1’, for example, should show something like this:
+
+```text
+$ docker container inspect serv_1 | jq '.[0].NetworkSettings.Networks'
+{
+  "mynet": {
+    "IPAMConfig": null,
+    "Links": null,
+    "Aliases": [
+      "5d5c4e597a04",
+      "host_1"
+    ],
+    "NetworkID": "ba14f42c069e2d94c4ca0d9e068a03d04d95580cc0b117421aed6fe3eaf7d83c",
+    "EndpointID": "4c707f2983280cee2d3051b229be7dfe39bc5c796a0cb93bff1571b547ea2d50",
+    "Gateway": "172.23.0.1",
+    "IPAddress": "172.23.0.2",
+    "IPPrefixLen": 16,
+    "IPv6Gateway": "",
+    "GlobalIPv6Address": "",
+    "GlobalIPv6PrefixLen": 0,
+    "MacAddress": "02:42:ac:17:00:02",
+    "DriverOpts": null
+  }
+}
+```
+
+Especially, mind the “Aliases” property:
+
+```text
+$ docker container inspect serv_1 | jq '.[0].NetworkSettings.Networks.mynet.Aliases'
+[
+  "5d5c4e597a04",
+  "host_1"
+]
+```
+
+A similar output would show up for ‘serv_2’.
+
+We can now also use those new, custom hostnames to reach one container from another:
+
+```
+$ docker exec serv_1 ping -c 1 host_2
+PING host_2 (172.23.0.3): 56 data bytes
+64 bytes from 172.23.0.3: icmp_seq=0 ttl=64 time=0.096 ms
+--- host_2 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.096/0.096/0.096/0.000 ms
+
+$ docker exec -it serv_2 bash
+root@host_2:/# ping -c 1 host_1
+PING host_1 (172.23.0.2): 56 data bytes
+64 bytes from 172.23.0.2: icmp_seq=0 ttl=64 time=0.057 ms
+--- host_1 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.057/0.057/0.057/0.000 ms
+```
+
+In short, containers can now reach one another by their names and hostnames, either from the auto-generated hostname, or the custom hostnames provided at the time of the container creation.
+This is possible with a custom bridge network.
+A default bridge network only allows containers to talk to each other through their IP addresses.
+
+If you want to remove those test containers, networks, and images:
+
+```text
+$ docker container stop serv_{1,2}
+serv_1
+serv_2
+
+$ docker network rm mynet 
+mynet
+
+$ docker image rm nginx_ping
+Untagged: nginx_ping:latest
+Deleted: sha256:64558f979deb0909ef2c1a945e41b0a4353e22b044667d3df56f195a18b1b11c
+Deleted: sha256:3415552f21e0f3ad51aff7079b204b2ec10e86dc3908c79000a405c9d54d26de
+Deleted: sha256:b27ea41c77933543de240a96bca9bdaba38d435aec2cdf941139544eaa0d87aa
+Deleted: sha256:19848bc63ab79d466f9dd74b58fa55993ca8909cfed437ae8f469a4fded6a3fa
+Deleted: sha256:83b8c265cfc2befa7076110463d5fb7dabb744d443b96f6cacbdff335761d08d
+```
+
