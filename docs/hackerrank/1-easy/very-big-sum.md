@@ -1,5 +1,5 @@
 ---
-title: A Very Big Sum | HackerRank Challenges
+title: A Very Big Sum :: HackerRank Challenges
 description: Notes and solutions for Big Sum Hacker Rank Challenge.
 ---
 
