@@ -64,11 +64,11 @@ $ gcc -std=c99 -Wall -pedantic -o ./mult_of ./mult_of_v1.c \
 
 It works but it has time complexity $O(n)$ because we are looping as long as $m \pmod{5} = 0$.
 
-A constant time approach is possible by a formula like this:
+A constant time approach is possible by a formula like this (shared by my friend Bijay Tamang):
 
-$$
-\lceil{\frac{number}{multiplier}}\rceil \times multiplier
-$$
+- Let $m$ be the multiplier.
+- Let $n$ be the number whose next multiple of $m$ is to be found.
+- Then apply the formula $\lceil{\frac{n}{m}}\rceil \times {m}$.
 
 That is, `ceil(number * multiplier) / multiplier`. In C:
 
@@ -81,8 +81,8 @@ That is, `ceil(number * multiplier) / multiplier`. In C:
  *
  * - T.C: O(1)
  */
-short next_mult_of(double m, short n) {
-  return ceil(n / m) * m;
+short next_mult_of(short m, short n) {
+  return ceil(n / (double) m) * m;
 }
 
 int main(int argc, char* argv[]) {
@@ -94,6 +94,8 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 ```
+
+We are casting `m` to `double` because long division with `/` works on fractional values.
 
 Compile and run with (note the `-lm` flag to link the math lib):
 
