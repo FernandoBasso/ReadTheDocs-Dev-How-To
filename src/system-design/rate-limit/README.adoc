@@ -1,0 +1,22 @@
+= Rate Limiter 1
+
+[source,shell-session]
+----
+docker build . --file ./Dockerfile-NodeJS --tag mynode
+
+for n in 1 2 3
+do docker run --rm --detach \
+  --name "node$n" \
+  --hostname "app$n" \
+  --publish "828$n:8181" \
+  mynode
+done
+
+for n in {1..3}
+  do echo "$(curl --silent http://localhost:828$n)"
+done
+# → HOSTNAME: app1, IP: 172.17.0.2
+# → HOSTNAME: app2, IP: 172.17.0.3
+# → HOSTNAME: app3, IP: 172.17.0.4
+----
+
