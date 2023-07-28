@@ -3,11 +3,14 @@ title: Basic HackerRank SQL Challenges
 description: Notes and solutions on the HackerRank SQL challenges for MySQL/MariaDB.
 ---
 
-# Baisc HackerRank SQL Challenges
+# Basic HackerRank SQL Challenges
 
 ## Intro
 
-Unless otherwise noted, assume these examples where tested on MySQL and MySQL CLI. I prefer MariaDB and PostgreSQL by it seems HackerRank does not provide any of those (as of June 18, 2023 at least).
+Unless otherwise noted, assume these examples where tested on MySQL and MySQL CLI.
+I prefer MariaDB and PostgreSQL by it seems HackerRank does not provide any of those (as of June 18, 2023 at least).
+
+Also, we'll try to stick to standard-compliant (and shy away from vendor-specific features and syntax) SQL whenever possible for max portability.
 
 ```{note}
 RackerRank SQL challenges come in three main levels of difficulty:
@@ -17,7 +20,6 @@ RackerRank SQL challenges come in three main levels of difficulty:
 - Advanced
 
 This page deals with the basic ones.
-
 ```
 
 ![HackerRank SQL MySQL / MariaDB Dropdown Option](/staticassets/hackerrank-sql-mysql-db-dropdown.png)
@@ -278,4 +280,55 @@ FROM entries
 WHERE
   LOWER(SUBSTR(title, 1, 1))
   IN('a', 'e', 'i', 'o', 'u');
+```
+
+## Weather Observation Station 5
+
+- [Weather Observation Station 5 :: HackerRank Easy SQL Challenge](https://www.hackerrank.com/challenges/weather-observation-station-5)
+
+### UNION ALL of two queries
+
+One approach is to use two queries: one for the city name length, and another one for the min city name length, limit by 1, and union the results to create a single resulting tabular structure:
+
+```sql
+(SELECT
+    city
+  ,  LENGTH(city) AS len_city
+FROM station
+ORDER BY len_city ASC, city DESC
+LIMIT 1)
+UNION ALL
+(SELECT
+    city
+  , LENGTH(city) AS len_city
+FROM station
+ORDER BY len_city DESC, city DESC
+LIMIT 1);
+```
+
+### WHERE IN union of subquery
+
+Or creating a sub-table to select the lengths from.
+
+First, select the max and min lengths:
+
+```sql
+SELECT MAX(LENGTH(city)) FROM station
+UNION ALL
+SELECT MIN(LENGTH(city)) FROM station;
+```
+
+It returns a tabular structures with the max and min lengths, which can be used in a `WHEER/IN` clause:
+
+```sql
+SELECT
+    city
+  , LENGTH(city)
+FROM station
+WHERE LENGTH(city) IN (
+  SELECT MAX(LENGTH(city)) FROM station
+  UNION ALL
+  SELECT MIN(LENGTH(city)) FROM station
+)
+ORDER BY LENGTH(city) DESC, city;
 ```
