@@ -785,7 +785,9 @@ capitalizeFirst :: [Char] -> Char
 capitalizeFirst str = toUpper $ head str
 ```
 
-##### Solution 2
+#### Exercise 6
+
+##### Solution 1
 
 Point-free, function composition.
 `head` returns the first char of the string which `toUpper` is then applied.
@@ -798,4 +800,153 @@ capitalizeFirst = toUpper . head
 -- 'H'
 --
 ```
+
+### Ciphers
+
+Basically, do a rightwards Caesar shift.
+
+Let's consider lowercase-only English alphabet letters.
+
+#### Solution 1 (baby steps 😅)
+
+We'll go with an approach where we map each letter from 'a' to 'z' to ints from 0 to 25.
+So 'a' is 0 and 'z' is 25.
+
+Recall that 'a' is 97 in both ASCII and UTF-8.
+Let's name our 97 as `a`:
+
+```haskell
+a :: Int
+a = 97
+```
+
+The English alphabet has 26 letters:
+
+```text
+λ> length ['a' .. 'z']
+26
+```
+
+That means we need to “wrap around” at 26.
+That will be one of our parameters to the `mod` function:
+
+```text
+λ> mod 0 26
+0
+
+λ> mod 1 26
+1
+
+λ> mod 25 26
+25
+
+λ> mod 26 26
+0
+
+λ> mod 27 26
+1
+```
+
+Consider 'z', which is 25 in our 0 to 25 mapping.
+If we want to shift 'z' rightwards by 1 position, we'll do $25 + 1 = 26$, and `mod 26 26` is 0, which is the position for 'a'.
+Then, $0 + 97 = 97$, and `ord 97` is 'a'. $1 + 97 = 98$, and `ord 98` is 'b'.
+By adding 97 to our ints, we can compute the int value of each one of the letters from 0 to 25.
+
+```{info}
+I learned about this ideas of addign or subtracting from a char in the book The C Programming Language by Brian Kernighan and Dennis Ritchie (also informally known as the KR C book)
+```
+
+Play with those ideas in GHCi's REPL to get a better feeling for it.
+
+```haskell
+module Cipher1 where
+
+import Data.Char (chr, ord)
+
+--
+-- The int value of 'a' in ASCII and UTF-8 is 97.
+--
+a :: Int
+a = 97
+
+--
+-- Because the English alphabet contains 26 letters, this is the
+-- number we need to “wrap around” when shifting char positions.
+--
+wrp :: Int
+wrp = 26
+
+--
+-- Translates the zero-based position of a character `c` in the
+-- lowercase English alphabet into its corresponding 0 to 25 numeric
+-- mapping.
+--
+-- Examples:
+-- • ‘a’ → 0
+-- • ‘z’ → 25
+--
+toPos :: Char -> Int
+toPos c = ord c - a
+
+--
+-- Translates the zero-based position `i` into its corresponding
+-- lowercase letter in the English Alphabet.
+--
+-- Examples:
+-- •  0 → ‘a’
+-- • 25 → ‘z’
+--
+toChr :: Int -> Char
+toChr i = chr $ i + a
+
+--
+-- Right-shifts c by n positions.
+--
+-- Examples:
+--
+-- • move 1 'a' → 'b'
+-- • move 3 'a' → 'd'
+-- • move 1 'z' → 'a'
+-- • move 3 'z' → 'c'
+--
+move :: Int -> Char -> Char
+move n c = toChr $ mod (toPos c + n) wrp
+
+--
+-- Applies the Caesar to `chrs` by shifting each letter `n` positions
+-- to the right.
+--
+-- ASSUME: Lowercase-only English alphabet letters.
+--
+caesar :: Int -> [Char] -> [Char]
+caesar n chrs = map (move n) chrs
+```
+
+Then, on a GHCi session, we can test try it:
+
+```text
+λ> caesar 3 "xyz"
+"abc"
+
+λ> caesar 1 "abc"
+"bcd"
+
+λ> caesar 3 "abc"
+"def"
+
+λ> caesar 1 "xyz"
+"yza"
+
+λ> caesar 3 "xyz"
+"abc"
+```
+
+We could make `caesar` take only the `n` param and leave the `chrs` argument to `map` point free:
+
+```haskell
+caesar :: Int -> [Char] -> [Char]
+caesar n = map (move n)
+```
+
+Other changes like partially applying `move` to `n` would also be possible, but this is good enough.
 
