@@ -950,3 +950,207 @@ caesar n = map (move n)
 
 Other changes like partially applying `move` to `n` would also be possible, but this is good enough.
 
+#### Solution 2
+
+Currently, `move` can only shift chars to the right.
+How can we make `move` able to shift characters to the right _and_ to the left as well?
+If we find a solution for this, we would also be able to do the `unCaesar` function asked in the book.
+
+This is the current implementation:
+
+```haskell
+--
+-- Right-shifts c by n positions.
+--
+-- Examples:
+--
+-- • move 1 'a' → 'b'
+-- • move 3 'a' → 'd'
+-- • move 1 'z' → 'a'
+-- • move 3 'z' → 'c'
+--
+move :: Int -> Char -> Char
+move n c = toChr $ mod (toPos c + n) wrp
+```
+
+Hmm... We are always using `+` to _add_ (shift to the right).
+If we can improve `move` so that it takes the function `+` or `-` as parameter, then it would be able to shift chars left and right.
+
+Let's try this:
+
+```haskell
+--
+-- Shifts `c` by `n` positions left or right according to `f`.
+--
+-- Examples:
+--
+-- • move (+) 3 'z' → 'c'
+-- • move (-) 3 'a' → 'x'
+--
+move :: (Int -> Int -> Int) -> Int -> Char -> Char
+move f n c = toChr $ mod (f (toPos c) n) wrp
+```
+
+And a in GHCi:
+
+```text
+λ> move (+) 1 'z'
+'a'
+
+λ> move (-) 1 'a'
+'z
+```
+
+And let's also update `caesar`:
+
+```haskell
+--
+-- Applies the Caesar to `chrs` by shifting each letter `n` positions
+-- to the right or left according to `f`.
+--
+-- ASSUME: Lowercase-only English alphabet letters.
+--
+caesar :: (Int -> Int -> Int) -> Int -> [Char] -> [Char]
+caesar f n = map (move f n)
+```
+
+Which then works like this:
+
+```text
+λ> caesar (+) 3 "xyz"
+"abc"
+
+λ> caesar (-) 3 "abc"
+"xyz"
+```
+
+That is cool and all and all this FP trickery!
+Nice to practice and learn, but it so happens that our original version was already taking are of left and right shifts.
+
+#### Solution 3
+
+Our original `move` function was already able to take care of _both left and right shifting:
+
+```haskell
+
+move :: Int -> Char -> Char
+move n c = toChr $ mod (toPos c + n) wrp
+```
+
+Even though it uses `(+)` exclusively, if we pass it a negative `n`, it actually subtracts `n` from the result of `toPos c`.
+Isn't math a lot of fun‽
+
+```text
+λ> 1 + (-3)
+-2
+
+λ> toPos 'a'
+0
+
+λ> toPos 'a' + (-3)
+-3
+
+λ> move (-1) 'z'
+'y'
+
+λ> move (-1) 'a'
+'z'
+```
+
+So, let's just update our doc comments and the examples and call it a day!
+
+```haskell
+module Cipher3 where
+
+import Data.Char (chr, ord)
+
+--
+-- The int value of 'a' in ASCII and UTF-8 is 97.
+--
+a :: Int
+a = 97
+
+--
+-- Because the English alphabet contains 26 letters, this is the
+-- number we need to “wrap around” when shifting char positions.
+--
+wrp :: Int
+wrp = 26
+
+--
+-- Translates the zero-based position of a character `c` in the
+-- lowercase English alphabet into its corresponding 0 to 25 numeric
+-- mapping.
+--
+-- Examples:
+-- • ‘a’ → 0
+-- • ‘z’ → 25
+--
+toPos :: Char -> Int
+toPos c = ord c - a
+
+--
+-- Translates the zero-based position `i` into its corresponding
+-- lowercase letter in the English Alphabet.
+--
+-- Examples:
+-- •  0 → ‘a’
+-- • 25 → ‘z’
+--
+toChr :: Int -> Char
+toChr i = chr $ i + a
+
+--
+-- Shifts `c` by `n` positions left or right according to `n` being
+-- positive or negative!
+--
+-- Examples:
+--
+-- • move 1 'a' → 'b'
+-- • move (-1) 'a' → 'z'
+-- • move 3 'z' → 'c'
+-- • move (-3) 'a' → 'x'
+--
+move :: Int -> Char -> Char
+move n c = toChr $ mod (toPos c + n) wrp
+
+--
+-- Applies the Caesar to `chrs` by shifting each letter `n` positions
+-- to the right if `n` is positive; to the left if `n` is negative.
+--
+-- ASSUME: Lowercase-only English alphabet letters.
+--
+caesar :: Int -> [Char] -> [Char]
+caesar n = map (move n)
+--
+-- λ> caesar 3 "abc"
+-- "def"
+--
+-- λ> caesar 3 "xyz"
+-- "abc"
+--
+-- λ> caesar (-3) "abc"
+-- "xyz"
+--
+-- λ> caesar (-3) "xyz"
+-- "uvw"
+--
+```
+
+#### Solution 4
+
+So our `caesar` implementation is able to encrypt and decrypt messages just by virtue of the `n` param being positive or negative.
+But the book mentions we should create both `caesar` and the `unCaesar` functions.
+
+```haskell
+caesar :: Int -> [Char] -> [Char]
+caesar n = map (move $ abs n)
+
+unCaesar :: Int -> [Char] -> [Char]
+unCaesar n = map (move (negate . abs $ n))
+```
+
+We use `abs` and `negate` to prevent `caesar` and `unCaesar` to work incorrectly in case users pass a negative int, as these two functions will now each work to shift chars to the right or left directions respectively.
+
+This fourth solution is not much better than the third one where `caesar` alone was able to encrypt and decrypt messages solely based on `n` being positive or negative.
+
