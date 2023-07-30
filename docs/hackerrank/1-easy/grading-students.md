@@ -185,3 +185,56 @@ int main(int argc, char* argv[]) {
 
 The space complexity is $O(n)$ because a new array is created to store the results of the grading.
 
+### Solution 2 :: C
+
+If resulting array does is dynamically memory allocated, then the third parameter `result_count` is unnecessary, as the resulting array is not hardcoded to length 100 any longer, but instead is allocated to the same length as the input grades array.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+/**
+ * Apply the grading logic to the grades.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ */
+int* grade(int len, int* grades) {
+  int i, grade;
+  int* res = malloc(len * sizeof(int));
+
+  for (i = 0; i < len; ++i) {
+    grade = *(grades + i);
+
+    if (grade < 38) {
+      res[i] = grade;
+      continue;
+    }
+
+    int new_grade = next_mult_of(5, grade);
+
+    res[i] = (new_grade - grade < 3) ? new_grade : grade;
+  }
+
+  return res;
+}
+
+int main(int argc, char* argv[]) {
+  int i;
+  int grades[] = { 3, 37, 38, 39, 40, 41, 75, 83, 84, 98 };
+  int* result;
+  int len = sizeof grades / sizeof(int);
+
+  result = grade(len, grades);
+
+  for (i = 0; i < len; ++i)
+    printf("%d\n", *(result + i));
+
+  return 0;
+}
+```
+
+Again, space complexity is $O(n)$ because the computed grades are stored in a resulting array.
+
+
