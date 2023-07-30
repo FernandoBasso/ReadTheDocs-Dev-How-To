@@ -237,4 +237,131 @@ int main(int argc, char* argv[]) {
 
 Again, space complexity is $O(n)$ because the computed grades are stored in a resulting array.
 
+### Solution 3 :: C
+
+Let's switch from `int` to `short` (just to use a different type once, shall we‽
+
+First, let's reconsider our “multiple of 5” thing, just so we find other solutions to the problem.
+
+We can do it with another math approach.
+
+If the grade is 47, then:
+
+```
+47 + 5 = 52
+52 % 5 = 2
+52 - 2 = 50
+          \
+           \
+            v
+  50 is the next multiple of 5 starting from 47.
+```
+
+If grade is 48, then:
+
+```
+48 + 5 = 53
+53 % 5 = 3
+53 - 3 = 50
+          \
+           \
+            v
+  50 is the next multiple of 5 starting from 48.
+```
+
+If grade is 49, then:
+
+```
+49 + 5 = 54
+54 % 5 = 4
+54 - 4 = 50
+          \
+           \
+            v
+  50 is the next multiple of 5 starting from 49.
+```
+
+If grade is 50, then it is already a multiple of 5 and no rounding should occur.
+
+Considering the one's place, any value of 1, 2, 3, 6, or 7 means the grade should not round.
+Values of 4, 8 and 9 means the grade should be rounded.
+
+Example in the range of 41 to 49:
+
+- 41, 42, 43: do not round.
+- 46, 47: do not round.
+- 44: round up to 50.
+- 48, 49: round up to 50.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+/**
+ * Finds the next multiple of `n` given the multiplier `m`.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ */
+short next_mult_of(short m, short n) {
+  return n + m - n % m;
+}
+
+/**
+ * Apply the grading logic to the grades.
+ *
+ * - T.C: O(n).
+ * - S.C: O(1).
+ */
+void grade(short len, short* grades) {
+  short i, grade;
+
+  for (i = 0; i < len; ++i) {
+    grade = *(grades + i);
+
+    if (grade < 38) continue;
+    if (grade % 5 < 3) continue;
+
+    *(grades + i) = next_mult_of(5, grade);
+  }
+}
+
+int main() {
+  short i;
+  short grades[] = { 3, 37, 38, 39, 40, 41, 75, 83, 84, 98 };
+  short len = sizeof grades / sizeof(short);
+
+  grade(len, grades);
+
+  for (i = 0; i < len; ++i)
+    printf("%hd\n", *(grades + i));
+
+  return 0;
+}
+```
+
+The function `grade()` now has space complexity of $O(n)$ as we are modifying the input array in place (not necessarily a good or bad practice, as pros and cons always exist for almost any approaches taken and it all depends on the context).
+
+The two `if` conditions could be made into a single one with an or `||`:
+Also, the function `next_mult_of()` was used again, just inlining the logic would be fine too.
+
+```diff
+ void grade(short len, short* grades) {
+   short i, grade;
+ 
+   for (i = 0; i < len; ++i) {
+     grade = *(grades + i);
+ 
+-    if (grade < 38) continue;
+-    if (grade % 5 < 3) continue;
++    if (grade < 38 || grade % 5 < 3) continue;
+
+-   *(grades + i) = next_mult_of(5, grade);
++   *(grades + i) = grade + 5 - grade % 5;
+   }
+ }
+```
+
+But maybe using the utility function helps make things more self-documenting.
 
