@@ -247,7 +247,7 @@ We can do it with another math approach.
 
 If the grade is 47, then:
 
-```
+```text
 47 + 5 = 52
 52 % 5 = 2
 52 - 2 = 50
@@ -259,7 +259,7 @@ If the grade is 47, then:
 
 If grade is 48, then:
 
-```
+```text
 48 + 5 = 53
 53 % 5 = 3
 53 - 3 = 50
@@ -271,7 +271,7 @@ If grade is 48, then:
 
 If grade is 49, then:
 
-```
+```text
 49 + 5 = 54
 54 % 5 = 4
 54 - 4 = 50
