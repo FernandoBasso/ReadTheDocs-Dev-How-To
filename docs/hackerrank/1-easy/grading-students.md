@@ -110,4 +110,78 @@ $ gcc -std=c99 -Wall -pedantic -lm -o ./mult_of ./mult_of_v2.c \
 100
 ```
 
-To be continued.
+Then we just loop and apply the logic as per the instructions.
+
+## C
+
+### Solution 1 :: C
+
+In this solution, static memory allocation is used for the `result` array,
+which sets aside storage for 100 ints.
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+#define GRADES_LEN 8
+#define MAX_GRADES 100
+
+/**
+ * Finds the next multiple of `n` given the multiplier `m`.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ */
+int next_mult_of(int m, int n) {
+  return ceil(n / (double) m) * m;
+}
+
+/**
+ * Apply the grading logic to the grades.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ */
+int* grade(int grades_len, int* grades, int* res_len) {
+  int i, grade;
+  static int res[MAX_GRADES];
+
+  printf("len %d\n", grades_len);
+
+  for (
+    i = 0, grade = *(grades + i);
+    i < grades_len;
+    ++i, grade = *(grades + i)
+  ) {
+    if (grade < 38) {
+      res[i] = grade;
+      continue;
+    }
+
+    int new_grade = next_mult_of(5, grade);
+
+    res[i] = (new_grade - grade < 3) ? new_grade : grade;
+  }
+
+  *res_len = i;
+
+  return res;
+}
+
+int main(int argc, char* argv[]) {
+  int i;
+  int xs[GRADES_LEN] = { 3, 37, 38, 39, 40, 41, 89, 98 };
+  int* result;
+  int result_count;
+
+  result = grade(GRADES_LEN, xs, &result_count);
+
+  for (i = 0; i < result_count; ++i)
+    printf("%d\n", *(result + i));
+
+  return 0;
+}
+```
+
+The space complexity is $O(n)$ because a new array is created to store the results of the grading.
+
