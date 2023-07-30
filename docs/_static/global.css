@@ -4,11 +4,15 @@
  * fonts make it a little better, some worse, but still, italics
  * and comments don't go well together.
  *
- * • .cm → multiline comments
- * • .c1 → single line comments
+ * • .cm  → Multiline comments.
+ * • .c1  → Single line comments.
+ * • .cp  → Things like #include, #define MAX_LEN 42.
+ * • .cpf → Stuff after #include, like <stdio.h>.
  */
 .highlight .c1,
-.highlight .cm {
+.highlight .cm,
+.highlight .cp,
+.highlight .cpf {
   font-style: normal;
 }
 
