@@ -1261,3 +1261,57 @@ myRev (x : xs) = myRev xs ++ [x]
 -- "zyx"
 --
 ```
+
+#### squish
+
+```haskell
+squish :: [[a]] -> [a]
+squish []         = []
+squish (xs : xss) = xs ++ squish xss
+-- 
+-- λ> squish [[1], [2], [3]]
+-- [1,2,3]
+-- 
+```
+
+Or using `foldr` and point-free style (not specifying the `xss` param):
+
+```haskell
+squish :: [[a]] -> [a]
+squish = foldr (++) []
+```
+
+#### squishMap
+
+NOTE: `squishMap` is just like `concatMap` from `Data.Foldable`.
+
+```haskell
+squishMap :: (a -> [b]) -> [a] -> [b]
+squishMap _ []         = []
+squishMap f (xs : xss) = f xs ++ squishMap f xss
+--
+-- λ> squishMap (\x -> [1, x, 3]) [2]
+-- [1,2,3]
+--
+-- λ> squishMap (\x -> [x + 1]) [1, 2, 3]
+-- [2,3,4]
+--
+```
+
+Or reusing `squish` and function composition with `map`.
+Point-free as the list parameter is not explicitly specified.
+
+```haskell
+squishMap :: (a -> [b]) -> [a] -> [b]
+squishMap f = squish . map f
+```
+
+To try to understand it better, look at this:
+
+```text
+λ> map (\n -> [1, n, 3]) [2]
+[[1,2,3]]
+```
+
+`map` itself returns a list, and the lambda is returning a list of its own, thus the result the list returned by the lambda contained _inside_ of the list returned by `map`.
+Then `squish` flattens it to a single-level list.
