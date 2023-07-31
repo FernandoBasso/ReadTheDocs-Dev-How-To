@@ -1212,7 +1212,7 @@ Note that for `myAnd`, the base case for the empty list is `True`, whereas for `
 
 ```haskell
 myAny :: (a -> Bool) -> [a] -> Bool
-myAny _ [] = False
+myAny _ []       = False
 myAny f (x : xs) = f x || myAny f xs
 --
 -- λ> myAny even [1, 3, 4, 5]
@@ -1226,7 +1226,7 @@ First the recursive approach:
 
 ```haskell
 myElem :: Eq a => a -> [a] -> Bool
-myElem _ [] = False
+myElem _ []       = False
 myElem e (x : xs) = (==) e x || myElem e xs
 ```
 
@@ -1247,3 +1247,17 @@ myElem e = myAny (e ==)
 Point-free on the list element (we don't do `myElem e xs`, but `myElem e`).
 And we do _sectioning_ and _partial application_ of `==` to `e`.
 
+#### myReverse
+
+Get `x` from the head of the list, and concatenate it to the end :)
+We put it (the `x`) inside brackets to make a list out of it, as `++` concatenates lists (both operands must be lists).
+
+```haskell
+myRev :: [a] -> [a]
+myRev []       = []
+myRev (x : xs) = myRev xs ++ [x]
+--
+-- λ> myRev "xyz"
+-- "zyx"
+--
+```
