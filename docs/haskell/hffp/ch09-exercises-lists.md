@@ -1315,3 +1315,18 @@ To try to understand it better, look at this:
 
 `map` itself returns a list, and the lambda is returning a list of its own, thus the result the list returned by the lambda contained _inside_ of the list returned by `map`.
 Then `squish` flattens it to a single-level list.
+
+#### squishAgain
+
+```haskell
+squishAgain :: [[a]] -> [a]
+squishAgain = squishMap id
+--
+-- λ> squishAgain [[1], [2], [3]]
+-- [1,2,3]
+--
+```
+
+`id` simply returns the argument given to it, and our `squishAgain` is supposed to simply flatten a list of lists.
+Because we are asked to use `squishMap` which requires a function as its first arg, but we don't want to transform each inner list in any way, we then simply give it `id`.
+
