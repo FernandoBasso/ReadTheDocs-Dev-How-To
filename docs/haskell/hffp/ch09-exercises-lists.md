@@ -1154,3 +1154,30 @@ We use `abs` and `negate` to prevent `caesar` and `unCaesar` to work incorrectly
 
 This fourth solution is not much better than the third one where `caesar` alone was able to encrypt and decrypt messages solely based on `n` being positive or negative.
 
+### Writing your own standard functions
+
+#### and
+
+```haskell
+myAnd :: [Bool] -> Bool
+myAnd []       = True
+myAnd (b : bs) = case b of
+  False -> False
+  _     -> myAnd bs
+```
+
+Linter suggests rewriting using _if then else_ syntax:
+
+```haskell
+myAnd :: [Bool] -> Bool
+myAnd [] = True
+myAnd (b : bs) = if b then myAnd bs else False
+```
+
+Which in turn complains _if_ is redundant, and `&&` should be used instead:
+
+```haskell
+myAnd :: [Bool] -> Bool
+myAnd []       = True
+myAnd (b : bs) = b && myAnd bs
+```
