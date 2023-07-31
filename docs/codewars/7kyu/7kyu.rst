@@ -9,3 +9,4 @@
    sort-numbers.md
    valid-parentheses.md
    count-vowels.md
+   diplomas.md
