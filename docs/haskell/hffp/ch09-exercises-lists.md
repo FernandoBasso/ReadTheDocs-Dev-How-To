@@ -1156,7 +1156,7 @@ This fourth solution is not much better than the third one where `caesar` alone 
 
 ### Writing your own standard functions
 
-#### and
+#### myAnd
 
 ```haskell
 myAnd :: [Bool] -> Bool
@@ -1181,3 +1181,69 @@ myAnd :: [Bool] -> Bool
 myAnd []       = True
 myAnd (b : bs) = b && myAnd bs
 ```
+
+And using `foldr` (which we didn't learn yet in the book):
+
+```haskell
+myAnd :: [Bool] -> Bool
+myAnd bs = foldr (&&) True bs
+```
+
+And it is possible to make it point-free:
+
+```haskell
+myAnd :: [Bool] -> Bool
+myAnd = foldr (&&) True
+```
+
+#### myOr
+
+We could do as with `myAnd` and try different implementations, but let's stick to this one:
+
+```haskell
+myOr :: [Bool] -> Bool
+myOr []       = False
+myOr (b : bs) = b || myOr bs
+```
+
+Note that for `myAnd`, the base case for the empty list is `True`, whereas for `myOr`, the base case for the empty list is `False`.
+
+#### myAny
+
+```haskell
+myAny :: (a -> Bool) -> [a] -> Bool
+myAny _ [] = False
+myAny f (x : xs) = f x || myAny f xs
+--
+-- λ> myAny even [1, 3, 4, 5]
+-- True
+--
+```
+
+#### myElem
+
+First the recursive approach:
+
+```haskell
+myElem :: Eq a => a -> [a] -> Bool
+myElem _ [] = False
+myElem e (x : xs) = (==) e x || myElem e xs
+```
+
+Then using `myAny`:
+
+```haskell
+myElem :: Eq a => a -> [a] -> Bool
+myElem e = myAny (e ==)
+--
+-- λ> myElem 3 [1, 5, 9]
+-- False
+--
+-- λ> myElem 3 [1, 5, 3, 9]
+-- True
+--
+```
+
+Point-free on the list element (we don't do `myElem e xs`, but `myElem e`).
+And we do _sectioning_ and _partial application_ of `==` to `e`.
+
