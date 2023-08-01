@@ -1330,3 +1330,34 @@ squishAgain = squishMap id
 `id` simply returns the argument given to it, and our `squishAgain` is supposed to simply flatten a list of lists.
 Because we are asked to use `squishMap` which requires a function as its first arg, but we don't want to transform each inner list in any way, we then simply give it `id`.
 
+#### myMaximumBy
+
+```text
+λ> import Data.Foldable (maximumBy)
+
+λ> :type maximumBy 
+maximumBy :: Foldable t => (a -> a -> Ordering) -> t a -> a
+
+λ> maximumBy compare []
+*** Exception: maximumBy: empty structure
+```
+
+Note that `maximumBy` is not defined for empty lists.
+
+For now, we can consider `Folable t` to be a _list of t_ `[t]`.
+
+##### Solution 1
+
+```haskell
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy f xs = go f (tail xs) (head xs)
+  where
+    go :: (a -> a -> Ordering) -> [a] -> a -> a
+    go _  []        winner = winner
+    go fn (h : lst) winner =
+      case fn h winner of
+        GT -> go fn lst h
+        _  -> go fn lst winner
+```
+
+Using the _go_ function pattern, start by considering the `head` of the list to be the _maximum so far_, keep `go` recurring with either the current _maximum so far_ or the new _maximum_ value.
