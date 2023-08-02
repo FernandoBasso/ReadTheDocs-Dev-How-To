@@ -1361,3 +1361,111 @@ myMaximumBy f xs = go f (tail xs) (head xs)
 ```
 
 Using the _go_ function pattern, start by considering the `head` of the list to be the _maximum so far_, keep `go` recurring with either the current _maximum so far_ or the new _maximum_ value.
+
+##### Solution 2
+
+NOTE: There is a [Discord thread on this solution](https://discord.com/channels/280033776820813825/505367988166197268/1135899035044151366).
+
+```haskell
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy _ [x]      = x
+myMaximumBy f (x : xs) =
+  case f x g of
+    LT -> g
+    _  -> x
+  where g = myMaximumBy f xs
+```
+
+`g` is the result of applying `myMaximumBy` to `f` and `xs`, but here `xs` is actually the tail of the list (because of `(x : xs)` pattern matching).
+
+It will build expressions up to a point where the list is composed of a single element, when it pattern matches on `_ [x]`.
+From there, it can finally “unwind” and evaluate the built expressions.
+And because of those things, it will actually compare backwards.
+
+Let's rename `myMaximumBy` to `mmb` and inline `g`, rename `x` and `xx` to `h` and `rest`,  and try to more or less visualize what is going on.
+
+```text
+mmb :: (a -> a -> Ordering) -> [a] -> a
+mmb _ [n]        = n
+mmb f (h : rest) =
+  case f h (mmb f rest) of
+    LT -> mmb f rest
+    _  -> h
+```
+
+Apply `mmb` to `compare` (which we'll keep calling f for shortness) and `[3, 2, 4, 1]`.
+
+`h` is 3 and rest is `[2, 4, 1]`.
+
+```text
+mmb f (2 : [3, 4, 1])
+  case f 2 (mmb f [3, 4, 1]) of
+    LT -> mmb f [3, 4, 1]
+    _  -> 2
+```
+
+We yet don't know what is the result of `case f 2 (mmb f [3, 4, 1]) of`, so we have to evaluate it.
+
+Our new `h` is 3 and the new `rest` is `[4, 1]`.
+
+```text
+mmb f (3 : [4, 1])
+  case f 3 (mmb f [4, 1]) of
+    LT -> mmb f [4, 1]
+    _  -> 3
+```
+
+We yet don't know what is the result of `case f 3 (mmb f [4, 1]) of`, so we have to evaluate it.
+
+Our new `3` is 4 and the new `rest` is `[1]`.
+
+```text
+mmb f (4 : [1])
+  case f 4 (mmb f [1]) of
+    LT -> mmb f [4, 1]
+    _  -> 4
+```
+
+At this point, we call `mmb f [1]`, which will finally cause our initial patterm match `_ [n]` to match, and return 1.
+We finally have two numeric values to compare in `case of` and start “unwinding” the expressions.
+
+The _case of_ will now compare 4 and 1, and 4 is the winner.
+Then 4 and 3, an 4 is still the winner.
+Then 4 and 2, and 4 is still the winner.
+
+Let's try with `[3, 2, 4, 1]`:
+
+```text
+
+case f 3 (mmb f [2, 4, 1])
+
+  case f 2 (mmb f [4, 1])
+
+    case f 4 (mmb f [1])
+
+    case f 4 1 ⇒ 4
+
+  case f 2 4 ⇒ 4
+
+case f 1 4 ⇒ 4
+```
+
+Let's try with `[1, 5, 3, 4, 2]`:
+
+```text
+case f 1 (mmb f [5, 3, 4, 2])
+
+  case f 5 (mmb f [3, 4, 2])
+
+    case f 3 (mmb f [4, 2])
+
+      case f 4 (mmb f [2])
+
+      case f 4 2 ⇒ 2
+
+    case f 3 2 ⇒ 3
+
+  case f 5 3 ⇒ 5
+
+case f 1 5 ⇒ 5
+```
