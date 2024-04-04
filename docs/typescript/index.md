@@ -33,6 +33,7 @@ caption: TypeScript
 any-and-unknown-top-types.md
 union-types.md
 keyof.md
+mapped-types.md
 functions.md
 infer.md
 ```
