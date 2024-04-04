@@ -30,6 +30,7 @@ maxdepth: 6
 caption: TypeScript
 ---
 
+structural-typing.md
 any-and-unknown-top-types.md
 type-aliases-and-interfaces.md
 object-types.md
