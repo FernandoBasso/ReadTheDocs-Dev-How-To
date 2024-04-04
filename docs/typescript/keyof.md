@@ -8,6 +8,7 @@ description: This text discusses concepts and ideas related to TypeScript's type
 `keyof` is the *Index Type Query*.
 From the docs:
 
+{attribution="TypeScript docs"}
 > An indexed type query `keyof T`  yields the type of permitted property names for `T`.
 > A `keyof T` type is considered a subtype of `string`.
 
@@ -27,8 +28,8 @@ const h: keyof D2 = "‽";
 
 What types and values could be assigned to `h`?
 
-In the first place, `keyof D2` produces a string union of the keys in `D2` in this case because the type `D2` defines an object with three properties, and object properties are strings.
-So, the `h` requires strings.
+`keyof D2` produces a string union of the keys in `D2` in this case because the type `D2` defines an object with three properties, and object properties are strings.
+So, `h` requires strings.
 But not *any* string in the set of all possible strings.
 It has to be one of `"kind" | "x" | "y"` because “keyof produces a string union of an object's keys.”
 Therefore, those are the only thee possible values we can assign to `h`.
@@ -202,6 +203,7 @@ function isKey<Obj>(
   obj: Obj,
 ): key is keyof Obj {
   return key in obj;
+}
 ```
 
 Note the use of `keyof` in the predicate return type!
@@ -344,7 +346,7 @@ type MyRequired<Obj> = {
   //                ^
   //               /
   //              /
-  // Note we do not have a “?” between “]” and “:”.
+  // Note we do have a “-?” between “]” and “:”.
   //
 };
 
