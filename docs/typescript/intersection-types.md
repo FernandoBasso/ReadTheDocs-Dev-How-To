@@ -1,3 +1,8 @@
+---
+title: Intersection & | TypeScript
+description: Notes, tips and examples on Intersection Types & in TypeScript.
+---
+
 # Intersection Types
 
 ## Introduction to Intersection Types

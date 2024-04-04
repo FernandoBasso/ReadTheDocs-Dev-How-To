@@ -1,3 +1,8 @@
+---
+title: tsconfig Examples | TypeScript
+description: Examples and explanations on tsconfig for configuration use cases.
+---
+
 # tsconfig.json Examples
 
 ## Simplest tsconfig.json 1

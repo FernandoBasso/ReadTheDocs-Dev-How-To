@@ -1,3 +1,8 @@
+---
+title: Structural Typing | TypeScript
+description: Notes, tips and examples on the concepts of Structural Typing in TypeScript.
+---
+
 # Structural Typing
 
 ## Introduction
