@@ -43,7 +43,7 @@ repository`_.
    ruby/index.md
    ruby-on-rails/index.md
    purescript/index.md
-   javascript/index
+   javascript/index.md
    typescript/index.md
    scheme/index
    deno/index
