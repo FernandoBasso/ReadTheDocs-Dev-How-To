@@ -125,11 +125,11 @@ html_static_path = ['_static']
 timestamp = str(time.time())
 
 html_js_files = [
-  'qanda.js' + '?v=' + timestamp,
-  'left-nav.js' + '?v=' + timestamp,
+  'qanda.js' # + '?v=' + timestamp,
+  'left-nav.js' # + '?v=' + timestamp,
 ]
 
 html_css_files = [
-  'qanda.css' + '?v=' + timestamp,
-  'global.css' + '?v=' + timestamp,
+  'qanda.css' # + '?v=' + timestamp,
+  'global.css' # + '?v=' + timestamp,
 ]
