@@ -5,7 +5,7 @@ description: Notes, tips and examples on using `git reset`.
 
 # Reset
 
-:::: warning
+::::{warning}
 ::: title
 Warning
 :::
@@ -28,4 +28,4 @@ therefore, it is the same as `git rest --hard HEAD`.
 Again, a **hard reset DESTROYS** any uncommitted changes, be they stated
 or not.
 
-<https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrefaref>
+- <https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefrefaref>
