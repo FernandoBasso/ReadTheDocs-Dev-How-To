@@ -1,9 +1,9 @@
 ---
-title: Git Revision | Git Command Line
+title: Revisions | Git
 description: Let's understand git revision syntax through concepts and practical examples of real life situations.
 ---
 
-# Git Revision
+# Git Revisions
 
 What is `HEAD`, `upstream`, `@{u}`, `@~3`, `HEAD..@{upstream}`, etc.? Those are things well cover in this text.
 
