@@ -6,9 +6,11 @@ myst-parser==2.0.0
 ##
 # https://github.com/pradyunsg/furo
 #
-furo==2023.5.20
+furo==2024.1.29
 
 ##
 # https://github.com/sphinx-contrib/plantuml
 #
 sphinxcontrib-plantuml==0.25
+
+sphinx-autobuild==2024.2.4
