@@ -37,7 +37,7 @@ repository`_.
    :caption: Table of Contents
 
    cmdline/index
-   git/index
+   git/index.md
    text-editors/index
    haskell/index.md
    ruby/index.md
