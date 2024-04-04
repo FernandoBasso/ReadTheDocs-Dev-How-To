@@ -31,6 +31,7 @@ caption: TypeScript
 ---
 
 any-and-unknown-top-types.md
+type-aliases-and-interfaces.md
 union-types.md
 keyof.md
 mapped-types.md
