@@ -25,3 +25,5 @@ node_modules
 # python -m venv stuff.
 #
 localsphinx
+.venv
+

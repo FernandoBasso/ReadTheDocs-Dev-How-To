@@ -25,7 +25,7 @@ main/official one where all the action happens and people can collaborate. The
 Arch Linux:
 
 ```
-$ sudo pacman -S python-sphinx python-pip --needed
+$ sudo pacman --sync --needed python-sphinx python-pip
 ```
 
 Xubuntu:
@@ -34,13 +34,31 @@ Xubuntu:
 $ sudo apt install python3-sphinx python3-pip
 ```
 
-Then, with pip, install thse:
+Then, with pip, install these:
 
 ```text
 $ pip install sphinx-autobuild furo
 ```
 
+It may be necessary to create a python venv in some current linux distributions:
+
+```bash
+$ python -m venv ./.python-venv
+```
+
+Then install the pip dependencies from that python env:
+
+```bash
+$ ./.venv/bin/pip sphinx-autobuild furo
+```
+
 ## Running Locally
+
+If using the `.venv` from the previous session, first activate it:
+
+```bash
+$ source ./.venv/activate
+```
 
 From the root directory (not from the `docs/` directory) simply run this:
 
