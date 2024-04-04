@@ -30,6 +30,7 @@ maxdepth: 6
 caption: TypeScript
 ---
 
+tsconfig-examples.md
 structural-typing.md
 any-and-unknown-top-types.md
 type-aliases-and-interfaces.md
