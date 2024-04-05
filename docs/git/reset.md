@@ -5,15 +5,19 @@ description: Notes, tips and examples on using `git reset`.
 
 # Reset
 
-::::{warning}
-::: title
-Warning
+:::{admonition} Be careful with git reset
+:class: danger
+
+**Be very CAREFUL WITH GIT RESET**. 
+
+It is very powerful and very useful.
+It is also a DANGEROUS COMMAND if used improperly since it may cause you to lose code (or text/data/whatever).
+Read carefully and don't ever rush when you are using `git reset` commands.
+
+YOU HAVE BEEN WARNED!
 :::
 
-Be very CAREFUL WITH GIT RESET. It is very powerful and very useful.
-It is also a DANGEROUS COMMAND if used improperly since it may cause you to lose code (or text/data/whatever).
-Read carefully and don't ever rush when you are using git reset commands.
-::::
+## Introduction to git reset
 
 `HEAD` is the commit we are currently at.
 
