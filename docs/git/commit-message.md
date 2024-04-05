@@ -147,9 +147,9 @@ Read the Chris Beans post (linked below) and the others as well.
 
 TODO: We intend to add our own examples where regarding commit messages, atomic commits, squashing commits (when it makes sense, not all the time), etc.
 
-# References
+## References
 
-- [Chris Beans award-winning post about commit messages](https://chris.beams.io/posts/git-commit/).
+- [Chris Beans award-winning post about commit messages](https://cbea.ms/git-commit/).
 - [Linus Torvalds on commit messages](https://github.com/torvalds/subsurface-for-dirk/blob/a48494d2fbed58c751e9b7e8fbff88582f9b2d02/README#L88).
 - [Tim Pope post commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 - [Pro Git book on commit guidelines](https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines).

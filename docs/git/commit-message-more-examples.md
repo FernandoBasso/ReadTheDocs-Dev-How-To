@@ -65,3 +65,35 @@ In vim:
 :set virtualedit=all
 ```
 ::::
+
+## fzf Junegunn Choi Awesome Commit Message
+
+- Use of proper imperative mood in the subject line.
+- Well formatted with reasonable line lengths and proper empty lines when appropriate.
+- Documents the new behavior.
+- Documents how to get previous behavior if one prefers that.
+- Documents fallback if using older version of Vim which does not yet support popup window.
+- Informs _why_ this change exists: To make use of the (new) Vim popup window feature (at the time it was new).
+
+```text
+fzf [master u=]
+$ git show c60ed175831
+commit c60ed1758315f0d993fbcbf04459944c87e19a48
+Author: Junegunn Choi <hidden-email@example.com>
+Date:   Sat Sep 12 21:08:05 2020 +0900
+
+    [vim] Change the default layout to use popup window
+
+    The new default is
+
+      { 'window' : { 'width': 0.9, 'height': 0.6, 'highlight': 'Normal' } }
+
+    The default highlight group for the border of the popup window is
+    'Comment', but 'Normal' seems to be a safer choice.
+
+    If you prefer the previous default, add this to your Vim configuration file:
+
+      let g:fzf_layout = { 'down': '40%' }
+
+    (fzf will fall back to this if popup window is not supported)
+```
