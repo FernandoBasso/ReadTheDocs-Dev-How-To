@@ -97,3 +97,5 @@ Date:   Sat Sep 12 21:08:05 2020 +0900
 
     (fzf will fall back to this if popup window is not supported)
 ```
+
+- [Commit from the example above on fzf repository](https://github.com/junegunn/fzf/commit/c60ed175831)
