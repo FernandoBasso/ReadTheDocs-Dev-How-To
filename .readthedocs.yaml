@@ -17,7 +17,7 @@ build:
 
   ##
   # We need this in combination with sphinxcontrib-plantuml (python/pip
-  # dependency)so PlantUML diagrams can be generated and embedded into
+  # dependency) so PlantUML diagrams can be generated and embedded into
   # the output during build.
   #
   apt_packages:
