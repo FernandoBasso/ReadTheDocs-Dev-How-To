@@ -21,6 +21,7 @@ type T = string & number;
 The resulting type is `never` because `T` cannot possibly be both `string` **and** `number`.
 In this case, the name “intersection” makes sense.
 There is no intersection between `string` **and** `number`.
+There is no value that is both a string **and** a number.
 
 ### Intersection of object types
 
@@ -30,11 +31,11 @@ However, this creates an _union_ of the type constituents:
 type BaseConfig = {
   url: string;
   version: number;
-}
+};
 
 type U = BaseConfig & { headers: Record<string, string> };
 // type U = BaseConfig & {
-//     headers: Record<string, string>;
+//   headers: Record<string, string>;
 // }
 ```
 
