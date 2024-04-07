@@ -152,6 +152,8 @@ function sendData(data: FormData): void {
 }
 ```
 
+- [TS Playground Form Data Interface Merging Gotcha Example](https://www.typescriptlang.org/play?removeComments=true&jsx=0&module=1&pretty=true&preserveWatchOutput=false&inlineSourceMap=false#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKJkAloggo8xwwBtTpMhHTxCERXNOJKtPEZMQOxAOYuLPG1hPF4MU2FUVABrAFtidGj9Ql9xLQAKXntVfUUIdIBKCABvUAgIaQSzREsIAF4IACIcDFiAEWJlCABJJQJeFVMAWQJfZN8IAHFURDlkYl0AD2JYjlrMbAAVAE8OPABlOXR9DkRGgG4yiAo5eFi8JXFEQPrqy0uAX0KCy9AFQloRnMqF82AAwooGJYANqNYG+RoAXVe-yheHE8PEwmSZHSqNQlh+mhAGkgm2Q+loEEpEBUiHgxHM5m2jj2hHGxmQpjwi0pzxSEF8wNE5m0LXQ7U6C2SiH6g1p5FpZAMAti4W86FQe3QzzwtG0rmpiDSGhlcucuFaHS6pXKJHu2EBxxSl3KeHi+nMjsQzt8rtp-mwhDuIXQn00WUIOTy7nI1uI6TIUuw4slygK2GkqH0NltEBJYHKkH2eHdVMNAHcMNEILxklZFQpVp68AAaCDCJC4WDdAAy+yukFgmwgACUAKoAOU23SGOjSRcLEHhial4kq5ngeu+4aAA)
+
 ![FormData interface merging](./__assets/formdata-interface-merging.png)
 
 `name`, `email` and `age` are expected to be in a value of type `FormData`, but where are the other properties coming from?

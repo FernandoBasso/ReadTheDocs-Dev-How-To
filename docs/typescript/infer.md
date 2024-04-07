@@ -209,7 +209,7 @@ If we have an array `xs`, and want to infer the type of the elements, we can cre
 Bracket syntax:
 
 ```typescript
-type ArrayItemType<T> = T extends (infer ItemType)[] ? Item : unknown;
+type ArrayItemType<T> = T extends (infer Item)[] ? Item : unknown;
 ```
 
 Note that instead of  `type[]` syntax, we use `(infer ItemType)[]` (note the parenthesis an the brackets outside the parenthesis).
@@ -221,7 +221,10 @@ In other words, `(infer ItemType)` is the `string` in  `string[]` or `number` in
 Generic syntax:
 
 ```typescript
-type ArrayItemType<T> = T extends Array<infer Item> ? Item : unknown;
+type ArrayItemType<T> =
+  T extends Array<infer Item>
+    ? Item
+    : unknown;
 ```
 
 In any case, we now have a generic that extracts the type of the elements of an array:
@@ -252,7 +255,8 @@ type T4 = ArrayItemType<typeof jedis>
 **NOTE**: Arrays must have elements of homogeneous types (unlike tuples).
 Our utility type works on these sorts of arrays, not tuples.
 
-- [TS Playground for ArrayItemType](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKq08EVLwgADAJaF+6ExADWeAJ4B3DGQiJKc9HmKIDxdwcOAyQzABszRAd3ZF9tb0R4IloYgyjg1IhIvABbFKMIUkL0dGIHcS1QMLxECAAPbghaRHQLAHMAbQBdAG4qmogHRtgSsoAeACU8BXQyMebWwjaAGghCeBzhAgA+bb7q2oArPDIzYdGHMYBvNeIcvGwF9tXq6Tww7HXNgggAXz3NOkDCNSg4AJJ+HIAFSCeDGUO2EAAvBAoRA8HU-OQUgAKCxWCAQ3IASm6EAA-ITIRBsPBCLZCKgnIQ+togVTcjDgvDESi0RisWQUiDxvifkScojKRKaRA6QymSzAbDUQBGZFwC4Srlwp5LboA0DsqEAJg1IvBkJ1YyBBQahuNAGZzVqrbCbbCCkMHSqoQAWF2g7Xu23GY6nWgAoA).
+- [TS Playground for ArrayItemType example 1](https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKq08EVLwgADAJaF+6ExADWeAJ4B3DGQiJKc9HmKIDxdwcOAyQzABszRAd3ZF9tb0R4IloYgyjg1IhIvABbFKMIUkL0dGIHcS1QMLxECAAPbghaRHQLAHMAbQBdAG4qmogHRtgSsoAeACU8BXQyMebWwjaAGghCeBzhAgA+bb7q2oArPDIzYdGHMYBvNeIcvGwF9tXq6Tww7HXNgggAXz3NOkDCNSg4AJJ+HIAFSCeDGUO2EAAvBAoRA8HU-OQUgAKCxWCAQ3IASm6EAA-ITIRBsPBCLZCKgnIQ+togVTcjDgvDESi0RisWQUiDxvifkScojKRKaRA6QymSzAbDUQBGZFwC4Srlwp5LboA0DsqEAJg1IvBkJ1YyBBQahuNAGZzVqrbCbbCCkMHSqoQAWF2g7Xu23GY6nWgAoA).
+- [TS Playground for ArrayItemType example 2](https://www.typescriptlang.org/play?removeComments=true&jsx=0&module=1&pretty=true&preserveWatchOutput=false&inlineSourceMap=false#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAKJkAloggo8xwwBtTpMhHTxCERXNOJKtPEZMQOxAOYuLPG1hPF4MU2FUVABrAFtidGj9Ql9xLQAKXntVfUUIdIBKCABvUAgIaQSzREsIAF4IACJYdHRiAE8ASUQ8WIAVdo5TTGwBoYBlOXR9DkRGgG4yiAo5eFi8JXFEQPrqy0WAX0KCxaYNSFgIJH1zQ3bjQZdkYiN0D3giWmNkF0fHXggpEBrQ6AHIvnhLOslLQ0hpEH8Wm0uj1+o8ADx9AB89SWfQgeAAHj1yF90sl+OgIN1emM8AUANoAXSW5QA-NTUXTWRBsPZooRUAB3QinKRycwJUwKQi0IyE7gQQhrELoZmLcWSt4QGVyiDtRVIjrouXTFJYjV4CVSnWKPUiABWhpB7XRxQg+jI2GVsVVABolcR1thTclfBADhbNCBzswAHKoHrfUzwdz-B5DVC8OFgBFDCB0gDyvAAGl8GkaUbSMXm8FmIAqo7WC49iwBNctwF00tFDdG1+sGpt-Iu8QvCJ27Ss9un9x71x20KNAA).
 
 **NOTE**: Some people would call this utility type `UnpackArrayType` or `UnboxArrayType`, since we are conceptually *unpacking*, or *unboxing* nested type.
 
