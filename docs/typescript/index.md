@@ -24,6 +24,12 @@ If you got something wrong while applying tip 1 in comparison to the results you
 **TIP 3**: Always try to say aloud (or at least think about) the name of the concept being applied at each situation.
 For example, “We are using an indexed access type here, and here we make use of mapped types.”
 
+## Other Resources
+
+- [TypeScript Website with docs and the handbook](https://www.typescriptlang.org/).
+- [TypeScript Wiki](https://github.com/microsoft/TypeScript/wiki).
+- [Stefan Baumgartner blog on TypeScript (and other topics)](https://fettblog.eu/).
+
 ```{toctree}
 ---
 maxdepth: 6
