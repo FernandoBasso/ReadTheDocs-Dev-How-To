@@ -74,13 +74,13 @@ Running the above “spread” snippet a bunch of times, it always took more tha
 
 Spreads are incredibly more costly than some other approaches that mutate existing data structures.
 
-In the `push()` example, we only ever add one more value each time to the existing array.
+In the `push()` example, we only ever add one more value each time to the **existing** array.
 
-With the _spread_ approach, we always create a new array, copy the current existing values to it and add the new value.
+With the _spread_ approach, we **always create a new array**, **copy the current existing values to it** and add the new value.
 And it does this each time (or each iteration of the `reduce`), with ever increasing number of values to copy.
 Let me repeat: it copies and recopies an ever increasing number of values.
 
-In hindsight, it is no surprise the the performance difference (time _and_ space complexity) is almost unbelievable higher with spreads.
+In hindsight, it is no surprise the the performance difference (time _and_ space complexity) is almost unbelievably higher with spreads.
 
 In many places, copying data, returning copy of data in functions, or passing copy of data to functions will not be a noticeable problem for very small pieces of data, but it can quickly become a performance problem for larger pieces of data or if used everywhere without some consideration.
 
