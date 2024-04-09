@@ -1,0 +1,18 @@
+= How to master advanced TypeScript patterns
+
+*Learn how to create types for curry and Ramda*
+
+Examples from this post:
+
+https://www.freecodecamp.org/news/typescript-curry-ramda-types-f747e99744ab/
+
+*Imperative*: procedural, step by step.
+let i be 0, if i < than some value, then do this with the value, see if this is an odd number, and if it is, add it to the list of odd numbers, otherwise simply skip it.
+
+*Declarative*: functional.
+from this list of numbers, give me a list of odd numbers please.
+We can rely heavily on composition.
+
+CLASSIC CURRY: (manul currying f(x)(y) ?, which requires one arg at at time?)
+
+ADVANCED CURRY: (ramda, allows any number of args to be passed at a time).

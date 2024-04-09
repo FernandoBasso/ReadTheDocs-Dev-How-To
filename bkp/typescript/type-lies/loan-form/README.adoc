@@ -1,0 +1,21 @@
+= Loan Form | Type Lies
+:icons: font
+:sectlevels: 6
+:sectlinks:
+:toc: left
+
+== Setup
+
+[source,shell-session]
+----
+$ nvm install $(cat ./.nvmrc)
+$ nvm use --lts
+$ npm install
+----
+
+== Run example
+
+[source,shell-session]
+----
+$ npx parcel ./loan-form.html
+----

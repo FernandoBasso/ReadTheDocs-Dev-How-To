@@ -1,0 +1,14 @@
+#
+# .gitignore
+#
+
+##
+# Damn node_modules/ everywhere...
+#
+node_modules
+
+##
+# Build and the so calld “dist” output directories.
+#
+build
+dist

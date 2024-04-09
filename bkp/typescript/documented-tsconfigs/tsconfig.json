@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    /* Enable all strict type-checking options. */
+    "strict": true,
+
+    /* Set the JavaScript language version for emitted JavaScript and
+    * include compatible library declarations. */
+    "target": "ES2017",
+
+    /* Specify what module code is generated. */
+    "module": "commonjs",
+
+    /* Emit additional JavaScript to ease support for importing CommonJS
+    * modules.  This enables `allowSyntheticDefaultImports` for type
+    * compatibility. */
+    "esModuleInterop": true,
+
+    /* Ensure that casing is correct in imports. */
+    "forceConsistentCasingInFileNames": true,
+
+    /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true
+  }
+}
+
+/* vim: set filetype=json5 */

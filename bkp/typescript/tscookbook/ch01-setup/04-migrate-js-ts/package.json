@@ -1,0 +1,12 @@
+{
+  "name": "04-migrate-js-ts-a",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,29 @@
+= TypeScript Cookbook Study Notes
+:toc: left
+:icons: font
+:sectlevels: 6
+:sectlinks:
+:imagesdir: __assets
+:experimental:
+
+Book from Stefan Baumgartner.
+
+== Links
+
+* https://typescript-cookbook.com/
+* https://oida.dev/ (old fettblog.eu)
+
+== Commit Messages
+
+Use a type of “tscb” (short for TypeScript CookBook) and the scope pointing to the chapter number, like “ch01”, “ch02”, etc.
+
+Examples:
+
+[source,text]
+----
+tscb(ch01): Add first tsconfig example
+
+tbcb(ch03): Fix example of incorrect use of void
+
+tscb(ch12): Add advanced type validation study case 1
+----

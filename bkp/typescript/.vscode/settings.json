@@ -1,0 +1,4 @@
+{
+  "asciidoc.antora.enableAntoraSupport": false,
+  "vim.textwidth": 62,
+}

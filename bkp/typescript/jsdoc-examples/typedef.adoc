@@ -1,0 +1,24 @@
+= typedef JSDoc Examples
+:toc: left
+:icons: font
+:sectlevels: 6
+:sectlinks:
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:experimental:
+
+== Jedi object example
+
+[source,javascript]
+----
+/**
+ * @typedef {Object} Jedi
+ * @property {number} id
+ * @property {string} name
+ * @property {number} level
+ * @property {Array<string>} skills
+ * @property {number} [damage = 0]
+ */
+----
+
+image::jsdoc-typedef-jedi-properties.png[JSDoc @typedef Jedi properties] 

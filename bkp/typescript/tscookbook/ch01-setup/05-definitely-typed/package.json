@@ -1,0 +1,16 @@
+{
+  "name": "05-definitely-typed",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/ramda": "^0.29.11",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "ramda": "^0.29.1"
+  }
+}

@@ -1,0 +1,7 @@
+= Deep Dive into Advanced TypeScript
+
+Examples from link:https://www.youtube.com/watch?v=5woZK_3z25U[this video^] by link:https://typed.rocks/[Christian Woerz^].
+
+Some examples may be using the Twoslash Query Comments extension, which requires Inlay Lints to be enabled for the types to showup up.
+
+If you don't want the extension or use an editor without this plugin/feature, simply copy and paste the examples on the https://www.typescriptlang.org/play?#code/PTBQIAkIgIIQQVwC4AsD2AnAXBAYgU3QDsBDQgE1QgCFiBnW1cYaCZRRAB1sxADMCS5VACM6DAHRk8AN2ABjVIUTE5iMCFBMmEAErxCEFAEtaEYXl4Y8Z1KgDWAW2Lo7RwgHNxWgBS99qo0UIbwBKCABvUAgIaWdDI0QAG2sAXggAcgAVAGUIAAVE4gBPd3RUfTJDPAcOQsRrTGxMoo48bLl0Iw5EdKiICjl4BzwlcUQE5Ig08aS8AG5QAF9QkIXQBUJaRAhE1HdsAGFFBmSAbQAiXfdzgF0piA2TvHEr8WE3Mm9H1GTVzSA[TypeScript Playground^].

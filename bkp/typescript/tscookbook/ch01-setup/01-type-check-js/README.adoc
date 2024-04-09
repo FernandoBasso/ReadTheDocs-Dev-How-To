@@ -1,0 +1,93 @@
+= 01 Project Setup
+:toc: left
+:icons: font
+:sectlevels: 6
+:sectlinks:
+:source-highlighter: highlight.js
+:imagesdir: __assets
+:experimental:
+
+TypeScript offers all what is needed to transpile TypeScript source code to JavaScript.
+What it doesn't do is to minify and optimize the resulting JavaScript for production.
+For that, we need tools like Webpack, TSBuild (written in Go for faster builders), etc.
+
+Other transpilers like Babel also work well with TypeScript.
+
+== Type-checking JavaScript
+
+Let's start with this piece of code:
+
+[source,typescript]
+----
+const log = console.log.bind(console);
+
+let num = 1;
+
+if (Math.random() < 0.5)
+  num = 'hello';
+
+log(num);
+
+function addVAT(price, vat = 0.2) {
+  return price * (1 + vat);
+}
+
+addVAT(1000, '0.2');
+
+addVAT(1000).toUpperCase();
+----
+
+Looks fine!
+
+image::js-code-no-ts-check.png[JS code with no ts-check annotation] 
+
+But add a `// @ts-check` _special comment_ (or directive?) an feel no shame if you start sobbing uncontrollably 😭.
+
+image::js-code-with-ts-check.png[JS code with ts-check annotation] 
+
+TODO: Is the line `// @ts-check` (and others, like `// @ts-expect-error` called a _special comment_? Maybe _directive_? Something else?
+
+TypeScript will use type inference in all possible places to try to help.
+
+Let's go again:
+
+[source,javascript]
+----
+// <1>
+let x = 1e3;
+
+if (Math.random() < 0.5)
+  x = "hello"; // <2>
+
+log(x);
+
+//              <3>
+//                     <4>
+function addVAT(price, vat = 0.2) {
+  return price * (1 + vat);
+}
+
+//           <5>
+addVAT(1000, "0.2");
+
+//           <6>
+addVAT(1000).toUpperCase();
+----
+
+<1> `x` is inferred to be of type `number`
+
+<2> If `x` is of type `number`, we can't assign a `string` to it.
+
+<3> Function parameters without an explicit type become `any`, and the type checker complains and warns about it.
+
+<4> `vat` has a default assignment of `0.2`, which is of type `number`, so the type inference correctly guesses that `vat` is of type `number`.
+
+<5> Cannot pass a value of type `string` where value of type `number` is expected.
+
+<6> The return type of `addVAT()` is not `string` (guess what type it is!), so we cannot use `.toUpperCase()` with that value.
+
+[TIP]
+====
+On point 6, we used addition and multiplication operators with the values.
+Therefore TypeScript infers the return type of `addVAT()` to be `number`.
+====
