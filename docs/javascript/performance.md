@@ -68,7 +68,7 @@ var spreadEnd = performance.now();
 log('SPREAD:', toInt(spreadEnd - spreadIni));
 ```
 
-Running the above “spread” snippet a bunch of times, it always took more than a minute in my current hardware.
+Running the above “spread” snippet a bunch of times, it always took more than a minute on my current hardware.
 
 ### Conclusion
 
@@ -77,12 +77,18 @@ Spreads are incredibly more costly than some other approaches that mutate existi
 In the `push()` example, we only ever add one more value each time to the existing array.
 
 With the _spread_ approach, we always create a new array, copy the current existing values to it and add the new value.
-And it does this each time (or each iteration of the `reduce`), with every increasing number of values to copy.
+And it does this each time (or each iteration of the `reduce`), with ever increasing number of values to copy.
+Let me repeat: it copies and recopies an ever increasing number of values.
+
 In hindsight, it is no surprise the the performance difference (time _and_ space complexity) is almost unbelievable higher with spreads.
 
 In many places, copying data, returning copy of data in functions, or passing copy of data to functions will not be a noticeable problem for very small pieces of data, but it can quickly become a performance problem for larger pieces of data or if used everywhere without some consideration.
 
-Here's the full code just in case:
+Some languages have more performant immutable data structures, but in ECMAScript, that is not the case.
+ECMAScript does not have immutable data structures.
+We sometimes make them immutable by applying some coding standards and principles (which are useful, sure), but that does not come cost-free.
+
+Here's [the full code](https://gitlab.com/devhowto/dev-how-to/-/blob/devel/src/javascript/performance/perf_array_spread_push.js) just in case:
 
 ```javascript
 //
