@@ -132,5 +132,8 @@ var numsCopy2 = nums.reduce((acc, n) => {
 var spreadEnd = perf.now();
 
 log('SPREAD:', toInt(spreadEnd - spreadIni));
-
 ```
+
+## Other Resources
+
+- [Cesium contributor coding guide with several tips on performance](https://github.com/CesiumGS/cesium/blob/main/Documentation/Contributors/CodingGuide/README.md)
