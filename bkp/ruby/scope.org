@@ -1,0 +1,77 @@
+#+TITLE: Scope
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results output :exports both
+
+
+* begin, rescue, ensure and scope
+
+#+BEGIN_SRC ruby
+def find_line(pattern)
+  fh = File.open('file.txt')
+
+  begin
+    # Retrieve the first line.
+    line = fh.gets # <1>
+    raise ArgumentError unless line =~ /#{pattern}/i
+  rescue ArgumentError
+    puts "Invalid pattern: “#{pattern}”"
+    raise
+  ensure
+    #
+    # The `ensure' clause is _always_ executed, not giving a fuck as to whether
+    # the exception was raised or not. We want to close the file handler no
+    # matter what!
+    #
+    fh.close
+  end
+
+  return line # <2>
+end
+
+puts find_line('line 1')
+# → line 1
+#puts find_line('nope')
+# Invalid pattern: “nope”
+# Traceback (most recent call last):
+#         1: from 31-ensure.rb:21:in `<main>'
+# 31-ensure.rb:8:in `find_line': ArgumentError (ArgumentError)
+#+END_SRC
+
+Pay attention to scope. `line' is assigned inside the `begin' block, but it is acessible outside of it.
+
+It is important to note this, because for some other types of blocks, if you define a variable inside it, it cannot be accessed from outside. Yet, if you define it outside the block, change its value inside the block, then outside the block that change is visible.
+
+#+BEGIN_SRC ruby
+1.times do
+  # First comes into existence at this point, inside the block
+  jedi = 'foo'
+end
+# Cannot access it here.
+p jedi
+# Undefined local variable or method `jedi'.
+#+END_SRC
+
+But look at this:
+
+#+BEGIN_SRC ruby
+# Define `jedi' here, in the outer scope, so that it at least exists.
+jedi = nil
+1.times do
+  # Re-assign `jedi' _inside_ the block.
+  jedi = 'Master Yoda'
+end
+# In the outer scope again,  `jedi' has the value we assigned inside the block.
+p jedi
+# → Master Yoda
+#+END_SRC
+

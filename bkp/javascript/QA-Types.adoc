@@ -1,0 +1,50 @@
+= Types — JavaScript Q and A =
+// :source-highlighter: pygments
+// :pygments-css: class
+//:linkcss:
+:icons: font
+:idprefix:
+:idseparator: -
+:toc: left
+:sectlinks:
+:docinfo: shared,shared-footer
+
+When you can fully answer and understand this, a Jedi will you be!
+
+'''
+[role='question', id='Q1']
+--
+<<Q1>> What the poop?
+--
+
+[role='answer']
+--
+✔ 💩✗
+--
+
+'''
+[role='question', id='Q2']
+--
+<<Q2>> Why doesn't <1> print 1? How to make it print the value 1?
+--
+
+----
+function* f() {
+  yield 1;
+}
+
+var g = f();
+l(g); // <1>
+----
+
+[role='answer']
+--
+When we invoke a generator function, it creates a generator object and pauses execution before the first actual line of code inside the body of the function.
+
+To print the yielded value itself, we must invoke `next()`:
+
+----
+l(g.next());
+----
+
+--

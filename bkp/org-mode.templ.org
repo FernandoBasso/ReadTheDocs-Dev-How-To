@@ -1,0 +1,11 @@
+#+Title: Org-Mode Template
+#+PROPERTY: header-args :results none :exports both
+#+SETUPFILE: ~/Projects/proghowto/org-setup.org
+
+* Intro
+
+** General Notes
+
+* The End
+
+

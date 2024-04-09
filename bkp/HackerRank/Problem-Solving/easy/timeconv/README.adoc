@@ -1,0 +1,8 @@
+= Time Conversion
+:toc: right
+:icons: font
+:stem: latexmath
+
+* link:https://www.hackerrank.com/challenges/time-conversion[Time Conversion :: HackerRank]
+
+

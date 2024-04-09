@@ -1,0 +1,21 @@
+# vim: set filetype=ruby:
+
+require 'asciidoctor'
+require 'awesome_print'
+
+file = 'algdsjs.index.adoc'
+
+guard 'shell' do
+  watch(/\.(adoc|ts)$/) { |m|
+    puts '-' * 80
+    ap m
+    puts '-' * 80
+
+    Asciidoctor.convert_file(
+      file,
+      :safe => :unsafe,
+      :to_file => "#{file}.html"
+    )
+  }
+end
+

@@ -1,0 +1,20 @@
+= Atom Tips
+
+If you are behind a proxy and can't install stuff, try this:
+
+[source,bash]
+----
+NODE_TLS_REJECT_UNAUTHORIZED=0 \
+    atom --proxy-server=http://192.168.1.254:7777
+----
+
+NOTE: The ip and port are just an example.
+
+You may also try setting stuff on `~/.atom/.apmrc`:
+
+----
+strict-ssl=false
+http_proxy=http://192.168.1.254:7777
+https_proxy=http://192.168.1.254:777
+----
+

@@ -1,0 +1,49 @@
+= Shell End Of Args
+
+== removing files and dirs with special chars
+
+NOTE: Be _VERY_ careful when trying the commands below.
+
+You do `cd tests_dir` and `ls` shows you have a directory `~`. You don't know how it was created, but you want to remove it. How do you do it?
+
+[source,bash]
+----
+rm --recursive --interactive -- ~
+rm: descend into directory '/home/fernando'? n
+----
+
+By all means, type `n`. So, even using `--` to indicate _end of options_, the shell is still _expanding_ `~`. Remember that `--` means _the end of options_, not the end of arguments. The shell is still expanding `~`. What we need is to prevent the expansion of `~`. We can do that with a backslash in front of it, or by surrounding it with single quotes.
+
+[source,bash]
+----
+# This works.
+rm -ri \~
+
+# This works too.
+rm -ri '~'
+----
+
+And by the way, to create it on the command line you could do:
+
+If the directory is empty you can replace `rm -r` with `rmdir` and drop the `i`:
+
+[source,bash]
+----
+rmdir \~
+# or
+rmdir '~'
+----
+
+
+[source,bash]
+----
+# Works.
+mkdir \~
+
+# Works as well.
+mkdir '~'
+----
+
+If you just do `mkdir ~` you'll get an error saying that directory already exists (your home directory).
+
+

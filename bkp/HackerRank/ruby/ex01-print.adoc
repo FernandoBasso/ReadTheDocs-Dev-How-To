@@ -1,0 +1,21 @@
+:linkcss!:
+:webfonts!:
+:source-highlighter: pygments
+:pygments-css: style
+:toc: top
+:challenge-link: https://www.hackerrank.com/challenges/ruby-hello-world
+
+
+= Print
+
+== Intro
+
+link:{challenge-link}[Link to the challenge].
+
+[source,ruby,lineos]
+----
+print 'Hello HackerRank!!'
+----
+
+There is also `puts` and `p`.
+

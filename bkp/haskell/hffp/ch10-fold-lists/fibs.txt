@@ -1,0 +1,39 @@
+
+An implementation of `scanl`.
+
+scl :: (a -> b -> a) -> a -> [b] -> [a]
+scl f q ls =
+  q : (case ls of
+        []     -> []
+        (x:xs) -> scl f (f q x) xs)
+
+Produces an ∞ list of fibonacci numbers.
+
+fibs :: [Integer]
+fibs = 1 : scl (+) 1 fibs
+
+On the REPL, use something like `take` to avoid `fibs` from running
+forever, infinitely past the end of time.
+
+λ> take 11 fibs
+[1,1,2,3,5,8,13,21,34,55,89]
+
+Remember that foldl and scanl use the initial accumulator (aka zero, memo) the
+first time, immediately, not when the list is empty, at the end, like foldr
+and scanl. That is, it will apply f to q (our accumulator) already in the
+first run. (f q x) in our scl implementation.
+
+f = (+)
+
+fibs = 1 : scl f 1 fibs → [1]
+
+1 : scl f (f 1 1) fibs → [1, 1]
+
+1 : scl f (
+
+
+REFERENCES:
+• https://mail.haskell.org/pipermail/beginners/2016-October/017165.html
+• https://stackoverflow.com/questions/32576983/big-0-of-fibonacci-number-using-scanl-haskell
+• https://pt.coredump.biz/questions/51131876/fibonacci-series-using-scanl-and-selfreferencing-list
+

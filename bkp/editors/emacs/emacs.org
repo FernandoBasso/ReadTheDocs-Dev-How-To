@@ -1,0 +1,27 @@
+#+TITLE: Emacs Notes and Tips
+#+STARTUP: content
+#+OPTIONS: toc:5
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style>code { background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+PROPERTY: header-args :results none :exports both
+
+* copy output of command
+
+** How Do I Copy The Output of an M-x `command'
+
+Just copy it from the “*Messages*” buffer. Example:
+
+#+begin_src
+M-x org-version RET
+C-x b *Me TAB
+#+end_src
+
+

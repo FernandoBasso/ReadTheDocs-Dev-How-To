@@ -1,0 +1,64 @@
+= Serial Number Average
+:linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+== Links and Resources
+
+- https://www.hackerrank.com/challenges/ruby-strings-indexing/problem
+
+
+== Ruby
+
+=== Solution 1
+
+[source,ruby,lineos]
+----
+def serial_average(serial)
+  s = serial[0, 3]
+  x = serial[4, 5].to_f
+  y = serial[10, 5].to_f
+
+  average = ((x + y) / 2).round(2)
+
+  "#{s}-#{sprintf '%.2f' % average}"
+end
+
+p serial_average('002-10.00-20.00')
+p serial_average('001-12.43-56.78')
+# → "002-15.0" # <1>
+# → "001-34.61"
+----
+
+1. Note it as only one decimal place. The averate of 10 and 20 is 15.
+
+=== Solution 2, Improved Formatting
+
+[source,ruby,lineos]
+----
+def serial_average(serial)
+  s = serial[0, 3]
+  x = serial[4, 5].to_f
+  y = serial[10, 5].to_f
+
+  average = ((x + y) / 2).round(2)
+
+  # <1>
+  "#{s}-#{sprintf '%.2f' % average}"
+end
+
+# → "002-15.00"
+# → "001-34.61"
+----
+
+1. This time we use `sprintf` to help format to the proper number of decimal places (two, in this case).

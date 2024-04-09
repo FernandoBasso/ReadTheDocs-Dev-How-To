@@ -1,0 +1,45 @@
+= List Filtering | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+Challenge: link:https://www.codewars.com/kata/53dbd5315a3c69eed20002dd[List Filtering^]
+
+== JavaScript
+
+[source,javascript,lineos]
+----
+/**
+ * Filter out non-number elements from a list.
+ *
+ * @param {array[number|string]}
+ * @return {array[number]}
+ */
+function filter_list(list) {
+  return list.filter(e => e.constructor === Number);
+}
+----
+
+
+== Ruby
+
+[source,ruby,lineos]
+----
+##
+# Filters out elements that are not Integer
+#
+# @param list [Array<String,Integer>] a list of strings and integers
+# @return [Array<Integer>]
+#
+def filter_list(list)
+  list.select { |e| e.class == Integer }
+end
+----

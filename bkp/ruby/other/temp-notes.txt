@@ -1,0 +1,37 @@
+
+
+FernandoBasso | I am creating a language. I decide that to_string should be to_s and
+              | to_integer should be to_i, and so on. But then I decide that I will not use
+              | that "rule" for initialize, neither for length, etc.
+FernandoBasso | Or the decision came from the other way around, I'm not sure.
+FernandoBasso | They are all very short already, and easy to see what they mean, I'm not
+              | complaining about that.
+      adaedra | I don't think the goal is to be short
+FernandoBasso | Clear?
+      adaedra | to_#{c} with c being a single char is a common rule for conversion to core
+              | type, it's a specialized rule
+
+
+
+----------------------------------------------------------------------------------------------------
+It seems `self.foo` is almost always used to force `foo` to be treated as a method, like in
+
+----
+class Jedi
+  def skill=(skill)
+    # self.skill makes skill be considered a method, not a property of the class.
+    # That is why this is an infinite recursive call.
+    self.skill = skill
+  end
+end
+
+jedi = Jedi.new
+jedi = skill = 'the force'
+
+# →  devel.rb:5:in `name=': stack level too deep (SystemStackError)
+----
+
+----
+def skill=(skill)
+  @skill = skill
+end

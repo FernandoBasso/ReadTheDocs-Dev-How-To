@@ -1,0 +1,579 @@
+#+TITLE: Ruby HackerRank Challenges
+#+PROPERTY: header-args :results none :exports both
+#+SETUPFILE: ~/Projects/proghowto/org-setup.org
+
+** Tutorial - Hello HackerRank!
+
+#+begin_src ruby
+print 'Hello HackerRank!!'
+#+end_src
+
+There is also ~puts~ and ~p~, which does the ~obj.inspect~ thing behind the scenes.
+
+** Tutorial - Everything is an Object
+https://www.hackerrank.com/challenges/ruby-tutorial-everything-is-an-object
+
+#+begin_src ruby
+print self
+
+# → main
+#+end_src
+
+The global, default scope is called `main`. It is some internal trickery Ruby does so it has a way to boot up, a starting point, if you will.
+
+
+** Tutorial - Object Methods
+https://www.hackerrank.com/challenges/ruby-tutorial-object-methods
+
+#+begin_src ruby
+p 5.even?
+# → false
+
+p 4.even?
+# → true
+
+p 5.odd?
+# → true
+
+p 5.even?
+# → false
+#+end_src
+
+The global, default scope is called `main`. It is some internal trickery Ruby does so it has a way to boot up, a starting point, if you will.
+
+NOTE: Yes, numbers _are_ objects in Ruby.
+
+** Tutorial - Object Method Parameters
+https://www.hackerrank.com/challenges/ruby-tutorials-object-method-parameters
+
+Is a number within the range of two other numbers (inclusively)?
+
+#+begin_src ruby
+class Integer
+  def range?(x, y)
+    self >= x && self <= y
+  end
+end
+
+p 1.range?(2, 5)
+# → false
+
+p 6.range?(2, 5)
+# → false
+
+p 2.range?(2, 5)
+# → true
+
+p 5.range?(2, 5)
+# → true
+
+p 3.range?(2, 5)
+# → true
+#+end_src
+
+NOTE: We monkey-patched the class `Integer` because on HackerRank they are using something custom to assert the if a number is within a certain range. So, it works on their online editor/system, but not locally.
+
+** Control Structures - Each
+
+
+** Control Structures - Unless
+
+https://www.hackerrank.com/challenges/ruby-tutorial-unless
+
+#+begin_src ruby :hlines 1, 3
+class User
+  def initialize(name, is_admin = false, score = 0)
+    @name = name
+    @is_admin = is_admin
+    @score = score
+  end
+
+  def is_admin?
+    @is_admin
+  end
+
+  def score
+    @score
+  end
+
+  def update_score
+    @score += 10
+  end
+end
+
+yoda = User.new('Yoda', true, 0)
+luke = User.new('Luke', false, 40);
+
+users = [yoda, luke]
+
+users.each do |u|
+  unless u.is_admin? # <1>
+    u.update_score
+  end
+end
+
+users.each { |u| p u.score }
+# → 0
+# → 50
+
+users.each do |u|
+  u.update_score unless u.is_admin? # <2>
+end
+
+users.each { |u| p u.score }
+# → 0
+# → 60
+#+end_src
+
+
+1. Use a “normal” `unless` conditional.
+
+2. Use `unless` as a _modifier_.
+
+[[https://docs.ruby-lang.org/en/2.6.0/syntax/control_expressions_rdoc.html][Read the Ruby docs on Control Expressions carefully!]] Pay especial attention to the parse order explanations.
+
+#+begin_quote
+~if~ and ~unless~ can also be used to modify an expression. When used as a modifier the left-hand side is the “then” expression and the right-hand side is the “test” expression. -- From Ruby Docs
+#+end_quote
+
+
+WARNING: The HackerRank code *is not* _idiomatic ruby_. Shame o them! It should be `admin?` instead of `is_admin?`. That is, no “is_”. Instead just use ~?~. Ruby is lispy-like when it comes to naming predicates.
+
+** Control Structures - Infinite Loop
+https://www.hackerrank.com/challenges/ruby-infinite-loop
+
+#+begin_src ruby
+Coder = Class.new do
+  GOAL = 4
+
+  def initialize
+    @level = 0
+  end
+
+  def practice
+    @level += 1
+  end
+
+  def oh_one?
+    if @level < GOAL
+      puts 'Still not O(1)...'
+      return false
+    end
+
+    puts 'Finally O(1)!'
+    return true
+  end
+end
+
+coder = Coder.new
+
+loop do
+  coder.practice
+  break if coder.oh_one? # <1>
+end
+#+end_src
+
+1. We used `break` as a modifier!
+
+
+** Ruby Control Structures - Until
+https://www.hackerrank.com/challenges/ruby-infinite-loop
+
+#+begin_src ruby
+Coder = Class.new do
+  GOAL = 4
+
+  def initialize
+    @level = 0
+  end
+
+  def practice
+    @level += 1
+  end
+
+  def oh_one?
+    if @level < GOAL
+      puts 'Still not O(1)...'
+      return false
+    end
+
+    puts 'Finally O(1)!'
+    return true
+  end
+end
+
+coder = Coder.new
+
+coder.practice until coder.oh_one? # <1>
+#+end_src
+
+1. We used ~until~ as a modifier!
+
+** Control Structures - Case (Bonus Question)
+https://www.hackerrank.com/challenges/ruby-case
+
+#+begin_src ruby
+Hacker = Class.new do ; end
+Submission = Class.new do ; end
+TestCase = Class.new do ; end
+Contest = Class.new do ; end
+
+def identify_class(obj)
+  puts case obj
+    when Hacker
+      "It's a #{obj.class.name}"
+    when Submission
+      "It's a #{obj.class.name}"
+    when TestCase
+      "It's a #{obj.class.name}"
+    when Contest
+      "It's a #{obj.class.name}"
+    else
+      "It's an unknown model"
+    end
+end
+
+identify_class(TestCase.new)
+# → It's a TestCase
+
+identify_class(Submission.new)
+# → It's a Submission
+
+identify_class(TestCase.new)
+# → It's a TestCase
+
+identify_class(Contest.new)
+# → It's a Contest
+
+identify_class(nil)
+# → It's an unknown model
+#+end_src
+
+** Array - Initialization
+https://www.hackerrank.com/challenges/ruby-array-initialization
+
+Create an empty array:
+
+#+begin_src ruby
+arr_a = []
+arr_b = Array.new
+#+end_src
+
+Create an array with exactly one ~nil~ element inside it:
+
+#+begin_src ruby
+arr_a = [nil]
+arr_b = Array.new(1) # <1>
+#+end_src
+
+#1. ~1~ is the length of the array being created, not a value to place in the array.
+
+Create an array with two elements initialized to 13.
+
+#+begin_src ruby
+arr_a = [13, 13]
+arr_b = Array(2, 13)
+#+end_src
+
+** Array - Index, Part 1
+https://www.hackerrank.com/challenges/ruby-array-index-i
+
+Zero-indexed (duh, like pretty much all programming languages). Can use exclusive and inclusive ranges, and the `at` method.
+
+#+begin_src ruby
+arr = ['yoda', 'vader', 'luke', 'leia', 'obi-wan']
+
+p arr[0]
+# → "yoda"
+
+p arr.at(1)
+# → "vader"
+
+p arr[1..3]
+# → ["vader", "luke", "leia"]
+
+p arr[1...3]
+# → ["vader", "luke"]
+#+end_src
+
+#+begin_src ruby
+def element_at(arr, idx)
+  # return the element of the Array variable `arr` at the
+  # position `idx`.
+  arr[index]
+end
+
+def inclusive_range(arr, start_pos, end_pos)
+  # return the elements of the Array variable `arr` between
+  # the start_pos and end_pos (both inclusive).
+  arr[start_pos..end_pos]
+end
+
+def non_inclusive_range(arr, start_pos, end_pos)
+  # return the elements of the Array variable `arr`,
+  # start_pos inclusive and end_pos exclusive.
+  arr[start_pos...end_pos]
+end
+
+def start_and_length(arr, start_pos, length)
+  # return `length` elements of the Array variable `arr`
+  # starting from `start_pos`
+  arr[start_pos...(start_pos + length)]
+end
+#+end_src
+
+`start_and_length` takes a position where to start, and how many more to go from that start position. So, the range must be:
+
+
+#+begin_example
+start_pos...(start_pos + length)
+#+end_example
+
+~start_pos + length~ would go one to many, but because we are using “~...~” (which means the end position is not included) everything is just fine. :)
+
+
+** Array - Index, Part 2
+:challenge-link: https://www.hackerrank.com/challenges/ruby-array-index-ii
+
+~drop~ and `take` do not modify the original array. They are non-destructive.
+
+~drop~ ignores the first _n_ elements and return the remaining elements.
+
+~take~ returns the first _n_ elements, ignoring the remaining ones.
+
+#+begin_src ruby
+xs = %w{ may the force be with you }
+p xs
+# → ["may", "the", "force", "be", "with", "you"]
+
+p xs.take(3)
+# → ["may", "the", "force"]
+
+xs.drop(3)
+# → ["be", "with", "you"]
+
+p xs.first
+# → "may"
+
+p xs.last
+# → "you"
+
+p xs[-1]
+# → "you"
+
+p xs[-2]
+# → "with"
+
+p xs[-4]
+# → "force"
+#+end_src
+
+
+** Array - Addition
+https://www.hackerrank.com/challenges/ruby-array-addition
+
+Examples on ~push~, ~insert~ and ~unshift~.
+
+These methods return the new array with the element(s) added. The next topic is about some array deletion methods, which in turn, return the element being deleted, not the new version of the array.
+
+In short:
+
+- adition methods return an array
+- deletion methods return the thing being deleted
+
+NOTE: These methods mutate the array in-place.
+
+#+begin_src ruby
+xs = ['the', 'be', 'with']
+
+p xs.push('you')
+# → ["the", "be", "with", "you"]
+
+p xs.insert(1, 'force')
+# → ["the", "force", "be", "with", "you"]
+
+p xs.unshift('may')
+# → ["may", "the", "force", "be", "with", "you"]
+,#+end_sc
+
+~insert~ can insert more than one element at a time:
+
+,#+begin_src ruby
+[10, 16].insert(1, 12, 14)
+# →  [10, 12, 14, 16]
+#+end_src
+
+*** Solution
+
+#+begin_src ruby
+def end_arr_add(arr, element)
+  # Add `element` to the end of the Array variable `arr` and return
+  # `arr`
+  arr.push(element)
+end
+
+def begin_arr_add(arr, element)
+  # Add `element` to the beginning of the Array variable `arr` and
+  # return `arr`
+  arr.unshift(element)
+end
+
+def index_arr_add(arr, index, element)
+  # Add `element` at position `index` to the Array variable `arr` and
+  # return `arr`
+  arr.insert(index, element)
+end
+
+def index_arr_multiple_add(arr, index)
+  # add any two elements to the arr at the index
+  arr.insert(index, 10, 20)
+end
+#+end_src
+
+
+** Ruby Array - Deletion
+https://www.hackerrank.com/challenges/ruby-array-deletion
+
+Examples on `pop`, `shift` and `delete_at` and `delete`.
+
+Contrary to `push`, `unshift`, `insert`, which return the array with the new element(s) added, these _deletion_ methods return the element being removed.
+
+NOTE: These methods mutate the array in-place.
+
+#+begin_src ruby
+xs = [
+  'darth',
+  'may',
+  'the',
+  'force',
+  'vader',
+  'to be',
+  'be',
+  'with',
+  'vader',
+  'you',
+  'sith',
+]
+
+p xs.pop # → "sith"
+p xs
+# → ["darth", "may", "the", "force", "vader", "to be", "be", "with", "vader", "you"]
+
+p xs.shift # → "darth"
+p xs
+# → ["may", "the", "force", "vader", "to be", "be", "with", "vader", "you"]
+
+p xs.delete_at(4) # → "to be"
+p xs
+# → ["may", "the", "force", "vader", "be", "with", "vader", "you"]
+
+p xs.delete('vader') # → 'vader', not ['vader', 'vader'].
+p xs
+# → ["may", "the", "force", "be", "with", "you"]
+#+end_src
+
+
+** Ruby Array - Selection
+https://www.hackerrank.com/challenges/ruby-array-selection
+
+#+begin_src ruby
+# Create array using the splat operator on a range.
+xs = *(0..10)
+
+# or
+xs = [*0..10]
+
+# Or with Kernel Array
+xs = Array(0..10)
+
+# Or with a explicit conversion.
+xs = (0..10).to_a
+
+# Or even something like this:
+p [*(0..5), *5.downto(0)]
+=> [0, 1, 2, 3, 4, 5, 5, 4, 3, 2, 1, 0]
+#+end_src
+
+~select~ and ~reject~ return a new array without modifying the original one, so, it is non-destructive. ~select!~ and ~reject!~ are indeed destructive and modify the original array.
+
+There is also ~delete_if~ and ~keep_if~ which are both destructive as well.
+
+*** Solution
+
+#+begin_src ruby
+def select_arr(arr)
+  # select and return all odd numbers from the
+  # Array variable `arr`
+  arr.select(&:odd?)
+end
+
+def reject_arr(arr)
+  # reject all elements which are divisible by 3
+  arr.reject { |num| num % 3 === 0 }
+end
+
+def delete_arr(arr)
+  # delete all negative elements
+  arr.reject(&:negative?)
+end
+
+def keep_arr(arr)
+  # keep all non negative elements ( >= 0)
+  arr.select(&:positive?)
+end
+#+end_src
+
+
+** Hash - Initialization
+
+
+** Hash - Each
+
+Ruby Hash - Addition, Deletion, Selection
+
+Ruby - Enumerable - Introduction
+
+Ruby - Enumerable - each_with_index
+
+Ruby - Enumerable - collect
+
+Ruby - Enumerable - reduce
+
+Ruby Enumerables: 'any', 'all', 'none', and 'find'
+
+Ruby - Enumerable - group_by
+
+Ruby - Methods - Introduction
+
+Ruby - Methods - Arguments
+
+Ruby - Methods - Variable Arguments
+
+Ruby - Methods - Keyword Arguments
+
+Procs
+
+Lambdas
+
+Closures
+
+Partial Applications
+
+Currying
+
+Lazy Evaluation
+
+Ruby - Strings - Introduction
+
+Ruby - Strings - Encoding
+
+Ruby - Strings - Indexing
+
+Ruby - Strings - Iteration
+
+Ruby - Strings - Methods I
+
+Ruby - Strings - Methods II
+
+
+

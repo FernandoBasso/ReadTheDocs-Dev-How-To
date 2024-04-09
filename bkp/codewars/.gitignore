@@ -1,0 +1,8 @@
+# .gitignore file
+
+#
+# No C compiled stuff.
+#
+*.o
+main
+

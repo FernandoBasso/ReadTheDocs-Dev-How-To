@@ -1,0 +1,27 @@
+#+Title: JavaScript Functions
+#+PROPERTY: header-args :results none :exports both
+#+SETUPFILE: ~/Projects/proghowto/org-setup.org
+
+* Intro
+
+Functions are a magnificent thing in JavaScript. They are first-class objects, meaning they can be created on the fly, passed around as parameter to other functions, returned from functions, and they even have methods and properties. They can also be used as constructor to create objects.
+
+* Basic Function Usage
+
+* Cosntructor Functions
+
+** Ivoking with the new keyword
+
+** Invoking without the new keyword
+
+** Strict
+
+** this is dynamic
+this may point to window/process.
+
+** bind, call, apply
+
+
+* The End
+
+

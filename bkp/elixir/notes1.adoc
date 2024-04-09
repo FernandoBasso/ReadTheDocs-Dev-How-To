@@ -1,0 +1,48 @@
+= Elixir Notes
+:linkcss!:
+:stylesheet!: asciidoctor-original-with-overrides.css
+:stylesdir!: {user-home}/Projects/proghowto
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+== Getting Started
+
+Installing Elixir gives us a few command line tools:
+
+- `elixir`, the script runner. `man elixir` and `elixir --help`.
+- `iex`, the elixir shell. `man iex` and `iex --help`.
+
+Elixir source code files end with the `.exs` extension.
+
+
+=== REPL
+
+Open repl:
+[source,shell-session]
+----
+$ iex
+----
+
+Load a script:
+[source,elixir-session]
+----
+iex -S
+----
+
+
+[source,elixir]
+----
+byte_length("💩")
+# → 4
+String.length("💩")
+# → 1
+----

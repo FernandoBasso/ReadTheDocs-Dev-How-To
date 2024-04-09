@@ -1,0 +1,74 @@
+#+TITLE: Loading Files
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results none :exports both
+
+
+We can use ~load~ and ~require~ both from ~.rb~ files /and/ from ~irb~ or ~pry~.
+
+
+~load~ is a method. So, we can load files dymanically:
+
+#+BEGIN_SRC ruby
+if is_login
+  lib = 'login.rb'
+else
+  lib = 'public.rb'
+end
+
+load lib
+#+END_SRC
+
+
+~load~ loads ~.rb~ files.extension.
+
+~require~ loads either ~.rb~ or ~.so/.dll~ files.
+
+Also, ~load~ can load files from the current directory; we can do ~load ./mylib.rb~, but simply ~load mylib.rb~ works as well.
+
+~require~ does not require file extension, but doesn’t know about the current directory. We can make it aware of the current directory by adding it to Ruby's load path with ~$: << '.'~.
+
+There is also ~require_relative~ that doesn’t require the ~.~ to indicate the current directory.
+
+#+BEGIN_SRC ruby
+# This
+require_relative 'libs/mylib.rb'
+
+# is the same as
+require './libs/mylib.rb'
+#+END_SRC
+
+
+~$:~ is the variable that holds Ruby load path.
+
+To see where ruby is looking for files to load, run this:
+
+#+BEGIN_EXAMPLE
+$ ruby -e 'puts $:'
+#+END_EXAMPLE
+
+
+~load~, ~require~ and ~prepend~ take strings as arguments. ~include~ takes a constant.
+
+From pry:
+
+#+BEGIN_EXAMPLE
+show-doc Kernel#load
+show-doc Kernel#require
+show-doc Module#include
+show-doc Module#prepend
+#+END_EXAMPLE
+
+Keep in mind that ~load~ and ~require~ locate and load files from the disk. ~include~ and ~prepend~ do stuff in the program-space, something in-memory only. Still, we generally ~require~ a file (feature) and then ~include/prepend~ it in a class or module.
+
+
+

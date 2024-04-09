@@ -1,0 +1,75 @@
+#  FernandoBasso | Can I have an instance variable, class variable and class
+#                | instance variable with the same name and accessors for the
+#                | three of them also with the same name?
+#  FernandoBasso | I'm confused bout def prop vs def self.prop to create
+#                | "getters".
+#  FernandoBasso | My understanding is that self.prop would be useful to
+#                | create a getter for @@prop
+#       Mon_Ouie | You can't define getters for the class variable and the
+#                | class instance variable that have the same name ---
+#                | YourClass.the_variable_name can only have one
+#                | implementation
+#  FernandoBasso | So, for both class variable and class instance variable, I
+#                | use self.prop to create the getter?
+#       Mon_Ouie | If you want to access them with ClassName.variable_name,
+#                | yes
+#       Mon_Ouie | 'def self.foo' defines a method on self's singleton class.
+#                | After that, you can do self.foo to call it. Inside a class
+#                | body, self happens to be the class you're defining.
+
+                    So, `self` is for a class the same as `this` is for an object.
+
+#  FernandoBasso | Okay. Thanks.
+#
+#  FernandoBasso | Well, I now believe then, that using either using def.foo
+#                | or def self.foo are legal, just that one is for calling on
+#                | an instance of the class, the other on the ClassName
+#                | itself.
+
+
+#     Papierkorb | FernandoBasso: "def.foo" is illegal
+#  FernandoBasso | Ah, indeed.
+#  FernandoBasso | I meant to say def foo and def self.foo
+#     Papierkorb | def self.foo it is. were you looking for having a
+#                | attr_reader and/or attr_accessor on the class?
+#  FernandoBasso | Not specifically. I'm just trying to understand this whole
+#                | subject.
+#     Papierkorb | FernandoBasso: in ruby, *everything* is an object, and
+#                | thus, you're always in one. This implies that 'self'
+#                | (basically that what other languages call the this-pointer,
+#                | like in C++ or Java) is always pointing to an object
+#  FernandoBasso | Papierkorb: Ok. I am aware of "self" being more or less
+#                | like "this".
+
+#  FernandoBasso | Still, I'm confused on the relation of defining method with
+#                | and without self in regards to instance vars, class vars,
+#                | and class instance vars.
+#  FernandoBasso | And whether to call those methods from ClassName or from
+#                | instanceOfClass.
+#     Papierkorb | FernandoBasso: A class itself is an object, and an instance
+#                | of a class is also one. If you type "class Foo", and enter,
+#                | 'self' will point to the *class* object you just began to
+#                | create. defining methods on it is roughly comparable to
+#                | static methods in other languages, as in, you'll be able to
+#                | call the method on the *class* object, but NOT on an
+#                | instance of this class. Thus, "def self.foo" creates a
+#                | method callable through ClassName.foo, while "
+#                | def foo" is callable via instanceName.foo
+
+
+#     Papierkorb | FernandoBasso: Also, always having a self ptr implies that
+#                | you always have access to the objects instance variables,
+#                | denoted by an @sign. "def self.foo; @foo; end" will for
+#                | example access @foo from the *class* object, NOT from any
+#                | instance.
+#  FernandoBasso | That makes things clearer.
+
+#     Papierkorb | You'll also read about @@class_variables, but their
+#                | behaviour is completely different to what you'd expect at
+#                | first. So, say if you have @foo set in the class object,
+#                | and you do @@foo in one of the class instances, you're not
+#                | accessing @foo of the class, but @@foo of all instances.
+#                | They're different variable scopes so to speak. Safest route
+#                | for now is to avoid using those.
+
+

@@ -1,0 +1,2 @@
+
+http://thoughts.codegram.com/understanding-class-instance-variables-in-ruby/

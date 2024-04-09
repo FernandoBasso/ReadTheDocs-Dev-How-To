@@ -1,0 +1,201 @@
+#+Title: JavaScript Types, Conversions and Coercions
+#+PROPERTY: header-args :results none :exports both
+#+SETUPFILE: ~/Projects/proghowto/org-setup.org
+
+* Intro
+
+Programming languages can be one or a combination of these when it comes to types:
+
+- strongly typed
+- weakly typed
+- statically typed
+- dynamically typed
+
+JavaScript is dynamically typed. That does not mean it is “untyped”. It is also weakly typed since it relies heavily on coercions (implicit type conversions).
+
+
+https://en.wikipedia.org/wiki/Strong_and_weak_typing
+
+https://stackoverflow.com/questions/2351190/static-dynamic-vs-strong-weak
+
+https://stackoverflow.com/questions/2690544/what-is-the-difference-between-a-strongly-typed-language-and-a-statically-typed
+
+
+https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing
+
+https://wtfjs.com/
+
+https://github.com/brianleroux/wtfjs
+
+https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing
+
+https://www.destroyallsoftware.com/talks/wat
+
+https://2ality.com/2012/01/object-plus-object.html
+
+https://stackoverflow.com/questions/8857763/what-is-the-difference-between-casting-and-coercing
+
+
+
+* String to Number
+
+BEWARE: For hist[eo]rical reasons, JavaScript computations silently fails in several situations. That is instead of an error, you see a value, although an incorrect one.
+
+Ways to convert a string to a number:
+
+- ~parseInt~ and ~parseFloat~
+- ~Number~ function and constructor
+- the unary plus operator
+
+
+** parseInt and parseFloat
+
+~parseInt~ takes a string and an optional radix. It is recommended to always specify the radix. Older engines would treat leading zeroes as a sign to interpret the number as octal.
+
+~parseInt()~ ignores leading and trailing whitespace and any other trailing garbage, parsing until it finds something that doesn't make sense or reaches the end of input.
+
+
+#+begin_src javascript
+parseInt('101', 2)
+// → 5
+
+parseInt('20', 8)
+// → 16
+
+parseInt('15', 10)
+// → 15
+
+parseInt('ff', 16)
+// → 255
+#+end_src
+
+
+But beware of “garbage”:
+
+#+begin_src javascript
+parseInt('28', 8)
+// → 2
+#+end_src
+
+Because 8 doesn't make sense for octal, the parser gives up after parsing ~2~ and returns ~2~.
+
+Another example:
+
+#+begin_src javascript
+parseInt(' fg', 10)
+// → 15
+#+end_src
+
+~f~ is a valid hex value, but ~g~ is not. The parser ignores the leading whitespace, parses ~f~, and ignores ~g~ because it does not make sense for hexadecimal. Therefore, the result is 15. ~f~ in hexadecimal is 15 in decimal.
+
+
+** Number()
+
+The ~Number()~ function also ignores leading and trailing whitespace, but doesn't work if there is garbage either before or after the values that make sense.
+
+#+begin_src javascript
+Number(' 010 ')
+# → 10
+
+Number(' -10 ')
+# → -10
+
+Number(' -10 ')
+# → -10
+
+Number(' x10')
+# → NaN
+
+Number('10x')
+# → NaN
+
+Number('x10')
+# → NaN
+#+end_src
+
+
+** unary plus operator
+
+The unary plus operator ~+~, when used to convert a value to a string, works in the same way as the ~Number()~ function with regards to whitespace and garbage.
+
+#+begin_src javascript
++' 3 '
+// → 3
+
++'x3'
+// → NaN
+
++'3x'
+// → NaN
+#+end_src
+
+
+* Mathematical Operations
+
+The ~-~, ~*~ and ~/~ operators always try to convert its operands to number. ~+~ is a little more complicated, as we shall see.
+
+** Subtraction, Multiplication and Division Operators
+
+#+begin_src javascript
+6 - Number('2')
+// → 4
+
+Number('2') * 6
+// → 12
+
+6 / Number('2')
+// → 3
+#+end_src
+
+All as expected. But if one operand is ~NaN~, the result is also ~NaN~
+
+#+begin_src javascript
+'5' - Number('x5')
+// → NaN
+
+'5' * Number('x5')
+// → NaN
+
+'5' / Number('x5')
+// → NaN
+#+end_src
+
+
+** Addition Operator
+
+Remember that the ~+~ only does addition if both operands are numbers. ~Number('x5')~ produces ~NaN~, which is /not a number/.
+
+#+begin_src javascript
+5 + Number('x5')
+# → NaN
+#+end_src
+
+If you do an operation involving ~NaN~, the result will also be ~NaN~. We say that operations involving ~NaN~ are toxic.
+
+
+* Conversion of Arrays and Objects in a Math Context
+
+** Arrays
+
+When an object is used in the place where an expression is expected, the engine invokes the ~valueOf()~ method on the object
+
+The array ~[]~ evaluates to ~''~, and concatenating two ~''~ gives another ~''~.
+
+#+begin_src javascript
+[] + []
+// → ''
+#+end_src
+
+
+And using the ~+~ operator with an empty array (which evaluates to ~''~) and a number causes the number to be first converted to a string and then concatenated to the other (empty, in this case) string.
+
+#+begin_src javascript
+[] + 1
+// → '1'
+#+end_src
+
+
+
+* The End
+
+

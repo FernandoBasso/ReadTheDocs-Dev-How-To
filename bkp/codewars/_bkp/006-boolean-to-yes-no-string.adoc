@@ -1,0 +1,31 @@
+= Boolean To Yes No String | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+Challenge: link:https://www.codewars.com/kata/53369039d7ab3ac506000467[Boolean to Yes No String]
+
+== JavaScript
+
+[source,javascript,lineos]
+----
+/**
+ * Convert a boolean to either "Yes" or "No"
+ *
+ * ASSUME: bool is either true or false.
+ *
+ * @param {boolean} bool
+ * @return {string}
+ */
+function boolToWord(bool) {
+  return bool ? 'Yes' : 'No';
+}
+----

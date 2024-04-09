@@ -1,0 +1,11 @@
+== Basic Concepts
+
+Bash is a POSIX-compliant shell, but supports extra features and extensions.
+
+
+== Basic Syntax
+
+In bash (and pretty much all other shells), *whitespace is
+very important*. `<Space>` and `<Tab>` separate _words_ (a.k.a _tokens_).
+
+Read the link:https://www.gnu.org/software/bash/manual/[manual online^].

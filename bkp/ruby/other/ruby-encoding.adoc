@@ -1,0 +1,49 @@
+19:50:27 Fernando-Basso | For me it is even stranger that 'ção.length is 3 but then 'ção'.upcase returns
+                        | 'çãO'.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+20:49:00        arahael | Fernando-Basso: looks like they did it the easy way.
+20:49:11         Ox0dea | They're fixing it.
+20:49:25        arahael | Fernando-Basso: but that's understandable: the correct way is reaaly, really
+                        | hadd.
+20:49:29        arahael | Ox0dea: impressive.
+20:49:32        arahael | *hard
+20:49:57        arahael | Fernando-Basso: consider, that the correct capitalisation depends on locale.
+20:51:57         Ox0dea | $ ruby -ve "p 'ção'.upcase :lithuanian"
+20:51:59         Ox0dea | ruby 2.4.0dev (2016-04-25 trunk 54753) [x86_64-linux]
+20:52:01         Ox0dea | "ÇÃO"
+20:52:11         Ox0dea | They're just using `:lithuanian` for testing purposes at the moment, I think.
+20:52:25        arahael | Ox0dea: impressive :)  i like it.
+20:52:54         Ox0dea | arahael: So many corner cases!
+20:53:09         Ox0dea | But they got Greek sorted out, so I'm happy. :)
+20:53:27        arahael | Ox0dea: and they won't all be covered!  the corner cases will doubtless chage,
+                        | too!
+20:53:48         Ox0dea | Thanks, Tower of Babel.
+20:54:19        arahael | but, stil., humans are flexible.  getting 90% or even 95% there could be good.
+                        | but these days i pretend that unicode strings are fully opaque.
+20:55:05        arahael | i try to avoid doing anything except bytewise equality.
+20:55:31        arahael | ...  and maybe collation.
+21:02:16         benzrf | >>> 'ção'.upper()
+21:02:18         benzrf | 'ÇÃO'
+21:02:22         benzrf | cmon ruby, python is kickin your ass
+21:02:39         benzrf | (py3, that is)
+21:04:31         Ox0dea | >>> 'ß'.upper().lower()
+21:04:34         Ox0dea | 'ss'
+21:04:36         Ox0dea | Whoops.
+21:04:48         Ox0dea | Surely that should've been a no-op?
+21:05:30        arahael | Ox0dea: no, that's correct.  python doesn't take locale into consideration.
+21:05:41         Ox0dea | arahael: Shouldn't it?
+21:05:45        arahael | benzrf: but locale!
+21:05:56        arahael | Ox0dea: how can it, without the locale?
+
+
+.example by Ox0dea in #ruby.
+----
+p begin
+  Encoding::BINARY
+rescue Exception
+  puts "#{$!} (#{$!.class})"
+  $stdout.flush
+  raise $!
+end
+----
+

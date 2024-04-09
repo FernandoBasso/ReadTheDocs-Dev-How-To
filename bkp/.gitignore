@@ -1,0 +1,41 @@
+#
+# Asciidoctor converted files. Se Guardfile
+#
+*.adoc.conv.html
+*.html
+
+#
+# My playground directories.
+#
+0dev/
+0devcodewars/
+
+#
+# Some org-mode stuff.
+#
+\#*\.org\#
+\.#*\.org
+
+#
+# Exclude these Asciidoctor generated files in any subdirectory
+# frm this root directory.
+#
+asciidoctor.css
+pygments-default.css
+
+
+#
+# Some C stuff.
+#
+.ccls-cache
+
+#
+# MacOS work laptop. Developing in this shit is painful for Linux power users.
+# It feels limited, dumb, non-customizable and slow.
+#
+.DS_Store
+
+##
+# Damn node_modules everywhere...
+#
+node_modules

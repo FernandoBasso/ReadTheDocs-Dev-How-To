@@ -1,0 +1,29 @@
+= JavaScript Codewars Challenges
+:toc:
+:sectlinks:
+:sectlevels: 6
+
+== Running the examples
+
+From the command line:
+
+[source,shell-session,lineos]
+----
+$ npm run file path/to/file.js
+----
+
+
+From inside Vim:
+
+----
+!npm run file %
+----
+
+`%` expands to the current file. See `:help registers` or, more precisely, `:help "%`.
+
+Or create map for it:
+
+----
+:nnoremap <F4> :!npm run file %<CR>
+----
+

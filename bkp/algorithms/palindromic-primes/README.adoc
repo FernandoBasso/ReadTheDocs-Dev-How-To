@@ -1,0 +1,67 @@
+= Palindromic Primes
+:linkcss!:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts:
+:icons: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+== Links
+
+- https://www.hackerrank.com/challenges/ruby-lazy/problem
+
+Return an array with the first N primes that are also palindromes.
+
+== Ruby
+
+[source,ruby,lineos]
+----
+#
+# Unfortunately, identifiers cannot contain "?"...
+#
+# NOTE: Had we used a proc instead of a lambda, the return would exit
+# not only the proc, but the calling code too.
+#
+is_palindrome = lambda do |val|
+  s = val.to_s.downcase
+  return true if s.length == 0
+  return true if s.length == 1
+  return false if s[0] != s[-1]
+  is_palindrome.call(s[1...-1])
+end
+
+is_prime = lambda do |num|
+  return false if num < 2
+  return true if num == 2
+  # <1>
+  for i in 2..Math.sqrt(num)
+    return false if num % i.to_i == 0
+  end
+  true
+end
+
+n = gets.to_i
+
+# Checking for palindrome before prime because it is faster on higher
+# numbers.
+print 1.upto(Float::INFINITY).lazy.select { |n|
+  is_palindrome.(n) && is_prime.(n)
+}.first(n)
+
+# If `n` is 30, the result is:
+[
+    1,    2,    3,    4,    5,    6,    7,    8,    9,   11,
+   22,   33,   44,   55,   66,   77,   88,   99,  101,  111,
+  121,  131,  141,  151,  161,  171,  181,  191,  202,  212,
+]
+----
+
+1. We use `Math.sqrt` to limit the amount of numbers we need to check, thus making the algorithm faster. Also, note that using `...` for the range would produce incorrect results.
+

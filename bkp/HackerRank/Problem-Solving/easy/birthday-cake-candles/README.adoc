@@ -1,0 +1,17 @@
+= Birthday Cake Candles
+:toc: right
+:icons: font
+:stem: latexmath
+
+* link:https://www.hackerrank.com/challenges/birthday-cake-candles[Birthday Cake Candles :: HackerRank]
+
+This problem involves mainly two steps:
+
+* Find the largest number.
+* Count how many times that largest number appears.
+
+The input is never empty.
+The input array contains at least 1 element.
+
+Because the input contain repeated numbers, we either have to loop twice (one time to find the max, another time to count how many time it appears), or find some other approach (if one exists).
+And there is at least one: in a single loop, both keep the maximum up to date and a frequency counter of each char encountered.

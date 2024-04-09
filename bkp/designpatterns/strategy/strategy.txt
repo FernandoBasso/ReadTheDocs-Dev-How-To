@@ -1,0 +1,14 @@
+
+Strategy
+--------
+
+Suport variations in logic by extracting the variable parts of a function
+such that the caller will be able to vary the behavior of the callee.
+
+
+
+
+----------------------------------------------------------------------------------------------------
+
+
+http://robdodson.me/javascript-design-patterns-strategy/

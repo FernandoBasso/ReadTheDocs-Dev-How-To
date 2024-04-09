@@ -1,0 +1,32 @@
+
+
+Epiphany
+--------
+
+When people say, “if you use this and that good practice, pattern, etc, your
+project/code will be easier to change, more manageable, etc”, they seem to
+imply the code will be simple and easy to understand. That is not always the
+case.
+
+What it really means is that you'll have to change code in fewer places, less
+things to change, and smaller changes. Still, it will probably require a lot of
+expertise to know what and where to change.
+
+For example, one large block of if/else if/ conditions are much simpler to
+understand than going back and forth to classes, methods, files, etc. to figure
+out how a `strategy` pattern was implemented to handle a particular situation.
+Still, the strategy pattern will allow your program to scale better, be less
+error prone ans more resilient than good old conditional blocks.
+
+Easy doesn't -always mean simple. Lifting your refrigerator is simple; you just
+lift it, but it is not easy. Changing a well designed code base may be easy,
+you just make changes to very few particular places, but it is not always simple
+to figure out where/what to change, and that is what may make it a non-simple,
+non-trivial task, although it may be considered easy.
+
+
+
+
+Design patterns in one language are syntax in another.
+
+http://www.infoq.com/presentations/Simple-Made-Easy

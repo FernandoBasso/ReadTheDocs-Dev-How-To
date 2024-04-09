@@ -1,0 +1,106 @@
+= Ruby Arrays
+:linkcss!:
+:webfonts!:
+:source-highlighter: pygments
+:pygments-css: style
+:toc: left
+:link-docs: https://ruby-doc.org/core-2.6.4/
+
+Find docs for link:{link-docs}[Ruby Arrays here!^]
+
+== Accessing Elements
+
+In Ruby, array elements can be accessed in a few different ways. Given the following array:
+
+[source,ruby]
+----
+xs = %w{ may the force be with you }
+----
+
+
+.By index
+[source,ruby]
+----
+p xs[0]
+# → "may"
+
+p xs[-1] # last
+# → "you"
+----
+
+.By a range
+[source,ruby]
+----
+p xs[0..2] # Indexes 0, 1 and 2.
+# → ["may", "the", "force"]
+
+# Starting and pos, get len elements.
+pos = 1
+len = 4
+p xs[pos...(pos + len)]
+# → ["the", "force", "be", "with"]
+----
+
+.A method
+[source,ruby]
+----
+p xs.at(2)
+# → "force"
+----
+
+== Adding Elements
+
+NOTE: The following methods return the array with the element(s) added. They are destructive methods; they modify the array in-place instead of returning a copy of it with the new element(s) added.
+
+[source,ruby]
+----
+xs = []
+
+# Add one or more elements to the end.
+xs.push('with', 'you')
+# → ["with", "you"]
+
+# Add one or more elements to the beginning.
+xs.unshift('may')
+# → ["may", "with", "you"]
+
+# Inserts one or more elements before the specified index.
+xs.insert(1, 'the', 'force', 'be')
+# → ["may", "the", "force", "be", "with", "you"]
+----
+
+== Removing Elements
+
+Examples on `pop`, `shift` and `delete_at` and `delete`.
+
+Contrary to `push`, `unshift`, `insert`, which return the array with the new element(s) added, these _deletion_ methods return the element being removed. Still, they are also destructive, meaning, the modify the array in-place.
+
+NOTE: These methods mutate the array in-place.
+
+[source,ruby]
+----
+xs = %w{ may the the force be the with you }
+# → ["may", "the", "the", "force", "be", "the", "with", "you"]
+
+# Remove last element.
+xs.pop
+# → "you"
+p xs
+# → ["may", "the", "the", "force", "be", "the", "with"]
+
+xs.shift
+# → "may"
+p xs
+# → ["the", "the", "force", "be", "the", "with"]
+
+xs.delete_at(3)
+# → "be"
+p xs
+# → ["the", "the", "force", "the", "with"]
+
+xs.delete('the')
+# → "the"
+p xs
+# → ["force", "with"]
+----
+

@@ -1,0 +1,304 @@
+= Assignment &ndash; Ruby
+:source-highlighter: pygments
+:pygments-css: class
+:linkcss:
+:sectlinks:
+:toc: left
+:webfonts:
+
+
+
+
+== Scope
+
+Blocks create scope.
+
+[source,ruby,lineos]
+----
+1.times do
+  foo = 1
+  bar = 2
+  puts local_variables.empty?     # →  false
+  puts local_variables.length     # →  2
+  puts local_variables.join ', '
+end
+# →  false
+# →  2
+# →  foo, bar
+----
+
+Variables created in an outer scope are visible inner block scopes, but not
+inside method scope.
+
+[source,ruby,lineos]
+----
+sneaky = 'hey there';
+
+1.times do
+  foo = 9
+  bar = -11
+  puts %Q(Local variables: #{local_variables.join ', '})
+end
+# →  Local variables: foo, bar, sneaky
+
+puts "Outer scope variables: #{local_variables.join ', '}"
+# →  Outer scope variables: sneaky
+----
+
+
+----
+# FernandoBasso | “You may isolate variables in a block from the outer scope by listing them
+#               | following a ; in the block’s arguments. See the documentation for block local
+#               | variables in the calling methods documentation for an example.”
+# FernandoBasso | Where is that found?
+#         Radar | FernandoBasso: Citation needed.
+# FernandoBasso | I am reading this, by the way:
+#               | http://ruby-doc.org/core-2.1.2/doc/syntax/assignment_rdoc.html
+#         Radar | FernandoBasso: Look in the sidebar. calling_methods.rdoc
+#         Radar | FernandoBasso:
+#               | http://ruby-doc.org/core-2.1.2/doc/syntax/calling_methods_rdoc.html
+# FernandoBasso | Ah, "in the calling methods documentation"...
+# FernandoBasso | Radar: silly me.
+# FernandoBasso | Thanks.
+#         Radar | FernandoBasso: np
+#        Ox0dea | FernandoBasso: I'm not sure why that's in the 2.1 documentation; the semicolon
+#               | hasn't been necessary since 1.9.
+#        Ox0dea | 18>> foo = 1; proc { |foo| foo = 2 }.call(0); foo
+#        ruboto | Ox0dea # => 2 (https://eval.in/430253)
+#        Ox0dea | 19>> foo = 1; proc { |foo| foo = 2 }.call(0); foo
+#        ruboto | Ox0dea # => 1 (https://eval.in/430254)
+#        Ox0dea | In short, feel free to pretend you never knew you could stick semicolons in
+#               | block argument lists. :P
+
+# FernandoBasso | I misunderstood the docs.
+# FernandoBasso | I was thinking it would be possible to make the a variable (in the example)
+#               | not to "leak" into the block.
+# FernandoBasso | What the call_method doc talks about is a way not to let outer variables
+#               | interfere with block variables with the same name, it seems.
+
+#       drbrain | Ox0dea: your example shows a different thing than what block local arguments
+#               | does
+#       drbrain | >> foo = 1; proc { foo = 2 }.call; p foo
+#        ruboto | drbrain # => 2 ...check link for more (https://eval.in/430255)
+#       drbrain | >> foo = 1; proc { |;foo| foo = 2 }.call; p foo
+#        ruboto | drbrain # => 1 ...check link for more (https://eval.in/430256)
+#        Ox0dea | Oh, right.
+#       drbrain | block local arguments allow you to make arbitrary variables behave like block
+#               | arguments
+#       drbrain | FernandoBasso: ↑
+# FernandoBasso | ✓
+#        Ox0dea | It puts me in mind of K&R-era function definition.
+----
+
+
+
+Variables created in an outer scope are not visible in inner methods scope,
+unlike do/end and {} blocks.
+
+
+[source,ruby,lineos]
+----
+foo = 'try me';
+
+def show_foo
+  puts foo
+end
+----
+
+
+Although `foo` is not visible inside `show_foo`, running this code
+does not produce an error. Why not?
+
+Because we didn't call `show_foo`. Call it and the error pops up.
+
+
+Variables created in an outer scope are not visible in inner methods scope,
+unlike do/end and {} blocks.
+
+
+
+[source,ruby,lineos]
+----
+foo = 'try me';
+
+def show_foo
+  puts foo
+end
+
+show_foo
+
+# → 002c.rb:8:in `show_foo': undefined local variable or method `foo' for main:Object (NameError)
+# →         from 002c.rb:11:in `<main>'
+----
+
+
+[source,ruby,lineos]
+----
+foo = 'try me'; def show_foo arg; puts arg; end; show_foo foo
+----
+
+
+But... for loops do NOT create scope (unlike other blocks).
+
+
+[source,ruby,lineos]
+----
+for i in 1..3
+  puts i
+end
+# →  1
+# →  2
+# →  3
+
+puts "Once more: #{i}"
+# →  Once more: 3
+----
+
+
+As you see, `i` is still accessible outside the `for` block.
+
+
+[source,ruby,lineos]
+----
+foo = 'the force'
+
+def show_it
+  puts foo
+end
+----
+
+
+Q: When if you run the code above, even though `foo` is local to “that” scope
+(and therefore not accessible inside the method `show_it`) you don't get
+errors?
+
+A: Because the method insn't actually called. It is simply defined.
+
+BEWARE: Incorrect ruby code only produces errors when run, not when
+it simply exists in the file.
+
+
+== Local Variables and Methods
+
+How does Ruby decide if `foo` is a variable or a method?
+If it sees `foo` has been assigned a value, it thinks it is a variable,
+otherwise it thinks it is a method.
+
+Many times when you see a `no method named ...` while trying to use
+a variable, it is very likely that it is a scope problem. You have that
+variable but in another scope. Example.
+
+
+[source,ruby,lineos]
+----
+class Thing
+  def foo
+    bar
+  end
+end
+
+obj = Thing.new
+puts obj.foo
+# → “undefined local variable or method bar”.
+----
+
+Ruby didn't see an assignment to `bar`, therefore, it assumes `bar` is a
+method and attempts to call it.
+
+
+Does not assign to `bar`. Still, it tells the interpreter that `bar` is a
+variable (which gets assigned nil). The local variable is created when the
+parser encounters the assignment, not when the assignment occurs.
+
+
+[source,ruby,lineos]
+----
+bar = 3.14 if false
+puts bar
+# →  nil or an empty line.
+----
+
+
+[source,ruby,lineos]
+----
+jedi = 'the force' if true
+puts jedi
+# →  'the force'
+----
+
+
+[source,ruby,lineos]
+----
+puts flag if flag = 0.zero?
+----
+
+
+[source,ruby,lineos]
+----
+puts foo    # → error about no method foo. Aborts execution.
+----
+
+
+[source,ruby,lineos]
+----
+def sum(foo, bar)
+  foo + bar
+end
+
+a = 5
+b = 2
+
+# TODO: not correct bcause sum takes params.
+# Creates a variable sum, so, we MUST use parenthesis to call the
+# method sum to avoid driving the ruby interpreter crazy.
+
+sum = sum(a, b)
+
+puts sum
+
+a = 9
+b = 1
+# To call `sum` as a method again, we must do
+sum = sum(a, b)
+puts sum
+----
+
+
+When a method that takes no arguments share the same name with a variable,
+you've got to use parentheses or self.method to call the method.
+
+
+----
+def sum
+  2 + 3
+end
+
+sum = sum()
+puts sum
+
+sum = self.sum
+puts sum
+----
+
+
+----
+puts foo if foo = 0.zero?
+----
+
+Rather than printing “true” you receive a NameError, “undefined local variable
+or method `a’”. Since ruby parses the bare a left of the if first and has not
+yet seen an assignment to a it assumes you wish to call a method. Ruby then
+sees the assignment to `foo` and will assume you are referencing a local method.
+
+The confusion comes from the out-of-order execution of the expression. First
+the local variable is assigned-to then you attempt to call a nonexistent
+method.
+
+
+----
+bar = 3.14 if false
+puts bar
+
+jedi = 'the force' if true
+puts jedi
+----

@@ -1,0 +1,29 @@
+= if and unless modifiers
+
+
+1. http://www.linuxtopia.org/online_books/programming_books/ruby_tutorial/Ruby_Expressions_If_and_Unless_Modifiers.html
+
+
+Ruby shares a neat feature with Perl. Statement modifiers let you tack
+conditional statements onto the end of a normal statement.
+
+    mon, day, year = $1, $2, $3 if /(\d\d)-(\d\d)-(\d\d)/
+    puts "a = #{a}" if fDebug
+    print total unless total == 0
+
+For an if modifier, the preceding expression will be evaluated only if the
+condition is true. unless works the other way around.
+
+    while gets
+      next if /^#/            # Skip comments
+      parseLine unless /^$/   # Don't parse empty lines
+    end
+
+Because if itself is an expression, you can get really obscure with statements
+such as:
+
+    if artist == "John Coltrane"
+      artist = "'Trane"
+    end unless nicknames == "no"
+
+This path leads to the gates of madness.

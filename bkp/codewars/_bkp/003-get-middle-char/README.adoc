@@ -1,0 +1,45 @@
+= Get Middle Character | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+https://www.codewars.com/kata/56747fd5cb988479af000028
+
+
+Two approaches come to mind. Slicing the string, or use recursion to keep removing the first and last chars until we have only two or one chars left.
+
+== JavaScript
+
+[source,javascript,lineos]
+----
+//
+// Using a recursive solution.
+//
+
+/**
+ * Get the middle character(s) of a string
+ *
+ * @param {string} s
+ * @return {string}
+ */
+function getMiddle(s) {
+  //
+  // If our string has one or two chars only, we have reached the base case.
+  //
+  if (s.length === 1 || s.length === 2) return s;
+
+  //
+  // Recursively invoke the function by passing the string without
+  // the first and last characters. We will eventually reach the base case.
+  //
+  return getMiddle(s.split('').slice(1, -1).join(''));
+}
+----

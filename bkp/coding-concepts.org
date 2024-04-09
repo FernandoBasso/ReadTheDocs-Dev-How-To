@@ -1,0 +1,17 @@
+
+Self-documenting code expresses what it does clealy. ~2 + 2~ is self explanatory and doesn't need comments to explain it. Still, sometimes it is nice to have comments that explain /why/ the code is doing what it is doing. Example:
+
+#+BEGIN_SRC ruby
+@checkout.credit_card_form.card_number.fill_in('123456789')
+
+# Clicks on the other field so it triggers the ~blur~ event on the
+# previous one, which sends an ajax to validade the card number, which
+# triggers a 'loading' animation that blocks the entire page.
+@checkout.credit_card_form.card_password.click
+@checkout.wait_for_ajax
+
+# Now the 'loading' animation should be finished and the form is
+# accessible again for the next step.
+@checkout.credit_card_form.card_password.fill_in('s3cr37')
+#+END_SRC
+

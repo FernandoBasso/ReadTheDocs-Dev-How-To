@@ -1,0 +1,8 @@
+---
+#
+# Fuck not allowing “curly” ‘quotes’ or unicode multibyte
+# stuff like ✔ or  in comments.
+#
+Style/AsciiComents:
+  Enabled: false
+

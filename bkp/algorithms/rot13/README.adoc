@@ -1,0 +1,65 @@
+= Rot13 Algorithm
+:linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+== Ruby
+
+* https://www.hackerrank.com/challenges/ruby-enumerable-collect
+* https://en.wikipedia.org/wiki/ROT13
+
+=== Solution 1
+
+This is a more procedural approach.
+Uses unnecessary splat operator and the `map` (twice) and `split`.
+Works but there are more concise and idiomatic ways.
+
+[source,ruby,lineos]
+----
+def rot13(secret_messages)
+  alphabet = [*('A'..'Z'), *('a'..'z')]
+  rotated = [*('N'..'Z'), *('A'..'M'),  *('n'..'z'), *('a'..'m')]
+
+  secret_messages.map do |msg|
+    msg.split('').map do |elem|
+      idx = alphabet.find_index(elem)
+      idx ? rotated[idx] : ' '
+    end.join('').strip
+  end
+end
+----
+
+=== Solution 2
+
+Uses ranges with splat to generate the list of strings. Totally unnecessary. At least it gets rid of `map` and `split`.
+
+[source,ruby,lineos]
+----
+def rot13(secret_msgs)
+  alphabet = [*('A'..'Z'), *('a'..'z')].join('')
+  rotated = [*('N'..'Z'), *('A'..'M'), *('n'..'z'), *('a'..'m')].join('')
+  secret_msgs.map { |msg| msg.tr(rotated, alphabet) }
+end
+----
+
+=== Solution 3
+
+This is probably the best solution. Simply uses `tr` as one would do from the command line.
+
+[source,ruby,lineos]
+----
+def rot13(secret_msgs)
+  secret_msgs.map { |msg| msg.tr('A-Za-z', 'N-ZA-Mn-za-m') }
+end
+----
+

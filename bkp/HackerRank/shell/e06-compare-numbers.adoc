@@ -1,0 +1,167 @@
+== Compare Numbers
+
+https://www.hackerrank.com/challenges/bash-tutorials---comparing-numbers
+
+Running:
+
+[source,shell-session]
+----
+$ bash script.sh <<<$'3\n5'
+$ printf '%d\n' 3 5 | bash script.sh
+----
+
+=== Solution 1
+
+[source,bash,lineos]
+----
+include::./e06a-compare-numbers.sh[]
+----
+
+This solution uses the old, sh-compatible `test` command. It also shows that `[[ ]]` can use `-gt` style of operators as well.
+
+Read
+
+    help [
+    help test
+
+And/or this section of the Bash manual:
+
+https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions
+
+https://mywiki.wooledge.org/BashFAQ/031
+
+
+=== Solution 2
+
+[source,bash,lineos]
+----
+include::./e06b-compare-numbers.sh[]
+----
+
+This solution uses the newer `[[` test command.
+
+Read
+
+    help [[
+
+And/or this section of the Bash manual:
+
+https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs
+
+https://mywiki.wooledge.org/BashFAQ/031
+
+
+=== Solution 3
+
+Uses brace expansion, arrays, `bc`, and some clever (I deem) math stuff.
+
+[source,bash]
+----
+include::./e06c-compare-numbers.sh[]
+----
+
+Bash has this nice brace expansion feature:
+
+[source,shell-session]
+----
+$ printf '%s\n' '10 '{XX,YY,ZZ}' 20'
+10 XX 20
+10 YY 20
+10 ZZ 20
+----
+
+Which could also be:
+
+[source,shell-session]
+----
+$ printf '%s\n' '10 '{\<,\>,==}' 20'
+10 < 20
+10 > 20
+10 == 20
+----
+
+And `bc`:
+
+[source,shell-session]
+----
+$ echo '5 == 5' | bc
+1
+
+$ echo '5 > 5' | bc
+0
+
+$ echo '4 < 5' | bc
+1
+----
+
+1 is true, 0 is false.
+
+Combining both:
+
+[source,shell-session]
+----
+$ printf '%s\n' '4'{\<,\>,==}'5' | bc
+1
+0
+0
+
+$ printf '%s\n' '5'{\<,\>,==}'4' | bc
+0
+1
+0
+
+$ printf '%s\n' '5'{\<,\>,==}'5' | bc
+0
+0
+1
+----
+
+Note how the 0s and 1s are arranged each time. We use that to our advantage and create an array with them:
+
+[source,shell-session]
+----
+$ mapfile -t bools < <(printf '%s\n' "$x"{==,\<,\>}"$y" | bc)
+
+$ echo "${bools[@]}"
+0 1 0
+----
+
+Explaining this line:
+
+[source,shell]
+----
+idx=$(( "${bools[0]}" * 0 + "${bools[1]}" * 1 + "${bools[2]}" * 2 ))
+----
+
+We are using some math trickery to calculate the index of the correct message based on the zeroes and ones of the `bools` array. We multiply each value of the array with its “weight”, or “index” value.
+
+The order of the opreations in the brace expansion: `==`, then `<`, then `>` is important because it is related to the order of the `bools` array elements and the `msgs` array.
+
+
+When `x == y`, 1 is at index 0 on `bools`.
+----
+  1       0       0
+0 * 0 + 0 * 1 + 0 * 2 = 0
+----
+
+When `x < y`, 1 is at index 1 on `bools`.
+----
+  0       1       0
+0 * 0 + 0 * 1 + 0 * 2 = 1
+----
+
+When `x > y`, 1 is at index 2 on `bools`.
+----
+  0       0       1
+0 * 0 + 0 * 0 + 1 * 2 = 2
+----
+
+
+=== References
+
+- `help mapfile`
+- `info bc` and `man bc`
+- https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion
+- https://mywiki.wooledge.org/BraceExpansion
+
+

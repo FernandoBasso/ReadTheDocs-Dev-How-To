@@ -1,0 +1,86 @@
+= Bash STDIN
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:stem: latexmath
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+To provide input and parameters to scripts, we can use `read` and:
+
+- `/dev/stdin`
+- `<&0`
+
+== /dev/stdin
+
+`/dev/stdin` doesn't play well with `<<<$'10\n20'`.
+
+Taking this script, see two possible ways to feed input to it and the output each produce:
+
+.script.sh
+[source,bash,lineos]
+----
+read -r x < /dev/stdin
+read -r y < /dev/stdin
+
+echo "$x"
+echo "$y"
+----
+
+.output for /dev/stdin and herestring
+[source,shell-session]
+----
+$ bash dev.sh <<<$'10\n20'
+10
+10
+----
+
+.output for /dev/stdin and normal input
+[source,shell-session]
+----
+$ bash dev.sh
+10 (typed manually)
+20 (typed manually)
+10
+20
+----
+
+With the herestring approach, both `x` and `y` are assigned 10, which is not what we want. With the normal input, `x` is assigned 10, and `y` is assigned 20, which is what we expected.
+
+Let's see with a different way of reading from stdin.
+
+
+== Redirect <&0
+
+.script.sh
+[source,bash,lineos]
+----
+read -r x <&0
+read -r y <&0
+
+echo "$x"
+echo "$y"
+----
+
+[source,shell-session]
+----
+$ bash dev.sh <<<$'10\n20'
+10
+20
+
+$ bash dev.sh
+10 (typed manually)
+20 (typed manually)
+10
+20
+----
+

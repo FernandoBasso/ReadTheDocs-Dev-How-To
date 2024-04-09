@@ -1,0 +1,23 @@
+= Command Line Tricks
+
+== Create 10 incremental lines
+- https://twitter.com/ed1conf/status/1262104669901467648
+
+Creates lines containing “- server-1” to “- server-10”.
+
+Vim:
+
+----
+:read !jot -w ' - server-' 10
+----
+
+For Vim only, using visual block selection, `:help v_g_CTRL-A`.
+
+Seq:
+
+----
+$ seq -f ' - server-%1.0f' 10
+----
+
+moreutils: “A growing collection of the unix tools that nobody thought to write thirty years ago.”
+

@@ -1,0 +1,81 @@
+= Sum Of Positive | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+Challenge: link:https://www.codewars.com/kata/5715eaedb436cf5606000381[Sum Of Positive^]
+
+== JavaScript
+
+=== Solution 1
+
+[source,javascript,lineos]
+----
+/**
+ * Check whether a number is positive.
+ *
+ * ASSUME: The argument is indeed a number.
+ *
+ * @param {number} num
+ * @return {boolean}
+ */
+function isPositive(num) {
+  return num > 0;
+}
+
+/**
+ * Sum all positive numbers in the input array.
+ *
+ * ASSUME: The argument is an array with zero or more elements.
+ *
+ * @param {array[number]} arr
+ * @return {number}
+ */
+function positiveSum (arr) {
+  return arr.reduce((acc, num) => {
+    if (!isPositive(num)) return acc;
+    return acc + num;
+  }, 0);
+}
+----
+
+
+=== Solution 2
+
+[source,javascript,lineos]
+----
+/**
+ * Check whether a number is positive.
+ *
+ * ASSUME: The argument is indeed a number.
+ *
+ * @param {number} num
+ * @return {boolean}
+ */
+function isPositive(num) {
+  return num > 0;
+}
+
+/**
+ * Sum all positive numbers in the input array.
+ *
+ * ASSUME: The argument is an array with zero or more elements.
+ *
+ * @param {array[number]} arr
+ * @return {number}
+ */
+function positiveSum (arr) {
+  return arr
+    .filter(isPositive)
+    .reduce((acc, num) => acc + num, 0);
+}
+----

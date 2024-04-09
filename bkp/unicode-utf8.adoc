@@ -1,0 +1,67 @@
+= Unicode and UTF-8
+:linkcss!:
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:pygments-css: style
+:sectlinks:
+:toc: left
+
+== Useful Characters
+
+----
+—     2014   (dash, not a minus)
+✓     2713
+✔     2714
+✖     2716
+✗     2717
+💩    1f4a9
+‽     203d
+λ     03bb
+←     2190
+↑     2191
+→     2192
+↓     2193
+☺     263a
+☻     263b
+♩     2669      QUARTER NOTE
+♪     266A      EIGHTH NOTE
+♫     266B      BEAMED EIGHTH NOTES
+♭     266D      MUSIC FLAT SIGN
+♮     266E      MUSIC NATURAL SIGN
+♯     266F      MUSIC SHARP SIGN
+«     ab        LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+»     bb        RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+¼     bc        VULGAR FRACTION ONE QUARTER
+½     bd        VULGAR FRACTION ONE HALF
+¾     be        VULGAR FRACTION THREE QUARTERS
+
+⍽     237d      shouldered open box, indicates NBSP.
+·     b7        interpunct &middot;
+␠     2420      control
+----
+
+♯ ♩ ♪ E laiá! ♫ ♭ ♮
+
+
+== Whitespace Character
+
+https://en.wikipedia.org/wiki/Whitespace_character
+
+
+== Bash
+
+Bash accepts the `-e` option to enable parsing of unicode code points:
+
+[source,plain]
+----
+$ echo '\u2714'
+\u2714
+
+$ echo -e '\u2714'
+✔
+----
+
+https://stackoverflow.com/questions/602912/how-do-you-echo-a-4-digit-unicode-character-in-bash
+
+

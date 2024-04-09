@@ -1,0 +1,11 @@
+
+http://stackoverflow.com/questions/11642465/what-do-these-rvm-ruby-versions-mean
+
+In short:
+- ‘ruby-head’ is the playground of new features.
+- ‘ruby-n.m.x[-pxyz]’ is the safest to install.
+
+
+    gem env gemdir
+
+

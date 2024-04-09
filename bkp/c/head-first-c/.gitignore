@@ -1,0 +1,16 @@
+#
+# filename: .gitignore
+#
+
+#
+# C dev files.
+#
+0dev.c
+0dev
+
+#
+# Executables / binary files are compiled and placed
+# into ./outdir/.
+#
+outdir
+

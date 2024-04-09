@@ -1,0 +1,29 @@
+= Xfce tips and tricks
+
+
+Reload xfdesktop
+
+[source,bash]
+----
+xfdesktop --reload
+----
+
+Help with debugging Xfce:
+
+[source,bash]
+----
+XFSETTINGSD_DEBUG=1 xfsettingsd --replace --no-daemon
+----
+
+Display image dimensions on Thunar status bar:
+
+[source,bash]
+----
+xfconf-query \
+  --channel thunar \
+  --property /misc-image-size-in-statusbar \
+  --create \
+  --type bool \
+  --set true
+----
+

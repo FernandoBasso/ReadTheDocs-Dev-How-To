@@ -1,0 +1,10 @@
+== Intro
+
+Use link:https://rvm.io/[RVM^] to install Ruby. Do not install use your distro's Ruby from the package manager, and do not install gems as root.
+
+Run a ruby file:
+
+[source,html,lineos]
+----
+ruby -w program.rb
+----

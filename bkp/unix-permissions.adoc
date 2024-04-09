@@ -1,0 +1,20 @@
+= Unix and Linux Permission
+
+== External USB Drive
+
+You have an external USB drive that you use to backup files across multiple Linux instalations, where your UID changes for each one.
+
+----
+sudo groupadd --gid 2001 bkpfiles
+sudo gpasswd --add "$USER" bkpfiles
+# logout/login or reboot
+----
+
+Then do this on your external EXT4 partition:
+
+----
+sudo chgrp --recursive --verbose bkpfiles /media/fernando.basso/YOUR_EXT4_DRIVE
+----
+
+Now you should be able to rwx on that partition from different users with different UIDs on different *nix machines.
+

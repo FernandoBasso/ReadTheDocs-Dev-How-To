@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc maxdepth="6"?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Blocks, P#rocs, Lambdas</title>
+<date>2020-04-27</date>
+</info>
+<section xml:id="_blocks">
+<title>Blocks</title>
+<simpara>Blocks are essentially “nameless functions” or “nameless portions of code.”</simpara>
+<programlisting language="ruby" linenumbering="numbered">[10, 20, 30, 40]
+
+arr.each do |el|
+    p el * 2
+end
+
+arr.each { |el| p el * el }</programlisting>
+<simpara>And we can make our own methods handle blocks passed as arguments.</simpara>
+<programlisting language="ruby" linenumbering="numbered">def my_method
+  # Yields control to the passed block.
+  yield(10) if block_given?
+end
+
+my_method do |num|
+  p 'hey there'
+  p num
+end</programlisting>
+<note>
+<simpara>Methods do not declare explicit parameters for blocks. You just assume a block was passed and invoke <literal>yield</literal>, or test with <literal>block_given?</literal> instead of assuming a block was passed.</simpara>
+</note>
+<tip>
+<simpara>We say that a method “yields control to the block”.</simpara>
+</tip>
+<programlisting language="ruby" linenumbering="numbered">def perform(x, y)
+  yield(x, y) if block_given?
+end
+
+p perform(10, 2) { |a, b| a + b }
+p perform(10, 2) { |m, n| m - n }
+# → 12
+# → 8</programlisting>
+<section xml:id="_proc_to_block_conversion">
+<title>Proc to Block Conversion</title>
+<simpara>TODO: Review this introduction:</simpara>
+<simpara>A method can <emphasis>yield</emphasis> to a block, and <emphasis>call</emphasis> a proc. It is possible to convert a block to a proc so it can be called with <literal>.call</literal>.</simpara>
+<simpara><literal>&amp;foo</literal>, <literal>$:foo</literal> and <literal>:operator</literal> are valid syntax, depending on the context.</simpara>
+<programlisting language="ruby" linenumbering="numbered"><co xml:id="CO1-1"/>
+def meth1
+  yield(10) if block_given?
+end
+
+meth1 do |num|
+  p "meth1: #{num}"
+end
+# → "meth1: 10"
+
+<co xml:id="CO1-2"/>
+def meth2(&amp;block)
+  block.call(10)
+end
+
+meth2 do |num|
+  p "meth2: #{num}"
+end
+# → "meth2: 10"</programlisting>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Invoke the method passing the block, and internally, the method yields to the block giving it 10 as an argument. Note that <literal>meth1</literal> does not explicitly declare that a block is going to be passed when invoking the method.</simpara>
+</listitem>
+<listitem>
+<simpara>Invoke the method by passing it a block. The method explicitly expects a block, and converts it to a proc using the <literal>&amp;</literal> operator. With this approach, it is very clear from the formal parameters that the method takes a block.</simpara>
+</listitem>
+</orderedlist>
+<simpara>Another way to implicitly take a block is to do <literal>Proc.new</literal> inside the method.</simpara>
+<programlisting language="ruby" linenumbering="numbered"><co xml:id="CO1-3"/>
+def meth
+  unless block_given?
+    puts 'No block was passed. Bailing out...'
+    return
+  end
+
+  my_proc = Proc.new <co xml:id="CO1-4"/>
+  my_proc.call(10)
+end
+
+<co xml:id="CO1-5"/>
+meth do |num|
+  puts "Number: #{num}"
+end
+# → Number: 10
+
+<co xml:id="CO1-6"/>
+meth
+# → No block was passed. Bailing out...</programlisting>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Define a method that implicitly takes a block. One has to read the method body and infer that a block is being expected. Clues are <literal>block_given?</literal> and <literal>Proc.new</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara>We do <literal>Proc.new</literal> on “nothing”. It automagically accesses the block (assuming one was passed). It is important to test if a block was giving before attempting to invoke <literal>Proc.new</literal> otherwise to avoid runtime errors.</simpara>
+</listitem>
+<listitem>
+<simpara>Call the method passing it a block. The block then becomes a proc, and we <literal>.call</literal> it rather than <literal>yield</literal> to it. Again, procs are called, blocks are yielded to. Since the block was converted to a proc, we call it.</simpara>
+</listitem>
+<listitem>
+<simpara>Call the method without passing it a block, which causes the <literal>unless</literal> clause to execute its statements.</simpara>
+</listitem>
+</orderedlist>
+</section>
+</section>
+<section xml:id="_procs">
+<title>Procs</title>
+<tip>
+<simpara>Ruby blocks are not objects.</simpara>
+</tip>
+<tip>
+<simpara>Ruby procs are objects.</simpara>
+</tip>
+<simpara>Contrary to the “everything is an object in Ruby” rule, blocks are not objects. Moreover, they can&#8217;t be stored in variables. Procs, however, are indeed objects and can be stored in variables. A proc is like a “saved block”.</simpara>
+<section xml:id="_creating_a_proc">
+<title>Creating a Proc</title>
+<simpara>With <literal>Proc.new</literal>:</simpara>
+<programlisting language="ruby" linenumbering="numbered">my_proc = Proc.new do |arg|
+  puts "Arg is: #{arg}"
+end</programlisting>
+<simpara>Or with <literal>proc</literal> (since ruby 1.9?).</simpara>
+<programlisting language="ruby" linenumbering="numbered">my_proc = proc do |arg|
+  puts "Arg is: #{arg}"
+end</programlisting>
+</section>
+<section xml:id="_invoking_a_proc">
+<title>Invoking a Proc</title>
+<simpara>There are several (and strange) ways to call procs:</simpara>
+<programlisting language="ruby" linenumbering="numbered"># No args, two args.
+my_proc.call
+my_proc.call arg1, arg2
+my_proc.call(arg1, arg2)
+
+# No args, two args.
+my_proc.()
+my_proc.(arg1, arg2)
+
+# No args, two args.
+my_proc[]
+my_proc[arg1, arg2]
+
+# No args, one arg, two args.
+my_proc.===
+my_proc === arg1
+my_proc.=== arg1
+my_proc.===(arg1)
+my_proc.===(arg1, arg2)</programlisting>
+<simpara>The <literal>[]</literal> and <literal>===</literal> versions are not recommended. <literal>.()</literal> is better, but avoid it. Go with <literal>.call</literal> (preferred by rubocop).</simpara>
+</section>
+</section>
+<section xml:id="_lambdas">
+<title>Lambdas</title>
+<simpara><link xl:href="https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line">https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line</link></simpara>
+<simpara>Lambdas are anonymous functions, objects of the class <literal>Proc</literal>. When created with <link xl:href="https://ruby-doc.org/core-2.6.4/Kernel.html#method-i-lambda">Kernel#lambda</link>, it creates a proc object with lambda semantics enforcing arity.</simpara>
+<simpara>To create a lambda function, it is possible to use the both <literal>lambda</literal> literal, in which parameters to the block go inside <literal>| |</literal> as usual, or with the stab operator, <literal>-&gt;</literal>, in which parameters to the block go inside <literal>( )</literal>.</simpara>
+<simpara><link xl:href="https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line">Rubocop</link> has some guidelines for lambda syntax.</simpara>
+<section xml:id="_lambda_method">
+<title>lambda Method</title>
+<formalpara>
+<title>lambda literal syntax</title>
+<para>
+<programlisting language="ruby" linenumbering="numbered">greet = lambda do |name|
+  "Hello, #{name}"
+end
+
+puts greet.('Yoda')
+# → Hello, Yoda!</programlisting>
+</para>
+</formalpara>
+<section xml:id="_lambda_stabby_literal_syntax">
+<title>Lambda “Stabby” -&gt; Literal Syntax</title>
+<programlisting language="ruby" linenumbering="numbered"># No args.
+l1 = -&gt; { 'lambda 1' }
+puts l1.call
+# → lambda 1
+
+# No args.
+l2 = -&gt;() { 'lambda 2' }
+puts l2.call
+# → lambda 2
+
+# One arg.
+l3 = -&gt;(arg) { "Argument is: #{arg}" }
+puts l3.call('Ahsoka Tano')
+# → Argument is: Ahsoka Tano
+
+
+# No args.
+puts -&gt; { 'lambda 1' }.call
+# → lambda 1
+
+# No args.
+puts -&gt;() { 'lambda 2' }.call
+# → lambda 2
+
+# One arg.
+puts -&gt;(arg) { "Argument is: #{arg}" }.call('Aayla Secura')
+# → Argument is: Aayla Secura</programlisting>
+<simpara>A contrived example, but helps understanding too:</simpara>
+<programlisting language="ruby" linenumbering="numbered">def area(l, b)
+  <co xml:id="CO1-7"/>
+  -&gt; { l * b }
+end
+
+x = 10.0
+y = 20.0
+
+area_rectangle = area(x, y).()
+area_triangle = 0.5 * area(x, y).call
+
+p area_rectangle
+# → 200
+
+p area_triangle
+# → 100</programlisting>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Note that the sabby lambda can access <literal>l</literal> and <literal>b</literal> because of the closure that is created. <literal>area</literal> recives two arguments and returns a lambda. The lambda, when called, has full access to those arguments.</simpara>
+</listitem>
+</orderedlist>
+</section>
+</section>
+</section>
+<section xml:id="_closures">
+<title>Closures</title>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="https://en.wikipedia.org/wiki/Closure_(computer_programming">https://en.wikipedia.org/wiki/Closure_(computer_programming</link>)</simpara>
+</listitem>
+</itemizedlist>
+<simpara>In simple terms, a closure is a scope that is created when a function is declared inside a scope and has access to that scope even after that scope “no longer exists.”</simpara>
+<simpara>By function we mean any piece of runnable code. In ruby, it could be blocks, procs or lambdas. Methods cannot access variables from the outer, parent scope, so they cannot be part of a closure.</simpara>
+<section xml:id="_a_block_example">
+<title>A Block Example</title>
+<simpara>A block has access to variables defined in its enclosing scope. In the next example, our blcks are used in the toplevel, so, the toplevel is the enclosing scope for the blocks, and therefore, they can access the variables and environtment of the toplevel.</simpara>
+<programlisting language="ruby" linenumbering="numbered">droid = 'R2D2'
+
+<co xml:id="CO1-8"/>
+def run_block
+  yield if block_given?
+end
+
+<co xml:id="CO1-9"/>
+run_block do { puts droid }
+# → R2D2</programlisting>
+</section>
+<section xml:id="_blocks_procs_and_lambdas_closure_example">
+<title>Blocks, Procs and Lambdas Closure Example</title>
+<programlisting language="ruby" linenumbering="numbered">val = 'outer'
+
+def run_block
+  yield
+end
+
+def run_proc(fn)
+  fn.call
+end
+
+def run_lambda(fn)
+  fn.call
+end
+
+run_block { puts val }
+# → outer
+
+run_proc(Proc.new { puts val })
+# → outer
+
+run_lambda(lambda { puts val })
+# → outer</programlisting>
+<simpara>We define three methods, each taking a different type of runnable code, then, they are invoked being passed their expected type of runnable code. The block, the proc and the lambda can <emphasis>all</emphasis> access <literal>val</literal> from the outer scope.</simpara>
+</section>
+<section xml:id="_incrementer_lambda_closure_example">
+<title>Incrementer Lambda Closure Example</title>
+<programlisting language="ruby" linenumbering="numbered"><co xml:id="CO1-10"/>
+def a_method
+  num = 0
+  lambda do
+    <co xml:id="CO1-11"/>
+    num += 1
+    <co xml:id="CO1-12"/>
+    num
+  end
+end
+
+<co xml:id="CO1-13"/>
+incrementer = a_method
+
+<co xml:id="CO1-14"/>
+p incrementer.call
+p incrementer.call
+# → 1
+# → 2</programlisting>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Define a method with a local variable <literal>num</literal>, and return a lambda which increments and returns <literal>num</literal> from the enclosing scope.</simpara>
+</listitem>
+<listitem>
+<simpara>The lambda can <emphasis>update</emphasis> the value of <literal>num</literal> from the outer scope.</simpara>
+</listitem>
+<listitem>
+<simpara>The lambda can read/return the <literal>num</literal> from the outer scope.</simpara>
+</listitem>
+<listitem>
+<simpara>Invoke the method and assign the lambda returned from it to the variable <literal>incrementer</literal>. The method has returned, and, in theory, its scope should have gone away, but because there is a lambda accessing the method&#8217;s scope, a closure is created so that that lambda can still reference the method&#8217;s scope.</simpara>
+</listitem>
+<listitem>
+<simpara>Calling the lambda helps us see that <literal>num</literal> from the enclosing scope can indeed be referenced from inside the lambda itself.</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_blocks_procs_and_lambdas_with_parameters_example">
+<title>Blocks, Procs and Lambdas With Parameters Example</title>
+<simpara>Pay attention to the way the blocks in the example use or don&#8217;t use the argument passwed by <literal>yield</literal>.</simpara>
+<programlisting language="ruby" linenumbering="numbered">val = 'outer'
+msg = 'Stupendous'
+
+def run_block
+  val = 'inner'
+  puts "run_block method: #{val}"
+
+  <co xml:id="CO1-15"/>
+  yield(val)
+end
+
+# `yield` passed `val` from the method, but we are _not_ using it here.
+run_block do
+  puts "run_block block: #{val}"
+end
+# → inner
+# → outer
+
+<co xml:id="CO1-16"/>
+run_block do |val|
+  puts "run_block block: #{val}"
+end
+# → inner
+# → inner</programlisting>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>We are passing the ‘inner val’ to yield, but the block may not make use of it.</simpara>
+</listitem>
+<listitem>
+<simpara>Accesses the outer, global <literal>val</literal>. Not retrieving <literal>val</literal> as the block argument. Note there is no <literal>|arg|</literal> thing.</simpara>
+</listitem>
+<listitem>
+<simpara>Uses <literal>val</literal> passed when invoking <literal>yield</literal> in #1.</simpara>
+</listitem>
+</orderedlist>
+</section>
+</section>
+<section xml:id="_currying_and_partial_application">
+<title>Currying and Partial Application</title>
+<simpara>Currying is a technique in which a function accepts n parameters and turns it into a sequence of n functions, each taking 1 parameter.</simpara>
+<programlisting language="irb" linenumbering="numbered">$ pry --simple-prompt
+&gt;&gt; fn = lambda { |x, y| x + y }.curry
+=&gt; #&lt;Proc:0x000055dcc7e44270 (lambda)&gt;
+&gt;&gt; fn.arity
+=&gt; -1
+&gt;&gt; fn = lambda { |x, y| x + y }.curry(2)
+=&gt; #&lt;Proc:0x000055dcc81716c8 (lambda)&gt;
+&gt;&gt; fn.arity
+=&gt; -1</programlisting>
+<programlisting language="ruby" linenumbering="numbered">fn = lambda { |x, y| x + y }.curry(2)
+add10 = fn.call(10)
+p add10.call(5)
+# → 15</programlisting>
+</section>
+<section xml:id="_links_and_resources">
+<title>Links and Resources</title>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="https://www.youtube.com/watch?v=VBC-G6hahWA">CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://ruby-doc.org/core-2.6.4/Proc.html">Ruby Docs on Procs</link></simpara>
+</listitem>
+</itemizedlist>
+</section>
+</article>

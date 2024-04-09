@@ -1,0 +1,32 @@
+#+TITLE: Ruby Types
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results none :exports both
+
+
+Some of Ruby types are:
+
+- objects
+- arrays
+- ranges
+- strings
+- integers
+
+Ruby /doesn't have/ a ~char~ type. One char is a string of one char.
+
+Scalar Objects contain one single value. Scalars don't contain other objects. Examples of scalars are strings, numbers and symbols.
+
+Strings contain chars, but there is no char type on Ruby. One char in Ruby is actually a String of one char.
+
+Collections are objects that contain other objects.
+
+

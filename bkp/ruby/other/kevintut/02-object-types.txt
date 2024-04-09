@@ -1,0 +1,136 @@
+
+
+Some langs have primitives. In Ruby, everything is an object, event strings,
+numbers and booleans.
+
+== Variables
+
+Objects are instances of a class.
+
+Variables are not objects, but they _reference_ objects (point to objects).
+Variables are either undefined or _act_ like an object.
+
+    x = 1
+
+“x” stores (points to, references) the object 1.
+
+    irb » x = 1
+    → 1
+    irb » puts x + 2
+    3
+    → nil
+
+`nil` is an object, and the result of `x + 1` is also an object.
+
+    irb » num = 7
+    → 7
+
+Assigning the object `7` to the variable `num` causes that object to
+be returned.
+
+- Global        $var
+- Class         @@var
+- Instance      @var
+- Local         var
+- Block         var
+
+== Numbers
+
+Ruby has integers and floats.
+
+    irb » 123456789.class
+    → Fixnum
+    irb » 123456789123456789123456789.class
+    → Bignum
+
+`Fixnum` and `Bignum` are subclasses of `Integer`.
+
+    irb » 3.14.class
+    → Float
+
+Float with Integer operation yields another Float.
+
+    irb » 10 / 3 # Two ints!
+    → 3 # not 3.3333...
+
+    irb » 10.0 / 3 # One of them is a float.
+    → 3.3333....
+    irb » 10 / 3.0 # One of them is a float.
+    → 3.3333...
+
+
+    irb » 12345.6789.round # Uses rounding rules. May round up or down.
+    → 12346
+    irb » 12345.6789.to_i  # Discards decimal places.
+    → 12345
+    irb » 12345.6789.floor # Always rounds down.
+    → 12345
+    irb » 12345.6789.ceil  # Always rounds up.
+    → 12346
+
+
+== Strings
+
+    irb » "hello" + ' ' + 'world'
+    → "hello world"
+    irb » 'ha' * 3
+    → "hahaha"
+    irb » '7' * 5
+    → "77777"
+
+
+IRB returns strings in double quotes even if we type them in single quotes. That
+is why in the example below, the returned value in STDOUT doesn't show escapes
+in the first example, but does in the second.
+
+    irb » 'I\'m happy.'
+    → "I'm happy."
+    irb » "Say \"foo\", please!"
+    → "Say \"foo\", please!"
+
+IRB let the \" in there as a representation. It tries to display a visual representation
+of the string. Note that when we `put` a string, it only shows quotes meant literaly,
+but not quotes used to delimit the string:
+
+    irb » puts "Say \"foo\", please."
+    Say "foo", please.
+    → nil
+
+\", \\ and \' work as escapes in single quotes.
+\n, \t, etc only work in double quotes.
+
+Evaluate ruby expressions inside double-quoted strings:
+
+    puts "Here is #{myvar} and #{2 + 2}"
+
+
+== Arrays
+
+An array is an ordered, integer-indexed collection of objects.
+There may be gaps in the array, and they are filled with `nil`.
+One single array can store objects of different types.
+
+    arr = [] # empty array.
+    arr = ['a', "b", 3.14, [10, 20, 30]]
+    arr[1] # Returns b. Arrays are zero-indexed.
+    arr[5] # nil
+    arr[3] # [10, 20, 30]
+    arr[3][0] # 10
+    arr[0] = 'X' # replace a with X.
+    arr << 'foo' # append foo to the end of arr.
+    arr[3] = nil # remove third element from the array.
+
+    arr.clear # empties the entire array.
+    arr = []  # Same as above.
+    arr.class # Array
+    arr = nil # It is no longer an array at all.
+    arr.class # NilClass
+
+    
+# remove nil spaces from the array.
+
+
+
+
+
+

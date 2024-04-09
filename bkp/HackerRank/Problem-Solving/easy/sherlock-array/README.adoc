@@ -1,0 +1,7 @@
+= Sherlock and Array
+:toc: right
+:icons: font
+:stem: latexmath
+:source-highlighter: highlight.js
+
+* link:https://www.hackerrank.com/challenges/sherlock-and-array[Sherlock and Array :: HackerRank]

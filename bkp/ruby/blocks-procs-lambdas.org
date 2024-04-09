@@ -1,0 +1,467 @@
+#+TITLE: Blocks, Procs, Lambdas
+#+AUTHOR: Fernando Basso
+#+EMAIL: fernandobasso.br@gmail.com
+#+STARTUP: content
+
+#+DATE: 2020-04-27
+
+* Blocks
+
+Blocks are essentially “nameless functions” or “nameless portions of code.”
+
+#+BEGIN_SRC ruby
+  [10, 20, 30, 40]
+
+  arr.each do |el|
+      p el * 2
+  end
+
+  arr.each { |el| p el * el }
+#+END_SRC
+
+And we can make our own methods handle blocks passed as arguments.
+
+#+BEGIN_SRC ruby
+  def my_method
+    # Yields control to the passed block.
+    yield(10) if block_given?
+  end
+
+  my_method do |num|
+    p 'hey there'
+    p num
+  end
+#+END_SRC
+
+Methods do not declare explicit parameters for blocks. You just assume a block was passed and invoke =yield=, or test with =block_given?= instead of assuming a block was passed.
+
+We say that a method “yields control to the block”.
+
+#+BEGIN_SRC ruby
+  def perform(x, y)
+    yield(x, y) if block_given?
+  end
+
+  p perform(10, 2) { |a, b| a + b }
+  p perform(10, 2) { |m, n| m - n }
+  # → 12
+  # → 8
+#+END_SRC
+
+** Proc to Block Conversion
+
+TODO: Review this introduction:
+
+A method can /yield/ to a block, and /call/ a proc. It is possible to convert a block to a proc so it can be called with =.call=.
+
+=&foo=, =$:foo= and =:operator= are valid syntax, depending on the context.
+
+#+BEGIN_SRC ruby
+def meth1
+  yield(10) if block_given?
+end
+
+meth1 do |num|
+  p "meth1: #{num}"
+end
+# → "meth1: 10"
+
+
+def meth2(&block)
+  block.call(10)
+end
+
+meth2 do |num|
+  p "meth2: #{num}"
+end
+# → "meth2: 10"
+#+END_SRC
+
+1. Invoke the method passing the block, and internally, the method yields to the block giving it 10 as an argument. Note that =meth1= does not explicitly declare that a block is going to be passed when invoking the method.
+
+2. Invoke the method by passing it a block. The method explicitly expects a block, and converts it to a proc using the =&= operator. With this approach, it is very clear from the formal parameters that the method takes a block.
+
+Another way to implicitly take a block is to do =Proc.new= inside the method.
+
+#+BEGIN_SRC ruby
+def meth
+  unless block_given?
+    puts 'No block was passed. Bailing out...'
+    return
+  end
+
+  my_proc = Proc.new
+  my_proc.call(10)
+end
+
+meth do |num|
+  puts "Number: #{num}"
+end
+# → Number: 10
+
+meth
+# → No block was passed. Bailing out...
+#+END_SRC
+
+1. Define a method that implicitly takes a block. One has to read the method body and infer that a block is being expected. Clues are =block_given?= and =Proc.new=.
+
+2. We do =Proc.new= on “nothing”. It automagically accesses the block (assuming one was passed). It is important to test if a block was giving before attempting to invoke =Proc.new= otherwise to avoid runtime errors.
+
+3. Call the method passing it a block. The block then becomes a proc, and we =.call= it rather than =yield= to it. Again, procs are called, blocks are yielded to. Since the block was converted to a proc, we call it.
+
+4. Call the method without passing it a block, which causes the =unless= clause to execute its statements.
+
+* Procs
+
+Ruby blocks are not objects.
+
+Ruby procs are objects.
+
+Contrary to the “everything is an object in Ruby” rule, blocks are not
+objects. Moreover, they can't be stored in variables. Procs, however,
+are indeed objects and can be stored in variables. A proc is like a
+“saved block”.
+
+** Creating a Proc
+   :PROPERTIES:
+   :CUSTOM_ID: _creating_a_proc
+   :END:
+
+With =Proc.new=:
+
+#+BEGIN_SRC ruby
+  my_proc = Proc.new do |arg|
+    puts "Arg is: #{arg}"
+  end
+#+END_SRC
+
+Or with =proc= (since ruby 1.9?).
+
+#+BEGIN_SRC ruby
+  my_proc = proc do |arg|
+    puts "Arg is: #{arg}"
+  end
+#+END_SRC
+
+** Invoking a Proc
+   :PROPERTIES:
+   :CUSTOM_ID: _invoking_a_proc
+   :END:
+
+There are several (and strange) ways to call procs:
+
+#+BEGIN_SRC ruby
+  # No args, two args.
+  my_proc.call
+  my_proc.call arg1, arg2
+  my_proc.call(arg1, arg2)
+
+  # No args, two args.
+  my_proc.()
+  my_proc.(arg1, arg2)
+
+  # No args, two args.
+  my_proc[]
+  my_proc[arg1, arg2]
+
+  # No args, one arg, two args.
+  my_proc.===
+  my_proc === arg1
+  my_proc.=== arg1
+  my_proc.===(arg1)
+  my_proc.===(arg1, arg2)
+#+END_SRC
+
+The =[]= and ===== versions are not recommended. =.()= is better, but
+avoid it. Go with =.call= (preferred by rubocop).
+
+* Lambdas
+  :PROPERTIES:
+  :CUSTOM_ID: _lambdas
+  :END:
+
+[[https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line]]
+
+Lambdas are anonymous functions, objects of the class =Proc=. When
+created with
+[[https://ruby-doc.org/core-2.6.4/Kernel.html#method-i-lambda][Kernel#lambda]],
+it creates a proc object with lambda semantics enforcing arity.
+
+To create a lambda function, it is possible to use the both =lambda=
+literal, in which parameters to the block go inside =| |= as usual, or
+with the stab operator, =->=, in which parameters to the block go inside
+=( )=.
+
+[[https://github.com/rubocop-hq/ruby-style-guide#lambda-multi-line][Rubocop]]
+has some guidelines for lambda syntax.
+
+** lambda Method
+   :PROPERTIES:
+   :CUSTOM_ID: _lambda_method
+   :END:
+
+*lambda literal syntax.*
+
+#+BEGIN_SRC ruby
+  greet = lambda do |name|
+    "Hello, #{name}"
+  end
+
+  puts greet.('Yoda')
+  # → Hello, Yoda!
+#+END_SRC
+
+*** Lambda “Stabby” -> Literal Syntax
+    :PROPERTIES:
+    :CUSTOM_ID: _lambda_stabby_literal_syntax
+    :END:
+
+#+BEGIN_SRC ruby
+  # No args.
+  l1 = -> { 'lambda 1' }
+  puts l1.call
+  # → lambda 1
+
+  # No args.
+  l2 = ->() { 'lambda 2' }
+  puts l2.call
+  # → lambda 2
+
+  # One arg.
+  l3 = ->(arg) { "Argument is: #{arg}" }
+  puts l3.call('Ahsoka Tano')
+  # → Argument is: Ahsoka Tano
+
+
+  # No args.
+  puts -> { 'lambda 1' }.call
+  # → lambda 1
+
+  # No args.
+  puts ->() { 'lambda 2' }.call
+  # → lambda 2
+
+  # One arg.
+  puts ->(arg) { "Argument is: #{arg}" }.call('Aayla Secura')
+  # → Argument is: Aayla Secura
+#+END_SRC
+
+A contrived example, but helps understanding too:
+
+#+BEGIN_SRC ruby
+  def area(l, b)
+
+    -> { l * b }
+  end
+
+  x = 10.0
+  y = 20.0
+
+  area_rectangle = area(x, y).()
+  area_triangle = 0.5 * area(x, y).call
+
+  p area_rectangle
+  # → 200
+
+  p area_triangle
+  # → 100
+#+END_SRC
+
+1. Note that the sabby lambda can access =l= and =b= because of the
+   closure that is created. =area= recives two arguments and returns a
+   lambda. The lambda, when called, has full access to those arguments.
+
+* Closures
+  :PROPERTIES:
+  :CUSTOM_ID: _closures
+  :END:
+
+- [[https://en.wikipedia.org/wiki/Closure_(computer_programming]])
+
+In simple terms, a closure is a scope that is created when a function is
+declared inside a scope and has access to that scope even after that
+scope “no longer exists.”
+
+By function we mean any piece of runnable code. In ruby, it could be
+blocks, procs or lambdas. Methods cannot access variables from the
+outer, parent scope, so they cannot be part of a closure.
+
+** A Block Example
+   :PROPERTIES:
+   :CUSTOM_ID: _a_block_example
+   :END:
+
+A block has access to variables defined in its enclosing scope. In the
+next example, our blcks are used in the toplevel, so, the toplevel is
+the enclosing scope for the blocks, and therefore, they can access the
+variables and environtment of the toplevel.
+
+#+BEGIN_SRC ruby
+  droid = 'R2D2'
+
+
+  def run_block
+    yield if block_given?
+  end
+
+
+  run_block do { puts droid }
+  # → R2D2
+#+END_SRC
+
+** Blocks, Procs and Lambdas Closure Example
+   :PROPERTIES:
+   :CUSTOM_ID: _blocks_procs_and_lambdas_closure_example
+   :END:
+
+#+BEGIN_SRC ruby
+  val = 'outer'
+
+  def run_block
+    yield
+  end
+
+  def run_proc(fn)
+    fn.call
+  end
+
+  def run_lambda(fn)
+    fn.call
+  end
+
+  run_block { puts val }
+  # → outer
+
+  run_proc(Proc.new { puts val })
+  # → outer
+
+  run_lambda(lambda { puts val })
+  # → outer
+#+END_SRC
+
+We define three methods, each taking a different type of runnable code,
+then, they are invoked being passed their expected type of runnable
+code. The block, the proc and the lambda can /all/ access =val= from the
+outer scope.
+
+** Incrementer Lambda Closure Example
+   :PROPERTIES:
+   :CUSTOM_ID: _incrementer_lambda_closure_example
+   :END:
+
+#+BEGIN_SRC ruby
+  def a_method
+    num = 0
+    lambda do
+
+      num += 1
+
+      num
+    end
+  end
+
+
+  incrementer = a_method
+
+
+  p incrementer.call
+  p incrementer.call
+  # → 1
+  # → 2
+#+END_SRC
+
+1. Define a method with a local variable =num=, and return a lambda
+   which increments and returns =num= from the enclosing scope.
+
+2. The lambda can /update/ the value of =num= from the outer scope.
+
+3. The lambda can read/return the =num= from the outer scope.
+
+4. Invoke the method and assign the lambda returned from it to the
+   variable =incrementer=. The method has returned, and, in theory, its
+   scope should have gone away, but because there is a lambda accessing
+   the method's scope, a closure is created so that that lambda can
+   still reference the method's scope.
+
+5. Calling the lambda helps us see that =num= from the enclosing scope
+   can indeed be referenced from inside the lambda itself.
+
+** Blocks, Procs and Lambdas With Parameters Example
+   :PROPERTIES:
+   :CUSTOM_ID: _blocks_procs_and_lambdas_with_parameters_example
+   :END:
+
+Pay attention to the way the blocks in the example use or don't use the
+argument passwed by =yield=.
+
+#+BEGIN_SRC ruby
+  val = 'outer'
+  msg = 'Stupendous'
+
+  def run_block
+    val = 'inner'
+    puts "run_block method: #{val}"
+
+
+    yield(val)
+  end
+
+  # `yield` passed `val` from the method, but we are _not_ using it here.
+  run_block do
+    puts "run_block block: #{val}"
+  end
+  # → inner
+  # → outer
+
+
+  run_block do |val|
+    puts "run_block block: #{val}"
+  end
+  # → inner
+  # → inner
+#+END_SRC
+
+1. We are passing the ‘inner val' to yield, but the block may not make
+   use of it.
+
+2. Accesses the outer, global =val=. Not retrieving =val= as the block
+   argument. Note there is no =|arg|= thing.
+
+3. Uses =val= passed when invoking =yield= in #1.
+
+* Currying and Partial Application
+  :PROPERTIES:
+  :CUSTOM_ID: _currying_and_partial_application
+  :END:
+
+Currying is a technique in which a function accepts n parameters and
+turns it into a sequence of n functions, each taking 1 parameter.
+
+#+BEGIN_EXAMPLE
+  $ pry --simple-prompt
+  >> fn = lambda { |x, y| x + y }.curry
+  => #<Proc:0x000055dcc7e44270 (lambda)>
+  >> fn.arity
+  => -1
+  >> fn = lambda { |x, y| x + y }.curry(2)
+  => #<Proc:0x000055dcc81716c8 (lambda)>
+  >> fn.arity
+  => -1
+#+END_EXAMPLE
+
+#+BEGIN_SRC ruby
+  fn = lambda { |x, y| x + y }.curry(2)
+  add10 = fn.call(10)
+  p add10.call(5)
+  # → 15
+#+END_SRC
+
+* Links and Resources
+  :PROPERTIES:
+  :CUSTOM_ID: _links_and_resources
+  :END:
+
+- [[https://www.youtube.com/watch?v=VBC-G6hahWA][CooperPress, An
+  Introduction to Procs, Lambdas and Closures in Ruby]]
+
+- [[https://ruby-doc.org/core-2.6.4/Proc.html][Ruby Docs on Procs]]

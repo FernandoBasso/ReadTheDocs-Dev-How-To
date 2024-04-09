@@ -1,0 +1,20 @@
+= Caesar Chipher :: RackerRank
+:page-tags: easy string
+:icons: font
+:toc: left
+
+* link:https://www.hackerrank.com/challenges/caesar-cipher-1[Ceaser Chiper :: HackerRank^]
+
+[source,shell-session]
+----
+$ tr '[a-z]' '[n-za-m]' <<< 'sreanaqbonffb.oe ng tznvy.pbz'
+
+$ echo 'a' | tr 'a-z' 'n-za-m'
+n
+
+$ echo 'abc' | tr 'a-z' 'n-za-m'
+nop
+
+$ echo 'abcdefghijklm' | tr 'a-z' 'n-za-m'
+nopqrstuvwxyz
+----

@@ -1,0 +1,15 @@
+= Remove First And Last Characters | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+https://www.codewars.com/kata/56bc28ad5bdaeb48760009b0
+

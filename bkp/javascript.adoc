@@ -1,0 +1,48 @@
+= JavaScript
+
+== hasOwnProperty()
+
+**NOTE**: This is a piece of an algorithm to count the frequencies of
+alphanumeric chars in a string.
+
+[source,js]
+----
+if (freq.hasOwnProperty(chr))
+  freq[chr] += 1;
+else
+  freq[chr] = 1;
+----
+
+If `freq` has a `null` prototype, that condition with throw an exception like “Uncaught TypeError: freq.hasOwnProperty is not a function”.
+
+We can write it as of of these:
+
+[source,js]
+----
+if (Object.prototype.hasOwnProperty.call(freq, chr))
+----
+
+Or
+
+[source,js]
+----
+if (chr in freq)
+----
+
+Or with a ternary:
+
+[source,js]
+----
+freq[chr] = (chr in freq) ? freq[chr] + 1 : 1;
+----
+
+Or this clever bit of syntax:
+
+[source,js]
+----
+freq[chr] = ++freq[chr] || 1;
+----
+
+=== References
+
+https://lint.deno.land/?q=no-prototype-builtins#no-prototype-builtins

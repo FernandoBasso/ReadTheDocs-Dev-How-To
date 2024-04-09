@@ -1,0 +1,22 @@
+{
+  "name": "codewars-javascript-challenges",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Codewars Challenges in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "file": "node --no-warnings --experimental-modules --es-module-specifier-resolution=node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "fernandobasso.br@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "expect": "^24.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}

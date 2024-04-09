@@ -1,0 +1,8 @@
+= Ice Cream Parlor :: HackerRank
+:toc: right
+:icons: font
+:stem: latexmath
+
+* link:https://www.hackerrank.com/challenges/icecream-parlor[Icecream Parlor:: HackerRank]
+
+This challenge is the same as the link:https://www.codewars.com/kata/52c31f8e6605bcc646000082[Two Sum on Codewars^] and link:https://leetcode.com/problems/two-sum/[Two Sum on LeetCode^].

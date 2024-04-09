@@ -1,0 +1,20 @@
+.todos-wrapper {
+  margin: 2rem auto;
+  max-width: 768px;
+  border: 1px dashed orangered;
+  padding: 2rem;
+  border-radius:
+}
+
+.todos-wrapper button {
+  padding: 0.2rem 0.4rem;
+  font-size: 1em;
+}
+
+.todos-wrapper button.like-a-link {
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}

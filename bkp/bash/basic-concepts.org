@@ -1,0 +1,17 @@
+* Basic Concepts
+  :PROPERTIES:
+  :CUSTOM_ID: basic-concepts
+  :END:
+[TOC]
+
+Bash is a POSIX-compliant shell, but supports extra features and
+extensions.
+
+** Basic Syntax
+   :PROPERTIES:
+   :CUSTOM_ID: basic-syntax
+   :END:
+In bash (and pretty much all other shells), *whitespace is very
+important*. =<Space>= and =<Tab>= separate /words/ (a.k.a /tokens/).
+
+Read the [[https://www.gnu.org/software/bash/manual/][manual online]].

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Man, Info and Help</title>
+<date>2021-06-14</date>
+</info>
+<section xml:id="_man_info_and_help">
+<title>Man, Info and Help</title>
+<simpara>Always read man pages, help pages, and info pages.</simpara>
+<tip>
+<simpara>If you are new to *nix, don&#8217;t expect to understand very much of the manuals when reading and trying stuff in the very first few attempts. It will really depend a lot on your background and previous experience, skills and expertise. Just keep trying.</simpara>
+</tip>
+<section xml:id="_man">
+<title>man</title>
+<programlisting language="shell-session" linenumbering="unnumbered">$ man man
+$ man --help
+$ man foo</programlisting>
+<simpara>When someone tells you something like “it is docummented in some_command (3)”, they mean it is in section 3 of the man pages. Then you would do <literal>man 1 some_command</literal> or <literal>man some_command.3</literal>:</simpara>
+<simpara>A real example of that could be with the printf(1) command or printf(3) from the C Standard Library:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ man 1 printf
+$ man printf.1
+
+$ man 3 printf
+$ man printf.3</programlisting>
+<simpara>If we don&#8217;t know what a man page name would be, we can search the man page names and their sort descriptions by using <literal>-k</literal>, which accepts a regular expression. By the way, <literal>man -k pattern</literal> is the same as <literal>apropos pattern</literal>.</simpara>
+<tip>
+<simpara>If <literal>apropos</literal> or <literal>man -k</literal> says “nothing appropriate”, read <literal>man mandb</literal> and then run <literal>mandb</literal> as root.</simpara>
+</tip>
+<programlisting language="shell-session" linenumbering="unnumbered">$ man -k bc
+... produces to many results...</programlisting>
+<simpara>So, let&#8217;s match commands that start with “bc”:</simpara>
+<formalpara>
+<title>man -k ^bc on Ubuntu 19.04</title>
+<para>
+<programlisting language="shell-session" linenumbering="unnumbered">$ man -k ^bc
+bc (1)               - An arbitrary precision calculator language
+bccmd (1)            - Utility for the CSR BCCMD interface
+bcmp (3)             - compare byte sequences
+bcopy (3)            - copy byte sequence</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>man -k ^bc on Arch Linux as of September, 2019</title>
+<para>
+<programlisting language="shell-session" linenumbering="unnumbered">$ man -k ^bc
+BC (3x)              - direct curses interface to the terminfo capability dat...
+bc (1)               - An arbitrary precision calculator language
+bc (1p)              - arbitrary-precision arithmetic language
+bcmp (3)             - compare byte sequences
+bcomps (1)           - biconnected components filter for graphs
+bcopy (3)            - copy byte sequence</programlisting>
+</para>
+</formalpara>
+<note>
+<simpara>On Ubuntu, <emphasis>bc (1p)</emphasis> wasn&#8217;t available, but it was on Arch Linux.</simpara>
+</note>
+<note>
+<simpara>A “p” right after a section number of a man page means the standard POSIX program/behavior. “bc (1p)” refers to the POSIX specs and behavior, while</simpara>
+</note>
+<simpara>Section numbers are more or less standard across Unix-like OSes, but the letters may vary.</simpara>
+<section xml:id="_finding_info_node_names">
+<title>Finding Info Node Names</title>
+<programlisting language="shell-session" linenumbering="unnumbered">$ info sed --output - | grep '^\*\s.\+::'
+* Introduction::               Introduction
+* Invoking sed::               Invocation
+* sed scripts::                'sed' scripts
+* sed addresses::              Addresses: selecting lines
+* sed regular expressions::    Regular expressions: selecting text
+* advanced sed::               Advanced 'sed': cycles and buffers
+* Examples::                   Some sample scripts
+* Limitations::                Limitations and (non-)limitations of GNU 'sed'
+* Other Resources::            Other resources for learning about 'sed'
+* Reporting Bugs::             Reporting bugs
+* GNU Free Documentation License:: Copying and sharing this manual
+* Concept Index::              A menu with all the topics in this manual.
+* Command and Option Index::   A menu with all 'sed' commands and
+
+$ info sed 'sed scripts' --output - | grep '^\*\s.\+::'
+* sed script overview::      'sed' script overview
+* sed commands list::        'sed' commands summary
+* The "s" Command::          'sed''s Swiss Army Knife
+* Common Commands::          Often used commands
+* Other Commands::           Less frequently used commands
+* Programming Commands::     Commands for 'sed' gurus
+* Extended Commands::        Commands specific of GNU 'sed'
+* Multiple commands syntax:: Extension for easier scripting
+
+$ info sed 'sed scripts' 'the "s" command' --output - | vim -
+
+$ info sed 'sed scripts' 'the "s" command'</programlisting>
+<simpara>Or commands that end with “print” (but not “printf”, for example):</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ man -k print$
+FcFontSetPrint (3)   - Print a set of patterns to stdout
+FcPatternPrint (3)   - Print a pattern for debugging
+FcValuePrint (3)     - Print a value to stdout
+isprint (3)          - character classification functions
+iswprint (3)         - test for printing wide character
+print (1)            - execute programs via entries in the mailcap file</programlisting>
+<simpara>Bear in mind that all of these do the same thing:</simpara>
+<programlisting language="bash" linenumbering="unnumbered">man -k some_command
+man --apropos some_command
+apropos some_command</programlisting>
+<simpara>To search on the entire text of the man pages, use:</simpara>
+<programlisting language="bash" linenumbering="unnumbered">man --global-apropos some_command
+man -K some_command</programlisting>
+<simpara>Note that it is an uppercase “K” this time.</simpara>
+</section>
+</section>
+<section xml:id="_help">
+<title>help</title>
+<simpara>Bash has builtin commands, like <literal>help</literal>, <literal>pwd</literal>, <literal>type</literal>, and <literal>cd</literal>.</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ type cd
+cd is a shell builtin</programlisting>
+<simpara><literal>help</literal> is a builtin command that gives help on other builtin commands.</simpara>
+<tip>
+<simpara>To see the list of Bash&#8217;s builtin commands, simply type <literal>help</literal> without any arguments.</simpara>
+</tip>
+<simpara>And to see the help for a builtin, you can either do man bash and search for that command or do:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ help &lt;some builtin command&gt;
+
+$ help help
+$ help builtin
+$ help .
+$ help source
+$ help command
+$ help [
+$ help [[
+$ help echo
+$ help printf
+# etc...</programlisting>
+</section>
+<section xml:id="_info">
+<title>info</title>
+<simpara>First:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ info info
+$ man info
+$ info --help</programlisting>
+<note>
+<simpara>Of course, on Arch Linux, we are fine, but on Ubuntu, we need to <literal>apt install texinfo-doc-nonfree</literal>.</simpara>
+</note>
+<simpara>Generally, info pages are more user-friendly and tutorial-like than man pages. To read info pages, do</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ info &lt;program or command&gt;
+
+$ info ed
+$ info sed
+$ info bash</programlisting>
+<note>
+<simpara>Not all programs and commands have info pages, and when an info page does not exist for a given command, <literal>info</literal> shows the man page instead. <literal>vi</literal>, <literal>vim</literal> and <literal>rsync</literal> are some such programs.</simpara>
+</note>
+<simpara>You can also open info directly into a section of an info document (if you know the name of the section), something like:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ info sed 'execution cycle'</programlisting>
+<simpara>And programs in the <emphasis>coreutils</emphasis> group have an <emphasis>invocation</emphasis> section:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ info coreutils
+
+$ info '(coreutils) echo invocation'
+$ info coreutils 'echo invocation'
+
+$ info '(coreutils) printf invocation'
+$ info coreutils 'printf invocation'
+
+$ info '(coreutils) kill invocation'
+$ info coreutils 'kill invocation'</programlisting>
+<simpara>TODO: How to discover the names of the info sections for a given program? For example “info sed, then sed scripts, then the s command”.</simpara>
+<simpara>From GNU Emacs, you can read the info pages with:</simpara>
+<programlisting language="text" linenumbering="unnumbered">C-h i m &lt;command&gt;
+
+# For example:
+C-h i m sed</programlisting>
+<simpara>Info has a lot of nomenclature, concepts and commands. <literal>info info</literal> explains about commands to find stuff inside info, navigate documents, etc. It is a somewhat complex system. Yet, a powerful one.</simpara>
+<section xml:id="_info_summary">
+<title>info summary</title>
+<programlisting language="text" linenumbering="unnumbered">info emacs --node Files
+info '(emacs)Files'
+
+info /usr/local/share/info/bash.info
+info ~/docs/doc.info
+
+info sed 'sed scripts' 'the "s" command'
+info emacs 'user input'</programlisting>
+<simpara>Run <literal>info info 'moving the cursor'</literal>.</simpara>
+<note>
+<simpara><literal>META</literal> (or <literal>ALT</literal>) can also be achieved by hitting <literal>ESC</literal>. Like <literal>ESC-f</literal> for <literal>forward-word</literal>. And <literal>ESC</literal> itself can be produced with <literal>C-[</literal>. <literal>DEL</literal> is <literal>Backspace</literal>.</simpara>
+</note>
+<simpara>For a quick glance at <emphasis>all</emphasis> info commands and key bindings, open any info page, and press <literal>C-h</literal>.</simpara>
+</section>
+</section>
+<section xml:id="_cp_man_page_example">
+<title>`cp' Man Page Example</title>
+<simpara><literal>man cp</literal> produces this:</simpara>
+<formalpara>
+<title>Exerpt of `man cp' on Arch Linux as of 2019</title>
+<para>
+<programlisting language="text" linenumbering="unnumbered">CP(1)                            User Commands                           CP(1)
+
+NAME
+       cp - copy files and directories
+
+SYNOPSIS
+       cp [OPTION]... [-T] SOURCE DEST
+       cp [OPTION]... SOURCE... DIRECTORY
+       cp [OPTION]... -t DIRECTORY SOURCE...
+
+DESCRIPTION
+       Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.</programlisting>
+</para>
+</formalpara>
+<simpara>Let&#8217;s understand the man page syntax.</simpara>
+<simpara>“cp” is the name of the command or program. No mistery.</simpara>
+<simpara>Anything inside “[” and “]” means that thing is optional. In this case, <literal>[OPTION]</literal> means that command line options are optional, that is, you can do something like <literal>cp -v foo.txt foo.txt.bpk</literal>, where <literal>-v</literal> is an <emphasis>option</emphasis>, or simply <literal>cp foo.txt foo.txt.bpk</literal>, and not use <literal>-v</literal> or any other option at all. You can think as options as flags the enable, disable, or configure the way the program should behave.</simpara>
+<simpara>The three dots, <literal>&#8230;&#8203;</literal>, like in <literal>[OPTION]&#8230;&#8203;</literal> or <literal>SOURCE&#8230;&#8203;</literal>,  means that thing may occur more than one time. If something is optional, it may occur zero or more times. If that thing is required, then it has to occur one or more times. So, in the case of:</simpara>
+<programlisting language="text" linenumbering="unnumbered">cp [OPTION]... SOURCE... DIRECTORY</programlisting>
+<simpara>it means we must use <literal>cp</literal>, followed by zero or more command line options. Then, <literal>SOURCE&#8230;&#8203;</literal> is required, but it can occur more than once. Finally, <literal>DIRECTORY</literal> is required, and must occur only once.</simpara>
+<simpara>Recap:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>[THING]</literal> optional and may occur at most once.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>[THING]...</literal> optional and may occur zero or more times.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>THING</literal> required and must occur exactly once.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>THING...</literal> required and must occur one or more time.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Since <literal>cp</literal> accepts multiple sources, we could copy more than one file at a time to a given destination directory. As an example, let&#8217;s copy three files to a backup directory.</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ cp main.c lib.h lib.c ~/bkpdir/</programlisting>
+<simpara>Suppose we want to use the options <literal>--verbose</literal> and <literal>--interactive</literal> (or their short versions, <literal>-v</literal> and <literal>-i</literal>), we can do:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ cp --verbose --interactive main.c lib.h lib.c ~/bpkdir/</programlisting>
+<simpara>And with the short option syntax, we can group options. All three commands below do the same thing:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ cp --verbose --interactive foo.txt foo.txt.bpk
+$ cp -v -i foo.txt foo.txt.bpk
+$ cp -vi foo.txt foo.txt.bpk</programlisting>
+<simpara>Note the <literal>-vi</literal> instead of <literal>-v -i</literal> in the last one!</simpara>
+</section>
+<section xml:id="_csi_help_example">
+<title>`csi' -help Example</title>
+<simpara>One of the popular Scheme interpreters (repl) is “Chicken”, and its command line tools include <literal>csi</literal> (Chicken Scheme Interpreter, for the command line repl) and <literal>csc</literal> (Chicken Scheme Compiler).</simpara>
+<note>
+<simpara>On some distros, the names are now <literal>chicken-csi</literal> and <literal>chicken-scs</literal> because there were conflicts with Mono&#8217;s C Sharp Compiler and Chicken Scheme Compiler. See this <link xl:href="https://github.com/mono/mono/issues/9056">Mono issue</link>, this <link xl:href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=509367">Debian bug report</link>, and this <link xl:href="https://bugs.archlinux.org/task/54040">Arch Linux bug report</link>.</simpara>
+</note>
+<note>
+<simpara><literal>csi -help</literal> as of 2019 produces output different than showed here (as it was in 2017), but the examples and explanations are still very useful and enlightening.</simpara>
+</note>
+<programlisting language="shell-session" linenumbering="unnumbered">$ csi -help
+
+usage: csi [FILENAME | OPTION ...]</programlisting>
+<simpara>Note that we have the square braces enclosing two things, and there is a “|” (the pipe character) between those two things. That character means 'OR', that is, either one thing, or the or the other. It doesn&#8217;t mean “invoke csi followed by a filename followed by an option.” Nope, that is incorrect. What that means is either one of these:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ csi program.scm
+
+# or
+$ sci &lt;some option&gt;
+
+# but this is INCORRECT:
+$ sci program.scm &lt;some option&gt;</programlisting>
+<simpara>On the other hand, if you look at the <literal>csi</literal> man page (or <literal>sci -help</literal>), you&#8217;ll see that some options require a file name, like the <literal>-s</literal> (or <literal>-script</literal>) option.</simpara>
+<simpara>The moral is that the man page shows something that can be easily misunderstood:</simpara>
+<programlisting language="text" linenumbering="unnumbered">csi [FILENAME | OPTION ...]</programlisting>
+<simpara>Can lead one to think the syntax is:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ sci program.scm -s</programlisting>
+<simpara>which is incorrect. The correct is either:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ sci program.scm</programlisting>
+<simpara>or (because the option <literal>-s</literal> takes a filename)</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ sci -s program.scm</programlisting>
+<simpara>That is, <literal>csi filename</literal> or <literal>csi &lt;option&gt;</literal>, just that some options require a filename <emphasis role="strong">after</emphasis> the option itself.</simpara>
+</section>
+<section xml:id="_command_options">
+<title>Command Options</title>
+<simpara>Most commands (or programs) accept both long versions and short versions of options. For example, <literal>rsync</literal> has <literal>-a</literal>, short for <literal>--archive</literal>, and <literal>-r</literal>, short for <literal>--recursive</literal>, among many others.</simpara>
+<simpara>Still, even for programs that support both short and long versions of options, some options my be available only in long form (either because there was no appropriate single letter left, or for some other, sometimes odd, reason). For example, <literal>ls</literal> has the long option <literal>--group-directories-first</literal>, and there is no short name for that option. However, some programs allow the abbreviation of a long option as long it does not clash with some other option. For instance <literal>ls</literal> has only one long option that starts with <literal>--g</literal> (which is <literal>--group-directories-first</literal>), and it allows one to abbreviate it to something like <literal>--group-directories</literal>, or <literal>--group-d</literal>, or even <literal>--group</literal> or <literal>--g</literal>.</simpara>
+<simpara>To give another example, the program <literal>xclip</literal> also allows unambiguous abbreviations; one can either write <literal>xclip -selection clipboard</literal> or abbreviate to <literal>xclip -sel clip</literal>. Many other commands allow this sort of abbreviation.</simpara>
+<simpara>Another thing to consider is the number of hyphens. For most commands, short options use one hyphen, and long versions use two. You write either <literal>-r</literal> (one hyphen) or <literal>--recursive</literal> (two hyphens). However, some commands have long options (and sometimes <emphasis>only</emphasis> long options, and behold, they take only <emphasis>one single hyphen</emphasis>. <literal>xclip</literal>, <literal>chicken-csi</literal> and <literal>chicken-csi</literal> are examples of programs in which the long version uses only a single hyphen (and allow the unambiguous abbreviations).</simpara>
+<simpara>Yet others, like <literal>tar</literal>, do not require the hyphen for the short versions. That is, you can either do <literal>tar -cf dir.tar dir/</literal> or drop the hyphen and do <literal>tar cf dir.tar dir/</literal>.</simpara>
+<simpara><literal>java</literal> and <literal>javac</literal>, has long options, and some use one single hyphen, like <literal>-classpath</literal>, while others use two hyphens, like <literal>--class-path</literal>.</simpara>
+</section>
+<section xml:id="_posix_and_gnu">
+<title>POSIX and GNU</title>
+<simpara>POSIX is a standard (specification) defined by the <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/">Open Group</link>. There are four main sections in the spec:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/xbd.html">Base Definitions</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/xsh.html">System Interfaces</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/xcu.html">Shell &amp; Utilities</link> (this is the one most useful for command line users and practictioners)</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/idx/xrat.html">Rationale</link></simpara>
+</listitem>
+</itemizedlist>
+<simpara>GNU programs and commands attempt to follow POSIX, but adds several additional features and “extensions” to standard POSIX. So, when you use a command line program, it is very likely that you are not using plain, standard POSIX, but extra features not defined in POSIX as well.</simpara>
+<simpara>Bash itself can be started with environment variable <literal>POSIXLY_CORRECT</literal> set (or with the <literal>--posix</literal> option) so it will behave like a real, plain, bare POSIX shell as much as possible.</simpara>
+<simpara>In <literal>sed</literal>, we can read its info page with <literal>info sed</literal>. In the section “Sed Scripts &gt; The "s" Command”, we can read this:</simpara>
+<formalpara>
+<title>Excerpt from GNU Sed Info Page</title>
+<para>
+<programlisting language="text" linenumbering="unnumbered">Finally, as a GNU 'sed' extension, you can include a special sequence
+made of a backslash and one of the letters 'L', 'l', 'U', 'u', or 'E'.
+The meaning is as follows:
+
+'\L'
+     Turn the replacement to lowercase until a '\U' or '\E' is found,
+
+'\l'
+     Turn the next character to lowercase,
+
+'\U'
+     Turn the replacement to uppercase until a '\L' or '\E' is found,
+
+'\u'
+     Turn the next character to uppercase,
+
+'\E'
+     Stop case conversion started by '\L' or '\U'.</programlisting>
+</para>
+</formalpara>
+<simpara>Most (if not all) GNU command line programs docs explicitly state when something is not plain POSIX, but an additional GNU feature. We can assume that most man and info pages are explicit when an option or something else is not POSIX-compliant or POSIX-defined.</simpara>
+</section>
+<section xml:id="_documentation_relationships">
+<title>Documentation Relationships</title>
+<simpara>Also worth noting is that some docs refer to some other docs. If a man, help or info page mentions some other docs, pay attention to it. It usually means it implements things mentioned in the other docs, and possibily <emphasis>extends</emphasis> and overrides things from the mentioned docs. Let&#8217;s discuss one such example.</simpara>
+<simpara>If you read the help for the builtin <literal>printf</literal> command, it says:</simpara>
+<formalpara>
+<title>Excerpt of bash&#8217;s `help printf'</title>
+<para>
+<programlisting language="text" linenumbering="unnumbered">In addition to the standard format specifications described in printf(1),
+printf interprets:</programlisting>
+</para>
+</formalpara>
+<simpara>And then you do <literal>man 1 printf</literal>, and see:</simpara>
+<formalpara>
+<title>Excerpt of `man 1 printf':</title>
+<para>
+<programlisting language="text" linenumbering="unnumbered">NOTE:  your shell may have its own version of printf, which usually su‐
+persedes the version described here.  Please refer to your shell's doc‐
+umentation for details about the options it supports.</programlisting>
+</para>
+</formalpara>
+<simpara>So, Bash&#8217;s printf uses the format especifications defined in printf(1), but nonetheless, printf(1) tells us that the Shell&#8217;s printf “usually supersedes” <emphasis>this printf</emphasis>. Moreover, <literal>man 1 printf</literal> talks about C printf.</simpara>
+<simpara>If we read <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html">POSIX printf specs</link>, we see it mentions <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap05.html">XBD File Format Notation</link>, which says:</simpara>
+<programlisting language="text" linenumbering="unnumbered">If the format is exhausted while arguments remain, the excess arguments shall
+be ignored.</programlisting>
+<simpara>So, one would expect that <literal>printf '%s\n' foo bar</literal> would print "foo\n" and ignore "bar", still, take a look at what really happens:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ printf '%s\n' foo bar
+foo
+bar</programlisting>
+<simpara>It is still printing “bar” even though the POSIX spec tells that it should be ignored. Except that <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html">XCU Command and Utilities</link> extends and superseds <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap05.html">XBD File Format Notation</link>. Look:</simpara>
+<programlisting language="text" linenumbering="unnumbered">The format operand shall be used as the format string described in XBD File
+Format Notation with the following exceptions:
+
+...
+
+9. The format operand shall be reused as often as necessary to satisfy the
+argument operands.
+
+...</programlisting>
+<simpara>So, even though XBD tells that “excess arguments shall be ignored”, XCU printf overrides that and tells that it <emphasis>shall be reused to satisfy the operands</emphasis>.</simpara>
+<section xml:id="_end_of_options_echo_example">
+<title>End of Options echo Example</title>
+<simpara>Unix shells and programs interpret <literal>--</literal> to mean “end of options”. Guideline 10 on <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">XBD Utility Syntax Guidelines 10</link> says:</simpara>
+<formalpara>
+<title>Excerpt of XBD Utility Syntax Guidelines</title>
+<para>
+<programlisting language="text" linenumbering="unnumbered">The first -- argument that is not an option-argument should be accepted as a
+delimiter indicating the end of options. Any following arguments should be
+treated as operands, even if they begin with the '-' character.</programlisting>
+</para>
+</formalpara>
+<simpara>Take a look:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ printf -v
+-bash: printf: -v: option requires an argument
+printf: usage: printf [-v var] format [arguments]</programlisting>
+<simpara>But if we use <literal>--</literal>, then printf simply prints “-v”:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ printf -- -v
+-v</programlisting>
+<simpara>Then we try it with echo:</simpara>
+<programlisting language="shell-session" linenumbering="unnumbered">$ echo -- -e
+-- -e</programlisting>
+<simpara>Oops! echo printed <literal>-- -e</literal>, not just <literal>-e</literal>. It seems echo does not take <literal>--</literal> to mean “end of options”. If we run <literal>help echo</literal>, it says nothing about <literal>--</literal>. Then we read <link xl:href="https://pubs.opengroup.org/onlinepubs/9699919799/utilities/echo.html">XCU echo spec page</link>, and come accross this:</simpara>
+<formalpara>
+<title>Excerpt of XCU echo spec page</title>
+<para>
+<programlisting language="text" linenumbering="unnumbered">The echo utility shall not recognize the "--" argument in the manner
+specified by Guideline 10 of XBD Utility Syntax Guidelines; "--" shall be
+recognized as a string operand.</programlisting>
+</para>
+</formalpara>
+<simpara>So that is it. Since GNU Bash echo does not override the way <literal>--</literal> should work according to the specs, it is not even documented in <literal>help echo</literal>. And we should assume, at least when it comes to <literal>--</literal>, that echo bash builtin follows the specs!</simpara>
+</section>
+</section>
+<section xml:id="_other_links_and_resources">
+<title>Other Links and Resources</title>
+<simpara><link xl:href="https://wiki.gentoo.org/wiki/Man_page/Navigate">https://wiki.gentoo.org/wiki/Man_page/Navigate</link></simpara>
+</section>
+</section>
+</article>

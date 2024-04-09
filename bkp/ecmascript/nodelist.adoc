@@ -1,0 +1,28 @@
+= NodeList
+:linkcss:
+// :stylesheet!: asciidoctor-original-with-overrides.css
+// :stylesdir!: {user-home}/Projects/proghowto
+// :webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.pn
+
+== Convert NodeList to Array
+
+[source,javascript,lineos]
+----
+const divsList = document.querySelectorAll('div');
+const divsArr = [...document.querySelectorAll('div')];
+
+console.log(Object.prototype.toString.call(divList));
+// → "[object NodeList]"
+
+console.log(Object.prototype.toString.call(divArr));
+// → "[object Array]"
+----

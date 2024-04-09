@@ -1,0 +1,41 @@
+= HackerRank Shell Solutions and Explanations
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts:
+:stem: latexmath
+:icons!: font
+:source-highlighter: pygments
+:!source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+== About This Document
+
+My solutions and explanations for the HackerRank shell challenges.
+
+=== ShellCheck
+To avoid having the generated Asciidoctor output contain `#!/bin/bash` everywhere, the scripts do not contain a sheebang line, therefore, run link:https://github.com/koalaman/shellcheck/wiki/SC2148[ShellCheck^] with:
+
+[source,shell-session]
+----
+$ shellcheck --shell bash script.sh
+----
+
+
+include::./e06-compare-numbers.adoc[]
+
+include::./e07-conditionals.adoc[]
+
+++++
+<style>
+pre.highlight .tok-c1 {
+  font-style: normal !important;
+}
+</style>
+++++

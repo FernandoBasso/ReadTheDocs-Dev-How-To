@@ -1,0 +1,6 @@
+#+TITLE: Org-mode Emacs
+
+About inline verbatim stuff:
+
+https://emacs.stackexchange.com/questions/13820/inline-verbatim-and-code-with-quotes-in-org-mode
+

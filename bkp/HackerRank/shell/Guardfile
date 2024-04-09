@@ -1,0 +1,15 @@
+# vim: set filetype=ruby:
+
+require 'asciidoctor'
+
+file = 'hackerrank-shell.adoc'
+
+guard 'shell' do
+  watch(/^*\.adoc$/) {
+    Asciidoctor.convert_file(
+      file,
+      :safe => :unsafe
+    )
+  }
+end
+

@@ -1,0 +1,425 @@
+                         ━━━━━━━━━━━━━━━━━━━━━
+                          CLASSES AND OBJECTS
+
+                             Fernando Basso
+                         ━━━━━━━━━━━━━━━━━━━━━
+
+
+Table of Contents
+─────────────────
+
+1 Intro
+2 Instance Methods
+.. 2.1 Overriding Methods
+.. 2.2 Reopening Classes
+.. 2.3 Instance Variables
+..... 2.3.1 Using the initialize constructor method
+.. 2.4 Reader and Writer Methods
+.. 2.5 Constants
+.. 2.6 Not really constants
+.. 2.7 Inheritance
+3 The End
+
+
+
+
+
+1 Intro
+═══════
+
+        Everything you handle in Ruby is either an object or
+        something that evalutes to an object.  – The Well Grounded
+        Rubyist
+
+  Classes in Ruby are objects too. Classes exist so they can be
+  _instantiated_ to create new objects, and to provide general
+  funcionality like when calling `Time.now'.
+
+  ┌────
+  │ p Time.now
+  └────
+
+  ┌────
+  │ 2018-07-08 17:59:32 -0300
+  └────
+
+  Ruby has many built-in classes (and classes are objects in Ruby, never
+  forget this). Classes also respond to messages (we can call methods on
+  the classes). In `Object.new', `new' is the constructor method of the
+  `Object' class/object.
+
+  A constructor is a method that creates and returns a new object.
+
+  One way to create a class is by using the `class' keyword and a
+  constant as the name of the class.
+
+  ┌────
+  │ class Dog
+  │   # Class code here...
+  │ end
+  │
+  │ # Create an instance of Dog.
+  │ dog = Dog.new
+  │
+  │ # Another way to create a class.
+  │ Person = Class.new do
+  │   # Class code here...
+  │ end
+  │
+  │ person = Person.new
+  │ # Let's inquire from which class whas the object `person' created.
+  │ p person.class
+  │
+  │ # And let's enquire from which class was the class that created
+  │ # `Person` created.
+  │ p person.class.class
+  └────
+
+  ┌────
+  │ Person
+  │ Class
+  └────
+
+  The version using `class' is just syntax suggar for the more
+  strange-looking version with `Class.new'.
+
+  The methods we defined inside both classes are available to all
+  objects created each class.
+
+
+2 Instance Methods
+══════════════════
+
+  You can define a method for a single object, which is what /singleton
+  methods/ are. There are also /instance methods/.
+
+  ┌────
+  │ class Person
+  │   def name
+  │     # Code for the `name' method here...
+  │   end
+  └────
+
+
+2.1 Overriding Methods
+──────────────────────
+
+  If a class define the same instance method more than once, each
+  subsequent definition of the method overrides the previous one, and
+  the last one “wins”.
+
+  ┌────
+  │ class Greeter
+  │   # Define `hello' once.
+  │   def hello
+  │     'Greetings The First'
+  │   end
+  │
+  │   # Define `hello' again, effectively overriding the first definition.
+  │   def hello
+  │     'Salutations The Second'
+  │   end
+  │ end
+  │
+  │ greeter = Greeter.new
+  │ p greeter.hello
+  └────
+
+  ┌────
+  │ "Salutations The Second"
+  └────
+
+
+2.2 Reopening Classes
+─────────────────────
+
+  Ruby allows us to *reopen* a class and make additions to them at a
+  later time.
+
+  ┌────
+  │ class Person
+  │   def name
+  │     'some name'
+  │   end
+  │ end # We just closed the class here.
+  │
+  │ # Somewhere else in the file, or even in some other file
+  │ # we can reopen the class and add more stuff to it.
+  │
+  │ class Person
+  │   def email
+  │     'some@email.io'
+  │   end
+  │ end
+  │
+  │ person = Person.new
+  │ p person.name
+  │ p person.email
+  └────
+
+  ┌────
+  │ "some name"
+  │ "some@email.io"
+  └────
+
+  And indeed both methods can be invoked.
+
+  NOTE: Think a lot before using this feature. There must be a very
+  reasonable reason to do so. It should only be used in cases where the
+  program design demands such approach.
+
+  Let's reopen the `Array' class add an /array to proc/ extension.
+
+  ┌────
+  │ class Array
+  │   def to_proc
+  │     return proc do |obj|
+  │       obj.public_send(:[], *self)
+  │     end
+  │   end
+  │ end
+  │
+  │ jedis = [
+  │   { name: 'Luke Skywalker', skill: 'Pod Race' },
+  │   { name: 'Master Yoda', skill: 'The Force' },
+  │   { name: 'Obiwan Kenobi', skill: 'Light Saber' }
+  │ ]
+  │
+  │ p jedis.map(&[:skill])
+  └────
+
+  ┌────
+  │ ["Pod Race", "The Force", "Light Saber"]
+  └────
+
+
+2.3 Instance Variables
+──────────────────────
+
+  /Instance variables/ are used to store the state of objects. Their
+  identifiers start with the “@” symbol and are scoped to the object
+  they belong to.
+
+  ┌────
+  │ class Enemy
+  │   def set_power(power)
+  │     @power = power
+  │   end
+  │
+  │   def get_power()
+  │     @power
+  │   end
+  │ end
+  │
+  │ enemy1 = Enemy.new
+  │ p enemy1.get_power   # <1>
+  │ enemy1.set_power(87) # <2>
+  │ p enemy1.get_power   # <3>
+  └────
+
+  ┌────
+  │ nil
+  │ 87
+  └────
+
+  1. Initially, power is not set, so it is `nil'.
+  2. Set power to 87.
+  3. And now `get_power' returns the just set power value.
+
+  Note that instance variables are shared across methods of a
+  class. That makes sense because instance variables, as the name
+  implies, belong to an instance of a class (and an instance of a class
+  is an object). In other words, /instance variables/ are not /local
+  variables/. Local variables belong to a specific scope (a method, for
+  instance). /Instance variables/, belonging to the “entire” object, are
+  shared across methods. Instance variables outlive method calls.
+
+
+2.3.1 Using the initialize constructor method
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  We can use the `initialize' constructor method to give the object
+  being created some initial data.
+
+  ┌────
+  │ class Enemy
+  │   def initialize(power)
+  │     @power = power
+  │   end
+  │
+  │   def set_power(new_power)
+  │     @power = new_power
+  │   end
+  │
+  │   def get_power()
+  │     @power
+  │   end
+  │ end
+  │
+  │ enemy1 = Enemy.new(100)
+  │ p enemy1.get_power
+  │ enemy1.set_power(56)
+  │ p enemy1.get_power
+  └────
+
+  ┌────
+  │ 100
+  │ 56
+  └────
+
+  With the `initialize' constructor we can give initial/default values
+  to our objects, and we can query data from the objects through getter
+  (reader) methods, and set (new) data with setter (writer) methods.
+
+
+2.4 Reader and Writer Methods
+─────────────────────────────
+
+  In Ruby parlance, people generally use /writer/ and /reader/ terms to
+  refer to what in some other languages are referred to as /getter/ and
+  /setter/ methods.
+
+  Instead of writing `get_<property>' and ~set_<property> (like is most
+  other object oriented languages, Ruby has a cleaner, more idiomatic
+  way of doing the same thing. We can do it like this:
+
+  ┌────
+  │ class Jedi
+  │   def initialize(name, skill)
+  │     @name = name
+  │     @skill = skill
+  │   end
+  │
+  │   # Public getter/reader for the name.
+  │   def name
+  │     @name
+  │   end
+  │
+  │   # Public setter/writer method to set the name.
+  │   def name=(name)
+  │     @name = name
+  │   end
+  │
+  │   # Public getter/reader for the skill.
+  │   def skill
+  │     @skill
+  │   end
+  │
+  │   # Public setter/writer for the skill.
+  │   def skill=(skill)
+  │     @skill = skill
+  │   end
+  │ end
+  │
+  │ yoda = Jedi.new('Master Yoda', 'The Force')
+  │ p yoda.name
+  │ yoda.skill=('Forsee the future')
+  │ p yoda.skill
+  │ yoda.skill = 'Wield a Lightsaber'
+  │ p yoda.skill
+  └────
+
+  ┌────
+  │ "Master Yoda"
+  │ "Forsee the future"
+  │ "Wield a Lightsaber"
+  └────
+
+  `obj.some_writer = value' is just syntax sugar for
+  `obj.some_writer=(value)'. Still, the former is the more idiomatic
+  Ruby style, and the most used.
+
+  And yes, Ruby accepts `=' at the end of method identifiers. But
+  please, only use `foo=` syntax for writer methods.
+
+
+2.5 Constants
+─────────────
+
+  Constants begin with an Uppercase letter. Class names are constants,
+  as are module names. But we can also use constants to hold scalar
+  values.
+
+  ┌────
+  │ class Jedi
+  │   ALLOWED_SKILLS = ['Lightsaber', 'The Force', 'Levitate']
+  │
+  │   def initialize(name, skill)
+  │     if ! ALLOWED_SKILLS.include?(skill)
+  │       raise "Skill “#{skill}” not allowed."
+  │     end
+  │
+  │     @name = name
+  │     @skill = skill
+  │   end
+  │ end
+  │
+  │ luke = Jedi.new 'Luke', 'Lightsaber'
+  │ # No problem here.
+  │
+  │ jedi = Jedi.new 'Yoda', 'Fight'
+  │ # → -:6:in `initialize': Skill “Fight” not allowed. (RuntimeError)
+  └────
+
+  The constant `ALLOWED_SKILLS' is all uppercase (with the underscore to
+  separate the words). This is a good convention to avoid
+  misunderstandings. `Person', `CreditCard' and `AdminManagerController'
+  are good names for classes, like `Enumerable', `FileTest' and `Kernel'
+  are good modules names. But for our own constants that are not class
+  or module names, it is advisable to use all caps, like `STATUSES',
+  `INVALID_CODES', or `ALLOWED_SKILLS'.
+
+  Ruby has some constants at the top level (that do not need you to
+  first load `rbconfig') like `RUBY_VERSION'. Start `irb' or `pry' and
+  type `RUBY<Tab><Tab>' to see some of these constants.
+
+
+2.6 Not really constants
+────────────────────────
+
+  Ruby constants are not really constants; we can reassign values to
+  them at the expense of seeing a warning.
+
+  ┌────
+  │ $ pry --simple-prompt
+  │ >> TITLE = 'My App'
+  │ => "My App"
+  │ >> TITLE = 'My Awesome App!'
+  │ (pry):2: warning: already initialized constant TITLE
+  │ (pry):1: warning: previous definition of TITLE was here
+  │ => "My Awesome App!"
+  └────
+
+  If the constant is an array, for example, assigning something new (a
+  new reference) to the constant produces a warning, but changing the
+  elements of the array (the object in memory) is something else (and
+  allowed).
+
+  ┌────
+  │ $ pry --simple-prompt
+  │ >> STATUSES = ['active', 'inactive', 'on']
+  │ => ["active", "inactive", "on"]
+  │ >> STATUSES << 'off'
+  │ => ["active", "inactive", "on", "off"]
+  │
+  │ # NO ERROR!
+  └────
+
+  Remember that an identifier (variable name, or a constant name) holds
+  a reference to an object in memory. Making that variable name (label)
+  point to a new object in memory is something, but changing the
+  contents of that object in memory is something else.
+
+
+2.7 Inheritance
+───────────────
+
+  All Ruby classes are instances of `Object', and `Object' is an
+  instance of `Class' (and Ruby does some internal magic so `Class'
+  always exists, and is an instance of itself).
+
+
+3 The End
+═════════
+
+  The End

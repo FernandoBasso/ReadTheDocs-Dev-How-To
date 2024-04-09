@@ -1,0 +1,40 @@
+#+TITLE: Ruby Self, Context and Scope
+#+STARTUP: content
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6 ^:nil
+#+PROPERTY: header-args :results output :exports both
+
+Most identifiers in Ruby mean different things depending on where they appear or how they are used.
+
+* self and scope
+
+~self~ is the default and current object, and the default receiver. The current execution context. The scope on which the code is currently executing.
+
+#+BEGIN_SRC ruby
+class AnExample
+  def a_method
+    @my_ivar = 'IVAR from inside the method body'
+    @my_ivar
+  end
+
+  @my_ivar = 'IVAR in the class body'
+end
+
+p AnExample.new.a_method
+#+END_SRC
+
+#+RESULTS:
+: "IVAR from inside the method body"
+
+
+
+

@@ -1,0 +1,5 @@
+{
+  "deno.enable": true,
+  "deno.importMap": "./import-map.json",
+  "tsserver.enable": false
+}

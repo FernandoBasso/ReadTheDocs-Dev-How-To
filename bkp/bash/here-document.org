@@ -1,0 +1,20 @@
+* Bash Here Documents
+  :PROPERTIES:
+  :CUSTOM_ID: bash-here-documents
+  :END:
+** Here Document To Variable
+   :PROPERTIES:
+   :CUSTOM_ID: here-document-to-variable
+   :END:
+Assign two lines to the variable =input= using a Here Document.
+
+#+begin_example
+  $ read -r -d '' input << 'EOF'
+  > int j = [int]3.45;
+  > [ 22 + 5 ] * 0.5;
+  > EOF
+
+  $ echo "$input"
+  int j = [int]3.45;
+  [ 22 + 5 ] * 0.5;
+#+end_example

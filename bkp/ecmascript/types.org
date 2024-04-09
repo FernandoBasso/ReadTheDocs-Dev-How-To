@@ -1,0 +1,65 @@
+#+TITLE: Types in JavaScript
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :exports both
+
+http://bonsaiden.github.io/JavaScript-Garden/#types
+
+* Objects vs Literals
+
+The operators ~==~, ~!=~, ~===~ and ~!==~ generally test the /identity/ of objects, not the objects' contents.
+
+#+BEGIN_SRC js
+const str1 = new String('bar');
+const str2 = new String('bar');
+
+str1 == str2
+// → false
+
+str1 === str2
+// → false
+#+END_SRC
+
+Both comparissons above produce ~false~ because ~str1~ and ~str2~ are /two different objects in memory/. It just happens that those two objects have the same content.
+
+Two strings literals, though compare the same if they have the same content:
+
+#+BEGIN_SRC js
+'foo' == 'foo'
+// → true
+
+'bar' === 'bar'
+// → true
+
+String(13) == String(13)
+// → true
+#+END_SRC
+
+And a string literal compared with a string object with the same contents is also false:
+
+#+BEGIN_SRC js
+'nix' == new String('nix')
+// → false
+
+(13).toString() == new String(13)
+// → false
+
+'13' === String(13)
+// → true
+#+END_SRC
+
+Not that only ~new String()~ produces a real string object. ~num.toString()~ and ~String(num)~ both produce string literals.
+
+
+
+
+

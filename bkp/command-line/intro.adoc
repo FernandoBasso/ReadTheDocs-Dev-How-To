@@ -1,0 +1,5 @@
+== Introduction
+
+When you are working with the command line, you are doing so through a shell. This document assumes the Bash shell, unless otherwise noted when appropriate.
+
+

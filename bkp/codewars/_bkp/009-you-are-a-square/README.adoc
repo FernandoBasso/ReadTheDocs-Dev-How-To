@@ -1,0 +1,23 @@
+= You Are A Square | CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:source-linenums-option: :pygments-css: class
+:sectlinks: :sectnums: :toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+https://www.codewars.com/kata/54c27a33fb7da0db0100040e/train/typescript
+
+We can use a language function to get the square root of the number and verify if the square root is an integer. If it is, then we the original number is a perfect root.
+
+Mathematically, checking whether a number is an integer can be done with this formula:
+
+  sqrtOfNum - floor(sqrtOfNum) === 0
+
+Or something with your programming language:
+
+  int?(sqrtOfNum)
+

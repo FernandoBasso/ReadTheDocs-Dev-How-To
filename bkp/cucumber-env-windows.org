@@ -1,0 +1,59 @@
+#+TITLE: Ruby Devkit Windows
+#+STARTUP: content
+
+* Why‽
+*nix is much better for development in general, and those who disagree are just plain wrong (in my supreme opinion). Still, sometimes we are forced to work on Windows (someone from “above” orders such an unspeakable thing, and the others, lesser human beings are oblidged to comply).
+
+* Ruby Installer
+
+Download:
+[[https://rubyinstaller.org/downloads/][Ruby Installer Downloads]]
+
+Install Ruby somewhere in under ~C:\~, like ~C:\Ruby25-x64~, and make sure to check the option that adds Ruby executables to your path, and also check the option to associate ~.rb~ files with the Ruby installation.
+
+#+BEGIN_NOTE
+NOTE: Let's from now on assume we have Ruby installed in ~C:\Ruby25-x64~. If your Ruby version or platform is something else, just keep that in mind while following the rest of this guide.
+#+END_NOTE
+
+* DevKit
+
+Here for the deprecated < 2.4: [[https://rubyinstaller.org/downloads/][Ruby DevKit < 2.4]]
+
+Install it under ~<Path-To-Your-Ruby-Install-Div\devkit~, something like:
+
+: C:\Ruby25-x64\devkit
+
+With the command line, navigate to that directory and run:
+
+: ruby dk.rb init
+
+** config.yml
+
+Then open ~C:\Ruby25-x64\devkit\config.yml~ and add the line:
+
+: - C:/Ruby25-x64
+
+Note that we used a forward slash “/” in this specific case, not the windows style backslash “\”.
+
+Then run:
+
+: ruby dk.rb install
+
+* Gems Sources
+
+And we also need setup the gem sources. For this company, we need to remove the “https” url because the firewall is blocking it for some reason... and... add only the “http” one.
+
+#+BEGIN_EXAMPLE
+gem sources --add http://rubygems.org
+gem sources --remove https://rubygems.org
+gem sources --clear
+gem sources --update
+#+END_EXAMPLE
+
+If you don’t understand those commands, try reading:
+
+: gem sources --help
+
+
+
+

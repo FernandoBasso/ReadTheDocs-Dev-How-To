@@ -1,0 +1,32 @@
+:linkcss!:
+:webfonts!:
+:source-highlighter: pygments
+:pygments-css: style
+:toc: top
+:challenge-link: https://www.hackerrank.com/challenges/ruby-tutorial-object-methods
+
+
+= Object Methods
+
+link:{challenge-link}[Link to the challenge].
+
+[source,ruby,lineos]
+----
+p 5.even?
+# → false
+
+p 4.even?
+# → true
+
+p 5.odd?
+# → true
+
+p 5.even?
+# → false
+#
+----
+
+The global, default scope is called `main`. It is some internal trickery Ruby does so it has a way to boot up, a starting point, if you will.
+
+NOTE: Yes, numbers _are_ objects in Ruby.
+

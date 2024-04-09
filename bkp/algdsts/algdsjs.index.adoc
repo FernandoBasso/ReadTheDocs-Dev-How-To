@@ -1,0 +1,32 @@
+= JavaScript and Algorithms and Data Structures
+:linkcss!:
+:webfonts!:
+:icons: font
+:source-highlighter: pygments
+:source-linenums-option!:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:stem:
+:favicon: ./cmdline.png
+
+This is where I store solutions and notes for JavaScript algorithms and data structures.
+
+include::./02-big-O-notation/02-big-O-notation.adoc[]
+include::./04-problem-solving/04-problem-solving.adoc[]
+include::./05-problem-solving-patterns/05-problem-solving-patterns.adoc[]
+
+++++
+<style>
+/**
+ * tok-c1: single-line comments.
+ * tok-cm: multiline comments.
+ */
+pre.highlight .tok-c1,
+pre.highlight .tok-cm {
+  font-style: normal;
+}
+</style>
+++++

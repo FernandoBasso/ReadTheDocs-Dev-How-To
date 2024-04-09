@@ -1,0 +1,30 @@
+== Conditionals
+
+https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals/problem
+
+=== Solution 1
+
+.script.sh
+[source,bash,lineos]
+----
+include::./e07a-conditionals.sh[]
+----
+
+.output
+[source,shell-session]
+----
+$ bash script.sh <<<'Yes'
+YES
+
+$ bash script.sh <<<'nO'
+NO
+
+$ bash script.sh <<<'y'
+YES
+----
+
+We use a simple `case` statement. However, we do some pattern matching with the use of the `[Yy]*` syntax. It means, start with either and uppercase or lowercase “y” followed by anything. Similar for the NO alternative. We also included a default case.
+
+The match could also be `Y*|y*`.
+
+

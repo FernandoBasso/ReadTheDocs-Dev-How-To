@@ -1,0 +1,59 @@
+= Factorial
+:linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+== Procedural Solution
+
+[source,ruby,lineos]
+----
+def factorial(num)
+  res = 1
+  while num > 1
+    res *= num
+    num += -1 # :D
+  end
+
+  res
+end
+
+p factorial(6)
+# → 720
+----
+
+
+== Using Recursion
+
+[source,ruby,lineos]
+----
+def fact(x)
+  return 1 if x == 1
+  x * fact(x - 1)
+end
+
+fact(4)
+# → 24
+
+fact(5)
+# → 120
+----
+
+
+== Idiomatic Ruby Solution
+
+[source,ruby,lineos]
+----
+n = 5
+p (1..n).inject(&:*)
+# → 120
+----
+

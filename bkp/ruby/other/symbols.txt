@@ -1,0 +1,18 @@
+= Symbols
+
+A symbol is a label used to identify a piece of data.
+A symbol is only stored in memory one time.
+
+    'foo'.object_id # A certain id.
+    'foo'.object_id # A different id than the previous one.
+    :foo.object_id  # A certain id.
+    :foo.object_id  # The same id as the one above.
+
+Useful with hashes:
+
+    person1 = { :name => 'Foo' }
+    person2 = { :name => 'Bar' }
+    person3 = { :name => 'Bazinga' }
+
+`:name` is only created and stored in memory once. It is good for memory.
+

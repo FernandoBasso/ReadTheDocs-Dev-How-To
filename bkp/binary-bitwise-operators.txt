@@ -1,0 +1,119 @@
+                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                  BITWISE OPERATIONS TIPS AND EXAMPLES
+                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Table of Contents
+─────────────────
+
+1. Intro
+2. parseInt
+3. Check if ‘num’ is an integer
+4. Links and Resources
+.. 1. Ryonagana Archdark
+
+
+
+
+
+1 Intro
+═══════
+
+  My attempt to understand and exemplify uses of bitwise operations with
+  realistic examples.
+
+  Not all languages support bitwise operations on non-integer numbers.
+  In fact, looks like the majority don't, and just a few do.
+
+  I'm mostly concerned with these languages (alphabetical order):
+
+  • C
+  • Haskell
+  • JavaScript
+  • Python
+    • Operands must be integers:
+      • <https://docs.python.org/3/reference/expressions.html#binary-bitwise-operations>
+  • Ruby
+  • Scheme
+  • TypeScript
+
+  Languages supporting bitwise on decimals and integers:
+
+  • JavaScript
+
+  Languages supporting decimals only on integers:
+
+  • Python
+  • Ruby
+
+
+2 parseInt
+══════════
+
+  When a language supports bitwise operations, we can parse an int out
+  of a decimal using the XOR.
+
+  JavaScript:
+
+  ┌────
+  │ parseInt(3.14, 10);
+  │ // 3
+  │
+  │ 0 ^ 3.14
+  │ // 3
+  │
+  │ (0 ^ 3.14) === (parseInt(3.14, 10))
+  │ // true
+  └────
+
+
+3 Check if ‘num’ is an integer
+══════════════════════════════
+
+  ┌────
+  │ var x = 3.1;
+  │ var y = 3.0
+  │
+  │ x === parseInt(x, 10);
+  │ // false, x is not an integer.
+  │
+  │ y === parseInt(y, 10);
+  │ // true, y is an integer.
+  └────
+
+
+4 Links and Resources
+═════════════════════
+
+  • [Interesting use cases for JavaScript bitwise operators (Logrocket)]
+  • [Bitwise operators — Facts and Hacks (Medium)]
+
+
+[Interesting use cases for JavaScript bitwise operators (Logrocket)]
+<https://blog.logrocket.com/interesting-use-cases-for-javascript-bitwise-operators/>
+
+[Bitwise operators — Facts and Hacks (Medium)]
+<https://medium.com/@shashankmohabia/bitwise-operators-facts-and-hacks-903ca516f28c>
+
+4.1 Ryonagana Archdark
+──────────────────────
+
+  Links shared by Archdark:
+
+  • <https://www.gamedev.net/reference/articles/article1563.asp>
+  • <http://graphics.stanford.edu/~seander/bithacks.html>
+  • <https://www.cprogramming.com/tutorial/bitwise_operators.html>
+  • <https://catonmat.net/low-level-bit-hacks>
+  • <http://www.codeproject.com/KB/cpp/bitbashing.aspx>
+  • <http://www.eskimo.com/~scs/cclass/int/sx4ab.html>
+  • <http://www.cs.utk.edu/~vose/c-stuff/bithacks.html>
+  • <http://www.somacon.com/p125.php>
+  • <http://www.fredosaurus.com/notes-cpp/expressions/bitops.html>
+  • <http://goanna.cs.rmit.edu.au/~stbird/Tutorials/BitwiseOps.html>
+  • <http://www.custard.org/~andrew/programming/bitwise/>
+  • <http://www.codeproject.com/KB/cpp/Bitwise_Operation.aspx>
+  • <http://bits.stephan-brumme.com/>
+  • <http://en.wikipedia.org/wiki/Bit_manipulation>
+  • <http://www.hackersdelight.org/HDcode.htm>
+  • <http://www.arduino.cc/playground/Code/BitMath>
+  • <http://www.fredosaurus.com/notes-cpp/expressions/bitops.html>

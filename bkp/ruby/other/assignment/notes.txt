@@ -1,0 +1,117 @@
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+“nvm - Node Version Manager - Simple bash script to manage multiple active node.js versions.”
+
+----
+class Jedi
+  def skill=(skill)
+    self.skill = skill
+  end
+end
+
+jedi = Jedi.new
+jedi.skill = 'the force'
+
+# →  devel.rb:5:in `name=': stack level too deep (SystemStackError)
+----
+
+Why the error? How to fix?
+
+We have to remember that when ruby sees a “name”, it first checks if there is a method
+with that name, and then, if there is not, try to see if it is a variable.
+
+When we do
+
+    jedi.skill = '...'
+
+We are calling the setter, and inside the setter we have `self.skill = skill`.
+The situation is that `self` just before `skill` causes ruby to see `skill` as
+a method, and not as a variable name/property. Therefore, it becomes a recursive
+call to the setter `skill`.
+
+You can use `self.skill = skill` to set the value of the instance variable `skill`
+if the method has a different name. Or use `@skill = skill` inside the setter.
+Therefore, these are two possible solutions:
+
+.solution 1
+----
+def skill=(skill)
+  @skill = skill
+end
+----
+
+
+.solution 2
+----
+def set_skill=(skill)
+    self.skill = skill
+end
+----
+
+Since ruby getters and setters generally have the same name of the properties, you
+could stick to the first approach, unless some other good reason pops up.
+
+----------------------------------------------------------------------------------------------------
+
+What will this return?
+
+    class Foo
+      def value=(i)
+        @value = i
+        return 55
+      end
+    end
+    foo = Foo.new
+    puts foo.value = 42
+
+
+
+What about this?
+
+    class Foo
+      def value(i)
+        @value = i
+        return 55
+      end
+    end
+    foo = Foo.new
+    puts foo.value 42
+
+
+
+        shevy | first one returns 42, second one 55
+        shevy | note that the only real difference is the =
+        shevy | sounds similar to ruby
+        shevy | the explanation I was given was that code like this works: foo.x = foo.y =
+              | foo.z = 1
+
+
+
+
+
+Studies from this link:
+
+  http://ruby-doc.org/core-2.1.2/doc/syntax/assignment_rdoc.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

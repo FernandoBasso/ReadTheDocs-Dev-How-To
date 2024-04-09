@@ -1,0 +1,121 @@
+#+TITLE: Ruby Math
+#+OPTIONS: TOC:6
+
+
+* round
+Ruby `Float` type has a `round` method that can either round to the nearest integer or round to a specific number of decimal places, in which case, `round` takes an argument.
+
+#+BEGIN_SRC ruby :results output
+p 5.34.round
+p 5.5.round
+p 7.1234.round(3)
+p 7.1234.round(4)
+#+END_SRC
+
+#+RESULTS:
+: 5
+: 6
+: 7.123
+: 7.1234
+
+
+* Some Math Tricks
+
+** Least Common Multiple
+
+#+BEGIN_SRC ruby :results output
+p 4.lcm(3)
+p 12.lcm(9)
+#+END_SRC
+
+#+RESULTS:
+: 12
+: 36
+
+** Sum abs vals two nums
+Sum of the absolute values of two numbers:
+
+#+BEGIN_SRC ruby :results output
+p -5.abs.+(-3.abs)
+# --> 8
+#+END_SRC
+
+#+RESULTS:
+: 8
+
+** produce negative of a number
+Return the negative of a number:
+
+#+BEGIN_SRC ruby :results output
+def negative(num)
+  return num if num.negative?
+  return num * -1
+end
+
+p negative(0)
+p negative(-1)
+p negative(1)
+#+END_SRC
+
+#+RESULTS:
+: 0
+: -1
+: -1
+
+** get last digit of number
+Get the last digit of a number:
+
+#+BEGIN_SRC ruby :results output
+def last_digit(num)
+  num % 10
+end
+
+p last_digit(0)
+p last_digit(1)
+p last_digit(1234)
+p last_digit(1234567)
+#+END_SRC
+
+#+RESULTS:
+: 0
+: 1
+: 4
+: 7
+
+** produce last n digits of a number
+A method that takes `num` and `n` and returns the last `n` digits from `num`:
+
+#+BEGIN_SRC ruby :results output
+# ASSUME: neither arg is zero.
+def last_n_digits(num, n)
+  num % (10 ** n)
+end
+
+p last_n_digits(235, 1)
+p last_n_digits(235, 2)
+#+END_SRC
+
+#+RESULTS:
+: 5
+: 35
+
+** decimal remainder
+
+The decimal remainder is the right side of the decimal point of a number.
+
+#+BEGIN_SRC ruby :results output
+def dec_rem_two_floats(f_dividend, f_divisor)
+  # Divide normally.
+  quotient = f_dividend / f_divisor
+
+  # Extract the decimal remainder.
+  (quotient - quotient.to_i).round(1)
+end
+
+p dec_rem_two_floats(5.3, 2.1)
+# --> 0.5, because 5.3 / 2.1 is 2.5.
+#+END_SRC
+
+#+RESULTS:
+: 0.5
+

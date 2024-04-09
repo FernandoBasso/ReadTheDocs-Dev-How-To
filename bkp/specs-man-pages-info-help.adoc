@@ -1,0 +1,17 @@
+= Specifications, Man Pages, Info Pages and Help Commands
+:linkcss!:
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:pygments-css: style
+:sectlinks:
+:toc: left
+
+== Single Unix Specification (SUS)
+
+XBD:: Base Definitions
+XCU:: Shell and Utilities (Commands and Utilities)
+XSH:: System Interfaces and XBD Headers
+
+More info on the link:https://pubs.opengroup.org/onlinepubs/9699919799/[Open Group Website^].
+

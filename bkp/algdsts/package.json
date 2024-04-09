@@ -1,0 +1,19 @@
+{
+  "name": "algds",
+  "version": "0.0.1",
+  "description": "A project with notes, tips and implementation on algorithms and data structures.",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "testjs": "NODE_OPTIONS=--experimental-vm-modules jest --testMatch='**/*.spec.js' --watch"
+  },
+  "author": "Fernando Basso",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "devDependencies": {
+    "jest": "^29.0.1"
+  },
+  "dependencies": {
+    "@types/ramda": "^0.28.15",
+    "ramda": "^0.28.0"
+  }
+}

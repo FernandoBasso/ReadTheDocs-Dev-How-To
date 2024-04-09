@@ -1,0 +1,51 @@
+= Ruby Variables =
+:source-highlighter: pygments
+:pygments-css: class
+:source-language: ruby
+:toc: left
+:sectlinks:
+:webfonts!:
+
+== Five categories of variables
+
+Ruby has at least five main categories of variables.
+
+- global variables;
+- local variables;
+- instance variables;
+- class variables;
+- instance class variables;
+
+
+=== Global Variables
+
+Global variables identifiers start with the `$` sign. Once defined, they are
+visible everywhere in the program.
+
+[source,ruby,lineos]
+----
+$myvar = 'the force'
+
+def say
+  puts $myvar     # Accessible here. <1>
+end
+
+class Message
+  def say_msg
+    puts $myvar   # And here as well. <2>
+  end
+end
+
+say
+Person.new.say_msg
+----
+
+<1> The global variable `$myvar` is available inside a method in the “outer scope”.
+
+<2> The global variable `$myvar` is also available to a method that lives inside a class.
+
+
+
+
+
+

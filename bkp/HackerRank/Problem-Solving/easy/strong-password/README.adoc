@@ -1,0 +1,8 @@
+= String Password :: HackerRank
+:toc: right
+:icons: font
+:stem: latexmath
+
+* link:https://www.hackerrank.com/challenges/strong-password[Strong Password :: HackerRank]
+
+The solution is stem:[max(6 - n, 4 - d)] where `n` is string length and `d` is the number of different type of characters that are already present in the input password.

@@ -1,0 +1,7 @@
+#+TITLE: tar examples and tips
+
+* XZ files
+
+#+begin_src bash
+tar xvf emacs-26.3.tar.xz
+#+end_src

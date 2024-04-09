@@ -1,0 +1,418 @@
+                            ━━━━━━━━━━━━━━━━
+                                MODULES
+
+                             Fernando Basso
+                            ━━━━━━━━━━━━━━━━
+
+
+Table of Contents
+─────────────────
+
+1 Intro
+2 module instance method
+.. 2.1 Method Overriding
+3 Inheritance
+4 Method Lookup
+5 include vs prepend
+
+
+
+
+
+1 Intro
+═══════
+
+  Modules are bundles of methods and constants. You add a module to a
+  class to endow the class with extra functionality.
+
+  Modules are similar to classes (but we can't create instances of
+  modules), so much that the `Class' class is a subclass of the `Module'
+  class, and that means that every class object is also a module object.
+
+  `Kernel' is a module that contains many of the methods that are common
+  to all objects, including `load' and `require'.
+
+  ┌────
+  │ module Greeter
+  │   def hi
+  │     'Hi there.'
+  │   end
+  │ end
+  │
+  │ class Message
+  │   include Greeter
+  │ end
+  │
+  │ msg = Message.new
+  │ p msg.hi
+  │ # → "Hi there."
+  └────
+
+  We defined the method `hi' in the `Greeter' module like if it were an
+  instance method of a class, and by including the module in the
+  `Message' class, we can use that method in instances of that class as
+  if they were defined as instance methods of the class itself.
+
+  In Ruby, we can inherit from a single parent class at a time, but we
+  can include (mix in) multiple modules at once.
+
+
+  ┌────
+  │ module StackIt
+  │   def stack
+  │     @stack ||= []
+  │   end
+  │
+  │   def stack_add(obj)
+  │     stack.push(obj)
+  │   end
+  │
+  │   def stack_pop
+  │     stack.pop
+  │   end
+  │ end
+  │
+  │ class OurStack
+  │   include StackIt
+  │ end
+  │
+  │ stk = OurStack.new
+  │ stk.stack_add('PHP')
+  │ stk.stack_add('JavaScript')
+  │ p stk.stack
+  │ # → ["PHP", "JavaScript"]
+  │
+  │ p stk.stack_pop
+  │ # → "JavaScript
+  │
+  │ stk.stack_add('Haskell')
+  │ stk.stack_add('Ruby')
+  │ p stk.stack
+  │ # → ["PHP", "Haskell", "Ruby"]
+  └────
+
+  ┌────
+  │ ["PHP", "JavaScript"]
+  │ "JavaScript"
+  │ ["PHP", "Haskell", "Ruby"]
+  └────
+
+  `@stack' in `StackIt' module behaves like if it were defined in
+  `OutStack' class. Now we could use it in any class, not just in
+  `OutStack'.
+
+
+  Class names should generally be a noun, and module names should
+  generally be an adjective. There must be good reasons to not follow
+  this convention on any given situation.
+
+
+2 module instance method
+════════════════════════
+
+  This module has an instance method:
+
+  ┌────
+  │ module Pluralable
+  │   def pluralize(word, count, plural = nil)
+  │     return word if 1 == count
+  │     return plural if plural
+  │     return "#{count} #{word}s"
+  │   end
+  │ end
+  │
+  │ class Message
+  │   include Pluralable
+  │ end
+  │
+  │ msg = Message.new
+  │ p msg.pluralize('apple', 0)
+  │ # → "0 apples"
+  │
+  │ p msg.pluralize(1, 'apple')
+  │ # → "1 apple"
+  │
+  │ p msg.pluralize('apple', 2)
+  │ # → "2 apples"
+  │
+  │ p msg.pluralize('foot', 0, 'feet')
+  │ # → "0 feet"
+  │
+  │ p msg.pluralize('foot', 1)
+  │ # → "1 foot"
+  │
+  │ p msg.pluralize('foot', 2, 'feet')
+  │ # → "0 feet"
+  └────
+
+  The method `pluralize' in the `Pluralable' module is an instance
+  method of that module, and when it gets /mixed into/ (included) into
+  the class `Message' that class can use the module as if it were and
+  instance method of the class itself. What happens is that there is a
+  module lookup going on. When something like a method or variable can't
+  be found on a class, the lookup mechanism looks in parent classes and
+  included modules to try to find the variable or method.
+
+  Even if a super super super class includes a module that contains a
+  certain method, the current object will be able to invoke that method.
+
+  If a method is not found, the result is an error condition that
+  triggers the call of the method `method_missing' (and we can override
+  it to customize what happens when this method is invoked).
+
+  `BasicObject' is the first class in the hierarchy, then we have the
+  `Object' class, and `Kernel' is a module that `Object' mixes in.
+
+  All classes that inherit from `Object' automatically inherit stuff
+  provided by `Kernel'.
+
+  TODO: Draw some diagram about this hierarchy of modules and classes to
+  insert at this point.
+
+
+2.1 Method Overriding
+─────────────────────
+
+  When a module (or a class) define the same method name more than once,
+  the last one wins.
+
+
+3 Inheritance
+═════════════
+
+  When we create our classes, we don't need to explicitly inherit from
+  `Object'. That is done automatically.
+
+  ┌────
+  │ class Person
+  │   # This class has access to all stuff defined in
+  │   # Object and Kernl.
+  │   #
+  │ end
+  │
+  │ p Person.superclass
+  │ # → Object
+  │
+  │ p Person.class
+  │ # → Class
+  └────
+
+  ┌────
+  │ Object
+  │ Class
+  └────
+
+
+  Remember that doing `class Foo ... end' is the same as `Foo =
+  Class.new do ... end', and that the former notation is syntax sugar
+  the latter. So, `Person' is an /instance/ of `Class' (so `Person' is
+  indeed also an object on its own right), and it inherits from
+  `Object'. And `Object' mixes in the module `Kernel' Read more at [the
+  Ruby docs for the `Object' class].
+
+  Okay, so, if Ruby can only inherit from a single class at a time, that
+  means if we now instantiate a `Teacher' class and make it inherit from
+  `Person', then `Teacher' does not inherit from `Object'?
+
+  Because `Person' inherits from `Object', and `Teacher' inherits from
+  `Person', that means `Teacher' also have access to stuff defined in
+  the `Object' class, which also means it has access to things defined
+  in `Kernel' (because `Object' mixes `Kernel' in). In short, a
+  descendant has access to all the stuff from any of its ancestors.
+
+  ┌────
+  │ class Person
+  │   # Inherits from Object (which inherits from BasicObject) and
+  │   # includes the module Kernel.
+  │
+  │   def initialize(name)
+  │     @name = name
+  │   end
+  │
+  │   def tell_name
+  │     "My name is #{@name}"
+  │   end
+  │ end
+  │
+  │ class Teacher < Person
+  │   def tell_profession
+  │     'I am a teacher.'
+  │   end
+  │ end
+  │
+  │ person = Person.new('Lara Croft')
+  │ teacher = Teacher.new('Verner Von Coy')
+  │
+  │ # Instances of ~Person~ have access to `respond_to?' (from `Kernel').
+  │ if person.respond_to?(:tell_profession)
+  │   # This won't execute becase `Person` doesn't
+  │   # have the method `tell_profession'.
+  │   p person.tell_profession
+  │ else
+  │   # This will be executed.
+  │   p 'Person cannot tell the profession.'
+  │ end
+  │
+  │ if teacher.respond_to?(:tell_profession)
+  │   # This will be executed.
+  │   p teacher.tell_profession
+  │ else
+  │   # This else block won't run because Teacher has the
+  │   # method `tell_profession`
+  │   p 'Teacher cannot tell profession.'
+  │ end
+  └────
+
+  ┌────
+  │ "Person cannot tell the profession."
+  │ "I am a teacher."
+  └────
+
+
+[the Ruby docs for the `Object' class]
+https://ruby-doc.org/core-2.5.1/Object.html
+
+
+4 Method Lookup
+═══════════════
+
+  An object can only “see” one method with a given name at a time. The
+  object’s lookup mechanism stops at the first name that matches. The
+  lookup mechanism walks from the inner to the outer definitions, which
+  means inner definitions win.
+
+  ┌────
+  │ module Greetable
+  │   def say_hello
+  │     "Hello from module `Greetable'."
+  │   end
+  │ end
+  │
+  │ class Message
+  │   include Greetable
+  │
+  │   def say_hello
+  │     "Hello from class `Message'."
+  │   end
+  │ end
+  │
+  │ msg = Message.new
+  │ p msg.say_hello
+  │ # → "Hello from module `Greetable'."
+  └────
+
+  ┌────
+  │ "Hello from class `Message'."
+  └────
+
+  The method `say_hello' in the class `Message' “wins”, because the
+  lookup mechanism will start with the class that gave birth to the
+  object `msg', and only if it doesn’t find the method there will it
+  look further in the lookup chain.
+
+  If two or more included modules define the same method, the most
+  recent included one (the last included) wins.
+
+  ┌────
+  │ module Mod1
+  │   def hello
+  │     'Hello from mod1.'
+  │   end
+  │ end
+  │
+  │ module Mod2
+  │   def hello
+  │     'Hello from mod2.'
+  │   end
+  │ end
+  │
+  │ class Foo
+  │   include Mod1
+  │   include Mod2 # included last, wins
+  │ end
+  │
+  │ class Bar
+  │   include Mod2
+  │   include Mod1 # included last, wins
+  │ end
+  │
+  │ foo = Foo.new
+  │ p foo.hello
+  │ # → "Hello from mod2."
+  │
+  │ bar = Bar.new
+  │ p bar.hello
+  │ # → "Hello from mod1."
+  └────
+
+  ┌────
+  │ "Hello from mod2."
+  │ "Hello from mod1."
+  └────
+
+
+  Also important to be aware that including the method more than once
+  doesn’t actually re-include it. Ruby detects that it was already in
+  the load path and simply ignores it.
+
+  ┌────
+  │ class Foo
+  │   include Mod1
+  │   include Mod2 # Considered the last included.
+  │   include Mod1 # Won’t be re-included.
+  │ end
+  └────
+
+
+5 include vs prepend
+════════════════════
+
+  When we `prepend' modules in a class (instead of using `include', the
+  lookup mechanism searches for methods in the modules first, and only
+  then in the class.
+
+  ┌────
+  │ module Greetable
+  │   def hello
+  │     "Hello from the module `Greeter'."
+  │   end
+  │ end
+  │
+  │ class Message
+  │   prepend Greetable
+  │   def hello
+  │     "Hello from the class `Message'."
+  │   end
+  │ end
+  │
+  │ msg = Message.new
+  │ p msg.hello
+  │ # → "Hello from the module `Greeter'."
+  └────
+
+  ┌────
+  │ "Hello from the module `Greeter'."
+  └────
+
+  Even though the class `Message' defines a method with the same name as
+  the method defined in the mixed in module, because we used `prepend'
+  rather than `include', the method defined in the module “wins”. With
+  `include', the version defined in the class would win.
+
+
+  `self.class.ancestors' will display the classes and modules that
+  compose the current object.
+
+  ┌────
+  │ [14:47:44] <FernandoBasso> Inside method defined inside a module, is there a self.<something> that would show the name of the module?
+  │ [14:48:31] <FernandoBasso> Like, in a class method, I can do self.class and it shows the name of the class in which the method is defined. Can I show the name of the module in which the module is defined in a similar fashion?
+  │ [14:48:40] <apeiros> self.class.ancestors will contain it
+  │ [14:49:05] <FernandoBasso> I see. Thanks.
+  │ [14:49:37] <apeiros> but since a method is always invoked in the context of the receiver, there's nothing which will tell you "this is the method defined in module X"
+  │ [14:50:22] <apeiros> well, to a degree you can use source_location and/or method(__method__).owner, both have their issues and limitations.
+  │ [14:50:26] <apeiros> what do you try to achieve?
+  │ [14:51:38] <FernandoBasso> Nothing in particular. Just trying to understand self better, and the relation between modules and classes.
+  │ [14:52:39] <apeiros> self is the object in which's (whose?) context the current code is executed.
+  │ [14:53:47] <FernandoBasso> So far, I figure it is, in some ways, similar to `this' in javascript. Its value depending on how the code is executed, and not set in stone upon definition.
+  │ [14:54:26] <apeiros> it's exactly as `this` in js. js just differs in when context of `this` changes.
+  └────

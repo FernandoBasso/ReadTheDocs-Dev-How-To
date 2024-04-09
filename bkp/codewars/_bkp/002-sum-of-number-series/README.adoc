@@ -1,0 +1,42 @@
+= Beginner Series 3 Sum Of Numbers | Codewars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts: :icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+https://www.codewars.com/kata/55f2b110f61eb01779000053
+
+
+Basically, we have to discover the number of elements in the sequence. For example, from -2 to 4 we have 6 elements. To achive that, we can use the formula
+
+  min = -2
+  max = 2
+  min - max + 1
+  4 - (-2) = 6
+
+Another way to discover the number of elements in the sequence is by using absolute values, which means we don't need to find `min` and `max`.
+
+  min = -2
+  max = 4
+  min - max = -6
+  max - min = 6
+
+No mater which operand comes first, the result is always `|6|`, therefore, we can simply do something like this:
+
+  n = abs(x, y)
+
+Finally, after we have the number of elements in the sequence, we apply the formula to sum the sequence, which is:
+
+  n * (max + min) / 2
+
+https://www.mathwords.com/a/arithmetic_series.htm
+
+
+Basically, we want to get the average of the first and last terms multiplied by the number of terms.

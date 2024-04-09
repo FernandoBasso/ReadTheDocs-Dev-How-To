@@ -1,0 +1,74 @@
+= Combination
+:linkcss!:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+== Links and Resources
+
+- link:https://www.hackerrank.com/challenges/ruby-partial-applications/problem[HackerRank Partial Application Challenge with Combination^].
+- link:https://en.wikipedia.org/wiki/Combination[Wikiedia entry on Combination^].
+- link:https://www.mathsisfun.com/combinatorics/combinations-permutations.html[MathIsFun Page on Combination^].
+
+== Ruby
+
+=== Solution 1
+We need a factorial utility:
+
+[source,ruby,lineos]
+----
+def fact(n)
+  return n if n == 1
+  n * fact(n - 1)
+end
+----
+
+We don't need to return a lambda, but the HackerRanck challenge asked for it.
+
+[source,ruby,lineos]
+----
+def combination(n)
+  lambda do |r|
+    fact(n) / (fact(r) * fact(n - r))
+  end
+end
+
+nCr4 = combination(4)
+p nCr4.call(2)
+# → 6
+
+nCr15 = combination(15)
+p nCr15.call(5)
+# → 3003
+----
+
+
+=== More Idiomatic Ruby
+
+Using ranges (x..n) and reduce/inject and converting the `*` method to a proc.
+
+[source,ruby,lineos]
+----
+def combination(n)
+  lambda do |r|
+    (n - r + 1..n).reduce(&:*) / (1..r).inject(&:*)
+  end
+end
+
+nCr4 = combination(4)
+p nCr4.call(2)
+# → 6
+
+nCr15 = combination(15)
+p nCr15.call(5)
+# → 3003
+----

@@ -1,0 +1,41 @@
+= Web Browsers
+:linkcss!:
+:webfonts!:
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option!:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: ./cmdline.png
+
+== Epiphany File Protocol Broken For HTML Files
+
+Opening an HTML file through the `file:///` protocol causes it to be interpreted as XML, albeit invalid XML, and some other problems, as described below, occurred because of that.
+
+[source,shell-session]
+----
+$ lsb_release --description --release
+Description:    Arch Linux
+Release:        rolling
+
+$ uname --operating-system --kernel-release --kernel-version
+5.3.1-arch1-1-ARCH #1 SMP PREEMPT Sat Sep 21 11:33:49 UTC 2019 GNU/Linux
+
+$ epiphany --version
+Web 3.34.0
+----
+
+This version of Epiphany (Gnome Web) seems to have introduced a bug in which, when an HTML file is opened through the file protocol (`file:///path/to/file.html`), clicking on links would navigate to their destination.
+
+In the picture below, clicking on the left links would not cause the hash fragment on the URL update, and nothing would happen. Like if no click was performed. Actually, not listing a directory (through `file:///` and then clicking. And no images would load either.
+
+image::web-browsers/imgs/epiphany-internal-links-file-protocol-error.png[]
+
+Simply using `python -m http.server` or `php -S localhost:3000 -t .` to start a webserver and then visiting the file through that webserver proved that the HTML file was fine, and all started working again. The problem as really with the “file” protocol.
+
+
+include::./asciidoctor-styles-overrides.adoc[]
+

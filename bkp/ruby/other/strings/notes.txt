@@ -1,0 +1,39 @@
+
+http://ruby-doc.org/core-2.2.3/doc/syntax/literals_rdoc.html#label-Strings
+
+
+16:49:04  FernandoBasso | How do I use this method?
+                        | http://ruby-doc.org/core-2.3.1/String.html#method-c-new
+16:49:07          shevy | I always think of requires like a "just put the code there from that file,
+                        | into this file here"
+16:49:34  FernandoBasso | my_str = String.new('ção', 'UTF-8') returns nil and assigns that value to
+                        | my_str.
+16:49:55   nictrasavios | That's how they work in C++, but because there is no compiler directives in
+                        | ruby, I'm worried XD.
+16:50:01          shevy | huh
+16:50:15          shevy | FernandoBasso that is not documented behaviour right?
+16:50:30          shevy | "Returns a new string object containing a copy of str."
+16:50:45          shevy | oh wait
+16:50:52          shevy | new(str="", encoding: enc)
+16:51:00          shevy | my_str = String.new('ção', encoding: 'UTF-8')
+16:51:06          shevy | I think that should work
+16:51:08       baweaver | >> 'ção'
+16:51:11     @ruby[bot] | baweaver: # => "ção" (https://eval.in/595180)
+16:51:12  FernandoBasso | Ah!
+16:51:19  FernandoBasso | See, I don't know how to read docs...
+16:51:38       baweaver | do you even need encoding for that?
+16:51:44          shevy | well you need sharp eyes in ruby, I also did not notice that there was no
+                        | encoding: there at first from your example code
+17:02:16  FernandoBasso | ruby 2.2.3: str = String.new('ção', encoding: 'UTF-8')
+17:02:16  FernandoBasso | ArgumentError: wrong number of arguments (2 for 0..1)
+17:03:37          shevy | works here fine on ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-linux]
+17:04:09  FernandoBasso | http://ruby-doc.org/core-2.2.3/String.html#method-c-new
+17:04:13          jhass | FernandoBasso: don't worry about String.new. You'll never need it
+17:04:23  FernandoBasso | jhass: I know :)
+17:04:45          jhass | move to the next one ;)
+17:04:55  FernandoBasso | It changed the api from 2.2 to 2.3
+17:05:26          jhass | happens
+17:06:00          shevy | we are going towards ruby 3.POWER_ZERO
+
+
+

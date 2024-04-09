@@ -1,0 +1,129 @@
+= Bash IFS Is Field Separator Variable
+:description: Examples and tips about IFS (Is Field Separator) Bash variable
+// :linkcss:
+// :stylesheet: myadoc.css
+// :stylesdir: http://localhost:8000
+// :stylesdir: {user-home}/Projects/proghowto
+// :stem: latexmath
+// :icons!: font
+:source-highlighter: pygments
+:source-linenums-option!:
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+:asterisk: *
+
+
+== IFS Field Separator Default Value
+
+First, let's debug the default value of `IFS`:
+
+[source,shell-session]
+----
+$ echo -n "$IFS" | hexdump -C
+00000000  20 09 0a
+00000003
+
+$ printf '%s\n' "$IFS" | od -c -a -x
+0000000      \t  \n  \n
+         sp  ht  nl  nl
+           0920    0a0a
+----
+
+So, the default value of `IFS` is a space, a horizontal tab, and a newline (which are natural word separators). Remember the excerpt from link:https://www.gnu.org/software/bash/manual/bash.html#Arrays[bash's man page^]:
+
+
+== Using IFS to Convert Array To String
+
+IFS can be used to our advantage to convert arrays to strings in a very simple and clean manner. But first, remember this:
+
+[quote, bash manual]
+If the word is double-quoted, ${name[*]} expands to a single word with the value of each array member separated by the first character of the IFS variable.
+
+Note it reads *first character of the IFS variable*! So, yeah, the `IFS` variable can contain more than one character which could potentially be used as a word separator.
+
+Let's play with IFS. First, let's create an array:
+
+[source,shell-session]
+----
+$ nums=(1 2 3 4)
+----
+
+The first char of `IFS` is the space, so, as we quote `nums` and use the `{asterisk}` subscript, the output is a string with the elements of `nums` separated by a space.
+
+[source,shell-session]
+----
+$ printf '“%s”\n' "${nums[*]}"
+“1 2 3 4”
+----
+
+We can change the value of `IFS`, and then using the `[*]` syntax helps to better understand the whole mater:
+
+[source,shell-session]
+----
+$ IFS='#'; printf '“%s”\n' "${nums[*]}"
+“1#2#3#4”
+
+$ IFS='_'; printf '“%s”\n' "${nums[*]}"
+“1_2_3_4”
+
+$ IFS=$'\t'; printf '“%s”\n' "${nums[*]}"
+“1      2       3       4”
+
+$ IFS=$'\n'; printf '“%s”\n' "${nums[*]}"
+“1
+2
+3
+4”
+----
+
+Looks like setting `IFS` for a single command does not work:
+
+[source,shell-session]
+----
+$ nums=(1 2 3 4)
+
+$ IFS=- echo "${nums[*]}"
+2 2 3 4
+
+$ IFS=- printf '%s\n' "${nums[*]}"
+1 2 3 4
+----
+
+In neither of the cases is `-` used with the syntax `[*]`. Both `echo` and `printf` are shell built-ins:
+
+[source,shell-session]
+----
+$ type echo printf
+echo is a shell builtin
+printf is a shell builtin
+----
+
+But it works for `read` (which is also a built-in):
+
+[source,shell-session]
+----
+$ IFS=- read -r -a arr <<<'x-y-z'
+
+$ echo "${#arr[@]}"
+3
+
+$ printf '%s\n' "${arr[@]}"
+x
+y
+z
+----
+
+Yeah, `read` honored `-` as the field  separator, and `arr` was assigned three elements, `a`, `b` and `c`.
+
+@TODO: Why does it work for `read` but not for `echo` and `printf`?
+
+
+### IFS Links and Resources
+
+* https://unix.stackexchange.com/questions/120575/understanding-the-default-value-of-ifs
+* https://unix.stackexchange.com/questions/26784/understanding-ifs
+* https://unix.stackexchange.com/questions/92187/setting-ifs-for-a-single-statement

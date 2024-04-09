@@ -1,0 +1,5 @@
+= React Things
+
+Debugging React re-renders, momos, hooks, etc.
+
+* link:https://www.developerway.com/posts/react-re-renders-guide[React re-renders guide :: Nadia Makarevich].

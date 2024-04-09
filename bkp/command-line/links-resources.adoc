@@ -1,0 +1,6 @@
+== Links and Resources
+
+https://wiki.gentoo.org/wiki/Man_page/Navigate
+
+https://github.com/dylanaraps/pure-bash-bible
+

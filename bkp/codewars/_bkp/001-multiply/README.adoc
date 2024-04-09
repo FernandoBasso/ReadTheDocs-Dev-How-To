@@ -1,0 +1,19 @@
+= Multiply | Codewars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts:
+:icons: font
+:source-highlighter: pygments
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+- https://www.codewars.com/kata/50654ddff44f800200000004
+
+Easy... Just multiply numbers. Not much to say about it.
+
+

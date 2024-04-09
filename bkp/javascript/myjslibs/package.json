@@ -1,0 +1,16 @@
+{
+  "name": "myjslibs",
+  "version": "0.0.1",
+  "description": "My Tiny JS Libs and Tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "author": "Fernando Basso <fernandobasso.br@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.3.0"
+  }
+}

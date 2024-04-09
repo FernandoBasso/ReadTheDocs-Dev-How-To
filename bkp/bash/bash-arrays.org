@@ -1,0 +1,310 @@
+* Introduction to Bash Arrays
+  :PROPERTIES:
+  :CUSTOM_ID: introduction-to-bash-arrays
+  :END:
+[TOC]
+
+** Create And Use An Array
+   :PROPERTIES:
+   :CUSTOM_ID: create-and-use-an-array
+   :END:
+Create an array of numbers. Use =()=, and, unlike in many other
+languages, separate elements with spaces, not commas:
+
+#+begin_example
+  $ nums=(1 2 3 4)
+#+end_example
+
+Use the elements of the array in a loop:
+
+#+begin_example
+  $ for n in "${nums[@]}" ; do printf '  %s\n' "Iteration $n" ; done
+    Iteration 1
+    Iteration 2
+    Iteration 3
+    Iteration 4
+#+end_example
+
+Get the length of the array:
+
+#+begin_example
+  $ echo "${#nums[@]}"
+  4
+#+end_example
+
+Append elements to the array:
+
+#+begin_example
+  $ nums+=(5 6)
+
+  $ echo "${#nums[@]}"
+  6
+
+  $ echo "${nums[@]}"
+  1 2 3 4 5 6
+#+end_example
+
+* Array Subscript asterisk * and at @
+  :PROPERTIES:
+  :CUSTOM_ID: array-subscript-asterisk-and-at
+  :END:
+=man bash=
+([[https://www.gnu.org/software/bash/manual/bash.html#Arrays][man bash
+on arrays]]):
+
+#+begin_quote
+  Any element of an array may be referenced using =${name[*]}=. If the
+  subscript is =@= or =*=, the word expands to all members of the array
+  name. These subscripts differ only when the word appears within double
+  quotes. If the word is double-quoted, =${name[*]}= expands to a single
+  word with the value of each array member separated by the first
+  character of the IFS variable, and =${name[@]}= expands each element
+  of name to a separate word.
+
+  --- man bash
+#+end_quote
+
+By default the value of =IFS= is a space, a tab, and a newline. Let's
+apply what we just discussed to convert an array to a string.
+
+First, create an array with four letters, then, to see the difference
+between =[*]= and =[@]=, let's use =printf '%s\n'=, since the specifier
+=%s= is reused as necessary to consume all given parameters:
+
+#+begin_example
+  $ arr=(a b c d)
+
+  # <1>
+  $ printf '“%s”\n' "${arr[*]}"
+  “a b c d”
+
+  # <2>
+  $ printf '“%s”\n' "${arr[@]}"
+  “a”
+  “b”
+  “c”
+  “d”
+#+end_example
+
+<1> Because =[*]= is used, the array is expanded to a single element,
+thus =“%s”\n= is used only once, and the entire output is a single line
+inside the curly double quotes.
+
+<2> Because =[@]= is used, each element of the array is expanded to a
+separate word, thus causing =“%s”\n= to be used four times, producing
+the four output lines.
+
+#+begin_quote
+  *NOTE*: Using =[*]= it is possible to actually convert an array into a
+  string.
+#+end_quote
+
+Let's see what happens when we change the value of =IFS=:
+
+#+begin_example
+  $ IFS='#'; printf '“%s”\n' "${nums[*]}"
+  “1#2#3#4”
+
+  $ IFS='_'; printf '“%s”\n' "${nums[*]}"
+  “1_2_3_4”
+
+  $ IFS=$'\t'; printf '“%s”\n' "${nums[*]}"
+  “1   2    3    4”
+
+  $ IFS=$'\n'; printf '“%s”\n' "${nums[*]}"
+  “1
+  2
+  3
+  4”
+#+end_example
+
+* Convert Array To String
+  :PROPERTIES:
+  :CUSTOM_ID: convert-array-to-string
+  :END:
+We can get an array and turn it into a string with the elements
+separated by spaces. First, let's create an array of numbers:
+
+#+begin_example
+  $ nums=(1 2 3 4)
+#+end_example
+
+Get the length of the array:
+
+#+begin_example
+  $ echo "${#nums}"
+  4
+#+end_example
+
+Use the =[*]= syntax on the double-quoted name of the array to turn it
+into a string:
+
+#+begin_example
+  $ strnums="${nums[*]}"
+#+end_example
+
+The resulting value now has length 7, because our string consists of
+four digits and three spaces.
+
+#+begin_example
+  $ echo "${#strnums}"
+  7
+#+end_example
+
+Shows that it loops only once, printing the entire string in a single
+run:
+
+#+begin_example
+  $ for x in "${strnums[@]}" ; do echo "“$x”" ; done
+  “1 2 3 4”
+#+end_example
+
+Now that =strnums= is a string, even using =[*]= to loop produces a
+single word:
+
+#+begin_example
+  $ for x in "${strnums[*]}" ; do echo "“$x”" ; done
+  “1 2 3 4”
+#+end_example
+
+* read and IFS
+  :PROPERTIES:
+  :CUSTOM_ID: read-and-ifs
+  :END:
+From =help read=:
+
+#+begin_quote
+  Read a line from the standard input and split it into fields.
+
+  Reads a single line from the standard input, or from file descriptor
+  FD if the -u option is supplied. The line is split into fields as with
+  word splitting, and the first word is assigned to the first NAME, the
+  second word to the second NAME, and so on, with any leftover words
+  assigned to the last NAME. Only the characters found in $IFS are
+  recognized as word delimiters.
+
+  --- help read
+#+end_quote
+
+On with the examples and explanations.
+
+*** Example 1
+    :PROPERTIES:
+    :CUSTOM_ID: example-1
+    :END:
+Since the =-a= option was not used for =read=, =IFS='|'= has no effect,
+and the entire input line is assigned as a single word to =line=.
+
+#+begin_example
+  $ while IFS='|' read -r line ; do printf '%s\n' "$line" ; done <<<'a|b|c'
+  a|b|c
+#+end_example
+
+*** Example 2
+    :PROPERTIES:
+    :CUSTOM_ID: example-2
+    :END:
+This time =-a= is used, but only one NAME is provided, therefore, all
+the words are "assigned to the last NAME". However, since simply
+="$line"= is used as the parameter to =printf=, it results in the first
+element of the array being retrieved (not all of them). It is similar to
+array pointers in C, where the name of the arrays is a pointer to the
+first element of the array.
+
+#+begin_example
+  $ while IFS='|' read -r -a line ; do printf '%s\n' "$line" ; done <<<'a|b|c'
+  a
+#+end_example
+
+*** Example 3
+    :PROPERTIES:
+    :CUSTOM_ID: example-3
+    :END:
+Because ="${line[*]}"= is used (instead of ="${line[@]}"=), the elements
+were expanded to a single word, and each element is separated by the
+first character of IFS, which is a space by default. This effectively
+joins the array elements into a single string, with spaces as the
+separator.
+
+#+begin_example
+  $ while IFS='|' read -r -a line ; do printf '%s\n' "${line[@]}" ; done <<<'a|b|c'
+  a
+  b
+  c
+#+end_example
+
+*** Example 4
+    :PROPERTIES:
+    :CUSTOM_ID: example-4
+    :END:
+=read= reads /a single line/ from the input source (=help read=). That
+is why this example does not loop twice and assign 'x', 'y', and 'z' in
+turn to =line=. Rather, it loops only once and assigns the entire input
+to =line=.
+
+#+begin_example
+  $ while IFS='|' read -r -a line ; do printf '%s\n' "${line[*]}" ; done <<<'a|b|c'
+  a b c
+#+end_example
+
+#+begin_quote
+  *Tip*
+
+  Note we are quoting =|=, otherwise it would create a pipe and would
+  not behave correctly. Remember that the two ways of quoting especial
+  characters is by surrounding it with single quotes, or prepending it
+  with a backslash.
+#+end_quote
+
+** convert each character on a string to an array element
+   :PROPERTIES:
+   :CUSTOM_ID: convert-each-character-on-a-string-to-an-array-element
+   :END:
+https://stackoverflow.com/questions/7578930/bash-split-string-into-character-array
+
+geirha's version
+
+#+begin_example
+  '''
+  var=abc;
+  for (( i = 0, n = ${#var}; i < n; ++i )); do
+      arr+=( "${var:i:1}" )
+  done
+#+end_example
+
+davidl_'s version
+
+#+begin_example
+  while read -r -n1  ; do
+      chars_array+=($a)
+  done <<<"$chars_string"
+#+end_example
+
+#+begin_example
+  echo "abcdefg" | fold -w1
+
+  echo "abcdefg" | grep -o .
+#+end_example
+
+* Links and Resources
+  :PROPERTIES:
+  :CUSTOM_ID: links-and-resources
+  :END:
+
+- [[https://www.gnu.org/software/bash/manual/bash.html#Arrays][Bash
+  Manual: Arrays]]
+
+- [[https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters][Bash
+  Manual: Special Parameters]]
+
+- [[https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting][Bash
+  Manual: Word Splitting]]
+
+- [[https://unix.stackexchange.com/questions/26784/understanding-ifs][Unix
+  StackExchange Question About IFS]]
+
+*** Hello
+    :PROPERTIES:
+    :CUSTOM_ID: hello
+    :END:
+Hello

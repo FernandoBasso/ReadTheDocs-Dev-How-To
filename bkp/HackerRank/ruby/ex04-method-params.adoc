@@ -1,0 +1,40 @@
+:linkcss!:
+:webfonts!:
+:source-highlighter: pygments
+:pygments-css: style
+:toc: top
+:challenge-link: https://www.hackerrank.com/challenges/ruby-tutorials-object-method-parameters
+
+
+= Object Method Parameters
+
+link:{challenge-link}[Link to the challenge].
+
+Is a number within the range of two other numbers, (inclusively)?
+
+[source,ruby,lineos]
+----
+class Integer
+  def range?(x, y)
+    self >= x && self <= y
+  end
+end
+
+p 1.range?(2, 5)
+# → false
+
+p 6.range?(2, 5)
+# → false
+
+p 2.range?(2, 5)
+# → true
+
+p 5.range?(2, 5)
+# → true
+
+p 3.range?(2, 5)
+# → true
+----
+
+NOTE: We monkey-patched the class `Integer` because on HackerRank they are using something custom to assert the if a number is within a certain range. So, it works on their online editor/system, but not locally.
+

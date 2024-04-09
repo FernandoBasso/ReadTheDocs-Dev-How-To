@@ -1,0 +1,103 @@
+== Problem Solving Patters
+
+=== Frequency Counters
+
+Uses objects to collect values or frequency of values.
+Sometimes allows the use of two or three loops (time complexity O(n)) instead of nested loops (time complexity O(n ^ 2)).
+
+SAME: Write a function called same, which accepts two arrays.
+The function should return true if every value in the array has it's corresponding value squared in the second array.
+The frequency of values must be the same.
+
+ANAGRAM: Given two strings, write a function to determine if the second string is an anagram of the first.
+An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+=== Multiple Pointers
+
+Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition.
+Very efficient for solving problems with minimal space complexity as well.
+
+SUMZERO: Write a function called `sumZero` which accepts a sorted array of integers.
+The function should find the first pair where the sum is 0.
+Return an array that includes both values that sum to zero or undefined if a pair does not exist.
+
+COUNTUNIQVALS: Implement a function called `countUniqVals`, which accepts a sorted array, and counts the unique values in the array.
+There can be negative numbers in the array, but it will always be sorted.
+
+=== Sliding Window
+
+This pattern involves creating a window which can either be an array or number from one position to another.
+Depending on a certain condition, the window either increases or closes (and a new window is created).
+Very useful for keeping track of a subset of data in an array/string etc.
+
+MAXSUBARRAYSUM: Write a function called `maxSubarraySum` which accepts an array of integers and a number called n.
+The function should calculate the maximum sum of n consecutive elements in the array.
+
+=== Divide and Conquer
+
+This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data.
+This pattern can tremendously decrease time complexity
+
+=== Practical Examples
+
+==== same()
+
+Write a function called `same`, which accepts two arrays.
+It should return true if every value in the array has it's corresponding value
+squared in the second array.
+The frequency of values must be the same.
+The order doesn't matter.
+
+.Unit Tests
+[source,ts]
+----
+include::./same.test.ts[]
+----
+
+===== v1
+
+**TIME COMPLEXITY**: `O(n²)`.
+We have only one explicit `for` loop, but `indexOf()` is also a loop which can potentially go over the entire array.
+We actually have nested loops in this implementation.
+
+**SPACE COMPLEXITY**: `O(1)`.
+We just store the found index each time.
+When we `ys.splice()` we are not creating further arrays.
+Just reusing the same `ys` from the input, but making it smaller each time.
+We can sure assume it is constant space.
+
+[source,ts]
+----
+include::./same-v1.ts[]
+----
+
+This solution involves looping while we have matching elements in `xs`.
+If we reach the end of the loop without getting an index of -1 it means every element in `xs` has a matching squared element in `ys`.
+
+<1> We remove that element from `ys` so that one occurrence doesn't
+ever match again. Important because we want to match the frequencies
+of squares of values in `xs` in `ys`.
+
+===== v2
+
+**TIME COMPLEXITY**: stem:[O(n)].
+Three non-nested loops is still linear time.
+Much better than two nested loops.
+
+**SPACE COMPLEXITY**: stem:[O(n)].
+We create two other objects with the same number of keys as `xs` and `ys`.
+So, the space taken inside the function is directly proportional to the input arrays size.
+
+[source,ts]
+----
+include::./same-v2.ts[]
+----
+
+
+Three loops is much better than a loop inside a loop.
+
+* Two nested loops: stem:[O(n ^ 2)] — quadratic.
+* Three loops one after the other: stem:[O(n)].
+
+Three loops is actually stem:[O(3n)] but is simplified to stem:[O(n)].
+It is still linear time.

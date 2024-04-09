@@ -1,0 +1,19 @@
+# vim: set filetype=ruby:
+
+require 'asciidoctor'
+
+file = 'bash.adoc'
+
+guard 'shell' do
+  watch(/^(bash\.adoc$|bash\/.*\.adoc)$/) { |m|
+    puts '-' * 80
+    p m
+    puts '-' * 80
+    Asciidoctor.convert_file(
+      file,
+      :safe => :unsafe,
+      :to_file => "#{file}.html"
+    )
+  }
+end
+

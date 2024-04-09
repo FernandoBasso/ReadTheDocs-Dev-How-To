@@ -1,0 +1,152 @@
+#+TITLE: Ruby Methods
+#+STARTUP: content
+#+OPTIONS: toc:5
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style>body { font-family: Ubuntu; max-width: 960px; margin: 0 auto; } pre, code, tt, mark { font-family: 'Source Code Pro'; } .org-src-container pre { font-weight: 400; } pre, code, tt, mark { font-weight: 300; } code { background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+PROPERTY: header-args :results none :exports both
+
+* class instance variables accessors
+
+** Using self.method
+
+Reader and writer accessors for the ~@count~ _civar_ on the following class.
+
+#+BEGIN_SRC ruby
+class Enemy
+  @count = 0
+
+  @count = 0;
+
+  def self.count=(num)
+    @count = num
+  end
+
+  def self.count
+    @count
+  end
+end
+
+p Enemy.instance_variables
+# → [:@count]
+#
+p Enemy.count
+# → 0
+
+Enemy.count = 5
+p Enemy.count
+# → 5
+#+END_SRC
+
+
+** Using class << self
+
+Another approach would be using ~class << self~ notation and define the methods normally (similar to instance methods).
+
+#+BEGIN_SRC ruby
+class Enemy
+  @count = 0;
+
+  class << self
+    def count=(num)
+      @count = num
+    end
+
+    def count
+      @count
+    end
+  end
+end
+#+END_SRC
+
+
+** Using class << self with attr_<methods>
+
+And yet another approach using the method ~attr_accessor~ inside ~class << self~.
+
+#+BEGIN_SRC ruby
+class Enemy
+  @count = 0;
+  class << self
+    attr_accessor :count
+  end
+end
+#+END_SRC
+
+BEWARE: Although ~Enemy.instance_variables~ shows ~:@count~, we say ~:count~ without the ~@~ as argument to the ~attr_accessor~ method.
+
+
+
+* private methods are not really private
+
+We can't do something like ~obj.my_private_method(arg)~. Private methods can't be invoked from an explicit receiver. They can only be called with the default receiver ~self~. And yet, *we can't use ~self~ explicitly. It has to be implicit*.
+
+#+BEGIN_SRC ruby
+class Enemy
+  def threat=(threat)
+    @threat = threat
+  end
+
+  # <1>
+  def threat(yell: false)
+    # <2>
+    return yell_threat if yell
+    @threat
+  end
+
+  private
+
+    def yell_threat
+      @threat.upcase
+    end
+end
+#+END_SRC
+
+
+#1. We designed ~threat~ in a way that if it is passed ~yell: true~ (using keyword arguments), then it will invoke the private method ~yell_threat~. Note the ~return~ keyword there. If ~yell~ is ~true~, then we return the result of invoking ~yell_threat~ and the next line is not executed. If ~yell~ is ~false~ (the default value), then the condition is false, ~yell_threat~ is not run and the method simply returns the ~@threat~ instance variable.
+
+#2. ~yell_threat~ is a private method. Inside ~threat~, we can invoke any instance's private method. Private methods do not allow a _receiver_. They can only be invoked from the implicit ~self~ object. If we write ~self.yell_threat~, we get an exception. Note that we simply said ~yell_threat~, because then the default receiver ~self~ is used and the private method runs without problems.
+
+
+OK. We can invoke ~threat~ with the receiver because ~threat~ is public.
+
+#+BEGIN_SRC ruby
+enemy1 = Enemy.new
+enemy1.threat = 'I shall destroy you!'
+p enemy1.threat
+# → "I shall destroy you!"
+#+END_SRC
+
+And we can instruct ~threat~ to invoke ~yell_threat~.
+
+#+BEGIN_SRC ruby
+p enemy1.threat(yell: true)
+# → "I SHALL DESTROY YOU!"
+#+END_SRC
+
+However, we can indeed invoke private methods using some meta-programming-related “tricks”.
+
+#+BEGIN_SRC ruby
+p enemy1.send(:yell_threat)
+p enemy1.method(:yell_threat).call
+p enemy1.method(:yell_threat).()
+p enemy1.method(:yell_threat).[]
+p enemy1.method(:yell_threat).===
+p enemy1.instance_eval { yell_threat }
+# All of the above work.
+#+END_SRC
+
+To make sure you don't invoke a private method by accident, it is possible to use ~public_send~ instead ~send~ and its ilk.
+
+#+BEGIN_SRC ruby
+p enemy1.public_send(:yell_threat)
+# Produces a NoMethodError exception.
+#+END_SRC
+

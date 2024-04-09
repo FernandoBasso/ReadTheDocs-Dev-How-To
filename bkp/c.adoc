@@ -1,0 +1,13 @@
+= C
+:toc:
+:seclevel: 6
+:setclinks:
+
+== C Code Style
+
+https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en
+
+https://developer.gnome.org/gnome-devel-demos/stable/c.html.en
+
+https://www.kernel.org/doc/html/v4.10/process/coding-style.html
+

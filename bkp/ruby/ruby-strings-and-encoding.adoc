@@ -1,0 +1,174 @@
+= Ruby Strings and Encoding
+:linkcss:
+:stylesheet: asciidoctor-original-with-overrides.css
+:stylesdir: {user-home}/Projects/proghowto
+:webfonts:
+:icons: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+== Strings
+
+=== Retrieving single characters.
+
+[source,irb]
+----
+>> s = 'Use the force!'
+=> "Use the force!"
+
+# Last char.
+>> s[s.size - 1]
+=> "!"
+
+# Last char too!
+>> s[-1]
+=> "!"
+
+# Last but one (penultimate).
+>> s[-2]
+=> "e"
+
+# First.
+>> s[0]
+=> "U"
+----
+
+And unicode stuff words as expected (since ruby 1.9):
+
+[source,irb]
+----
+>> s = 'Poop 💩'
+=> "Poop 💩"
+>> s[-1] # <1>
+=> "💩"
+----
+
+1. Takes the last character, codepoint, not the last byte.
+
+
+=== Retrieving Multiple Characters
+
+[source,ruby]
+----
+# Starting at index 2, take 2 chars.
+>> s[2, 2]
+=> "op"
+
+# Starting at index 2, take 3 chars.
+>> s[2, 3]
+=> "op "
+
+# Starting at index 2, take 4 chars.
+>> s[2, 4]
+=> "op 💩"
+----
+
+=== Assigning to String Positions
+
+Using the same approach as demonstrated above, we can also assign to one or more index position of a string.
+
+[source,irb]
+----
+>> s = 'Poop 💩'
+=> "Poop 💩"
+=> "💩"
+
+# Replace the first char with `L`.
+>> s[0] = 'L'
+=> "L"
+>> s
+=> "Loop 💩"
+----
+
+Or assign multiple characters (strings) at once:
+
+[source,irb]
+----
+>> s = 'lambda'
+=> "lambda"
+>> s[0] = 'L'
+=> "L"
+>> s
+=> "Lambda"
+
+# Append " Calculus" to the end.
+>> s[s.size] = ' Calculus'
+=> " Calculus"
+
+# At position 6, replace 1 char (the space) with " λ ".
+>> s[6, 1] = ' λ '
+=> " λ "
+>> s
+=> "Lambda λ Calculus"
+----
+
+
+== Introduction to Ruby Encoding
+
+Until ruby 1.8 strings were a collection of bytes. Not good for i18n/Intl stuff. Ruby 1.9 improved the situation.
+
+[source,irb]
+----
+>> s = 'Ruby ♥'
+=> "Ruby ♥"
+>> s.encoding
+=> #<Encoding:UTF-8>
+>> s.encoding.name
+=> "UTF-8"
+>> s.length
+=> 6
+>> s.size
+=> 6
+>> s.bytesize
+=> 8
+----
+
+Also try `puts Encoding.list` and `p Encoding.list`.
+
+== Change String Encoding
+
+[source,irb]
+----
+>> s = 'Ruby ♥'
+=> "Ruby ♥"
+
+>> s.force_encoding(Encoding::ISO_8859_1)
+=> "Ruby \xE2\x99\xA5"
+
+>> s.force_encoding(Encoding::ISO_8859_1).encoding
+=> #<Encoding:ISO-8859-1>
+----
+
+
+== String Iteration
+
+Up to Ruby 1.8, there was a single `each` method on strings. But would it iterate over each byte or each character? In Ruby 1.9, `each` was _removed_ from `String`, and more specific and delcarative choices were implemented instead.The method names speak for themselves.
+
+- `each_byte`
+- `each_char`
+- `each_codepoint`
+- `each_line`
+
+For example, iterate over the chars, and count the bytes to ultimately count how many chars in the string are multibyte.
+
+[source,ruby,lineos]
+----
+def count_multibyte_chars(s)
+  count = 0
+
+  s.each_char do |c|
+    count += 1 if c.bytesize > 1
+  end
+
+  count
+end
+
+p count_multibyte_chars('Lambda λ Rocks ♥')
+----
+

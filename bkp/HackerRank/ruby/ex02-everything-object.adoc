@@ -1,0 +1,22 @@
+:linkcss!:
+:webfonts!:
+:source-highlighter: pygments
+:pygments-css: style
+:toc: top
+:challenge-link: https://www.hackerrank.com/challenges/ruby-tutorial-everything-is-an-object
+
+
+= Everything Is An Object
+
+link:{challenge-link}[Link to the challenge].
+
+[source,ruby,lineos]
+----
+print self
+
+# → main
+----
+
+The global, default scope is called `main`. It is some internal trickery Ruby does so it has a way to boot up, a starting point, if you will.
+
+

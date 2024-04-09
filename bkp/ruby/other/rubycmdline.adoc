@@ -1,0 +1,26 @@
+
+
+First:
+
+    ruby --help | less
+
+
+Use this command while learning/developing to run your ruby scripts:
+
+    ruby -w program.rb
+
+
+And sometimes this one:
+
+    ruby --debug program.rb
+
+
+To help a study session you can do:
+
+    alias R='ruby -w'
+
+and then run programs using the alias:
+
+    R program.rb
+
+

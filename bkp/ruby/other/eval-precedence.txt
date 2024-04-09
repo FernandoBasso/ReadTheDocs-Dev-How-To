@@ -1,0 +1,25 @@
+<FernandoBasso> Is there any specific piece of documentation that can clarify the order in which things are evaluated in a situation like this? puts arr[i] while arr[i += 1]
+<shevy> FernandoBasso usually it should be "from right to leftwards evaluation"
+<shevy> parens would have higher precedence; {} bind more tightly than do/end - FernandoBasso I think the first answer has most of the rules there http://stackoverflow.com/questions/21060234/ruby-operator-precedence-table
+<shevy> also http://stackoverflow.com/questions/1840488/operator-precedence-for-and-in-ruby/1840995#1840995
+
+
+    arr = [10, 20, 30]
+    i = 0;
+    puts arr[i] while arr[i += 1]
+    # →  10
+    # →  20
+    # →  30
+
+because `arr[i += 1]` gets evaluated first, and `i += 1` evaluates even before
+`arr[index]`.
+
+Another way of writing:
+
+    i = -1
+    puts arr[i -= -1] while arr[i]
+
+
+NOTE: `i -= -1` is just the same as `i += 1`.
+
+

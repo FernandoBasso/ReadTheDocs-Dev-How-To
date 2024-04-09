@@ -1,0 +1,9 @@
+pre, code {
+  font-family: 'Source Code Pro';
+  font-size: inherit;
+  background-color: #222;
+}
+
+pre {
+  padding: 14px;
+}

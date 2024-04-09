@@ -1,0 +1,61 @@
+#+TITLE: Ruby Constructors
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results none :exports both
+
+* most objs have `new'
+
+Most of Ruby built-in classes can be instantiated using `new'. Just a few can't.
+#+BEGIN_SRC ruby
+str = String.new('foo')
+
+# Length 3 (like in js), not an array with the element 3.
+arr = Array.new(3)
+p arr
+# → [nil, nil, nil]
+#+END_SRC
+
+* not all objs have `new'
+
+This an error:
+
+#+BEGIN_SRC ruby
+Integer.new
+one = Integer.new(1)
+# Both produce "NoMethodError: undefined method `new' for Integer:Class"
+#+END_SRC
+
+* literal constructors
+
+A lucky, select few classes have /literal constructors/, which means you can use a special syntax to create objects.
+
+#+BEGIN_SRC ruby
+str = 'my string'
+sym1 = :my_symbol
+sym2 = :'my symbol with special‽ chars💩 and spaces'
+arr = [:foo, 'bar', 2.5]
+hash1 = { id => 9, name => 'Yoda' }
+hash2 = { id: 9, name: 'Yoda' }
+#+END_SRC
+
+Ranges:
+: p 1..2
+: p 1...3
+
+Regular expressions:
+: re = /[a-z]+/i
+
+# Procs and lambdas.
+# Dash, arrows, parentheses, braces
+# -> (x, y) { x * y }
+
+~[]~ is not always a literal constructor. A ~{}~ does not always denote a hash either. /Notation overloading/ is a consequence of a finite number of chars on any given keyboard. Pay attention to context understand what a char represents.

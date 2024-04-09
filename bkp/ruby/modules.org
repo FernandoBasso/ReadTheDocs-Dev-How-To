@@ -1,0 +1,657 @@
+#+TITLE: Modules
+#+STARTUP: content
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6 ^:nil
+#+PROPERTY: header-args :results output :exports both
+
+* Intro
+
+Modules are bundles of methods and constants. You add a module to a class to endow the class with extra functionality.
+
+Modules are similar to classes (but we can't create instances of modules), so much that the ~Class~ class is a subclass of the ~Module~ class, and that means that every class object is also a module object.
+
+~Kernel~ is a module that contains many of the methods that are common to all objects, including ~load~ and ~require~.
+
+#+BEGIN_SRC ruby :results silent
+module Greeter
+  def hi
+    'Hi there.'
+  end
+end
+
+class Message
+  include Greeter
+end
+
+msg = Message.new
+p msg.hi
+# → "Hi there."
+#+END_SRC
+
+We defined the method ~hi~ in the ~Greeter~ module like if it were an instance method of a class, and by including the module in the ~Message~ class, we can use that method in instances of that class as if they were defined as instance methods of the class itself.
+
+In Ruby, we can inherit from a single parent class at a time, but we can include (mix in) multiple modules at once.
+
+
+#+BEGIN_SRC ruby :results output
+module StackIt
+  def stack
+    @stack ||= []
+  end
+
+  def stack_add(obj)
+    stack.push(obj)
+  end
+
+  def stack_pop
+    stack.pop
+  end
+end
+
+class OurStack
+  include StackIt
+end
+
+stk = OurStack.new
+stk.stack_add('PHP')
+stk.stack_add('JavaScript')
+p stk.stack
+# → ["PHP", "JavaScript"]
+
+p stk.stack_pop
+# → "JavaScript
+
+stk.stack_add('Haskell')
+stk.stack_add('Ruby')
+p stk.stack
+# → ["PHP", "Haskell", "Ruby"]
+#+END_SRC
+
+#+RESULTS:
+: ["PHP", "JavaScript"]
+: "JavaScript"
+: ["PHP", "Haskell", "Ruby"]
+
+~@stack~ in ~StackIt~ module behaves like if it were defined in ~OutStack~ class. Now we could use it in any class, not just in ~OutStack~.
+
+
+Class names should generally be a noun, and module names should generally be an adjective. There must be good reasons to not follow this convention on any given situation.
+
+
+* module instance method
+
+This module has an instance method:
+
+#+BEGIN_SRC ruby :results none
+module Pluralable
+  def pluralize(word, count, plural = nil)
+    return word if 1 == count
+    return plural if plural
+    return "#{count} #{word}s"
+  end
+end
+
+class Message
+  include Pluralable
+end
+
+msg = Message.new
+p msg.pluralize('apple', 0)
+# → "0 apples"
+
+p msg.pluralize(1, 'apple')
+# → "1 apple"
+
+p msg.pluralize('apple', 2)
+# → "2 apples"
+
+p msg.pluralize('foot', 0, 'feet')
+# → "0 feet"
+
+p msg.pluralize('foot', 1)
+# → "1 foot"
+
+p msg.pluralize('foot', 2, 'feet')
+# → "0 feet"
+#+END_SRC
+
+The method ~pluralize~ in the ~Pluralable~ module is an instance method of that module, and when it gets /mixed into/ (included) into the class ~Message~ that class can use the module as if it were and instance method of the class itself. What happens is that there is a module lookup going on. When something like a method or variable can't be found on a class, the lookup mechanism looks in parent classes and included modules to try to find the variable or method.
+
+Even if a super super super class includes a module that contains a certain method, the current object will be able to invoke that method.
+
+If a method is not found, the result is an error condition that triggers the call of the method ~method_missing~ (and we can override it to customize what happens when this method is invoked).
+
+~BasicObject~ is the first class in the hierarchy, then we have the ~Object~ class, and ~Kernel~ is a module that ~Object~ mixes in.
+
+All classes that inherit from ~Object~ automatically inherit stuff provided by ~Kernel~.
+
+TODO: Draw some diagram about this hierarchy of modules and classes to insert at this point.
+
+** Method Overriding
+
+When a module (or a class) define the same method name more than once, the last one wins.
+
+
+* Inheritance
+
+When we create our classes, we don't need to explicitly inherit from ~Object~. That is done automatically.
+
+#+BEGIN_SRC ruby
+class Person
+  # This class has access to all stuff defined in
+  # Object and Kernl.
+  #
+end
+
+p Person.superclass
+# → Object
+
+p Person.class
+# → Class
+#+END_SRC
+
+
+Remember that doing ~class Foo ... end~ is the same as ~Foo = Class.new do ... end~, and that the former notation is syntax sugar the latter. So, ~Person~ is an /instance/ of ~Class~ (so ~Person~ is indeed also an object on its own right), and it inherits from ~Object~. And ~Object~ mixes in the module ~Kernel~ Read more at [[https://ruby-doc.org/core-2.5.1/Object.html][the Ruby docs for the ~Object~ class]].
+
+Okay, so, if Ruby can only inherit from a single class at a time, that means if we now instantiate a ~Teacher~ class and make it inherit from ~Person~, then ~Teacher~ does not inherit from ~Object~?
+
+Because ~Person~ inherits from ~Object~, and ~Teacher~ inherits from ~Person~, that means ~Teacher~ also have access to stuff defined in the ~Object~ class, which also means it has access to things defined in ~Kernel~ (because ~Object~ mixes ~Kernel~ in). In short, a descendant has access to all the stuff from any of its ancestors.
+
+#+BEGIN_SRC ruby
+class Person
+  # Inherits from Object (which inherits from BasicObject) and
+  # includes the module Kernel.
+
+  def initialize(name)
+    @name = name
+  end
+
+  def tell_name
+    "My name is #{@name}"
+  end
+end
+
+class Teacher < Person
+  def tell_profession
+    'I am a teacher.'
+  end
+end
+
+person = Person.new('Lara Croft')
+teacher = Teacher.new('Verner Von Coy')
+
+# Instances of ~Person~ have access to `respond_to?' (from `Kernel').
+if person.respond_to?(:tell_profession)
+  # This won't execute becase `Person` doesn't
+  # have the method `tell_profession'.
+  p person.tell_profession
+else
+  # This will be executed.
+  p 'Person cannot tell the profession.'
+end
+
+if teacher.respond_to?(:tell_profession)
+  # This will be executed.
+  p teacher.tell_profession
+else
+  # This else block won't run because Teacher has the
+  # method `tell_profession`
+  p 'Teacher cannot tell profession.'
+end
+#+END_SRC
+
+#+RESULTS:
+: "Person cannot tell the profession."
+: "I am a teacher."
+
+
+* Method Lookup
+
+An object can only “see” one method with a given name at a time. The object’s lookup mechanism stops at the first name that matches. The lookup mechanism walks from the inner to the outer definitions, which means inner definitions win.
+
+#+BEGIN_SRC ruby
+module Greetable
+  def say_hello
+    "Hello from module `Greetable'."
+  end
+end
+
+class Message
+  include Greetable
+
+  def say_hello
+    "Hello from class `Message'."
+  end
+end
+
+msg = Message.new
+p msg.say_hello
+# → "Hello from module `Greetable'."
+#+END_SRC
+
+The method ~say_hello~ in the class ~Message~ “wins”, because the lookup mechanism will start with the class that gave birth to the object ~msg~, and only if it doesn’t find the method there will it look further in the lookup chain.
+
+If two or more included modules define the same method, the most recent included one (the last included) wins.
+
+#+BEGIN_SRC ruby
+module Mod1
+  def hello
+    'Hello from mod1.'
+  end
+end
+
+module Mod2
+  def hello
+    'Hello from mod2.'
+  end
+end
+
+class Foo
+  include Mod1
+  include Mod2 # included last, wins
+end
+
+class Bar
+  include Mod2
+  include Mod1 # included last, wins
+end
+
+foo = Foo.new
+p foo.hello
+# → "Hello from mod2."
+
+bar = Bar.new
+p bar.hello
+# → "Hello from mod1."
+#+END_SRC
+
+#+RESULTS:
+: "Hello from mod2."
+: "Hello from mod1."
+
+
+Also important to be aware that including the method more than once doesn’t actually re-include it. Ruby detects that it was already in the load path and simply ignores it.
+
+#+BEGIN_SRC ruby
+class Foo
+  include Mod1
+  include Mod2 # Considered the last included.
+  include Mod1 # Won’t be re-included.
+end
+#+END_SRC
+
+
+* include vs prepend
+
+When we ~prepend~ modules in a class (instead of using ~include~, the lookup mechanism searches for methods in the modules first, and only then in the class.
+
+#+BEGIN_SRC ruby
+module Greetable
+  def hello
+    "Hello from the module `Greeter'."
+  end
+end
+
+class Message
+  prepend Greetable
+  def hello
+    "Hello from the class `Message'."
+  end
+end
+
+msg = Message.new
+p msg.hello
+# → "Hello from the module `Greeter'."
+#+END_SRC
+
+#+RESULTS:
+
+Even though the class ~Message~ defines a method with the same name as the method defined in the mixed in module, because we used ~prepend~ rather than ~include~, the method defined in the module “wins”. With ~include~, the version defined in the class would win.
+
+We can use ~ClassName.ancestors~ to see an ordered list of /places/ where an object will look for method.
+
+#+BEGIN_SRC ruby
+module Greetable
+end
+
+class Message
+  include Greetable
+  def show_ancestors
+    self.class.ancestors
+  end
+end
+
+class Alert
+  prepend Greetable
+  def show_ancestors
+    self.class.ancestors
+  end
+end
+
+#p Message.ancestors
+p Message.ancestors
+p Message.new.class.ancestors
+p Message.new.show_ancestors
+
+# Note that for `Alert' (which we used `prepend'), `Greetable'
+# appears _before_ the `Alert' class itself.
+p Alert.ancestors
+p Alert.new.class.ancestors
+p Alert.new.show_ancestors
+#+END_SRC
+
+#+RESULTS:
+: [Message, Greetable, Object, Kernel, BasicObject]
+: [Message, Greetable, Object, Kernel, BasicObject]
+: [Message, Greetable, Object, Kernel, BasicObject]
+: [Greetable, Alert, Object, Kernel, BasicObject]
+: [Greetable, Alert, Object, Kernel, BasicObject]
+: [Greetable, Alert, Object, Kernel, BasicObject]
+
+And there we have an overview of the lookup path for a class using ~include~ vs ~prepend~ to mix a module in. In short, we use ~prepend~ when we want a method defined in the module take precedence over the method of the same name defined in the class. And remember that modules are included and prepended are searched for in reverse order. Something like a LIFO (Last In, First Out).
+
+See the docs on ~Module#inclue~ and ~Module#prepend~. Use ~pry~'s ~show-doc~ or look in docs.ruby-lang.org.
+
+
+
+~self.class.ancestors~ will display the classes and modules that compose the current object.
+
+#+BEGIN_EXAMPLE
+[14:47:44] <FernandoBasso> Inside method defined inside a module, is there a self.<something> that would show the name of the module?
+[14:48:31] <FernandoBasso> Like, in a class method, I can do self.class and it shows the name of the class in which the method is defined. Can I show the name of the module in which the module is defined in a similar fashion?
+[14:48:40] <apeiros> self.class.ancestors will contain it
+[14:49:05] <FernandoBasso> I see. Thanks.
+[14:49:37] <apeiros> but since a method is always invoked in the context of the receiver, there's nothing which will tell you "this is the method defined in module X"
+[14:50:22] <apeiros> well, to a degree you can use source_location and/or method(__method__).owner, both have their issues and limitations.
+[14:50:26] <apeiros> what do you try to achieve?
+[14:51:38] <FernandoBasso> Nothing in particular. Just trying to understand self better, and the relation between modules and classes.
+[14:52:39] <apeiros> self is the object in which's (whose?) context the current code is executed.
+[14:53:47] <FernandoBasso> So far, I figure it is, in some ways, similar to `this' in javascript. Its value depending on how the code is executed, and not set in stone upon definition.
+[14:54:26] <apeiros> it's exactly as `this` in js. js just differs in when context of `this` changes.
+#+END_EXAMPLE
+
+
+* super keyword to call parent class method
+
+#+BEGIN_SRC ruby
+class Person
+  def greet
+    puts 'Hello from a nice Person.'
+  end
+end
+
+class Programmer < Person
+  def greet
+    # Invokes `greet' from the superclass (parent class).
+    super
+    puts 'Hello from a nice Programmer.'
+  end
+end
+
+Programmer.new.greet()
+#+END_SRC
+
+#+RESULTS:
+: Hello from a nice Person.
+: Hello from a nice Programmer.
+
+So, unlike most other OO languages, in Ruby you can not only invoke the superclass constructor, but also invoke any of the superclass methods.
+
+Let's see a somewhat more realist example, when we invoke the consturctor of the superclass (because it already does part of what we want for the subclass), and then do the rest of the necessary work on the subclass itself. Let's say a person has name and email, and a programmer, which is a person, also have a lang skill.
+
+#+BEGIN_SRC ruby
+class Person
+  attr_reader :name, :email
+  def initialize(name, email)
+    @name = name
+    @email = email
+  end
+
+  def to_s
+    "#{@name}, #{@email}"
+  end
+end
+
+class Programmer < Person
+  attr_reader :lang
+  def initialize(name, email, lang)
+    super(name, email)
+    @lang = lang
+  end
+
+  def to_s
+    # Let's also use to_s from the parent class, which already does
+    # part of the job we need.
+    "#{super}, #{@lang}"
+  end
+end
+
+torvalds = Programmer.new('Linus Torvalds', 'linus@kernel.org', 'C')
+norvig = Programmer.new('Peter Norvig', 'norvig@commonlisp.org', 'Common Lisp')
+
+p torvalds.to_s
+p norvig.to_s
+#+END_SRC
+
+#+RESULTS:
+
+
+The keyword ~super~ (yes, it is a keyword, not a method) was engineered to have special behavior when it comes to passing arguments to the parent's class method.
+
+- With no arguments, meaning, the /bareword/ ~super~, all arguments are automatically forwarded to the parent class method.
+- With an empty argument list like ~super()~, no arguments are forwarded to the parent class method, even if the current method is passed arguments.
+- With specific arguments, like ~super(arg1, arg2), only those specific arguments are passed to the parent class method.
+
+
+Note that we can't do this:
+
+#+BEGIN_SRC ruby
+class Person
+  def initialize(name, email)
+    @name = name
+    @email = email
+  end
+end
+
+class Programmer
+  def initialize(name, email, lang)
+    # Can't just call `super' to forward all the args because we would be
+    # forwarding three args, and Person's constructor expects only two
+    # args, which would produce an error.
+    super # No, this won't work.
+    @lang = lang
+  end
+end
+
+#Programmer.new('John Carmack', 'carmack@idsoftware.com', 'C++')
+# `initialize': wrong number of arguments (given 3, expected 0) (ArgumentError)
+#+END_SRC
+
+#+RESULTS:
+
+
+* method_missing
+
+Let's intercept messages an object doesn't understand and do something about it.
+
+#+BEGIN_SRC ruby
+class Person
+  def method_missing(name, *args)
+    puts "Method `#{name}' is not defined on #{self.class}."
+  end
+end
+
+# We won't see Ruby's deault message for undefined methods or local variables.
+Person.new.i_dont_exist()
+#+END_SRC
+
+#+RESULTS:
+: Method `i_dont_exist' is not defined on Person.
+
+We can also use our own ~method_missing~ implementation to do something if the missing method matches a particular pattern and invoke the default Ruby ~method_missing~ method otherwise.
+
+#+BEGIN_SRC ruby
+class Greet
+  def method_missing(method, *args)
+    if method.to_s.start_with?('end')
+      puts 'Kind regards'
+    else
+      super
+    end
+  end
+end
+
+begin
+  greet = Greet.new
+  greet.end_letter
+  greet.end_chat
+  greet.end_message
+  greet.close_message
+rescue Exception => msg
+  puts 'Oops, got an exception 💩'
+  p msg
+end
+#+END_SRC
+
+#+RESULTS:
+: Kind regards
+: Kind regards
+: Kind regards
+: Oops, got an exception 💩
+: #<NoMethodError: undefined method `close_message' for #<Greet:0x0000556ac314b940>>
+
+
+* Some design principles
+
+An object doesn't care if a method was defined the class that created the object, or any superclass of that class, or in a mixed in module. It only cares that the method exists.
+
+Althouh we can defined mehtods inside a module, and then every class in the world could reuse the code defined in the module, be careful not to overmodularize everything just for the sake of it.
+
+Sometimes it is better to have a superclass that provides some basic and general functionality, and sometimes it is better to have a module and mix it in intead. Just remember than modules cannot be instantiated (and a class which acts as a superclass can be instantiated), while on the other hand you can inherit from a single class at a time, whereas we can include multiple modules at a time.
+
+Classes are generally named with /nouns/, and modules are often named with /adjectives/, like the ~Message~ class vs the ~Greetable~ module, or ~Array~ class vs the ~Enumerable~ module, etc.
+
+In this example, a inheritance is a better approach than including a module:
+
+#+BEGIN_SRC ruby
+# Do this (good approach)
+class Student < Person
+end
+
+class Teacher < Person
+end
+
+# Instead of (bad approach)
+class Student
+  include PersonLike
+end
+
+class Teacher
+  include PersonLine
+end
+#+END_SRC
+
+In this example, it is more advisable to use a module to include greet-capabilities. A person can greet someone else, but a robot, a program, etc, can greet too.
+
+#+BEGIN_SRC ruby
+# Poor choice:
+class Greet
+  # Some greet-related methods...R
+end
+
+class Person < Greet
+end
+
+class Student < Greet
+end
+
+class Cyborg < Greet
+end
+
+# Do this instead:
+module Greetable
+  # Some greet-related methods...
+end
+
+class Person
+  include Greetable
+end
+
+class Student < Person
+  # It has access to Greetable as well since it descends from Person.
+end
+
+class Cyborg
+  include Greetable
+end
+#+END_SRC
+
+Another, example, from the Well Grounded Rubyist book:
+
+#+BEGIN_SRC ruby :results none
+# Completely wrong! Please, dear programmer, you are embarrassing yourself...
+class SelfPropelling
+end
+
+class Truck < SelfPropelling
+  include Vehicle
+end
+
+# Do this instead, no questions asked. Just follow my lead.
+module SelfPropelling
+end
+
+class Vehicle
+  include SelfPropelling
+end
+
+class Truck < Vehicle
+end
+#+END_SRC
+
+* Nesting and the double-colon
+
+#+BEGIN_SRC ruby
+module Shapes
+  class Circle
+    # Model circles.
+  end
+
+  class Rectangle
+    # Model rectangles.
+  end
+end
+
+circle = Shapes::Circle.new
+rect = Shapes::Rectangle.new
+
+# And then we could have Circle and Rectangle in another namespace and no
+# name collision would occur.
+module Collision
+  class Circle
+    # Circle-related collision detection.
+  end
+
+  class Rectangle
+    # Rectangle-related collision detection.
+  end
+end
+#+END_SRC
+
+#+RESULTS:
+
+Some call ~::~ the /namespace resolution operator/,  others call it /double-colon constant lookup token/.
+
+The ~::~ token goes by several names, like the /namespace resolution operator/, the /scope resolution operator/, or /double-colon constant lookup token/. There may be other names for it. :)
+
+
+

@@ -1,0 +1,6 @@
+= Mini-Max Sum :: HackerRank
+:toc: right
+:icons: font
+:stem: latexmath
+
+* link:https://www.hackerrank.com/challenges/mini-max-sum[Mini-Max Sum:: HackerRank]

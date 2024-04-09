@@ -1,0 +1,38 @@
+
+++++
+<style>
+body {
+  font-family: Ubuntu, 'Noto Sans', 'Open Sans', Helvetica, Arial;
+}
+
+
+@media (min-width: 768px) {
+  body.toc2 {
+    padding-left: 22em;
+  }
+
+  #toc.toc2 {
+    width: 22em;
+    background-color: #e6dfde;
+    border-right: 1px dashed #aaa;
+  }
+
+  #toc a {
+    font-size: 1.0em;
+  }
+}
+
+.literalblock pre,
+.listingblock > .content > pre {
+  background-color: #e3e3e3;
+  border: 1px dashed #999;
+}
+
+p code,
+td code {
+  background-color: #dfdfdf;
+  border: 1px dashed #999;
+}
+</style>
+++++
+

@@ -1,0 +1,258 @@
+
+Ruby has five categories of variables.
+
+ - global variables
+   ----------------
+
+ - local variables
+   ---------------
+
+
+ - instance variables
+   ------------------
+   Independent for each instance of a class.
+
+
+ - class variables
+   ---------------
+   Instances of a classes access the same memory location.
+
+
+ - class instance variables
+   ------------------------
+   Similar to class variables, but not inherited by subclasses.
+
+http://stackoverflow.com/questions/863782/trying-to-understand-use-of-self-method-name-vs-classname-method-name-in-ruby
+
+
+In ruby, class method is what some other languages call static method.
+
+http://stackoverflow.com/questions/13706373/what-does-def-self-function-name-mean
+
+
+----
+class Thing
+
+  @count = 0
+
+  def initialize
+    # Why do I need `class` here as well? Why not just `self.method_name`?
+    self.class.increment_counter
+  end
+
+  def self.increment_counter
+    @count += 1
+  end
+
+  def self.count
+    @count
+  end
+end
+
+19.times { Thing.new }
+p Thing.count
+----
+
+08:52:07 Fernando-Basso | I have a class/singleton method defined like "def self.foo". I want to call it
+                        | inside "initialize". It seems I must do "self.class.foo". Why "class" has to be
+                        | there?
+08:53:08 Fernando-Basso | I mean, isn't `self` already referencing the class itself?
+08:53:18        apeiros | Fernando-Basso: because without .class you'd call it on self which is the
+                        | instance of the class and not the class itself.
+08:53:55        apeiros | Fernando-Basso: no. self in initialize is the instance. remember, initialize is
+                        | an instance method (you didn't define it as def self.initialize after all,
+                        | right?)
+08:56:25 Fernando-Basso | apeiros: Makes sense. Since `initialize` is called when creating an _instance_,
+                        | `self` references the _instance_, not the class. Got it.
+08:56:39 Fernando-Basso | I just want to find where in the docs that is mentioned.
+08:56:57 Fernando-Basso | It seems strange that I have to ask these type of questions...
+08:57:35        apeiros | Fernando-Basso: it'd also be difficult to initialize ivars if it wasn't an
+                        | instance method ;-) (you'd access the class' ivars otherwise)
+09:19:18 Fernando-Basso | apeiros: I mentioned I wanted to find that `self.class` thingy in the docs.
+                        | Would it be this one? http://ruby-doc.org/core-2.2.3/Object.html#class-method
+09:19:30 Fernando-Basso | "Returns the class of obj. This method must always be called with an explicit
+                        | receiver, as class is also a reserved word in Ruby."
+09:20:02         Ox0dea | Fernando-Basso: That tells you why you have to say `self.class`, but not why
+                        | `self` is the instance being constructed in #initialize.
+09:20:12 Fernando-Basso | Yeah, that is what I was wondering.
+09:20:14         Ox0dea | It's really just that #initialize is an instance method.
+09:21:25         Ox0dea | The VM allocates the memory for your Object, assigns it a class, then invokes
+                        | the relevant #initialize method to construct it.
+09:22:29       workmad3 | Fernando-Basso: what you're asking for is documentation of the language scoping
+                        | rules... such docs exist in the form of a language overview (as given by
+                        | countless tutorials, etc.), but you won't find them attached to a specific item
+                        | like `Object` because it's a global property of the language
+09:22:47 Fernando-Basso | My goal is to increment a counter every time I instantiate a class. Instead of
+                        | using self.class.increment_counter (to call a method that increments @count), I
+                        | could just as well have used @@count += 1 inside `initialize`, I suppose.
+09:23:29         Ox0dea | Fernando-Basso: Are you perfectly certain that you'll never subclass this
+                        | class?
+09:24:01 Fernando-Basso | Ox0dea: I am just making some study cases, not a real project.
+09:24:22       workmad3 | Fernando-Basso: `def self.new; @count += 1; super; end`
+09:24:56       workmad3 | (I missed out argument specification there, but it's another alternative to
+                        | what you want ;) )
+09:25:05         Ox0dea | Fernando-Basso: Ah, well, something to be mindful of: https://eval.in/558016
+
+----
+class C
+  @@number_of_Cs = 0
+
+  def initialize
+    @@number_of_Cs += 1
+  end
+
+  def self.how_many?
+    @@number_of_Cs
+  end
+end
+
+class D < C
+end
+
+C.new
+C.new
+p C.how_many?
+
+D.new
+D.new
+p C.how_many?
+
+# 2
+# 4
+# Class variables are shared.
+----
+
+09:26:52          jhass | (and it's not because the inherited initialize would be run in the scope of the
+                        | parent class, that's not the case)
+09:27:20 Fernando-Basso | But this is two ways to do the same, right? https://eval.in/558028
+
+----
+class Thing
+
+  @a = 0
+  @@b = 0
+
+  def initialize
+    self.class.increment_counter
+    @@b += 1
+  end
+
+  def self.increment_counter
+    @a += 1
+  end
+
+  def self.pcount
+    p @a
+    p @@b
+  end
+end
+
+19.times { Thing.new }
+p Thing.pcount
+# 19
+# 19
+----
+
+09:27:52         Ox0dea | Fernando-Basso: I was just demonstrating that class variables are shared, which
+                        | is almost never what you want.
+09:27:57       workmad3 | Fernando-Basso: nearly the same... there's edge-case differences like the one
+                        | Ox0dea pointed out
+09:29:36 Fernando-Basso | Okay. Thank you all. I took notes. I'll review everything.
+09:31:01          jhass | Fernando-Basso: to show it based on your sample: https://eval.in/558035
+
+----
+class Thing
+
+  @a = 0
+  @@b = 0
+
+  def initialize
+    self.class.increment_counter
+    @@b += 1
+  end
+
+  def self.increment_counter
+    @a += 1
+  end
+
+  def self.pcount
+    p @a
+    p @@b
+  end
+end
+
+class Sub < Thing
+  @a = 0
+  @@b = 0 # No real effect, just for completeness
+end
+
+#19.times { [Thing, Sub].sample.new }
+3.times { Thing.new }
+Thing.pcount
+Sub.pcount
+# 3
+# 3
+# 0
+# 3
+----
+
+09:56:13 Fernando-Basso | jhass: So, @a is not incremented upon Sub instantiations because `initialize`
+                        | is not inherited?
+09:57:12          jhass | Fernando-Basso: no, because @a belongs to a specific class instance whereas @@b
+                        | is shared down the ancestry chain
+
+class instance != instance
+
+
+
+----
+class Thing
+
+  # Belgons to the Thing object (yes, a class is an object).
+  @a = 0
+
+  # Belongs to all Class Objects that inherit from Thing.
+  @@b = 0
+
+  def initialize
+    # When instantiating `Thing`, `self.class.increment_counter` increments `@a` in `Thing`.
+    # When instantiating `Sub`, `self.class.increment_counter` increments `@a` in `Sub`.
+    self.class.increment_counter
+    @@b += 1
+  end
+
+  # Because we used `self`, `increment_counter` is a method of the class.
+  def self.increment_counter
+    # Incremented separately for each class, super or child, when initializing them.
+    @a += 1
+  end
+
+  def self.pcount
+    p @a
+    p @@b
+  end
+end
+
+class Sub < Thing
+  @a = 0
+  @@b = 0 # No real effect, just for completeness
+end
+
+# `sample` picks one, which `new` instantiates.
+#5.times { [Thing, Sub].sample.new }
+5.times { Thing.new }
+#2.times { Sub.new }
+Thing.pcount
+Sub.pcount
+# 5
+# 5
+# 0
+# 5
+
+# Instantiating Thing increments both @a and @@b. @@b in Thing is the same @@b in Sub.
+# @a in Thing is different from @a in Sub. To increment @a in Sub, you'd have to
+# instantiate Sub itself, not its super class.
+
+# If we don't initialize Sub, @a in Sub will remain 0. @@b on the other hand,
+# is shared. If you initialize Sub, Thing sees the incremented value and vice-versa.
+----

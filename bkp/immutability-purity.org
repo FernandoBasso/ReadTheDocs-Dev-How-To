@@ -1,0 +1,43 @@
+#+TITLE: Immutability and Purity
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results output :exports both
+
+#+BEGIN_SRC javascript
+let arr = ['one', 'two', 'three']
+
+let copy = arr.slice();
+#+END_SRC
+
+~copy~ is not a reference to ~arr~; it is a new copy.
+
+Data change with muation:
+
+#+BEGIN_SRC javascript
+let yoda = { name: 'Yoda', skill: 'Lightsaber' };
+yoda.name = 'Luke';
+// yoda's name is Luke. :D
+#+END_SRC
+
+Data change without mutation:
+
+#+BEGIN_SRC javascript
+let yoda = { name: 'Yoda', skill: 'Lightsaber' };
+
+// Using `Object.assign()':
+let luke = Object.assign({}, yoda, { name: 'Luke' });
+
+// Using object spread syntax:
+let darth = {...yoda, name: 'Darth' };
+#+END_SRC
+
+

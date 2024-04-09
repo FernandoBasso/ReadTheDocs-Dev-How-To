@@ -1,0 +1,5 @@
+
+http://ruby-doc.org/core-2.3.0/Proc.html
+
+CooperPress, An Introduction to Procs, Lambdas and Closures in Ruby
+https://www.youtube.com/watch?v=VBC-G6hahWA

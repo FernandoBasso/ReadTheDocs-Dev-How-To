@@ -1,0 +1,56 @@
+== Three ways to use ruby.
+
+From the shell:
+
+    ruby -e 'puts 1234'
+
+From a file:
+
+    ruby -w program.rb
+
+    # Comment
+
+    =begin
+    lots
+    of comment lines
+    here
+    end
+
+
+=== irb — Interactive Ruby Shell
+
+    irb
+    irb --simple-prompt
+
+    irb # quit<Return> to exit irb.
+    > 5 + 2
+    7 # return value.
+
+    > puts 5 + 2
+    7 # result of `puts`
+    => nil # return value.
+
+Note the when we use `puts`, it prints 7 and returns `nil`.
+
+
+    'Hello'.reverse
+
+'Hello' is an object. And we told it to reverse itself.
+
+== Docs, ri
+
+    http://www.ruby-doc.org/core
+
+`ri` is “Ruby Information”.
+
+    rvm docs generate
+
+    ri upcase
+    ri String#upcase
+    ri Object#inspect
+
+Or simply:
+
+    ri
+    upcase
+

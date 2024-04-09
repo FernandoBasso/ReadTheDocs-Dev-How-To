@@ -1,0 +1,76 @@
+#+TITLE: Ruby Operators
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HEAD_EXTRA: <style> code {background-color: #fefefe; border: 1px solid #ccc;  border-radius: 3px; padding: 2px; }</style>
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+OPTIONS: TOC:6
+#+PROPERTY: header-args :results none :exports both
+
+Ruby operators are methods in disguise. For instance, ~1 + 2~ is actually ~1.+(2)~. A selection of symbols get special treatment by Ruby, which means when one defines a method with one such symbol, it can then be used with syntax that looks like an operator.
+
+#+BEGIN_SRC ruby
+Foo = Class.new do
+  def initialize
+    @stack = []
+  end
+
+  def <<(obj)
+    @stack.push(obj)
+  end
+
+  def >>
+    @stack.pop
+  end
+end
+
+foo = Foo.new
+foo << 'one' # Usage like an operator.
+foo.<<('two') # Or as a method call with parentheses.
+foo.<< 'three' # Or as a method call without parentheses.
+
+p foo.>>
+p foo.>>() # <1>
+# → "three"
+# → "two"
+#+END_SRC
+
+1. Yeah, just to exemplify, but we know Ruby convention is to /not/ use parenthesis when invoking a method that does not require parameters (and some frameworks like rails do not use parenthesis even when methods do require parameters, unless the syntax would become ambiguous and it would confuse the parser).
+
+These are the operators that can be redefined:
+
+~+~  ~-~  ~*~  ~/~  ~%~  ~**~  ~[]~  ~[]=~  ~<<~  ~<=>~  ~==~  ~>~  ~<~  ~>=~  ~<=~  ~===~  ~|~  ~&~  ~^~
+
+* Unary Operators
+
+Define ~+~ and ~-~ for string ~upcase~ and ~downcase~. We use methods like ~+@~ and ~!@~ to redefine /unary operators/.
+
+#+BEGIN_SRC ruby
+class Title
+  def initialize(text)
+    @text = text
+  end
+
+  def to_s
+    @text
+  end
+
+  def +@
+    @text.upcase
+  end
+end
+
+title = Title.new('May the force be with you!')
+puts (+title) # <1>
+# → MAY THE FORCE BE WITH YOU!
+#+END_SRC
+
+1. Without parenthesis around ~+title~, we get a warning about ambiguity.
+
+
+

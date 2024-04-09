@@ -1,0 +1,44 @@
+commit d3887f543daaf88b43445c59be9134a83f54969c
+Author: Fernando Basso <fernandobasso.br@gmail.com>
+Date:   Tue Sep 14 09:21:51 2021 -0300
+
+    compfpjs: Update .js files with better typings
+
+commit ddc1447b3e9f7f2746ad6cb78ac350e77d3f27e0
+Author: Fernando Basso <fernandobasso.br@gmail.com>
+Date:   Tue Sep 14 09:13:35 2021 -0300
+
+    chore: Add CC BY-SA 3.0 Unported licensing
+
+    Since the content of this entire project is partly my creation, things I
+    think about, play with and write about, but also notes and explanation
+    on other people's works (like books, courses and tutorials), it seems
+    correct to license this work under the “Creative Commons
+    Attribution-ShareAlike 3.0 Unported License.”
+
+    As a side note, many people push solutions to books, courses, etc. on
+    public repositories. I'm doing the same except it is also rendered on a
+    website, something like a public wiki of sorts.
+
+    REFERENCES:
+
+    • https://creativecommons.org/licenses/by-sa/3.0/
+    • https://creativecommons.org/2011/04/15/plaintext-versions-of-creative-commons-licenses-and-cc0
+
+commit c0325eadf5fb2aeaa1c801f2f7aa5d0551081eaa
+Author: Fernando Basso <fernandobasso.br@gmail.com>
+Date:   Tue Sep 14 09:12:11 2021 -0300
+
+    docs: Improve notes about commit types
+
+commit 372f421fef529f643a6aa129c940f84292f1ec29
+Author: Fernando Basso <fernandobasso.br@gmail.com>
+Date:   Tue Sep 14 08:41:24 2021 -0300
+
+    compfpjs: Notes from video 1 on Containers
+
+commit 8fd3527022550bc4f58d334a7bffd30788bd4700
+Author: Fernando Basso <fernandobasso.br@gmail.com>
+Date:   Mon Sep 13 18:03:50 2021 -0300
+
+    DRAFTS

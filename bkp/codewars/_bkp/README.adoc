@@ -1,0 +1,65 @@
+= CodeWars Challenge
+// :linkcss:
+// :stylesheet: asciidoctor-original-with-overrides.css
+// :stylesdir: {user-home}/Projects/proghowto
+:webfonts:
+:stem: latexmath
+:icons!: font
+:source-highlighter: pygments
+:source-linenums-option:
+:pygments-css: class
+:sectlinks:
+:sectnums!:
+:toclevels: 6
+:toc: left
+:favicon: https://fernandobasso.dev/cmdline.png
+
+
+
+
+https://www.codewars.com
+
+NOTE: The numbers on each directory does not imply the order of complexity. Codewars is messy about this. That numbering is mostly to help me have a history of the sequence of challenges that were presented to me.
+
+I have been programming since 2006, and have studied lots of stuff so far. Still, I wanted to start the challenges from the “beginner” level, mainly for two reasons:
+
+1. Doing web development (my main area as a developer) generally doesn't make one strong in algorithms.
+2. I am doing the solutions in at least three languages, and therefore I though it would be wiser to start with the basics.
+
+== About The Math Symbols
+
+Gitlab renders Asciidoctor link:https://asciidoctor.org/docs/user-manual/#enriching-your-content[Math Symbols^] properly. Github does not. For that reason, one may wish to link:https://gitlab.com/programming-studies/programming-how-to/tree/master/codewars[read the examples on the Gitlab repo instead].
+
+[latexmath]
+++++
+\sigma = \sqrt{ \frac{1}{N} \sum_{i=1}^N (x_i -\mu)^2}
+++++
+
+== Compiling and Running C Solutions
+
+Most C solutions commited here can be compiled and executed with this two commands:
+
+[source,shell-session]
+----
+$ gcc -std=C99 \
+    -Wall \
+    -Werror \
+    -pedantic-errors \
+    main.c -o main
+$ ./main
+----
+
+Exceptions will be mentioned with each solution.
+
+== Running Ruby Solutions
+
+ruby -w main.rb
+
+
+== Running TypeScript Solutions
+
+[source,shell-session]
+----
+$ tsc main.ts
+$ node main.js
+----

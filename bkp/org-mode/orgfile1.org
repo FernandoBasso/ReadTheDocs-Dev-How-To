@@ -1,0 +1,71 @@
+#+TITLE: Org File 1
+#+STARTUP: content
+#+PROPERTY: header-args :exports example
+
+* Intro
+
+An example org file to test and try stuff.
+
+Some =/foo/gi= verbatim. 2² and 2_2 \theta \pi{}d
+
+* Examples
+
+** TypeScript
+
+#+begin_src typescript
+interface MyObj {
+    [name: number]: number;
+}
+#+end_src
+
+
+This is a fine verse:
+
+#+begin_verse
+Great clouds overhead
+Tiny black birds rise and fall
+Snow covers Emacs
+
+---AlexSchroeder
+#+end_verse
+
+And this, a most fine quote from Albert Einstein:
+
+#+begin_quote
+Everything should be made as simple as possible, but not any simpler.
+
+---Albert Einstein
+#+end_quote
+
+And some centered text:
+
+#+begin_center
+It is better to remain silent at the risk of being thought a fool, than to talk and remove all doubt of it.
+#+end_center
+
+
+* Exporting
+
+If we use inline code like...
+
+: src_example{(+ x 1)}
+
+...it does not get exported. Either use
+
+: src_example[:exports example]{(+ x 1)}
+
+or have something like this at the header of the org file:
+
+: #+PROPERTY: header-args :exports code
+
+which then allows you to omit the ~[:exports example]~ inline.
+
+So let's see some inline scheme like src_example{(+ x 1)} exported. The code part gets exported to UTF-8 as
+
+: `(+ x 1)'
+
+~:exports example~ could be ~:exports verbatim~, ~:exports code~, or the other available types of export.
+
+* Conclusion
+
+This is the end.

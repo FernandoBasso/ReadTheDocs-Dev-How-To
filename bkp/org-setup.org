@@ -1,0 +1,61 @@
+#+STARTUP: content
+#+OPTIONS: toc:5
+#+HTML_DOCTYPE: html5
+#+HTML_CONTAINER: div
+#+HTML_HTML5_FANCY:
+#+HTML_INCLUDE_SCRIPTS:
+#+HTML_INCLUDE_STYLE:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+HTML_HEAD: <style>
+#+HTML_HEAD: body {
+#+HTML_HEAD:     font-family: Ubuntu;
+#+HTML_HEAD:     max-width: 960px;
+#+HTML_HEAD:     margin: 0 auto;
+#+HTML_HEAD:     color: #333;
+#+HTML_HEAD: }
+#+HTML_HEAD: a {
+#+HTML_HEAD:    color: #4c91db;
+#+HTML_HEAD:    text-decoration: none;
+#+HTML_HEAD: }
+#+HTML_HEAD:
+#+HTML_HEAD: pre,
+#+HTML_HEAD: code,
+#+HTML_HEAD: tt,
+#+HTML_HEAD: mark {
+#+HTML_HEAD:     font-family: 'Source Code Pro', 'Source Code Variable';
+#+HTML_HEAD:     font-weight: 300;
+#+HTML_HEAD:     margin: 0;
+#+HTML_HEAD:     font-size: 18px;
+#+HTML_HEAD:     color: #c52b2b;
+#+HTML_HEAD: }
+#+HTML_HEAD:
+#+HTML_HEAD: .org-src-container {
+#+HTML_HEAD:     padding: 0;
+#+HTML_HEAD: }
+#+HTML_HEAD:
+#+HTML_HEAD: .org-src-container pre {
+#+HTML_HEAD:     font-weight: 400;
+#+HTML_HEAD: }
+#+HTML_HEAD:
+#+HTML_HEAD: .org-src-container pre,
+#+HTML_HEAD: .org-src-container code {
+#+HTML_HEAD:     color: #8d300e;
+#+HTML_HEAD:     font-size: 16px;
+#+HTML_HEAD: }
+#+HTML_HEAD:
+#+HTML_HEAD: .org-src-container .org-comment,
+#+HTML_HEAD: .org-src-container .org-comment-delimiter {
+#+HTML_HEAD:     color: #8787a1;
+#+HTML_HEAD: }
+#+HTML_HEAD:
+#+HTML_HEAD: code {
+#+HTML_HEAD:     background-color: #fefefe;
+#+HTML_HEAD:     border: 1px solid #ccc;
+#+HTML_HEAD:     border-radius: 3px;
+#+HTML_HEAD:     padding: 2px;
+#+HTML_HEAD: }
+#+HTML_HEAD: </style>
