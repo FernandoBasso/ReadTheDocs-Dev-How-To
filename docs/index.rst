@@ -53,7 +53,7 @@ repository`_.
    composable-fp-js/index
    codewars/index
    hackerrank/index.md
-   programming/index
+   programming/index.md
    docker/index.md
    databases-sql/index.md
    design-patterns/index.md
