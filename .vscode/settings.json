@@ -5,6 +5,12 @@
   "deno.unstable": true,
   "deno.importMap": "./src/codewars/typescript/import-map.json",
   "esbonio.sphinx.confDir": "",
+
+  ////
+  // I like to keep comments with somewhat shorter lines.
+  //
+  "vim.textwidth": 68,
+
   "cSpell.words": [
     "algdsts",
     "arithmetico",
