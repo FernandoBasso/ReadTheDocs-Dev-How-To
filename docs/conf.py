@@ -33,7 +33,7 @@ html_favicon = '_static/Antu_x-terminal-emulator-favicon.png'
 
 project = 'Dev How To'
 author = 'Fernando Basso'
-copyright = str(datetime.now().year) + ' ' + author
+copyright = str(datetime.now().year) # + ' ' + author
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
