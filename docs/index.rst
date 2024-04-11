@@ -59,4 +59,5 @@ repository`_.
    design-patterns/index.md
    solid-principles/index.md
    character-encodings/index.md
+   software-engineering/index.md
    misc/index
