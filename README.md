@@ -43,13 +43,13 @@ $ pip install sphinx-autobuild furo
 It may be necessary to create a python venv in some current linux distributions:
 
 ```bash
-$ python -m venv ./.python-venv
+$ python -m venv ./.venv
 ```
 
 Then install the pip dependencies from that python env:
 
 ```bash
-$ ./.venv/bin/pip sphinx-autobuild furo
+$ pip install --requirement ./docs/requirements.txt
 ```
 
 ## Running Locally
@@ -57,7 +57,7 @@ $ ./.venv/bin/pip sphinx-autobuild furo
 If using the `.venv` from the previous session, first activate it:
 
 ```bash
-$ source ./.venv/activate
+$ source ./.venv/bin/activate
 ```
 
 From the root directory (not from the `docs/` directory) simply run this:
