@@ -1,19 +1,20 @@
 ---
-title: React Component Related Types | TypeScript React
+title: React Component-Related Types | TypeScript React
 description: Notes, ideas, concepts, tips and examples on React component Related types with TypeScript.
 ---
 
 # React Component-Related Types
 
-```{note}
+:::{note}
 Remember that the way the type system works in TypeScript depends on `tsconfig.json` configuration.
-```
+:::
 
-```{tip}
-The following examples were written and tested with `typescript@5.4.5`, `@types/react@18.2.75`, and this config:
-```
+:::{tip}
+The following examples were written and tested with `typescript@5.4.5`, `@types/react@18.2.75`, and this `tsconfig.json`:
+:::
 
 ```json
+{
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
@@ -100,7 +101,6 @@ declare global {
 }
 ```
 
-
 ## React.ReactNode
 
 The type for `ReactNode`:
@@ -159,6 +159,5 @@ nodes = [{}, { name: "Ahsoka Tano "}];
 
 ## Links and Resources
 
-- https://stackoverflow.com/questions/58123398/when-to-use-jsx-element-vs-reactnode-vs-reactelement
-- https://legacy.reactjs.org/blog/2014/10/14/introducing-react-elements.html
-
+- <https://stackoverflow.com/questions/58123398/when-to-use-jsx-element-vs-reactnode-vs-reactelement>
+- <https://legacy.reactjs.org/blog/2014/10/14/introducing-react-elements.html>
