@@ -10,7 +10,15 @@
 # Update manually when a new type needs to be added.
 #
 commit_types=(
-  chicken-scheme
+  js
+  ts
+  c
+  hs
+  rb
+  scm
+  rkt
+  lisp
+  java
   chore
   cmdline
   codewars
