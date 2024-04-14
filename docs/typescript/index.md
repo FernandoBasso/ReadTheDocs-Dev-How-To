@@ -64,4 +64,5 @@ keyof.md
 mapped-types.md
 functions.md
 infer.md
+react-component-related-types.md
 ```
