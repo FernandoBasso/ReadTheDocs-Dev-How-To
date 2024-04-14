@@ -21,6 +21,7 @@ commit_types=(
   java
   chore
   cmdline
+  hackerrank
   codewars
   compfpjs
   conf

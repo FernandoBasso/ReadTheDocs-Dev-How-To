@@ -17,39 +17,9 @@ The code is hosted in the [Gitlab repository for this site](https://gitlab.com/d
 :class: danger
 
 Do not use these solutions (or others found in repositories over the web) on HackerRank.
-Try solving them yourself and only them see how others have done it to try to learn from them.
+Try solving them yourself and only then see how others have done it to try to learn from them.
 
 You don't learn by just copying code.
-```
-
-## TDD and Developing the Solutions
-
-### Deno
-
-We are using [Deno](https://deno.land) to run TypeScript tests and solutions.
-
-- https://deno.land/manual/getting_started/installation
-- https://deno.land/manual/testing
-
-Clone and `cd` into the directory where the solutions are being developed:
-
-```shell-session
-$ git clone git@gitlab.com:devhowto/Dev-How-To.git
-
-$ cd Dev-How-To/src/hackerrank/typescript
-```
-
-Run all unit tests:
-
-```shell-session
-$ deno test --import-map ./import-map.json
-```
-
-Run unit tests for the challenge under development, for example:
-
-```shell-session
-$ deno test --import-map ./import-map.json \
-    1-easy/big-sum/bigSum.test.ts
 ```
 
 ```{toctree}
@@ -57,6 +27,8 @@ $ deno test --import-map ./import-map.json \
 maxdepth: 6
 caption: Easy HackerRank Challenges
 ---
+
+problem-solving/index.md
 
 1-easy/index.md
 helper-functions.md
