@@ -3,7 +3,6 @@
  *
  * ASSUME: Both values are integers.
  *
- *
  * @param {number} num
  * @param {number} multiplier
  * @returns {number}
@@ -26,17 +25,25 @@ function round(grade) {
     : grade;
 }
 
+/**
+ * Computes the student grades according to the grading rules.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
+ *
+ * @param {Array<number>} grades
+ * @returns {Array<number>}
+ */
 function gradeStudents(grades) {
   const result = [];
 
   for (let i = 0; i < grades.length; ++i) {
     const grade = grades[i];
 
-    if (grade < 38) {
+    if (grade < 38)
       result.push(grade);
-    } else {
+    else
       result.push(round(grade));
-    }
   }
 
   return result;

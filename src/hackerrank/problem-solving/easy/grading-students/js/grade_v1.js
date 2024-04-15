@@ -1,13 +1,12 @@
 /**
  * Given some integer `num`, find its next multiple of `multiplier`.
  *
- * ASSUME: Both values are integers. If input are not integers, the
+ * ASSUME: Both values are integers.
  *
  * ASSUME: The multiplier is not zero, which would cause `NaN` to
  * be returned.
  *
- * The result is always an integer, unless it returns `NaN` due to
- * incorrect inputs.
+ * - T.C: O
  *
  * @param {number} num
  * @param {number} multiplier
@@ -39,6 +38,9 @@ function round(grade) {
 
 /**
  * Computes the student grades according to the grading rules.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
  *
  * @param {Array<number>} grades
  * @returns {Array<number>}
