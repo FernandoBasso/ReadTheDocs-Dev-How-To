@@ -22,4 +22,5 @@ easy/diagonal-difference.md
 easy/birthday-cake-candles.md
 easy/compare-triplets.md
 easy/grading-students.md
+easy/plus-minus.md
 ```
