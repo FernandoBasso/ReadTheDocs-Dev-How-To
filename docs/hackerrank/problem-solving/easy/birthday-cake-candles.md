@@ -76,7 +76,7 @@ function birthdayCakeCandles(candles) {
 ```
 
 With this approach, a frequency counter is used to store the count of _each_ different integer that shows up.
-The `max` is still maintained like in the previous solution.
+`max` is still maintained like in the previous solution.
 However, *both* thing are performed inside the _same_ loop this time.
 
 The time complexity is $O(n)$, but we know we have one less loop than before, so in practice it should yield better performance.
