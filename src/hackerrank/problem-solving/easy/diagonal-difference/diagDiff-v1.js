@@ -14,8 +14,12 @@ let squareMatrix2 = [
 const log = console.log.bind(console);
 
 /**
- * T.C: O(n²).
- * S.C: O(1).
+ * Calculates the diagonal difference of the square matrix.
+ *
+ * @sig [Number] -> Number
+ *
+ * - T.C: O(n²).
+ * - S.C: O(1).
  */
 function diagDiff(sqrMatrix) {
   const len = sqrMatrix.length;

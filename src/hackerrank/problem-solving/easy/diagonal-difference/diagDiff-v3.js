@@ -4,6 +4,9 @@ const log = console.log.bind(console);
  * Calculates the diagonal difference of the square matrix.
  *
  * @sig [Number] -> Number
+ *
+ * - T.C: O(n).
+ * - S.C: O(1).
  */
 function diagDiff(xs) {
   let ltrDiag = 0;
