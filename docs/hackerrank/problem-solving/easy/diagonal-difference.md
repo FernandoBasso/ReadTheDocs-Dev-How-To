@@ -32,10 +32,10 @@ Basically, our goal is to sum 1, 5 and 9 from the right to left diagonal, 3, 5 a
 /**
  * Calculates the diagonal difference of the square matrix.
  *
- * @sig [Number] -> Number
- *
  * T.C: O(n²).
  * S.C: O(1).
+ *
+ * @sig [Number] -> Number
  */
 function diagDiff(sqrMatrix) {
   const len = sqrMatrix.length;
@@ -64,10 +64,10 @@ The time complexity is $O(n^2)$ because of the nested looping.
 /**
  * Calculates the diagonal difference of the square matrix.
  *
- * @sig [Number] -> Number
- *
  * - T.C: O(n).
  * - S.C: O(1).
+ *
+ * @sig [Number] -> Number
  */
 function diagDiff(xs) {
   let ltrDiag = 0;
@@ -94,10 +94,10 @@ That `len - 1 - 1` can be simplified a little bit:
 /**
  * Calculates the diagonal difference of the square matrix.
  *
- * @sig [Number] -> Number
- *
  * - T.C: O(n).
  * - S.C: O(1).
+ *
+ * @sig [Number] -> Number
  */
 function diagDiff(xs) {
   let ltrDiag = 0;

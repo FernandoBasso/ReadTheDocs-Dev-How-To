@@ -19,4 +19,5 @@ caption: HackerRank Problem Solving Challenges
 ---
 
 easy/diagonal-difference.md
+easy/birthday-cake-candles.md
 ```
