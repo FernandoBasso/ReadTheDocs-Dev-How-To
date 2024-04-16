@@ -1,6 +1,9 @@
 /**
  * Counts the number of words in a camelCase string.
  *
+ * - T.C: O(n).
+ * - S.C: O(1).
+ *
  * @param {string} s
  * @return {number}
  */

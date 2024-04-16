@@ -27,4 +27,5 @@ easy/sherlock-array.md
 easy/staircase.md
 easy/strong-password.md
 easy/time-conversion.md
+easy/camelcase.md
 ```
