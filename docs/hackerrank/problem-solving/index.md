@@ -10,7 +10,7 @@ Here we have notes on the HackerRank _Problem Solving_ challenges track.
 - <https://www.hackerrank.com/domains/algorithms>
 
 :::{note}
-The problem solving track in HackerRank is basically an _algorithms_ track.
+The problem solving track in HackerRank is essentially an _algorithms_ track.
 :::
 
 ```{toctree}
@@ -23,4 +23,5 @@ easy/birthday-cake-candles.md
 easy/compare-triplets.md
 easy/grading-students.md
 easy/plus-minus.md
+easy/sherlock-array.md
 ```

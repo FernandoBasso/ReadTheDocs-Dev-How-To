@@ -1,8 +1,8 @@
 // @ts-check
 
 //
-// This version is correct does not satisfy the time constraints in
-// HackerRank. Execution times out.
+// This version is correct but does not satisfy the time constraints
+// in HackerRank. Execution times out.
 //
 
 /**
@@ -38,8 +38,11 @@ function sum(xs) {
 }
 
 /**
- * Checks if there is an element whose sum of all elements on its left
- * is equal to the sum of all elements to its right.
+ * Checks if there is an element whose sum of all elements on its
+ * left is equal to the sum of all elements to its right.
+ *
+ * - T.C: O(n³).
+ * - S.C: O(1).
  *
  * @param {Array<number>} xs
  * @returns {'YES' | 'NO'}
