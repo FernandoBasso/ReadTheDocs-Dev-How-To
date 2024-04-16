@@ -1,5 +1,15 @@
 const log = console.log.bind(console);
 
+/**
+ * Get the ratios of negatives, zeroes and positives.
+ *
+ * ASSUME: Array is not empty.
+ *
+ * T.C: O(n).
+ * S.C: O(n).
+ *
+ * @sig [Int] -> Void
+ */
 function getRatios(xs) {
   var len = xs.length;
 
