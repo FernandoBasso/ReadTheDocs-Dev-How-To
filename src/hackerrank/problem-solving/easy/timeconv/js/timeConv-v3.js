@@ -5,7 +5,6 @@ import {
   test,
   ifElse,
   when,
-  identity,
   complement,
 } from 'ramda';
 

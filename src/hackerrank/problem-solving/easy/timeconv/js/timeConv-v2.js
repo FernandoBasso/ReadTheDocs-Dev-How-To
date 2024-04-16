@@ -3,9 +3,6 @@ import {
   replace,
   includes,
   test,
-  ifElse,
-  when,
-  identity,
 } from 'ramda';
 
 var subst12With00 = replace('12', '00');

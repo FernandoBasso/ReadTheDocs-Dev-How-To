@@ -1,6 +1,9 @@
 /**
  * Converts a 12-hour time format to a 24-hour (military) format.
  *
+ * - T.C: O(n).
+ * - S.C: O(1).
+ *
  * @sig String -> String
  */
 function timeConv(time) {
