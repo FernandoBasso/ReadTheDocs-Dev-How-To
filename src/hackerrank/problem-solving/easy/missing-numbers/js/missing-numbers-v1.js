@@ -1,25 +1,28 @@
 /**
- * Finds numbers that are present in `brr` but missing in `arr`.
+ * Finds numbers that are present in `ys` but missing in `xs`.
  *
- * @param {number[]} arr
- * @param {number[]} brr
+ * - T.C: O(n).
+ * - S.C: O(n).
+ *
+ * @param {number[]} xs
+ * @param {number[]} ys
  * @returns {number[]} The array of the missing numbers (the
  *   difference).
  */
 function missingNums(arr, brr) {
-  var freqsArr = {},
-      freqsBrr = {},
+  var freqXs = {},
+      freqYs = {},
       i,
       n;
 
-  for (i = 0; n = arr[i], i < arr.length; ++i)
-    freqsArr[n] = freqsArr[n] + 1 || 1;
+  for (i = 0; n = xs[i], i < xs.length; ++i)
+    freqXs[n] = freqXs[n] + 1 || 1;
 
-  for (i = 0; n = brr[i], i < brr.length; ++i)
-    freqsBrr[n] = freqsBrr[n] + 1 || 1;
+  for (i = 0; n = ys[i], i < ys.length; ++i)
+    freqYs[n] = freqYs[n] + 1 || 1;
 
-  return Object.keys(freqsBrr).reduce((missing, key) => {
-    if (freqsBrr[key] === freqsArr[key])
+  return Object.keys(freqYs).reduce((missing, key) => {
+    if (freqYs[key] === freqXs[key])
       return missing;
 
     missing.push(Number(key));

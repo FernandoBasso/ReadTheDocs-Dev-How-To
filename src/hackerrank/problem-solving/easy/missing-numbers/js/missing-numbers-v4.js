@@ -20,7 +20,8 @@ function sortAsc(a, b) {
  *   difference).
  */
 function missingNums(arr, brr) {
-  for (const n of arr) brr = remove(n, brr);
+  for (const n of arr)
+    brr = remove(n, brr);
 
   return [...new Set(brr)].sort(sortAsc);
 }

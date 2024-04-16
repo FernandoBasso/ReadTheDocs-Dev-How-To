@@ -42,5 +42,6 @@
     "unshift",
     "upto",
     "VARCHAR"
-  ]
+  ],
+  "asciidoc.antora.enableAntoraSupport": false
 }

@@ -29,4 +29,5 @@ easy/strong-password.md
 easy/time-conversion.md
 easy/camelcase.md
 easy/ice-cream-parlor.md
+easy/missing-numbers.md
 ```
