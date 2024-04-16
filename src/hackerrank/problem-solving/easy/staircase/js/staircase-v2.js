@@ -1,6 +1,9 @@
 /**
  * Prints an ascii-art of a stair case of `n` steps.
  *
+ * - T.C: O(n²)
+ * - S.C: O(n).
+ *
  * @param {number} n The number of steps to print.
  * @sig Number -> Void
  */

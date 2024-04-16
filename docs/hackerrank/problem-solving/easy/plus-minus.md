@@ -7,7 +7,6 @@ description: Notes and explanations on the Plus Minus HackerRank challenge.
 
 - [Plus Minus on HackerRank](https://www.hackerrank.com/challenges/plus-minus/)
 
-
 The problem involves counting the frequencies of negative, zero, and positive numbers and the ratios of each of these three “categories” in the input.
 
 In the example on the page:

@@ -25,4 +25,5 @@ easy/grading-students.md
 easy/plus-minus.md
 easy/sherlock-array.md
 easy/staircase.md
+easy/strong-password.md
 ```

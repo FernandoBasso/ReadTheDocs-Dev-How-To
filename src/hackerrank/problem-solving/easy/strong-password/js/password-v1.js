@@ -4,8 +4,8 @@
 const MIN_LEN = 6;
 
 /**
- * A password must contain at least 1 char from each of the
- * four character classes blow.
+ * A password must contain at least 1 char from each of the four
+ * character classes blow.
  */
 const NUMS = '0123456789';
 const LOWERS = 'abcdefghijklmnopqrstuvwxyz';
@@ -14,6 +14,9 @@ const SPECIALS = '!@#$%^&*()-+';
 
 /**
  * Checks if `str` contains a char from `oneOf`.
+ *
+ * - T.C: O(n²).
+ * - S.C: O(n).
  *
  * @sig String -> String -> Boolean
  * @param {string} str
@@ -25,8 +28,11 @@ function contains(str, oneOf) {
 }
 
 /**
- * Returns the number of missing chars required to satisfy the password
- * requirements.
+ * Returns the number of missing chars required to satisfy the
+ * password requirements.
+ *
+ * - T.C: O(n²) because of `contains()`, which is itself O(n²).
+ * - S.C: O(1).
  *
  * @param {number} length The length of the input password string.
  * @param {string} password The password string.

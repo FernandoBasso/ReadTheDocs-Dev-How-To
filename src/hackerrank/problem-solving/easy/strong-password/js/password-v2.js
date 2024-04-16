@@ -15,7 +15,8 @@ const SPECIALS = '!@#$%^&*()-+';
 /**
  * Checks if `str` contains a char from `oneOf`.
  *
- * - T.C: O(n²)
+ * - T.C: O(n²).
+ * - S.C: O(n).
  *
  * @sig String -> String -> Boolean
  * @param {string} str
@@ -27,12 +28,15 @@ function contains(str, oneOf) {
 }
 
 /**
- * Returns the number of missing chars required to satisfy the password
- * requirements.
+ * Returns the number of missing chars required to satisfy the
+ * password requirements.
+ *
+ * - T.C: O(n²).
+ * - S.C: O(1).
  *
  * @sig Number -> String -> Number
  * @param {number} length The length of the input password string.
- * @param {string} passowrd The password string.
+ * @param {string} password The password string.
  * @returns {number} The number of missing chars.
  */
 function minNum(length, password) {
