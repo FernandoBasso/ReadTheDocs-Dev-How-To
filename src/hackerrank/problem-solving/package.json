@@ -1,0 +1,15 @@
+{
+  "name": "problem-solving",
+  "version": "0.0.1",
+  "description": "Problem Solving HackerRank solutions",
+  "type": "module",
+  "main": "NONE",
+  "scripts": {
+    "test": "NONE"
+  },
+  "keywords": [
+    "algorithm",
+    "data-structure",
+    "javascript"
+  ]
+}
