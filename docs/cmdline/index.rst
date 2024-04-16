@@ -119,6 +119,7 @@ project by MaiZure_.
    built-in
    argument-syntax
    echo-printf
+   redirections.md
    bash-brace-expansion
    bash-parameter-expansion
    bash-aliases
