@@ -110,7 +110,7 @@ function contains(str, oneOf) {
  * Returns the number of missing chars required to satisfy the
  * password requirements.
  *
- * - T.C: O(n²).
+ * - T.C: O(n³).
  * - S.C: O(1).
  *
  * @sig Number -> String -> Number
@@ -134,3 +134,5 @@ Here `charClasses.length` is used as reduce's accumulator.
 Each time a character class is found in `password`, 1 is reduced from that accumulator (`count` inside the reducer callback), 1 is subtracted.
 
 In the end, the max of `missingLength` or `missingType` is returned to satisfy the challenge requirements.
+
+Finally, the time complexity is $O(n³)$ because we use `contains()` (which is $O(n²)) inside `reduce()`.
