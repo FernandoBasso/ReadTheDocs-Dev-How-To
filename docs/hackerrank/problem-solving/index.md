@@ -30,4 +30,5 @@ easy/time-conversion.md
 easy/camelcase.md
 easy/ice-cream-parlor.md
 easy/missing-numbers.md
+easy/mini-max-sum.md
 ```

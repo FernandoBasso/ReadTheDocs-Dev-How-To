@@ -1,6 +1,9 @@
 /**
  * Add `x` and `y` together.
  *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ *
  * @sig Number Number -> Number
  * @param {number} x
  * @param {number} y
@@ -12,6 +15,9 @@ function add(x, y) {
 
 /**
  * Sort callback for ascending order.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
  *
  * @sig Int Int -> Int
  * @param {number} a
@@ -27,6 +33,9 @@ function sortAsc(x, y) {
  *
  * ASSUME: The input always contains five positive integers and is
  * sorted in ascending order.
+ *
+ * - T.C: O(n).
+ * - S.C: O(n).
  *
  * @sig [Int] -> { min: Int, max: Int }
  * @param {number} xs
