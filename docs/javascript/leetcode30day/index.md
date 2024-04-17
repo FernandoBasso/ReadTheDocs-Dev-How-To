@@ -22,6 +22,24 @@ function createHelloWorld() {
 }
 ```
 
+## 02 Counter
+
+- [Counter](https://leetcode.com/problems/counter/description/?envType=study-plan-v2&envId=30-days-of-javascript).
+
+```javascript
+/**
+ * @param {number} n
+ * @returns {() => number}
+ */
+function createCounter(n) {
+  var x = n;
+
+  return function counter() {
+    return x++;
+  };
+}
+```
+
 ```{toctree}
 ---
 maxdepth: 6
