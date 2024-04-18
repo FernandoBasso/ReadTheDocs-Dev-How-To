@@ -1,16 +1,38 @@
 /**
- * @param {unknown} val
+ * @param {unknown} actual
  * @returns {{
- *  toBe: (v: unknown) => boolean
+ *  toBe: (expected: unknown) => true | never;
+ *  notToBe: (expected: unknown) => true | never;
  * }}
  */
-function myExpect(val) {
+function myExpect(actual) {
   return {
-    toBe: function toBe(v) {
-      return v === val;
+    /**
+     * Checks whether `actual === expected`.
+     *
+     * @param {unknown} expected
+     * @throws {Error}
+     * @returns {true}
+     */
+    toBe: function toBe(expected) {
+      if (expected !== actual)
+        throw Error("Not Equal");
+
+      return true;
     },
-    notToBe: function notToBe(v) {
-      return v !== val;
+
+    /**
+     * Checks whether `actual !== expected`.
+     *
+     * @param {unknown} expected
+     * @throws {Error}
+     * @returns {true}
+     */
+    notToBe: function notToBe(expected) {
+      if (expected === actual)
+        throw Error("Equal");
+
+      return true;
     },
   };
 }
