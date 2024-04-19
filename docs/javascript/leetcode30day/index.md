@@ -12,7 +12,7 @@ Check the full source code, **including unit tests** in the [Gitlab repository f
 
 ## Closures
 
-### 01 Hello
+### Hello
 
 - [Create Hello World Function on LeetCode](https://leetcode.com/problems/create-hello-world-function/description/?envType=study-plan-v2&envId=30-days-of-javascript).
 
@@ -27,7 +27,7 @@ function createHelloWorld() {
 }
 ```
 
-### 02 Counter
+### Counter
 
 - [Counter on LeetCode](https://leetcode.com/problems/counter/description/?envType=study-plan-v2&envId=30-days-of-javascript).
 
@@ -45,7 +45,7 @@ function createCounter(n) {
 }
 ```
 
-### 03 To Be Or Not To Be (Expect)
+### To Be Or Not To Be (Expect)
 
 - [Expect on LeetCode](https://leetcode.com/problems/to-be-or-not-to-be/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 
@@ -90,7 +90,7 @@ function expect(actual) {
 }
 ```
 
-### 04 Counter II
+### Counter II
 
 - [Counter II on LeetCode](https://leetcode.com/problems/counter-ii/?envType=study-plan-v2&envId=30-days-of-javascript).
 
@@ -147,4 +147,9 @@ function createCounter(init) {
 
 In `reset()`, we are doing `return count = init`.
 We could add parenthesis around the assignment, like `(count = init)`, but the assignment has higher precedence anyway and will happen **before** the value is returned.
+
+## Basic Array Transformations
+
+### Apply Transform Over Each Element in Array (map)
+
 
