@@ -3,7 +3,7 @@ title: Performance | JavaScript
 description: Notes, tips, concepts, ideas and examples on JavaScript performance.
 ---
 
-# Performance
+# JavaScript Performance
 
 ## Introduction
 
