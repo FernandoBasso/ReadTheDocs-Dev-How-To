@@ -148,9 +148,3 @@ function createCounter(init) {
 In `reset()`, we are doing `return count = init`.
 We could add parenthesis around the assignment, like `(count = init)`, but the assignment has higher precedence anyway and will happen **before** the value is returned.
 
-```{toctree}
----
-maxdepth: 6
-caption: LeetCode 30 Days of JavaScript
----
-```
