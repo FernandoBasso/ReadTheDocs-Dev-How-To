@@ -14,6 +14,8 @@ Except sometimes the new, fancy features are not the best choice for a given sit
 
 ## Copy Array: push() vs ...spread
 
+Let's do some a quick test to compare the performance difference when copying an array using `Array.prototype.push()` vs `...spread` syntax and understand why spread is orders of magnitude less performant.
+
 ### Setup
 
 For this case-study, assume we have these setup lines in our `.js` file:
