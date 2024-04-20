@@ -18,8 +18,23 @@ describe("map()", () => {
 
   it("should return array transformed by function", () => {
     const negate = x => -1 * x;
+
     expect(
       map([1, 2, 3], negate)
     ).toEqual([-1, -2, -3]);
+
+    const toUpper = s => s.toUpperCase();
+
+    expect(
+      map(["a", "b", "c"], toUpper)
+    ).toEqual(["A", "B", "C"]);
   });
+
+  it("should make use of the index parameter in the callback", () => {
+    const plusOne = (n, i) => n + i;
+    expect(
+      map([1, 2, 3], plusOne)
+    ).toEqual([1 + 0, 2 + 1, 3 + 2])
+    //            1,    3  ,   5
+  })
 });
