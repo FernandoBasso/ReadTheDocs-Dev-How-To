@@ -180,6 +180,7 @@ function map(xs, fn) {
 ```
 
 Using [...spread syntax is way costly and slower](../performance.md) than good old `Array.prototype.push()`.
+
 Also, this implementation does not mutate the input array and therefore using `push()` is not really bad at all in this case.
-Only the new array which is returned is mutated while it is being constructed, but from the client code point of view, `map()` is pure.
+Only the new array which is returned is mutated while it is being constructed, but from the client code point of view, this `map()` implementation is pure.
 
