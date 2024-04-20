@@ -7,7 +7,7 @@
  * - S.C: Same notes as for T.C.
  *
  * @param {unknown[]} xs
- * @param {(val: number, idx: number) => unknown} fn The index of
+ * @param {(val: number, idx: number) => unknown[]} fn The index of
  *   the current element is passed to the callback, but it is up
  *   to the callback to decide if it wants to use it or not.
  * @returns {unknown[]}

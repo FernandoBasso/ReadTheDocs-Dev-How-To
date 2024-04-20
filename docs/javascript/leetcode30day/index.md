@@ -184,3 +184,35 @@ Using [...spread syntax is way costly and slower](../performance.md) than good o
 Also, this implementation does not mutate the input array and therefore using `push()` is not really bad at all in this case.
 Only the new array which is returned is mutated while it is being constructed, but from the client code point of view, this `map()` implementation is pure.
 
+### Filter Elements from Array (filter)
+
+```javascript
+/**
+ * Returns a new array containing only elements from the original
+ * array that satisfy the predicate.
+ *
+ * - T.C: O(n). Applies `predicate` once per each element. The final
+ *   time complexity will depend on the time complexity of the
+ *   predicate.
+ * - S.C: Same notes as for T.C.
+ *
+ * @param {unknown[]} xs
+ * @param {(val: number, idx: number) => unknown[]} fn The index of
+ *   the current element is passed to the predicate, but it is up
+ *   to the predicate to decide if it wants to use it or not.
+ * @returns {unknown[]}
+ */
+function filter(xs, predicate) {
+  var filtered = [],
+    x,
+    i;
+
+  for (i = 0; x = xs[i], i < xs.length; ++i)
+    if (predicate(x, i))
+      filtered.push(x);
+
+  return filtered;
+}
+```
+
+Same notes for `map()` apply here regarding the use of `push()` and a simple loop.
