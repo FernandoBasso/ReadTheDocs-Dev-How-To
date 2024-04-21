@@ -10,6 +10,19 @@ title: Leetcode 30 Days of JavaScript
 
 Check the full source code, **including unit tests** in the [Gitlab repository for this project](https://gitlab.com/devhowto/dev-how-to/-/tree/main/src/javascript/leetcode30day/src).
 
+## Performance
+
+In general, using some new ECMAScript features will result in less performant results (both in terms of execution time and memory footprint).
+
+For example, using [...spread is orders of magnitude more computationally costly](../performance.md) than good old `Array.prototype.push()` to add elements to, or copying an array.
+
+Similarly, recursion, call stack and the like are more costly (in JavaScript) than some good old for loop approaches.
+
+Using helper functions, immutable data structures and the best coding practices regarding readability and elegance don't always result in the most performant code.
+
+That is why some of the problems are implemented in a few different ways.
+Some approach to make it more performant, and some other approaches to use a more functional programming style, immuatable data structures, or some other thing we might find fun and/or useful to explore.
+
 ## Closures
 
 ### Hello
@@ -150,7 +163,9 @@ We could add parenthesis around the assignment, like `(count = init)`, but the a
 
 ## Basic Array Transformations
 
-### Apply Transform Over Each Element in Array (map)
+### Apply Transform Over Each Element in Array (map())
+
+- [Apply Transform Over Each Element in Array on LeetCode](https://leetcode.com/problems/apply-transform-over-each-element-in-array/?envType=study-plan-v2&envId=30-days-of-javascript).
 
 ```javascript
 /**
@@ -184,7 +199,9 @@ Using [...spread syntax is way costly and slower](../performance.md) than good o
 Also, this implementation does not mutate the input array and therefore using `push()` is not really bad at all in this case.
 Only the new array which is returned is mutated while it is being constructed, but from the client code point of view, this `map()` implementation is pure.
 
-### Filter Elements from Array (filter)
+### Filter Elements from Array (filter())
+
+- [Filter Elements from Array on LeetCode](https://leetcode.com/problems/filter-elements-from-array/?envType=study-plan-v2&envId=30-days-of-javascript).
 
 ```javascript
 /**
@@ -216,3 +233,64 @@ function filter(xs, predicate) {
 ```
 
 Same notes for `map()` apply here regarding the use of `push()` and a simple loop.
+
+### Array Reduce Transformation (reduce())
+
+- [Array Reduce Transformation on LeetCode](https://leetcode.com/problems/array-reduce-transformation/?envType=study-plan-v2&envId=30-days-of-javascript).
+
+#### Using Good Old for Loop
+
+```javascript
+/**
+ * Applies a reducing function to `xs` and returns the result.
+ * Returns `init` if `xs` is empty.
+ *
+ * - T.C: O(n), but final T.C will depend on T.C of reducing fn.
+ * - S.C: Same notes as T.C.
+ *
+ * @param {unknown[]} xs
+ * @param {(acc: unknown, x: unknown) => unknown} fn
+ * @param {unknown} init
+ * @returns {unknown}
+ */
+function reduce(xs, fn, init) {
+  var { length: len } = xs,
+      acc = init,
+      x,
+      i;
+
+  for (i = 0; x = xs[i], i < len; ++i)
+    acc = fn(acc, x);
+
+  return acc;
+}
+```
+
+#### Using Recursion
+
+```javascript
+const head = xs => xs[0];
+const tail = xs => xs.slice(1);
+const isEmpty = xs => xs.length === 0;
+
+/**
+ * Applies a reducing function to `xs` and returns the result.
+ * Returns `init` if `xs` is empty.
+ *
+ * - T.C: O(n), but final T.C will depend on T.C of reducing fn.
+ * - S.C: Same notes as T.C.
+ *
+ * @param {unknown[]} xs
+ * @param {(acc: unknown, x: unknown) => unknown} fn
+ * @param {unknown} init
+ * @returns {unknown}
+ */
+function reduce(xs, fn, init) {
+  return (function go(acc, elems) {
+    if (isEmpty(elems)) return acc;
+    return go(fn(acc, head(elems)), tail(elems));
+  }(init, xs));
+}
+
+export { reduce };
+```
