@@ -16,8 +16,9 @@ const isEmpty = xs => xs.length === 0;
  */
 function reduce(xs, fn, init) {
   return (function go(acc, elems) {
-    if (isEmpty(elems)) return acc;
-    return go(fn(acc, head(elems)), tail(elems));
+    return isEmpty(elems)
+      ? acc
+      : go(fn(acc, head(elems)), tail(elems));
   }(init, xs));
 }
 
