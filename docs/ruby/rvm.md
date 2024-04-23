@@ -22,7 +22,7 @@ $ rvm list known
 ruby-head
 ```
 
-For some reason, `rvm list known` did not show ruby 3.1.2`.
+For some reason, `rvm list known` did not show ruby 3.1.2.
 Still, running `rvm install ruby-3.1.2` worked.
 `rvm` itself had just been upgraded to the latest version with `nvm get stable`.
 
