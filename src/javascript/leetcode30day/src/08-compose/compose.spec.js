@@ -1,4 +1,4 @@
-import { compose } from "./compose_v1";
+import { compose } from "./compose_v2";
 
 describe("compose()", () => {
   it("is the identity function when fns is empty", () => {

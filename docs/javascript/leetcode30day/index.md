@@ -21,7 +21,7 @@ Similarly, recursion, call stack and the like are more costly (in JavaScript) th
 Using helper functions, immutable data structures and the best coding practices regarding readability and elegance don't always result in the most performant code.
 
 That is why some of the problems are implemented in a few different ways.
-Some approach to make it more performant, and some other approaches to use a more functional programming style, immuatable data structures, or some other thing we might find fun and/or useful to explore.
+Some approach to make it more performant, and some other approaches to use a more functional programming style, immutable data structures, or some other thing we might find fun and/or useful to explore.
 
 ## Closures
 
@@ -327,6 +327,34 @@ function compose(fns) {
       result = fns[i](result);
 
     return result;
+  };
+}
+```
+
+#### reduceRight()
+
+Solution using `Array.prototype.reduceRight()`.
+
+```javascript
+/**
+ * Applies all functions from left to right. Works as the identity
+ * function if `fns` is empty.
+ *
+ * - T.C: Depends on T.C of input `fns` and `val`.
+ * - S.C: Same notes as T.C apply.
+ *
+ * @param {Array<Function>} fns
+ * @returns {(val: unknown) => unknown}
+ */
+function compose(fns) {
+  /**
+   * @param {unknown} val
+   * @returns {unknown}
+   */
+  return function composed(val) {
+    return fns.reduceRight(function reducer(acc, fn) {
+      return fn(acc, val);
+    }, val);
   };
 }
 ```
