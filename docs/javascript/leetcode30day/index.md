@@ -358,3 +358,39 @@ function compose(fns) {
   };
 }
 ```
+
+### Return Length of Arguments Passed
+
+- [Return Length of Arguments Passed on LeetCode](https://leetcode.com/problems/return-length-of-arguments-passed/description/?envType=study-plan-v2&envId=30-days-of-javascript).
+
+```javascript
+/**
+ * Returns the number of arguments passed.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ *
+ * @param {...unknown} args
+ * @returns {number}
+ */
+function argsLen(...args) {
+  return args.length;
+}
+```
+
+Or, just to show it is even possible to destructure `length` from `args`:
+
+```
+/**
+ * Returns the number of arguments passed.
+ *
+ * - T.C: O(1).
+ * - S.C: O(1).
+ *
+ * @param {...unknown} args
+ * @returns {number}
+ */
+function argsLen(...{ length }) {
+  return length;
+}
+```
