@@ -1,9 +1,9 @@
 ---
-title: du
+title: du | Command Line
 description: Tips, notes, explanations and examples on the usage of the du command line utility
 ---
 
-# du
+# du Command
 
 :::{note}
 Unless otherwise noted, assume the examples work on GNU coreutils `du`.
