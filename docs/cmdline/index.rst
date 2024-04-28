@@ -127,5 +127,6 @@ project by MaiZure_.
    terminal/index
    tar.md
    find.md
+   du.md
    hackerrank-shell
 
